@@ -1,4 +1,4 @@
-# Code for Maximum  $k$-Plex Searching.
+# Code for Maximum  $$k$$-Plex Searching.
 
 Written by ***Shuohao Gao*** in **HITSZ**.
 

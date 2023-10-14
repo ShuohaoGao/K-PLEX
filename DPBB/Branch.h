@@ -171,7 +171,7 @@ public:
                 solution.insert(v);
             solution = ptr_g->get_ori_vertices(solution);
             assert(solution.size() == lb);
-            printf("Find a larger plex : %d\n", sz);
+            printf("Find a larger plex : %d\n", sz + (int)G_input.must_contain.size());
             fflush(stdout);
         }
     }
@@ -232,11 +232,29 @@ public:
         {
             auto non_neighbor = non_A[u];
             non_neighbor &= V;
-            if (non_neighbor.intersect(satisfied) == non_neighbor.size())
+            int satisfied_non_neighbor = non_neighbor.intersect(satisfied);
+            int tot_non_neighbor = non_neighbor.size();
+            if (satisfied_non_neighbor == tot_non_neighbor)
             {
                 S.set(u);
                 C.reset(u);
                 S_changed = true;
+            }
+            else if (satisfied_non_neighbor + 1 == tot_non_neighbor) // if only one of the non-neighbors of u is un-satisfied (denoted by w), then u must be included
+            {
+                auto copy = non_neighbor;
+                copy &= satisfied;
+                non_neighbor ^= copy;
+                assert(non_neighbor.size() == 1);
+                int w = *non_neighbor.begin();
+                if (!S[w])
+                {
+                    assert(!A[u][w]);
+                    assert(!satisfied[w]);
+                    S.set(u);
+                    C.reset(u);
+                    S_changed = true;
+                }
             }
         }
         // S is changed, so we need to re-compute loss_cnt[]; but this won't cause any reduction
@@ -282,6 +300,8 @@ public:
 
         // select pivot to generate 2 branches
         int pivot = select_pivot_vertex_with_min_degree(C);
+        if (pivot == -1)
+            return;
 
         {
             auto new_S = S, new_C = C;
@@ -350,6 +370,11 @@ public:
         core_reduce_time += get_system_time_microsecond() - start_core_reduce;
     }
 
+    /**
+     * we partition C to |S| sets: Pi_0, Pi_1, ..., Pi_|S|
+     * @return ub
+     * we will also reduce unpromissing vertices from C
+     */
     int get_part_UB(Set &S, Set &C)
     {
         double start_part = get_system_time_microsecond();
@@ -390,16 +415,27 @@ public:
 #ifndef NO_CORE_REDUCTION
         // now copy_C = Pi_0
         core_reduction(copy_C, lb + 1 - ub);
-        auto temp = C;
-        temp ^= copy_C; // temp = C - Pi_0
-        // u∈Pi_i, then u has at least k+lb+1-sigma_(min(|Pi_i|, k-|S\N(v_i)|)) neighbors in Pi_0∪S
-        for (int u : temp)
+        int ret = ub + copy_C.size();
+        if (ret <= lb) // pruned
+            return ret;
+        // assume we need to include at least $h$ vertices from S+Pi_0; $h$=lb+1-(ub-|S|);
+        // then for u∈Pi_i, u must has at least $h-k+1$ neighbors from S+Pi_0
+        int neighbor_cnt = lb + 1 - (ub - S.size()) - (paramK - 1);
+        if (neighbor_cnt > 0)
         {
-            if (A[u].intersect(copy_C) - loss_cnt[u] + paramK < lb + 1 - ub)
-                C.reset(u);
+            auto S_Pi0 = S;
+            S_Pi0 |= copy_C; // S+Pi_0
+            auto temp = C;
+            temp ^= copy_C; // temp = C - Pi_0 = Pi_i
+            // u∈Pi_i, then u has at least (lb+1-sigma_(min(|Pi_i|, k-|S\N(v_i)|))-(k-1) = neighbor_cnt) neighbors in Pi_0∪S
+            for (int u : temp)
+            {
+                if (A[u].intersect(S_Pi0) < neighbor_cnt)
+                    C.reset(u);
+            }
         }
 #endif
-        return ub + copy_C.size();
+        return ret;
     }
 
     int get_UB(Set &S, Set &C)
@@ -453,51 +489,6 @@ public:
             ub = min(ub, deg[v] + paramK);
         return ub;
     }
-
-    // void compute_loss_cnt_C(Set &S, Set &C) // u∈C, delta[u] = the number of non-neighbors of u in S
-    // {
-    //     for (int u : C)
-    //     {
-    //         loss_cnt[u] = non_A[u].intersect(S);
-    //         if (loss_cnt[u] >= paramK) // u has at least k non-neighbors in S, so u can be removed
-    //             C.reset(u);
-    //     }
-    // }
-
-    // void compute_loss_cnt_S(Set &S, Set &C) // v∈S, delta[v] = the number of non-neighbors of v in S
-    // {
-    //     for (int v : S)
-    //     {
-    //         loss_cnt[v] = non_A[v].intersect(S);
-    //         if (loss_cnt[v] >= paramK) // v has k non-neighbors in S, so all non-neighbors of v can be removed
-    //             C &= A[v];
-    //     }
-    // }
-
-    // bool is_plex(Set &S)
-    // {
-    //     for (int v : S)
-    //         if (loss_cnt[v] > paramK)
-    //             return false;
-    //     return true;
-    // }
-
-    // /**
-    //  * @return whether S+C is a plex
-    //  */
-    // bool compute_degree(Set &S, Set &C) // deg[u] is the degree in subgraph G[S+C]
-    // {
-    //     auto V = C;
-    //     V |= S;
-    //     int sz = V.size();
-    //     bool ok = 1;
-    //     for (int u : V)
-    //     {
-    //         deg[u] = V.intersect(A[u]);
-    //         ok &= (deg[u] + paramK >= sz);
-    //     }
-    //     return ok;
-    // }
 };
 
 #endif

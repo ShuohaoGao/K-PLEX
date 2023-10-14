@@ -300,7 +300,7 @@ public:
 
         // select pivot to generate 2 branches
         int pivot = select_pivot_vertex_with_min_degree(C);
-        if (pivot == -1)
+        if(pivot==-1)
             return;
 
         {

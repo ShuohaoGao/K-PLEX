@@ -46,7 +46,7 @@ void print_final_log()
 
 int main(int argc, char *argv[])
 {
-    if (argc != 3)
+    if (argc < 3)
     {
         printf("3 params are required !!! \n");
         exit(1);
@@ -147,7 +147,8 @@ int main(int argc, char *argv[])
         double start_current_iteration = get_system_time_microsecond();
         for (ui i = 0; i < g.n; i++)
         {
-            // if(get_system_time_microsecond() - start_current_iteration > time_limit) break;
+            // to avoid that StrongHeuris cost too much time, we set a time limit
+            if(get_system_time_microsecond() - start_current_iteration > time_limit) break;
             extend_lb = max(extend_lb, g.extend(i, &solution));
             if (extend_lb > lb)
             {

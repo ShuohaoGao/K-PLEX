@@ -171,7 +171,7 @@ public:
                 solution.insert(v);
             solution = ptr_g->get_ori_vertices(solution);
             assert(solution.size() == lb);
-            printf("Find a larger plex : %d\n", sz);
+            printf("Find a larger plex : %d\n", sz + (int)G_input.must_contain.size());
             fflush(stdout);
         }
     }
@@ -232,11 +232,29 @@ public:
         {
             auto non_neighbor = non_A[u];
             non_neighbor &= V;
-            if (non_neighbor.intersect(satisfied) == non_neighbor.size())
+            int satisfied_non_neighbor = non_neighbor.intersect(satisfied);
+            int tot_non_neighbor = non_neighbor.size();
+            if (satisfied_non_neighbor == tot_non_neighbor)
             {
                 S.set(u);
                 C.reset(u);
                 S_changed = true;
+            }
+            else if (satisfied_non_neighbor + 1 == tot_non_neighbor) // if only one of the non-neighbors of u is un-satisfied (denoted by w), then u must be included
+            {
+                auto copy = non_neighbor;
+                copy &= satisfied;
+                non_neighbor ^= copy;
+                assert(non_neighbor.size() == 1);
+                int w = *non_neighbor.begin();
+                if (!S[w])
+                {
+                    assert(!A[u][w]);
+                    assert(!satisfied[w]);
+                    S.set(u);
+                    C.reset(u);
+                    S_changed = true;
+                }
             }
         }
         // S is changed, so we need to re-compute loss_cnt[]; but this won't cause any reduction
@@ -282,6 +300,8 @@ public:
 
         // select pivot to generate 2 branches
         int pivot = select_pivot_vertex_with_min_degree(C);
+        if(pivot==-1)
+            return;
 
         {
             auto new_S = S, new_C = C;

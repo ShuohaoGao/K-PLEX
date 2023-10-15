@@ -42,20 +42,20 @@ first line: ```n m lb```;\
 next $m$ lines are edges: ```a b```;\
 next $n$ lines are $v_i$, i.e., a vertex in the reduced graph whose id is $j$ is the vertex $v_j$ in the intial graph.
 
-then ```cnt```, which is the count of vertices that must be included.
+then ```cnt```, which is the count of vertices that must be included. \
 next $cnt$ lines are $v_i$, i.e., a vertex id that must be included.
 
 
 # Example
-```data/email-Eu-core.txt``` is an example graph
+```data/email-Eu-core.out``` is an example graph
 
 ### DPHeuris:
 ```
-./MDP-pre ../data/email-Eu-core.txt 2
+./MDP-pre ../data/email-Eu-core.out 2
 ```
 ### DPBB:
 ```
-./MDP-bb ../reduced_graph/email-Eu-core_K=2.txt 2
+./MDP-bb ../reduced_graph/email-Eu-core_K=2.out 2
 ```
 #### More details of usage example are shown in ```DPHeuris/pre.sh``` and ```DPBB/run.sh```, the running results are shown in ```DPHeuris/log/pre_log.txt``` and ```DPBB/log/run_log.txt```
 

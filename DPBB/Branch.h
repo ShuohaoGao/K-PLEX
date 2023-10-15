@@ -372,6 +372,31 @@ public:
         core_reduce_time += get_system_time_microsecond() - start_core_reduce;
     }
 
+    int erfen_UB(Set &P)
+    {
+        int sz = P.size();
+        if (sz <= paramK)
+            return sz;
+        vector<int> cnt(sz + paramK, 0);
+        for (int u : P)
+        {
+            int d = A[u].intersect(P);
+            cnt[d + paramK]++;
+        }
+        int sum = 0; // the number of vertices that pseudo-degree is not less than ub, i.e., sum is suffix-sum
+        for (int ub = sz + paramK - 1; ub >= paramK; ub--)
+        {
+            sum += cnt[ub];
+            if (sum >= ub)
+            {
+                return ub;
+            }
+        }
+        // should not reach here
+        assert(false);
+        return -1;
+    }
+
     /**
      * we partition C to |S| sets: Pi_0, Pi_1, ..., Pi_|S|
      * @return ub
@@ -420,6 +445,11 @@ public:
         int ret = ub + copy_C.size();
         if (ret <= lb) // pruned
             return ret;
+        // //er fen UB will not cause due to core-reduce, but it will decrease ub indeed
+        // {
+        //     ret -= copy_C.size();
+        //     ret += erfen_UB(copy_C);
+        // }
         // assume we need to include at least $h$ vertices from S+Pi_0; $h$=lb+1-(ub-|S|);
         // then for u∈Pi_i, u must has at least $h-k+1$ neighbors from S+Pi_0
         int neighbor_cnt = lb + 1 - (ub - S.size()) - (paramK - 1);

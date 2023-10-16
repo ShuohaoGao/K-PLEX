@@ -9,11 +9,12 @@ class Graph_input
 public:
     LinearHeap heap;
     MyBitset vertex;
-    int n, m;
+    ll n, m;
     vector<int> vertex_id;
     vector<int> must_contain;
+    unordered_map<ll,int> triangles;// the key of edge (u,v) is u*n+v , make sure u<v
     int *d; // degree
-    vector<vector<int>> neighbors;
+    AjacentMatrix A;
     Graph_input() : d(nullptr) {}
     ~Graph_input()
     {
@@ -30,21 +31,22 @@ public:
             printf("File : %s open failed\n", path.c_str());
             exit(1);
         }
-        fscanf(in, "%d %d %d", &n, &m, &lb);
+        fscanf(in, "%lld %lld %d", &n, &m, &lb);
         printf("File: %s k= %d n= %d m= %d lb= %d\n", get_file_name_without_suffix(path).c_str(), paramK, n, m, lb);
         fflush(stdout);
-        if(!n)
+        if (!n)
         {
             puts("The heuristic solution is the ground truth");
-            printf("ground truth= %d , use time= 0.0000 s\n", lb);
+            printf("ground truth= %d , use time= 0.0000 s\n\n", lb);
             exit(0);
         }
-        vector<pii> edges(m);
+        A = AjacentMatrix(n);
         for (ui i = 0; i < m; i++)
         {
             ui a, b;
             fscanf(in, "%u %u", &a, &b);
-            edges[i] = {a, b};
+            if (a < b)
+                A.add_edge(a, b);
         }
 
         vertex_id.resize(n);
@@ -67,14 +69,9 @@ public:
         vertex = MyBitset(n);
         vertex.flip();
 
-        neighbors.resize(n);
-        for (auto &h : edges)
-        {
-            neighbors[h.x].push_back(h.y);
-        }
         d = new int[n];
         for (int i = 0; i < n; i++)
-            d[i] = neighbors[i].size();
+            d[i] = A[i].size();
         printf("Graph init ok\n");
         fflush(stdout);
     }
@@ -84,49 +81,68 @@ public:
         heap = LinearHeap(n, n, d);
     }
 
+    void init_triangles()
+    {
+        for(int u=0;u<n;u++)
+        {
+            for(int v:A[u])
+            {
+                if(v>=u) break;
+                triangles[v*n+u]=A[v].intersect(A[u]);
+            }
+        }
+    }
+
+    void init_before_IE()
+    {
+        init_triangles();
+        init_heap();
+    }
+
     int get_min_degree_v()
     {
         return heap.get_min_node();
-    }
-
-    bool exist_edge(int a, int b)
-    {
-        return vertex[a] && vertex[b] && has(neighbors[a], b);
     }
 
     void remove_v(int v)
     {
         vertex.reset(v);
         heap.delete_node(v);
-        for (int u : neighbors[v])
+        for (int u : A[v])
             if (vertex.test(u))
             {
                 d[u]--;
                 heap.decrease(d[u], u);
-                if (d[u] * 2 < neighbors[u].size()) // shrink to avoid visiting the edges that already removed
-                {
-                    vector<int> nei;
-                    for (int w : neighbors[u])
-                        if (vertex[w])
-                            nei.push_back(w);
-                    swap(neighbors[u], nei);
-                }
+                A[u].reset(v);
             }
-        neighbors[v].clear();
+        CTCP(v);
+        A[v].clear();
+    }
+
+    void CTCP(int v=-1)
+    {
+        // for(int u:A[v])
+        // {
+        //     for(int w:A[v])
+        //     {
+        //         if(w>=u) break;
+        //         if(!A[u][w]) continue;
+        //         if(--triangles[w*n+u]+2*paramK <= lb)
+        //         {
+                    
+        //         }
+        //     }
+        // }
     }
 
     void induce_to_2hop(MyBitset &vis, int v)
     {
-        for (int u : neighbors[v])
+        for (int u : A[v])
         {
-            if (vertex.test(u))
-            {
-                if (!vis[u])
-                    vis.set(u);
-                for (int w : neighbors[u])
-                    if (!vis[w] && vertex.test(w))
-                        vis.set(w);
-            }
+            assert(vertex[u]);
+            if (!vis[u])
+                vis.set(u);
+            vis |= A[u];
         }
     }
 
@@ -157,7 +173,7 @@ public:
     vector<int> vertex_id;
     Graph() : init_time(0) {}
     // induce graph
-    Graph(MyBitset &V_mask, vector<vector<int>> &neighbors, vector<int> &inv)
+    Graph(MyBitset &V_mask, AjacentMatrix &A, vector<int> &inv)
     {
         for (int i : V_mask)
         {
@@ -171,12 +187,14 @@ public:
         for (int i = 0; i < vertex_id.size(); i++)
             inv[vertex_id[i]] = i;
         double start_init = get_system_time_microsecond();
-        for(int u:V_mask)
+        for (int u : V_mask)
         {
-            for(int v:neighbors[u])
+            auto nei = V_mask;
+            nei &= A[u];
+            for (int v : nei)
             {
-                if(!V_mask[v]) continue;
-                if(v>=u) break;
+                if (v >= u)
+                    break;
                 adj_matrix.add_edge(inv[u], inv[v]);
             }
         }

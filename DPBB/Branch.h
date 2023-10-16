@@ -97,7 +97,7 @@ public:
             vis.set(u);
 
             G_input.induce_to_2hop(vis, u);
-            Graph g(vis, G_input.neighbors, array_N);
+            Graph g(vis, G_input.A, array_N);
             matrix_init_time += g.init_time;
             ptr_g = &g;
 

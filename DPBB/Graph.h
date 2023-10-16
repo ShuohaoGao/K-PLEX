@@ -12,8 +12,8 @@ public:
     ll n, m;
     vector<int> vertex_id;
     vector<int> must_contain;
-    unordered_map<ll,int> triangles;// the key of edge (u,v) is u*n+v , make sure u<v
-    int *d; // degree
+    unordered_map<ll, int> triangles; // the key of edge (u,v) is u*n+v , make sure u<v
+    int *d;                           // degree
     AjacentMatrix A;
     Graph_input() : d(nullptr) {}
     ~Graph_input()
@@ -83,12 +83,13 @@ public:
 
     void init_triangles()
     {
-        for(int u=0;u<n;u++)
+        for (int u = 0; u < n; u++)
         {
-            for(int v:A[u])
+            for (int v : A[u])
             {
-                if(v>=u) break;
-                triangles[v*n+u]=A[v].intersect(A[u]);
+                if (v >= u)
+                    break;
+                triangles[v * n + u] = A[v].intersect(A[u]);
             }
         }
     }
@@ -104,35 +105,161 @@ public:
         return heap.get_min_node();
     }
 
-    void remove_v(int v)
+    void remove_v(int v, bool lb_changed)
     {
-        vertex.reset(v);
-        heap.delete_node(v);
-        for (int u : A[v])
-            if (vertex.test(u))
-            {
-                d[u]--;
-                heap.decrease(d[u], u);
-                A[u].reset(v);
-            }
         CTCP(v);
-        A[v].clear();
+        if (lb_changed)
+        {
+            CTCP();
+        }
     }
 
-    void CTCP(int v=-1)
+    void CTCP(int v = -1)
     {
-        // for(int u:A[v])
-        // {
-        //     for(int w:A[v])
-        //     {
-        //         if(w>=u) break;
-        //         if(!A[u][w]) continue;
-        //         if(--triangles[w*n+u]+2*paramK <= lb)
-        //         {
-                    
-        //         }
-        //     }
-        // }
+        queue<pii> q_edges; // an edge is stored as (u,v) where u<v
+        queue<int> q_vertex;
+        vector<bool> in_queue_e(n * n); //(u,v) is already pushed into queue if in_queue_e[u*n+v]=1
+        vector<bool> in_queue_v(n);     // a vertex u is already pushed into queue if in_queue_v[u]=1
+        // CTCP is called because lb updated
+        if (v == -1)
+        {
+            for (int u : vertex)
+            {
+                for (int v : A[u])
+                {
+                    if (v >= u)
+                        break;
+                    if (triangles[v * n + u] + paramK * 2 <= lb)
+                    {
+                        q_edges.push({v, u});
+                        in_queue_e[v * n + u] = true;
+                    }
+                }
+                if (d[u] + paramK <= lb)
+                {
+                    q_vertex.push(u);
+                    in_queue_v[u] = 1;
+                }
+            }
+        }
+        else // CTCP is called because IE removed a vertex
+        {
+            q_vertex.push(v);
+            in_queue_v[v] = 1;
+        }
+        while (q_edges.size() || q_vertex.size())
+        {
+            while (q_edges.size())
+            {
+                auto edge = q_edges.front();
+                q_edges.pop();
+                int u = edge.x, v = edge.y; // u<v
+                assert(u < v);
+                assert(A[u][v] && A[v][u]);
+                // remove this edge and update the degree
+                A[u].reset(v);
+                A[v].reset(u);
+                heap.decrease(--d[u], u);
+                heap.decrease(--d[v], v);
+                if (d[u] + paramK <= lb && !in_queue_v[u])
+                {
+                    q_vertex.push(u);
+                    in_queue_v[u] = 1;
+                }
+                if (d[v] + paramK <= lb && !in_queue_v[v])
+                {
+                    q_vertex.push(v);
+                    in_queue_v[v] = 1;
+                }
+                // update the number of triangles of other edges
+                auto common_neighbor = A[u];
+                common_neighbor &= A[v];
+                for (int w : common_neighbor)
+                {
+                    if (in_queue_v[w])
+                        continue;
+                    ll edge_uw = u < w ? u * n + w : w * n + u;
+                    if (!in_queue_e[edge_uw])
+                    {
+                        if (--triangles[edge_uw] + paramK * 2 <= lb)
+                        {
+                            pii edge = {u, w};
+                            if (w < u)
+                                edge = {w, u};
+                            q_edges.push(edge);
+                            in_queue_e[edge_uw] = 1;
+                        }
+                    }
+                    ll edge_vw = v < w ? v * n + w : w * n + v;
+                    if (!in_queue_e[edge_vw])
+                    {
+                        if (--triangles[edge_vw] + paramK * 2 <= lb)
+                        {
+                            pii edge = {v, w};
+                            if (w < v)
+                                edge = {w, v};
+                            q_edges.push(edge);
+                            in_queue_e[edge_vw] = 1;
+                        }
+                    }
+                }
+            }
+
+            if (q_vertex.size())
+            {
+                int u = q_vertex.front();
+                q_vertex.pop();
+                // update the degree
+                for (int v : A[u])
+                {
+                    if (in_queue_v[v])
+                        continue;
+                    ll edge_uv = u < v ? u * n + v : v * n + u;
+                    if (in_queue_e[edge_uv])
+                        continue;
+                    heap.decrease(--d[v], v);
+                    if (d[v] + paramK <= lb)
+                    {
+                        q_vertex.push(v);
+                        in_queue_v[v] = 1;
+                    }
+                    A[v].reset(u); // remove edge (u,v)
+                }
+                // update the number of triangles of edges
+                for (int v : A[u])
+                {
+                    ll edge_uv = u < v ? u * n + v : v * n + u;
+                    assert(!in_queue_e[edge_uv]);
+                    if (in_queue_v[v])
+                        continue;
+                    for (int w : A[u])
+                    {
+                        if (w == v)
+                            break;
+                        if (in_queue_v[w])
+                            continue;
+                        ll edge_uw = u < w ? u * n + w : w * n + u;
+                        assert(!in_queue_e[edge_uw]);
+                        if (!A[v][w])
+                            continue;
+                        assert(A[w][v]);
+                        assert(w < v);
+                        ll edge_vw = w * n + v;
+                        assert(!in_queue_e[edge_vw]);
+                        if (--triangles[edge_vw] + paramK * 2 <= lb)
+                        {
+                            pii edge = {w, v};
+                            q_edges.push(edge);
+                            in_queue_e[edge_vw] = 1;
+                        }
+                    }
+                }
+                // remove this vertex
+                vertex.reset(u);
+                A[u].clear();
+                heap.delete_node(u);
+            }
+        }
     }
 
     void induce_to_2hop(MyBitset &vis, int v)

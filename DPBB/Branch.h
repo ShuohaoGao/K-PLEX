@@ -77,7 +77,7 @@ public:
     void IE_framework()
     {
         double start_IE = get_system_time_microsecond();
-        G_input.init_heap();
+        G_input.init_before_IE();
         array_N.resize(G_input.n);
         while (G_input.size() > lb)
         {
@@ -88,7 +88,7 @@ public:
             int u = G_input.get_min_degree_v();
             if (G_input.d[u] + paramK <= lb)
             {
-                G_input.remove_v(u);
+                G_input.remove_v(u, false);
                 continue;
             }
 
@@ -119,9 +119,11 @@ public:
             IE_induce_time += get_system_time_microsecond() - start_induce;
 
             v_just_add = id_u;
+
+            int pre_lb=lb;
             bnb(S, C);
 
-            G_input.remove_v(u);
+            G_input.remove_v(u, lb>pre_lb ? true : false);
         }
         run_time = get_system_time_microsecond() - start_IE;
         print_progress_bar(1.0, true);

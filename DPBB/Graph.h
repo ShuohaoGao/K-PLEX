@@ -15,6 +15,8 @@ public:
     unordered_map<ll, int> triangles; // the key of edge (u,v) is u*n+v , make sure u<v
     int *d;                           // degree
     AjacentMatrix A;
+    // shared memory for CTCP
+    vector<bool> bool_array_n_n, bool_array_n;
     Graph_input() : d(nullptr) {}
     ~Graph_input()
     {
@@ -98,6 +100,8 @@ public:
     {
         init_triangles();
         init_heap();
+        bool_array_n.resize(n);
+        bool_array_n_n.resize(n * n);
     }
 
     int get_min_degree_v()
@@ -118,8 +122,8 @@ public:
     {
         queue<pii> q_edges; // an edge is stored as (u,v) where u<v
         queue<int> q_vertex;
-        vector<bool> in_queue_e(n * n); //(u,v) is already pushed into queue if in_queue_e[u*n+v]=1
-        vector<bool> in_queue_v(n);     // a vertex u is already pushed into queue if in_queue_v[u]=1
+        vector<bool> &in_queue_e = bool_array_n_n; //(u,v) is already pushed into queue if in_queue_e[u*n+v]=1
+        vector<bool> &in_queue_v = bool_array_n;   // a vertex u is already pushed into queue if in_queue_v[u]=1
         // CTCP is called because lb updated
         if (v == -1)
         {

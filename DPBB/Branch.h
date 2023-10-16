@@ -33,13 +33,16 @@ private:
     double IE_induce_time;
     double matrix_init_time;
     ll S_size;
+    int IE_graph_cnt;
+    ll IE_graph_size;
+    double CTCP_time;
 
 public:
     set<int> solution;
     Branch(Graph_input &input, int _lb) : G_input(input), lb(_lb), bool_array(input.n),
                                           dfs_cnt(0), run_time(0), fast_reduce_time(0), core_reduce_time(0),
                                           part_PI_time(0), pivot_select_time(0), IE_induce_time(0), S_size(0),
-                                          matrix_init_time(0)
+                                          matrix_init_time(0), IE_graph_cnt(0), IE_graph_size(0), CTCP_time(0)
     {
     }
     ~Branch() {}
@@ -55,6 +58,8 @@ public:
         puts("");
         print_module_time("pivot select", pivot_select_time);
         print_module_time("matrix init", matrix_init_time);
+        print_module_time("CTCP", CTCP_time);
+        printf("average g_i size: %.2lf ", IE_graph_size * 1.0 / IE_graph_cnt);
         printf("average S size: %.2lf  ", S_size * 1.0 / dfs_cnt);
         puts("");
         puts("*************DPBB result*************");
@@ -78,6 +83,7 @@ public:
     {
         double start_IE = get_system_time_microsecond();
         G_input.init_before_IE();
+        CTCP_time += get_system_time_microsecond() - start_IE;
         array_N.resize(G_input.n);
         while (G_input.size() > lb)
         {
@@ -98,6 +104,8 @@ public:
 
             G_input.induce_to_2hop(vis, u);
             Graph g(vis, G_input.A, array_N);
+            IE_graph_size += g.size();
+            IE_graph_cnt++;
             matrix_init_time += g.init_time;
             ptr_g = &g;
 
@@ -120,10 +128,12 @@ public:
 
             v_just_add = id_u;
 
-            int pre_lb=lb;
+            int pre_lb = lb;
             bnb(S, C);
 
-            G_input.remove_v(u, lb>pre_lb ? true : false);
+            double start_CTCP = get_system_time_microsecond();
+            G_input.remove_v(u, lb > pre_lb ? true : false);
+            CTCP_time += get_system_time_microsecond() - start_CTCP;
         }
         run_time = get_system_time_microsecond() - start_IE;
         print_progress_bar(1.0, true);

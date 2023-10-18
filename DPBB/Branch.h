@@ -36,13 +36,15 @@ private:
     int IE_graph_cnt;
     ll IE_graph_size;
     double CTCP_time;
+    double C_reduce;
 
 public:
     set<int> solution;
     Branch(Graph_input &input, int _lb) : G_input(input), lb(_lb), bool_array(input.n),
                                           dfs_cnt(0), run_time(0), fast_reduce_time(0), core_reduce_time(0),
                                           part_PI_time(0), pivot_select_time(0), IE_induce_time(0), S_size(0),
-                                          matrix_init_time(0), IE_graph_cnt(0), IE_graph_size(0), CTCP_time(0)
+                                          matrix_init_time(0), IE_graph_cnt(0), IE_graph_size(0), CTCP_time(0),
+                                          C_reduce(0)
     {
     }
     ~Branch() {}
@@ -59,6 +61,8 @@ public:
         print_module_time("pivot select", pivot_select_time);
         print_module_time("matrix init", matrix_init_time);
         print_module_time("CTCP", CTCP_time);
+        print_module_time("C-reduce", C_reduce);
+        puts("");
         printf("average g_i size: %.2lf ", IE_graph_size * 1.0 / IE_graph_cnt);
         printf("average S size: %.2lf  ", S_size * 1.0 / dfs_cnt);
         puts("");
@@ -384,6 +388,11 @@ public:
         core_reduce_time += get_system_time_microsecond() - start_core_reduce;
     }
 
+    /**
+     * @return ub of P
+     * if P has a plex of size = x, then P must have at least x vertices whose degrees >= x+k
+     * conclusion: this ub can be replaced by core-reduction for Pi_0
+     */
     int erfen_UB(Set &P)
     {
         int sz = P.size();
@@ -407,6 +416,40 @@ public:
         // should not reach here
         assert(false);
         return -1;
+    }
+
+    /**
+     * @return the ub of P by partitioning P into several independent sets
+     * conclusion: useless
+     */
+    int color_UB(Set &P)
+    {
+        int sz = P.size();
+        if (sz <= paramK)
+            return sz;
+        vector<Set> colors(1, Set(P.range)); // in the begin, there is only one color
+        for (int u : P)
+        {
+            bool ok = 0;
+            for (auto &c : colors)
+            {
+                if (A[u].intersect(c) > 0)
+                    continue;
+                ok = 1;
+                c.set(u);
+                break;
+            }
+            if (!ok) // we need to create a new color
+            {
+                Set temp(P.range);
+                temp.set(u);
+                colors.push_back(temp);
+            }
+        }
+        int ret = 0;
+        for (auto &s : colors)
+            ret += min(s.size(), paramK);
+        return ret;
     }
 
     /**
@@ -464,6 +507,7 @@ public:
         // }
         // assume we need to include at least $h$ vertices from S+Pi_0; $h$=lb+1-(ub-|S|);
         // then for u∈Pi_i, u must has at least $h-k+1$ neighbors from S+Pi_0
+        double start_C_reduce = get_system_time_microsecond();
         int neighbor_cnt = lb + 1 - (ub - S.size()) - (paramK - 1);
         if (neighbor_cnt > 0)
         {
@@ -478,6 +522,7 @@ public:
                     C.reset(u);
             }
         }
+        C_reduce += get_system_time_microsecond() - start_C_reduce;
 #endif
         return ret;
     }

@@ -57,16 +57,17 @@ string get_file_name_without_suffix(string name)
 
 string get_file_name_suffix(string f)
 {
-    string ret="";
-    bool has_dot=0;
-    for(char ch:f)
+    string ret = "";
+    bool has_dot = 0;
+    for (char ch : f)
     {
-        if(ch=='.')
+        if (ch == '.')
         {
-            has_dot=1;
-            ret="";
-        }else if(has_dot)
-            ret+=ch;
+            has_dot = 1;
+            ret = "";
+        }
+        else if (has_dot)
+            ret += ch;
     }
     return ret;
 }
@@ -154,7 +155,7 @@ int intersect_count(T *a, T *b, T *l, T *r) // return [a,b) ∩ [l,r)
     return ret;
 }
 
-void print_progress_bar(double percentage, bool enter=false)
+void print_progress_bar(double percentage, bool enter = false)
 {
 #ifdef NO_PROGRESS_BAR
     return;
@@ -178,8 +179,8 @@ void print_progress_bar(double percentage, bool enter=false)
     buffer[bar_length + len] = ']';
     write(STDOUT_FILENO, buffer, bar_length + len + 1);
     fflush(stdout);
-    if(enter)
-        cout<<endl;
+    if (enter)
+        cout << endl;
 }
 
 template <typename T>
@@ -232,5 +233,30 @@ ui read()
     }
     return ret;
 }
+
+class Timer
+{
+    ll start_time;
+    string log;
+
+public:
+    Timer()
+    {
+        start_time = get_system_time_microsecond();
+    }
+    Timer(string s) : log(s)
+    {
+        start_time = get_system_time_microsecond();
+    }
+    double get_time()
+    {
+        return (get_system_time_microsecond() - start_time);
+    }
+    void print_time()
+    {
+        printf("%s use time: %.4lf s\n", log.c_str(), get_time()/1e6);
+        fflush(stdout);
+    }
+};
 
 #endif

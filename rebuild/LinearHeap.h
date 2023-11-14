@@ -68,6 +68,7 @@ public:
         }
         nodes = new Node[n];
         memcpy(nodes, other.nodes, sizeof(Node) * n);
+        return *this;
     }
     // key is the degree of a vertex; val is the index of a vertex
     void insert(ui key, ui val)

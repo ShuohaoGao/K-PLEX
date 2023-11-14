@@ -41,10 +41,10 @@ private:
 public:
     set<int> solution;
     Branch(Graph_reduced &input, int _lb) : G_input(input), lb(_lb), bool_array(input.n),
-                                          dfs_cnt(0), run_time(0), fast_reduce_time(0), core_reduce_time(0),
-                                          part_PI_time(0), pivot_select_time(0), IE_induce_time(0), S_size(0),
-                                          matrix_init_time(0), IE_graph_cnt(0), IE_graph_size(0), CTCP_time(0),
-                                          C_reduce(0)
+                                            dfs_cnt(0), run_time(0), fast_reduce_time(0), core_reduce_time(0),
+                                            part_PI_time(0), pivot_select_time(0), IE_induce_time(0), S_size(0),
+                                            matrix_init_time(0), IE_graph_cnt(0), IE_graph_size(0), CTCP_time(0),
+                                            C_reduce(0)
     {
     }
     ~Branch() {}
@@ -463,14 +463,13 @@ public:
         auto copy_S = S;
         auto copy_C = C;
         int ub = S.size();
+        Set useful_S(S.range);
         while (copy_S.size())
         {
             int sel = -1, size = 0, ub_cnt = 0;
             for (int v : copy_S)
             {
-                auto non_neighbor = non_A[v];
-                non_neighbor &= copy_C;
-                int sz = non_neighbor.size();
+                int sz = non_A[v].intersect(copy_C);
                 int cnt = (paramK - loss_cnt[v]);
                 if (sz <= cnt) // Pi_i is useless
                 {
@@ -490,6 +489,7 @@ public:
             if (sel == -1)
                 break;
             copy_S.reset(sel);
+            useful_S.set(sel);
             ub += ub_cnt;
             copy_C &= A[sel]; // remove the non-neighbors of sel
         }
@@ -524,6 +524,25 @@ public:
         }
         C_reduce += get_system_time_microsecond() - start_C_reduce;
 #endif
+        // for u in C, if UB(S+u, C-u)<=lb , remove u
+        for (int u : C)
+        {
+            int sub = non_A[u].intersect(copy_C); // Pi_u get |sub| vertices from Pi_0
+            // due to u is included to S, loss_cnt[v] will increse, decreasing ub; decre<=loss_cnt[u] because not all v in S has Pi_v
+            int decre = useful_S.intersect(non_A[u]);
+            int ub_u = ret - sub + (paramK - loss_cnt[u] - 1) + 1 - decre; // ub_u=UB(S+u, C)>=UB(S+u,C-u)
+            if (ub_u <= lb)
+            {
+                C.reset(u);
+                if (copy_C[u])
+                {
+                    ret--;
+                    copy_C.reset(u);
+                    if (ret <= lb)
+                        return ret;
+                }
+            }
+        }
         return ret;
     }
 

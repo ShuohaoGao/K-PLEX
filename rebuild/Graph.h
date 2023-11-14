@@ -238,7 +238,6 @@ public:
         printf("Graph init ok\n");
         fflush(stdout);
     }
-    // return a maximal plex containing u
     /**
      * @brief StrongHeuris, extend u to a maximal plex
      * @return lb
@@ -260,32 +259,29 @@ public:
             if (deg[v] + paramK < s.size() + 1)
                 break;
             ui *l = edge_to + pstart[v], *r = edge_to + pstart[v + 1];
-            for (ui w : s)
-            {
-                if (has(l, r, w))
-                    deg[w]++;
-            }
             // check whether v can be inserted into s
+            bool ok = 1;
             if (s.size() >= paramK)
             {
-                bool ok = 1;
                 for (ui w : s)
-                    if (deg[w] + paramK < s.size() + 1)
+                {
+                    if (!has(l, r, w) && deg[w] + paramK == s.size())
                     {
                         ok = 0;
                         break;
                     }
-                ok &= deg[v] + paramK >= s.size() + 1;
-                if (!ok)
-                {
-                    for (ui w : s)
-                    {
-                        if (exist_edge(v, w))
-                            deg[w]--;
-                    }
-                    continue;
                 }
             }
+            if (ok)
+            {
+                for (ui w : s)
+                {
+                    if (has(l, r, w))
+                        deg[w]++;
+                }
+            }
+            else
+                continue;
             s.insert(v);
             for (ui i = pstart[v]; i < pstart[v + 1]; i++)
             {
@@ -579,7 +575,7 @@ public:
      *
      * @return lb
      */
-    int sqrt_degeneracy(set<ui> *solution = nullptr, ui cnt = 1)
+    int sqrt_degeneracy(set<ui> *solution = nullptr, ui cnt = 5)
     {
         set<pii> s;
         for (ui i = 0; i < n; i++)
@@ -705,6 +701,84 @@ public:
         delete[] q;
     }
     /**
+     * @brief for u in G, is deg[u]+k<=lb, remove u but don't update degree
+     *
+     * T(n)=O(n) for reduction, O(m) for re-build graph but m is much smaller than input
+     * after reduction, the graph is re-built so that each vertex's id ∈[0, n-1], the map is stored in map_refresh_id
+     */
+    void fast_weak_reduce(int lb)
+    {
+        vector<bool> rm(n, 0); // rm[u]=1 <=> u is removed
+        int rm_cnt = 0;
+        for (ui i = 0; i < n; i++)
+            if (d[i] + paramK <= lb)
+                rm[i] = 1, rm_cnt++;
+        if (rm_cnt == 0) // q is empty
+        {
+            if (!reduced)
+            {
+                reduced = 1;
+                for (ui i = 0; i < n; i++)
+                    map_refresh_id[i] = i;
+            }
+            return;
+        }
+        // re-build the graph : re-map the id of the rest vertices; the array q[] is recycled to save the map
+        ui *q = new ui[n + 1];
+        ui new_n = 0;
+        if (reduced)
+        {
+            unordered_map<ui, ui> new_map;
+            for (ui i = 0; i < n; i++)
+                if (!rm[i])
+                {
+                    new_map[new_n] = map_refresh_id[i];
+                    q[i] = new_n++;
+                }
+            map_refresh_id = new_map;
+        }
+        else
+        {
+            for (ui i = 0; i < n; i++)
+                if (!rm[i])
+                {
+                    map_refresh_id[new_n] = i;
+                    q[i] = new_n++;
+                }
+            reduced = true;
+        }
+        ui *new_pstart = new ui[new_n + 1];
+        ui *new_d = new ui[new_n];
+        ui j = 0; // we don't need extra memory to store new-edge_to, just re-use edge_to[]
+        for (ui i = 0; i < n; i++)
+        {
+            if (rm[i])
+                continue;
+            ui u = q[i];
+            new_pstart[u] = j;
+            for (ui p = pstart[i]; p < pstart[i + 1]; p++)
+            {
+                ui v = edge_to[p];
+                if (!rm[v])
+                    edge_to[j++] = q[edge_to[p]];
+            }
+            new_d[u] = j - new_pstart[u];
+        }
+        new_pstart[new_n] = j;
+        delete[] d;
+        delete[] pstart;
+        d = new_d;
+        pstart = new_pstart;
+        // you can ignore the following
+        ui *new_edge_to = new ui[j];
+        memcpy(new_edge_to, edge_to, sizeof(ui) * j);
+        delete[] edge_to;
+        edge_to = new_edge_to;
+        m = j;
+        n = new_n;
+        delete[] q;
+    }
+    /**
      * @brief degenaracy order to get lb, i.e., each time we remove the vertex with min degree
      *
      * @param solution if not NULL, the heuristic result should be stored
@@ -737,15 +811,58 @@ public:
                 }
             }
         }
+        int rest = heap.sz;
+        set<ui> plex;
+        while (heap.sz)
+        {
+            ui u = heap.get_min_node();
+            heap.delete_node(u);
+            plex.insert(u);
+        }
+        // for(ui i=0;i<n;i++)
+        // {
+        //     if(!rm[i]) continue;
+        //     //check whether i can be included into plex
+        //     int d_i=0;
+        //     bool ok=1;
+        //     for(ui v:plex)
+        //     {
+        //         if(exist_edge(i, v))
+        //             d_i++;
+        //         else if(pd[v]+paramK == plex.size())
+        //         {
+        //             ok=0;
+        //             break;
+        //         }
+        //     }
+        //     if(ok && d_i+paramK >= plex.size()+1)
+        //     {
+        //         pd[i]=d_i;
+        //         for(ui v:plex)
+        //         {
+        //             if(exist_edge(i, v))
+        //                 pd[v]++;
+        //         }
+        //         plex.insert(i);
+        //     }
+        // }
+        // next, we extend the plex to maximal
         delete[] pd;
-        if (solution != nullptr && solution->size() < heap.sz)
+        if (solution != nullptr && solution->size() < plex.size())
         {
             solution->clear();
-            for (ui i = 0; i < n; i++)
-                if (!rm[i])
+            if (reduced)
+            {
+                for (ui i : plex)
                     solution->insert(map_refresh_id[i]);
+            }
+            else
+            {
+                for (ui i : plex)
+                    solution->insert(i);
+            }
         }
-        return heap.sz;
+        return plex.size();
     }
     /**
      * @brief dump the reduced graph to file; abandoned now

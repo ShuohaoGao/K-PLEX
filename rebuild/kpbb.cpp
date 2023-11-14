@@ -15,7 +15,7 @@ int FastHeuris_lb;
 
 void print_heuris_log()
 {
-    puts("****Heuristic result****");
+    puts("*************Heuristic result*************");
     total_heuris_time = get_system_time_microsecond() - algorithm_start_time;
     printf("list triangles time: %.4lf s, strong reduce time: %.4lf s\n", list_triangle_time / 1e6, strong_reduce_time / 1e6);
     printf("total-heuristic-time= %.4lf s, FastHeuris-time= %.4lf s, StrongHeuris-time= %.4lf s\n",
@@ -33,6 +33,12 @@ void print_heuris_log()
     else
         printf("The solution is verified: it is a plex\n");
 #endif // VERIFY
+
+    if (g.n + must_contain.size() <= lb)
+    {
+        printf("The heuristic solution is the ground truth!\n");
+        printf("kpbb time: %.4lf s\n\n", (get_system_time_microsecond() - algorithm_start_time) / 1e6);
+    }
 }
 
 void heuris()
@@ -40,6 +46,9 @@ void heuris()
     int iteration_cnt = 1;
     while (1)
     {
+#ifdef NO_SQRT
+        break;
+#endif
         // degeracy order for the front sqrt(n) vertices, T(n)=O(n)
         double start_first_extend = get_system_time_microsecond();
         int ret = g.sqrt_degeneracy(&solution);
@@ -52,6 +61,7 @@ void heuris()
 
         // weak reduce, T(n)=O(m)
         double start_weak_reduce = get_system_time_microsecond();
+        g.fast_weak_reduce(lb);
         g.weak_reduce(lb);
         printf("After weak reduce: n= %d , ", g.n);
         print_time(start_weak_reduce);
@@ -125,11 +135,9 @@ void heuris()
     {
         int extend_lb = 0;
         double start_current_iteration = get_system_time_microsecond();
-        for (ui i = 0; i < g.n; i++)
+        int extend_times = 2 * sqrt(g.n) + 1;
+        for (ui i = 0; i < extend_times; i++)
         {
-            // to avoid that StrongHeuris cost too much time, we set a time limit
-            if (get_system_time_microsecond() - start_current_iteration > time_limit)
-                break;
             extend_lb = max(extend_lb, g.extend(i, &solution));
             if (extend_lb > lb)
             {
@@ -203,7 +211,7 @@ int main(int argc, char *argv[])
 
     // branch and bound
     bnb();
-    printf("kpbb time: %.4lf s\n\n", (get_system_time_microsecond()-algorithm_start_time)/1e6);
+    printf("kpbb time: %.4lf s\n\n", (get_system_time_microsecond() - algorithm_start_time) / 1e6);
 
     return 0;
 }

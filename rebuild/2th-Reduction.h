@@ -297,7 +297,7 @@ public:
                     {
                         if (edge_removed[j])
                             continue;
-                        ui w = edge_to[i]; // v w are neighbors of u
+                        ui w = edge_to[j]; // v w are neighbors of u
                         if (vertex_removed[w])
                             continue;
                         if (has(st, ed, w)) // v is connected to w

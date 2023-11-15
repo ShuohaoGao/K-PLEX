@@ -101,18 +101,13 @@ public:
             double start_induce = get_system_time_microsecond();
 
             int u = G_input.get_min_degree_v();
-            if (G_input.d[u] + paramK <= lb)
-            {
-                G_input.remove_v(u, false);
-                continue;
-            }
 
             auto &vis = bool_array;
             vis.clear();
             vis.set(u);
 
             G_input.induce_to_2hop(vis, u);
-            Graph_adjacent g(vis, G_input.A, array_N);
+            Graph_adjacent g(vis, G_input, array_N);
             IE_graph_size += g.size();
             IE_graph_cnt++;
             matrix_init_time += g.init_time;
@@ -141,7 +136,7 @@ public:
             bnb(S, C);
 
             double start_CTCP = get_system_time_microsecond();
-            G_input.remove_v(u, lb > pre_lb ? true : false);
+            G_input.remove_v(u, lb, lb > pre_lb ? true : false);
             CTCP_time += get_system_time_microsecond() - start_CTCP;
         }
         run_time = get_system_time_microsecond() - start_IE;

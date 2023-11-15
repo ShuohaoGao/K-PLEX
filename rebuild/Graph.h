@@ -247,16 +247,16 @@ public:
         SegTree tr(n, d, edge_to + pstart[u], d[u]);
         set<ui> s{u};
         tr.remove(u);
-        vector<ui> deg(n, 0);
+        vector<ui> d(n, 0);
         vector<bool> rm(n, 0);
         rm[u] = 1;
         for (ui I = 0; I + 1 < n; I++) // enumerate the rest n-1 vertices
         {
             ui v = tr.get();
-            deg[v] = tr.get_cnt();
+            d[v] = tr.get_cnt();
             tr.remove(v);
             rm[v] = 1;
-            if (deg[v] + paramK < s.size() + 1)
+            if (d[v] + paramK < s.size() + 1)
                 break;
             ui *l = edge_to + pstart[v], *r = edge_to + pstart[v + 1];
             // check whether v can be inserted into s
@@ -265,7 +265,7 @@ public:
             {
                 for (ui w : s)
                 {
-                    if (!has(l, r, w) && deg[w] + paramK == s.size())
+                    if (!has(l, r, w) && d[w] + paramK == s.size())
                     {
                         ok = 0;
                         break;
@@ -277,7 +277,7 @@ public:
                 for (ui w : s)
                 {
                     if (has(l, r, w))
-                        deg[w]++;
+                        d[w]++;
                 }
             }
             else
@@ -317,14 +317,14 @@ public:
      */
     bool is_plex(set<ui> &s)
     {
-        map<ui, ui> deg;
+        map<ui, ui> d;
         for (ui u : s)
         {
-            deg[u] = 0;
+            d[u] = 0;
             for (ui v : s)
                 if (exist_edge(u, v))
-                    deg[u]++;
-            if (deg[u] + paramK < s.size())
+                    d[u]++;
+            if (d[u] + paramK < s.size())
                 return false;
         }
         return true;
@@ -451,15 +451,15 @@ public:
      *
      * @param range the number of vertices in the subgraph where each vertex's id is 0~range-1
      * @param neighbor neighbor[u] is the array of u's neighbors
-     * @param deg deg[u] = neighbor[u].size()
+     * @param d d[u] = neighbor[u].size()
      * @param id id[u] is the true index of u in the input graph, i.e., id[u]∈[0, n-1]
      * @param solution the solution set of heuristic plex
      *
      * @return lb
      */
-    int sqrt_degeneracy(ui range, vector<vector<ui>> &neighbor, vector<ui> &deg, vector<ui> &id, set<ui> *solution = nullptr)
+    int sqrt_degeneracy(ui range, vector<vector<ui>> &neighbor, vector<ui> &d, vector<ui> &id, set<ui> *solution = nullptr)
     {
-        LinearHeap heap(range, range, deg);
+        LinearHeap heap(range, range, d);
         vector<bool> rm(range, 0);
         while (heap.get_min_key() + paramK < heap.sz)
         {
@@ -470,7 +470,7 @@ public:
             {
                 if (rm[v])
                     continue;
-                heap.decrease(--deg[v], v);
+                heap.decrease(--d[v], v);
             }
         }
         int rest = heap.sz;
@@ -553,7 +553,7 @@ public:
             }
         // induce a subgraph with vertices in id[]
         vector<vector<ui>> neighbor(range);
-        vector<ui> deg(range, 0);
+        vector<ui> d(range, 0);
         for (ui u = 0; u < range; u++)
         {
             for (ui i = pstart[id[u]]; i < pstart[id[u] + 1]; i++)
@@ -563,9 +563,9 @@ public:
                     continue;
                 neighbor[u].push_back(vis[v] - 1);
             }
-            deg[u] = neighbor[u].size();
+            d[u] = neighbor[u].size();
         }
-        return sqrt_degeneracy(range, neighbor, deg, id, solution);
+        return sqrt_degeneracy(range, neighbor, d, id, solution);
     }
     /**
      * @brief stage-I: select a vertex (with max degree) as start vertex
@@ -607,7 +607,7 @@ public:
         return ret;
     }
     /**
-     * @brief for u in G, is deg[u]+k<=lb, remove u
+     * @brief for u in G, is d[u]+k<=lb, remove u
      *
      * T(n)=O(n+m)
      * after reduction, the graph is re-built so that each vertex's id ∈[0, n-1], the map is stored in map_refresh_id
@@ -701,7 +701,7 @@ public:
         delete[] q;
     }
     /**
-     * @brief for u in G, is deg[u]+k<=lb, remove u but don't update degree
+     * @brief for u in G, is d[u]+k<=lb, remove u but don't update degree
      *
      * T(n)=O(n) for reduction, O(m) for re-build graph but m is much smaller than input
      * after reduction, the graph is re-built so that each vertex's id ∈[0, n-1], the map is stored in map_refresh_id
@@ -790,7 +790,7 @@ public:
     int degeneracyLB(set<ui> *solution = nullptr)
     {
         vector<bool> rm(n, 0); // rm[u]=1 <==> u is peeled and removed
-        int *pd = new int[n];  // copy of deg[]
+        int *pd = new int[n];  // copy of d[]
         memcpy(pd, d, sizeof(int) * n);
         LinearHeap heap(n, n, pd);
         while (heap.get_min_key() + paramK < heap.sz)
@@ -900,9 +900,7 @@ public:
 };
 
 /**
- * used for IE; maybe not dense enough for using adjacent matrix
- * when g_i is searched and we exclude v_i, we need to invoke CTCP
- * note that this class can be merged with Graph; but we choose not to merge just for module
+ * base class : can be implemented using adj-matrix or adj-list
  */
 class Graph_reduced
 {
@@ -912,19 +910,486 @@ public:
     ll n, m;
     vector<int> vertex_id; // for u in this, vertex_id[u] in G_input
     vector<int> must_contain;
-    unordered_map<ll, int> triangles; // the key of edge (u,v) is u*n+v , make sure u<v
-    int *d;                           // degree
+    unordered_map<ll, int> triangles_nn; // the key of edge (u,v) is u*n+v , make sure u<v
+    int *d;                              // degree
     AjacentMatrix A;
     // shared memory for CTCP
-    vector<bool> bool_array_n_n, bool_array_n;
-    Graph_reduced() : d(nullptr) {}
+    vector<bool> bool_array_n_n, bool_array_m, bool_array_n;
+    int *pstart, *edge_to, *triangles_m;
+    vector<bool> edge_removed;
+    Graph_reduced() : d(nullptr), pstart(nullptr), edge_to(nullptr), triangles_m(nullptr)
+    {
+    }
+    /**
+     * @return edge number
+     */
+    int get_m()
+    {
+        int ret;
+        for (int v : vertex)
+        {
+            ret += d[v];
+        }
+        return ret >> 1;
+    }
+    /**
+     * @brief prepare for IE & degeneracy
+     */
+    void init_heap()
+    {
+        heap = LinearHeap(n, n, d);
+    }
+    /**
+     * @brief compute the number of triangles for each edge
+     */
+    virtual void init_triangles()
+    {
+    }
+    /**
+     * @brief prepare some thing
+     */
+    virtual void init_before_IE()
+    {
+    }
+    /**
+     * @return the vertex with min degree
+     */
+    int get_min_degree_v()
+    {
+        int ret = heap.get_min_node();
+        assert(d[ret] + paramK > lb);
+        return ret;
+    }
+    /**
+     * @brief after searching subgraph g_i, we exclude v_i and update the number of triangles of edges related to v_i
+     * @param v the vertex we need to remove, i.e., v_i
+     * @param lb_changed if so, we need to check each edge whether it can be reduced
+     */
+    void remove_v(int v, int lb, bool lb_changed)
+    {
+        CTCP(lb, v);
+        if (lb_changed)
+        {
+            CTCP(lb);
+        }
+        // cout<<v<<' '<<vertex.size()<<' '<<get_m()<<endl;
+        // if(v==169 || v==160)
+        // {
+        //     for (int v : vertex)
+        //     {
+        //         for (int i = pstart[v]; i < pstart[v + 1]; i++)
+        //         {
+        //             int w = edge_to[i];
+        //             if (!vertex[w] || edge_removed[i])
+        //                 continue;
+        //             int cnt = 0;
+        //             for (int j = pstart[w]; j < pstart[w + 1]; j++)
+        //             {
+        //                 if (edge_removed[j])
+        //                     continue;
+        //                 int x = edge_to[j];
+        //                 if (!vertex[x])
+        //                     continue;
+        //                 if (has(edge_to + pstart[v], edge_to + pstart[v + 1], x))
+        //                 {
+        //                     cnt++;
+        //                 }
+        //             }
+        //             // assert(cnt==triangles_m[i]);
+        //         }
+        //     }
+        // }
+    }
+    /**
+     * @brief inspired by Lijun Chang
+     * @param v if v==-1, called for lb increment; else, remove v
+     */
+    virtual void CTCP(int lb, int v = -1)
+    {
+    }
+    /**
+     * given a vertex v, induce the 2-hop neighbor of v
+     * @param vis stores the 2-hop neighbor of v
+     */
+    virtual void induce_to_2hop(MyBitset &vis, int v)
+    {
+    }
+    /**
+     * @brief obtain the ground-truth: the maximum k-plex
+     * @param s the max plex we found (without considering the vertices that must include)
+     *          so we need to add must_contain to s
+     * @param trans_id whether we need to transform the index
+     */
+    void get_ground_truth(set<int> &s, bool trans_id)
+    {
+        if (trans_id)
+        {
+            set<int> temp;
+            for (int v : s)
+                temp.insert(vertex_id[v]);
+            s = temp;
+        }
+        s.insert(must_contain.begin(), must_contain.end());
+    }
+    /**
+     * @return the number of vertices now
+     */
+    int size()
+    {
+        return vertex.size();
+    }
+    /**
+     * @return whether the graph is stored as matrix
+     */
+    bool is_matrix()
+    {
+        return edge_to == nullptr;
+    }
+};
+
+/**
+ * used for IE; maybe not dense enough for using adjacent matrix
+ * when g_i is searched and we exclude v_i, we need to invoke CTCP
+ * note that this class can be merged with Graph; but we choose not to merge just for module
+ */
+class Graph_reduced_adjacent_list : public Graph_reduced
+{
+public:
+    Graph_reduced_adjacent_list() : Graph_reduced() {}
     /**
      * init graph after stage-I(preprocessing)
      * @param g reduced graph
      * @param must the vertex set that must include because each vertex in it will occur in a maximum k-plex
      */
-    Graph_reduced(Graph &g, set<ui> &must) : n(g.n), m(g.m)
+    Graph_reduced_adjacent_list(Graph &g, set<ui> &must) : Graph_reduced()
     {
+        n = g.n;
+        m = g.m;
+        edge_removed.resize(m);
+        printf("reduced graph n= %d m= %d lb= %d\n", n, m, lb);
+        pstart = new int[n + 1];
+        edge_to = new int[m];
+        d = new int[n];
+        for (ui i = 0; i < n; i++)
+        {
+            pstart[i] = g.pstart[i];
+            d[i] = g.pstart[i + 1] - g.pstart[i];
+            for (ui j = g.pstart[i]; j < g.pstart[i + 1]; j++)
+            {
+                edge_to[j] = g.edge_to[j];
+            }
+        }
+        pstart[n] = g.pstart[n];
+        vertex_id.resize(n);
+        for (int i = 0; i < n; i++)
+        {
+            vertex_id[i] = g.map_refresh_id[i];
+        }
+        for (int u : must)
+            must_contain.push_back(u);
+        vertex = MyBitset(n);
+        vertex.flip();
+        printf("Graph for bnb init ok\n");
+        fflush(stdout);
+    }
+    ~Graph_reduced_adjacent_list()
+    {
+        if (d != nullptr)
+        {
+            delete[] d;
+            d = nullptr;
+        }
+        if (edge_to != nullptr)
+        {
+            delete[] edge_to;
+            edge_to = nullptr;
+        }
+        if (pstart != nullptr)
+        {
+            delete[] pstart;
+            pstart = nullptr;
+        }
+        if (triangles_m != nullptr)
+        {
+            delete[] triangles_m;
+            triangles_m = nullptr;
+        }
+    }
+    /**
+     * @brief compute the number of triangles for each edge
+     */
+    void init_triangles()
+    {
+        triangles_m = new int[m];
+        MyBitset mask(n);
+        for (int u = 0; u < n; u++)
+        {
+            for (int i = pstart[u]; i < pstart[u + 1]; i++)
+                mask.set(edge_to[i]);
+            for (int i = pstart[u]; i < pstart[u + 1]; i++)
+            {
+                int v = edge_to[i];
+                if (d[v] > d[u])
+                    continue;
+                int cnt = 0;
+                for (int j = pstart[v]; j < pstart[v + 1]; j++)
+                {
+                    int w = edge_to[j];
+                    if (mask[w]) // w is common neighbor of u,v
+                        cnt++;
+                }
+                triangles_m[i] = cnt;
+            }
+            for (int i = pstart[u]; i < pstart[u + 1]; i++)
+                mask.reset(edge_to[i]);
+        }
+        for (int u = 0; u < n; u++)
+        {
+            for (int i = pstart[u]; i < pstart[u + 1]; i++)
+            {
+                int v = edge_to[i];
+                if (d[v] <= d[u])
+                    continue;
+                triangles_m[i] = triangles_m[find(edge_to + pstart[v], edge_to + pstart[v + 1], u) + pstart[v]];
+            }
+        }
+    }
+    /**
+     * @brief prepare some thing
+     */
+    void init_before_IE()
+    {
+        init_triangles();
+        init_heap();
+        bool_array_n.resize(n);
+        bool_array_m.resize(m);
+    }
+    /**
+     * @brief inspired by Lijun Chang
+     * @param v if v==-1, called for lb increment; else, remove v
+     */
+    void CTCP(int lb, int v = -1)
+    {
+        queue<pii> q_edges; // an edge is stored as (edge_id, from)
+        queue<int> q_vertex;
+        vector<bool> &in_queue_e = bool_array_m; //(u,v) is already pushed into queue if in_queue_e[edge_id]=1
+        vector<bool> &in_queue_v = bool_array_n; // a vertex u is already pushed into queue if in_queue_v[u]=1
+        // CTCP is called because lb updated
+        if (v == -1)
+        {
+            for (int u : vertex)
+            {
+                for (int i = pstart[u]; i < pstart[u + 1]; i++)
+                {
+                    if (edge_removed[i])
+                        continue;
+                    int v = edge_to[i];
+                    if (!vertex[v])
+                        continue;
+                    if (triangles_m[i] + paramK * 2 <= lb)
+                    {
+                        if (u < v)
+                            q_edges.push({i, u});
+                        in_queue_e[i] = true;
+                    }
+                }
+                if (d[u] + paramK <= lb)
+                {
+                    q_vertex.push(u);
+                    in_queue_v[u] = 1;
+                }
+            }
+        }
+        else // CTCP is called because IE removed a vertex
+        {
+            q_vertex.push(v);
+            in_queue_v[v] = 1;
+        }
+        while (q_edges.size() || q_vertex.size())
+        {
+            while (q_edges.size())
+            {
+                auto edge = q_edges.front();
+                q_edges.pop();
+                int edge_id = edge.x, u = edge.y, v = edge_to[edge_id];
+                assert(!edge_removed[edge_id]);
+                edge_removed[edge_id] = 1;
+                int another_edge_id = find(edge_to + pstart[v], edge_to + pstart[v + 1], u) + pstart[v];
+                assert(!edge_removed[another_edge_id]);
+                edge_removed[another_edge_id] = 1;
+                if (--d[u] + paramK <= lb && !in_queue_v[u])
+                {
+                    q_vertex.push(u);
+                    in_queue_v[u] = 1;
+                }
+                heap.decrease(d[u], u);
+                if (--d[v] + paramK <= lb && !in_queue_v[v])
+                {
+                    q_vertex.push(v);
+                    in_queue_v[v] = 1;
+                }
+                heap.decrease(d[v], v);
+                int *a = edge_to + pstart[u], *b = edge_to + pstart[u + 1];
+                int *l = edge_to + pstart[v], *r = edge_to + pstart[v + 1];
+                // update the info of other edge triangles
+                while (a < b && l < r)
+                {
+                    // note that we need to consider a situation where an edge is in the q_edges but not removed yet
+                    if (edge_removed[a - edge_to] || in_queue_v[*a])
+                    {
+                        a++;
+                        continue;
+                    }
+                    if (edge_removed[l - edge_to] || in_queue_v[*l])
+                    {
+                        l++;
+                        continue;
+                    }
+                    if (*a == *l)
+                    {
+                        int w = *a; // w is the common neighbor of u,v
+                        int id_uw = a - edge_to;
+                        int id_wu = find(edge_to + pstart[w], edge_to + pstart[w + 1], u) + pstart[w];
+                        assert(!edge_removed[id_wu]);
+                        if (!in_queue_e[id_uw])
+                        {
+                            assert(!in_queue_e[id_wu]);
+                            --triangles_m[id_uw];
+                            --triangles_m[id_wu];
+                            if (triangles_m[id_uw] + paramK * 2 <= lb)
+                            {
+                                in_queue_e[id_uw] = in_queue_e[id_wu] = 1;
+                                q_edges.push({id_uw, u});
+                            }
+                        }
+                        ui id_vw = l - edge_to;
+                        ui id_wv = find(edge_to + pstart[w], edge_to + pstart[w + 1], v) + pstart[w];
+                        if (!in_queue_e[id_vw])
+                        {
+                            assert(!in_queue_e[id_wv]);
+                            --triangles_m[id_vw];
+                            --triangles_m[id_wv];
+                            if (triangles_m[id_vw] + paramK * 2 <= lb)
+                            {
+                                in_queue_e[id_vw] = in_queue_e[id_wv] = 1;
+                                q_edges.push({id_vw, v});
+                            }
+                        }
+                        a++;
+                        l++;
+                    }
+                    else if (*a < *l)
+                        a++;
+                    else
+                        l++;
+                }
+            }
+            if (q_vertex.size())
+            {
+                ui u = q_vertex.front();
+                q_vertex.pop();
+                for (ui i = pstart[u]; i < pstart[u + 1]; i++)
+                {
+                    if (in_queue_e[i])
+                        continue;
+                    ui v = edge_to[i];
+                    if (in_queue_v[v])
+                        continue;
+                    if (--d[v] + paramK <= lb)
+                    {
+                        in_queue_v[v] = 1;
+                        q_vertex.push(v);
+                    }
+                    heap.decrease(d[v], v);
+                }
+                // update the triangles containing u
+                for (ui i = pstart[u]; i < pstart[u + 1]; i++)
+                {
+                    if (in_queue_e[i])
+                        continue;
+                    int v = edge_to[i];
+                    if (in_queue_v[v])
+                        continue;
+                    int *st = edge_to + pstart[v], *ed = edge_to + pstart[v + 1];
+                    for (ui j = i + 1; j < pstart[u + 1]; j++)
+                    {
+                        if (in_queue_e[j])
+                            continue;
+                        int w = edge_to[j]; // v w are neighbors of u
+                        if (in_queue_v[w])
+                            continue;
+                        if (has(st, ed, w)) // v is connected to w
+                        {
+                            ui id_vw = find(st, ed, w) + pstart[v];
+                            ui id_wv = find(edge_to + pstart[w], edge_to + pstart[w + 1], v) + pstart[w];
+                            assert(triangles_m[id_vw] == triangles_m[id_wv]);
+                            assert(edge_to[id_vw] == w);
+                            assert(edge_to[id_wv] == v);
+                            if (in_queue_e[id_vw])
+                                continue;
+                            --triangles_m[id_wv];
+                            --triangles_m[id_vw];
+                            if (triangles_m[id_vw] + 2 * paramK <= lb)
+                            {
+                                in_queue_e[id_vw] = in_queue_e[id_wv] = 1;
+                                q_edges.push({id_vw, v});
+                            }
+                        }
+                    }
+                }
+                vertex.reset(u);
+                heap.delete_node(u);
+            }
+        }
+    }
+    /**
+     * given a vertex v, induce the 2-hop neighbor of v
+     * @param vis stores the 2-hop neighbor of v
+     */
+    void induce_to_2hop(MyBitset &vis, int v)
+    {
+        assert(vertex[v]);
+        for (int i = pstart[v]; i < pstart[v + 1]; i++)
+        {
+            if (edge_removed[i])
+                continue;
+            int a = edge_to[i];
+            if (!vertex[a])
+                continue;
+            if (!vis[a])
+                vis.set(a);
+            for (int j = pstart[a]; j < pstart[a + 1]; j++)
+            {
+                if (edge_removed[j])
+                    continue;
+                int b = edge_to[j];
+                if (!vertex[b])
+                    continue;
+                if (!vis[b])
+                    vis.set(b);
+            }
+        }
+    }
+};
+
+/**
+ * used for IE; maybe not dense enough for using adjacent matrix
+ * when g_i is searched and we exclude v_i, we need to invoke CTCP
+ * note that this class can be merged with Graph; but we choose not to merge just for module
+ */
+class Graph_reduced_adjacent_matrix : public Graph_reduced
+{
+public:
+    Graph_reduced_adjacent_matrix() : Graph_reduced() {}
+    /**
+     * init graph after stage-I(preprocessing)
+     * @param g reduced graph
+     * @param must the vertex set that must include because each vertex in it will occur in a maximum k-plex
+     */
+    Graph_reduced_adjacent_matrix(Graph &g, set<ui> &must) : Graph_reduced()
+    {
+        n = g.n;
+        m = g.m;
         printf("reduced graph n= %d m= %d lb= %d\n", n, m, lb);
         A = AjacentMatrix(n);
         for (ui i = 0; i < n; i++)
@@ -952,19 +1417,12 @@ public:
         printf("Graph for bnb init ok\n");
         fflush(stdout);
     }
-    ~Graph_reduced()
+    ~Graph_reduced_adjacent_matrix()
     {
         if (d != nullptr)
         {
             delete[] d;
         }
-    }
-    /**
-     * @brief prepare for IE & degeneracy
-     */
-    void init_heap()
-    {
-        heap = LinearHeap(n, n, d);
     }
     /**
      * @brief compute the number of triangles for each edge
@@ -977,7 +1435,7 @@ public:
             {
                 if (v >= u)
                     break;
-                triangles[v * n + u] = A[v].intersect(A[u]);
+                triangles_nn[v * n + u] = A[v].intersect(A[u]);
             }
         }
     }
@@ -992,30 +1450,10 @@ public:
         bool_array_n_n.resize(n * n);
     }
     /**
-     * @return the vertex with min degree
-     */
-    int get_min_degree_v()
-    {
-        return heap.get_min_node();
-    }
-    /**
-     * @brief after searching subgraph g_i, we exclude v_i and update the number of triangles of edges related to v_i
-     * @param v the vertex we need to remove, i.e., v_i
-     * @param lb_changed if so, we need to check each edge whether it can be reduced
-     */
-    void remove_v(int v, bool lb_changed)
-    {
-        CTCP(v);
-        if (lb_changed)
-        {
-            CTCP();
-        }
-    }
-    /**
      * @brief inspired by Lijun Chang
      * @param v if v==-1, called for lb increment; else, remove v
      */
-    void CTCP(int v = -1)
+    void CTCP(int lb, int v = -1)
     {
         queue<pii> q_edges; // an edge is stored as (u,v) where u<v
         queue<int> q_vertex;
@@ -1030,7 +1468,7 @@ public:
                 {
                     if (v >= u)
                         break;
-                    if (triangles[v * n + u] + paramK * 2 <= lb)
+                    if (triangles_nn[v * n + u] + paramK * 2 <= lb)
                     {
                         q_edges.push({v, u});
                         in_queue_e[v * n + u] = true;
@@ -1082,7 +1520,7 @@ public:
                     ll edge_uw = u < w ? u * n + w : w * n + u;
                     if (!in_queue_e[edge_uw])
                     {
-                        if (--triangles[edge_uw] + paramK * 2 <= lb)
+                        if (--triangles_nn[edge_uw] + paramK * 2 <= lb)
                         {
                             pii edge = {u, w};
                             if (w < u)
@@ -1094,7 +1532,7 @@ public:
                     ll edge_vw = v < w ? v * n + w : w * n + v;
                     if (!in_queue_e[edge_vw])
                     {
-                        if (--triangles[edge_vw] + paramK * 2 <= lb)
+                        if (--triangles_nn[edge_vw] + paramK * 2 <= lb)
                         {
                             pii edge = {v, w};
                             if (w < v)
@@ -1147,7 +1585,7 @@ public:
                         assert(w < v);
                         ll edge_vw = w * n + v;
                         assert(!in_queue_e[edge_vw]);
-                        if (--triangles[edge_vw] + paramK * 2 <= lb)
+                        if (--triangles_nn[edge_vw] + paramK * 2 <= lb)
                         {
                             pii edge = {w, v};
                             q_edges.push(edge);
@@ -1176,30 +1614,6 @@ public:
             vis |= A[u];
         }
     }
-    /**
-     * @brief obtain the ground-truth: the maximum k-plex
-     * @param s the max plex we found (without considering the vertices that must include)
-     *          so we need to add must_contain to s
-     * @param trans_id whether we need to transform the index
-     */
-    void get_ground_truth(set<int> &s, bool trans_id)
-    {
-        if (trans_id)
-        {
-            set<int> temp;
-            for (int v : s)
-                temp.insert(vertex_id[v]);
-            s = temp;
-        }
-        s.insert(must_contain.begin(), must_contain.end());
-    }
-    /**
-     * @return the number of vertices now
-     */
-    int size()
-    {
-        return vertex.size();
-    }
 };
 
 /**
@@ -1217,9 +1631,53 @@ public:
      * @brief given vertex set V_mask, induce subgraph
      *
      * @param V_mask V_mask[u]=1 <==> u in the subgraph
+     * @param g reduced graph which use adj-list to store edges
      * @param inv each vertex in subgraph is [0, n-1], so we need to save the origin index
      */
-    Graph_adjacent(MyBitset &V_mask, AjacentMatrix &A, vector<int> &inv)
+    Graph_adjacent(MyBitset &V_mask, Graph_reduced &g, vector<int> &inv)
+    {
+        if (g.is_matrix())
+        {
+            init_from_A(V_mask, g.A, inv);
+        }
+        else // init from adj-list
+        {
+            for (int i : V_mask)
+            {
+                vertex_id.push_back(i);
+            }
+            n = vertex_id.size();
+
+            adj_matrix = AjacentMatrix(n);
+
+            int id = 0;
+            for (int i = 0; i < vertex_id.size(); i++)
+                inv[vertex_id[i]] = i;
+            Timer t;
+            for (int u : V_mask)
+            {
+                for (int i = g.pstart[u]; i < g.pstart[u + 1]; i++)
+                {
+                    if (g.edge_removed[i])
+                        continue;
+                    int v = g.edge_to[i];
+                    if (v >= u)
+                        break;
+                    if (!V_mask[v])
+                        continue;
+                    adj_matrix.add_edge(inv[u], inv[v]);
+                }
+            }
+            init_time = t.get_time();
+        }
+    }
+    /**
+     * @brief given vertex set V_mask, induce subgraph
+     *
+     * @param V_mask V_mask[u]=1 <==> u in the subgraph
+     * @param inv each vertex in subgraph is [0, n-1], so we need to save the origin index
+     */
+    void init_from_A(MyBitset &V_mask, AjacentMatrix &A, vector<int> &inv)
     {
         for (int i : V_mask)
         {
@@ -1245,40 +1703,6 @@ public:
             }
         }
         init_time = get_system_time_microsecond() - start_init;
-    }
-    /**
-     * @brief given vertex set V_mask, induce subgraph
-     *
-     * @param V_mask V_mask[u]=1 <==> u in the subgraph
-     * @param neighbor neighbor[u] is the set of u's neighbors; note tshat neighbor[u] should be sorted
-     * @param inv each vertex in subgraph is [0, n-1], so we need to save the origin index
-     */
-    Graph_adjacent(MyBitset &V_mask, vector<vector<int>> neighbor, vector<int> &inv)
-    {
-        for (int i : V_mask)
-        {
-            vertex_id.push_back(i);
-        }
-        n = vertex_id.size();
-
-        adj_matrix = AjacentMatrix(n);
-
-        int id = 0;
-        for (int i = 0; i < vertex_id.size(); i++)
-            inv[vertex_id[i]] = i;
-        Timer t;
-        for (int u : V_mask)
-        {
-            for (int v : neighbor[u])
-            {
-                if (v >= u)
-                    break;
-                if (!V_mask[v])
-                    continue;
-                adj_matrix.add_edge(inv[u], inv[v]);
-            }
-        }
-        init_time = t.get_time();
     }
     /**
      * useless, just a demo

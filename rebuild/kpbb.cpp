@@ -44,6 +44,7 @@ void print_heuris_log()
 void heuris()
 {
     int iteration_cnt = 1;
+    int input_n = g.n;
     while (1)
     {
 #ifdef NO_SQRT
@@ -135,7 +136,8 @@ void heuris()
     {
         int extend_lb = 0;
         double start_current_iteration = get_system_time_microsecond();
-        int extend_times = 2 * sqrt(g.n) + 1;
+        int extend_times = sqrt(input_n) + 1;
+        extend_times = min(extend_times, (int)g.n);
         for (ui i = 0; i < extend_times; i++)
         {
             extend_lb = max(extend_lb, g.extend(i, &solution));
@@ -184,8 +186,16 @@ void heuris()
 
 void bnb()
 {
-    Graph_reduced G(g, must_contain);
-    Branch branch(G, lb - G.must_contain.size());
+    Graph_reduced *G;
+    if (g.m * 1.0 / g.n > g.n * 1.0 / 64) // dense graph
+    {
+        G = new Graph_reduced_adjacent_matrix(g, must_contain);
+    }
+    else // sparse graph
+    {
+        G = new Graph_reduced_adjacent_list(g, must_contain);
+    }
+    Branch branch(*G, lb - G->must_contain.size());
     branch.IE_framework();
 }
 

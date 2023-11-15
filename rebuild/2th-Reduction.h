@@ -10,37 +10,39 @@ private:
     Graph *g;
     ui n, m;
     vector<bool> vis;
-    ui intersect_count_cached(ui *st, ui *ed)
-    {
-        ui ret=0;
-        while(st<ed)
-        {
-            if(vis[*st++])
-                ret++;
-        }
-        return ret;
-    }
+    ui *edge_to, *pstart, *deg;
     // T(n)=O(m + sigma( min(d[from], d[to]) | (from,to) in E) )
     void countTriangles()
     {
+        if (triangles == nullptr)
+        {
+            triangles = new ui[m];
+        }
         double start_list = get_system_time_microsecond();
-        ui *edge_to = g->edge_to, *pstart = g->pstart;
         for (ui i = 0; i < n; i++)
         {
             for (ui j = pstart[i]; j < pstart[i + 1]; j++)
-                vis[edge_to[j]]=1;
+            {
+                assert(j < m);
+                assert(edge_to[j] < n);
+                vis[edge_to[j]] = 1;
+            }
             for (ui j = pstart[i]; j < pstart[i + 1]; j++)
             {
                 ui v = edge_to[j];
                 if (g->d[i] < g->d[v])
                     continue;
-                triangles[j]=intersect_count_cached(edge_to + pstart[v], edge_to + pstart[v + 1]);
-                // triangles[j] = intersect_count(
-                //     edge_to + pstart[i], edge_to + pstart[i + 1],
-                //     edge_to + pstart[v], edge_to + pstart[v + 1]);
+                int cnt = 0;
+                for (ui a = pstart[v]; a < pstart[v + 1]; a++)
+                {
+                    ui w = edge_to[a];
+                    if (vis[w])
+                        cnt++;
+                }
+                triangles[j] = cnt;
             }
             for (ui j = pstart[i]; j < pstart[i + 1]; j++)
-                vis[edge_to[j]]=0;
+                vis[edge_to[j]] = 0;
         }
         for (ui i = 0; i < n; i++)
         {
@@ -57,58 +59,101 @@ private:
     }
 
 public:
-    Reduction(Graph *_g) : g(_g)
+    Reduction(Graph *_g) : g(_g), triangles(nullptr)
     {
         n = g->n;
         m = g->m;
-        triangles = new ui[m];
         vis.resize(n, 0);
     }
     ~Reduction()
     {
-        delete[] triangles;
-    }
-    // assume we already conduct weak reduce
-    void strong_reduce(int lb)
-    {
-        ui *deg = g->d;
-        ui *edge_to = g->edge_to;
-        ui *pstart = g->pstart;
-        // 1. the first time, when removing an edge or vertex, we don't consider the relation of other edges
-        countTriangles();
-        vector<bool> edge_removed(m, 0);
-        bool reduced = 0;
-        for (ui i = 0; i < m; i++)
+        if (triangles != nullptr)
         {
-            if (triangles[i] + 2 * paramK <= lb)
-            {
-                edge_removed[i] = 1;
-                reduced = 1;
-                deg[edge_to[i]]--;
-            }
+            delete[] triangles;
+            triangles = nullptr;
         }
-        if (!reduced)
-            return;
-        ui *q = new ui[n + 1];
-        vector<bool> vertex_removed(n, 0);
-        ui hh = 1, tt = 0;
-        for (ui i = 0; i < n; i++)
-            if (deg[i] + paramK <= lb)
-                q[++tt] = i, vertex_removed[i] = 1;
-        while (hh <= tt)
+    }
+    void remove_vertex(queue<ui> &q, vector<bool> &vertex_removed, vector<bool> &edge_removed)
+    {
+        while (q.size())
         {
-            ui u = q[hh++];
+            ui u = q.front();
+            q.pop();
             for (ui i = pstart[u]; i < pstart[u + 1]; i++)
             {
                 ui v = edge_to[i];
                 if (vertex_removed[v] || edge_removed[i])
                     continue;
                 if (--deg[v] + paramK <= lb)
-                    q[++tt] = v, vertex_removed[v] = 1;
+                    q.push(v), vertex_removed[v] = 1;
             }
         }
-        rebuild_graph(vertex_removed, edge_removed, q);
-        delete[] q;
+    }
+    // assume we already conduct weak reduce
+    void strong_reduce(int lb)
+    {
+        edge_to = g->edge_to;
+        pstart = g->pstart;
+        deg = g->d;
+        // 1. the first time, when removing an edge or vertex, we don't consider the relation of other edges
+        vector<bool> edge_removed(m, 0);
+        vector<bool> vertex_removed(n, 0);
+        queue<ui> q_vertex;
+        bool reduced = 0;
+        double start_list = get_system_time_microsecond();
+        for (ui u = 0; u < n; u++)
+        {
+            if (vertex_removed[u])
+                continue;
+            for (ui j = pstart[u]; j < pstart[u + 1]; j++)
+                vis[edge_to[j]] = !vertex_removed[edge_to[j]];
+            // vis[edge_to[j]]=1;
+            for (ui j = pstart[u]; j < pstart[u + 1]; j++)
+            {
+                ui v = edge_to[j];
+                if (vertex_removed[v])
+                    continue;
+                if (deg[u] < deg[v] || (deg[u] == deg[v] && u < v)) // each edge computes only once
+                    continue;
+                int triange_cnt = 0;
+                for (ui i = pstart[v]; i < pstart[v + 1]; i++)
+                {
+                    ui w = edge_to[i];
+                    if (vertex_removed[w])
+                        continue;
+                    if (vis[w])
+                        triange_cnt++;
+                }
+                if (triange_cnt + 2 * paramK <= lb)
+                {
+                    reduced = true;
+                    if (--deg[u] + paramK <= lb)
+                    {
+                        q_vertex.push(u);
+                        vertex_removed[u] = 1;
+                    }
+                    if (--deg[v] + paramK <= lb)
+                    {
+                        q_vertex.push(v);
+                        vertex_removed[v] = 1;
+                    }
+                    edge_removed[j] = 1;
+                    edge_removed[find(edge_to + pstart[v], edge_to + pstart[v + 1], u) + pstart[v]] = 1;
+                    if (q_vertex.size())
+                    {
+                        remove_vertex(q_vertex, vertex_removed, edge_removed);
+                    }
+                    if (vertex_removed[u])
+                        break;
+                }
+            }
+            for (ui j = pstart[u]; j < pstart[u + 1]; j++)
+                vis[edge_to[j]] = 0;
+        }
+        list_triangle_time += get_system_time_microsecond() - start_list;
+        if (!reduced)
+            return;
+        rebuild_graph(vertex_removed, edge_removed);
         // 2. we use CTCP to avoid unnecessaily listing triangles
         CTCP(lb);
     }
@@ -119,8 +164,6 @@ public:
         {
             q = new ui[n];
         }
-        ui *edge_to = g->edge_to;
-        ui *pstart = g->pstart;
         ui new_n = 0;
         assert(n == g->map_refresh_id.size());
         unordered_map<ui, ui> new_map;
@@ -153,14 +196,18 @@ public:
         delete[] g->pstart;
         g->d = new_d;
         g->pstart = new_pstart;
+        deg = new_d;
+        pstart = new_pstart;
         if (j * 2 < m)
         {
             ui *new_edge_to = new ui[j];
             memcpy(new_edge_to, edge_to, sizeof(ui) * j);
             delete[] g->edge_to;
             g->edge_to = new_edge_to;
+            edge_to = new_edge_to;
 
-            delete[] triangles;
+            if (triangles != nullptr)
+                delete[] triangles;
             triangles = new ui[j];
         }
         g->m = m = j;
@@ -172,11 +219,11 @@ public:
     }
     void CTCP(int lb)
     {
+        edge_to = g->edge_to;
+        pstart = g->pstart;
+        deg = g->d;
         queue<pii> q_edge; //(edge_id, from) edge_to[edge_id]=to
         queue<ui> q_vertex;
-        ui *deg = g->d;
-        ui *edge_to = g->edge_to;
-        ui *pstart = g->pstart;
         countTriangles();
         vector<bool> edge_removed(m, 0); // in_queue
         vector<bool> vertex_removed(n, 0);

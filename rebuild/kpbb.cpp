@@ -37,6 +37,7 @@ void print_heuris_log()
     if (g.n + must_contain.size() <= lb)
     {
         printf("The heuristic solution is the ground truth!\n");
+        puts("------------------{whole procedure: kpbb}---------------------");
         printf("kpbb time: %.4lf s\n\n", (get_system_time_microsecond() - algorithm_start_time) / 1e6);
     }
 }
@@ -221,6 +222,8 @@ int main(int argc, char *argv[])
 
     // branch and bound
     bnb();
+
+    puts("------------------{whole procedure: kpbb}---------------------");
     printf("kpbb time: %.4lf s\n\n", (get_system_time_microsecond() - algorithm_start_time) / 1e6);
 
     return 0;

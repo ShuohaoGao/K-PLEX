@@ -2,7 +2,7 @@
 #define BRANCH_H
 
 #include "Graph.h"
-#include "../Verify/verify.h"
+#include "verify.h"
 
 class Branch
 {
@@ -37,6 +37,7 @@ private:
     ll IE_graph_size;
     double CTCP_time;
     double C_reduce;
+    double ub_try_time;
 
 public:
     set<int> solution;
@@ -44,11 +45,13 @@ public:
                                             dfs_cnt(0), run_time(0), fast_reduce_time(0), core_reduce_time(0),
                                             part_PI_time(0), pivot_select_time(0), IE_induce_time(0), S_size(0),
                                             matrix_init_time(0), IE_graph_cnt(0), IE_graph_size(0), CTCP_time(0),
-                                            C_reduce(0)
+                                            C_reduce(0), ub_try_time(0)
     {
     }
     ~Branch() {}
-
+    /**
+     * @brief print some logs
+     */
     void print_result()
     {
         lb += G_input.must_contain.size();
@@ -62,6 +65,8 @@ public:
         print_module_time("matrix init", matrix_init_time);
         print_module_time("CTCP", CTCP_time);
         print_module_time("C-reduce", C_reduce);
+        puts("");
+        print_module_time("ub-try-time", ub_try_time);
         puts("");
         printf("average g_i size: %.2lf ", IE_graph_size * 1.0 / IE_graph_cnt);
         printf("average S size: %.2lf  ", S_size * 1.0 / dfs_cnt);
@@ -79,9 +84,9 @@ public:
             printf("The heuristic solution is the ground truth!\n");
         // puts("");
     }
-
     /**
-     * each time we enumerate v_i that must be included into S, and C is the 2-hop neighbors of v_i
+     * @brief each time we enumerate v_i that must be included into S, and C is the 2-hop neighbors of v_i
+     * another name: Divide and Conquer framework
      */
     void IE_framework()
     {
@@ -144,8 +149,10 @@ public:
 
         print_result();
     }
-
-    void init_info(int u, Graph_adjacent &g) // init information for the induced graph of IE
+    /**
+     * @brief init information for the induced graph of IE
+     */
+    void init_info(int u, Graph_adjacent &g)
     {
         v_just_add = u;
         loss_cnt.clear();
@@ -155,11 +162,12 @@ public:
         non_A = g.adj_matrix;
         non_A.flip();
         A = g.adj_matrix;
-
         int_array.clear();
         int_array.resize(g.size());
     }
-
+    /**
+     * @brief plex=S
+     */
     void update_lb(Set &S)
     {
         int sz = S.size();
@@ -173,7 +181,9 @@ public:
             assert(solution.size() == lb);
         }
     }
-
+    /**
+     * @brief plex=S+C
+     */
     void update_lb(Set &S, Set &C)
     {
         int sz = S.size() + C.size();
@@ -193,7 +203,9 @@ public:
     }
 
     /**
-     * using reduction rules & acquire degree
+     * @brief using reduction rules & acquire degree; mainly based on definition and heredictary property
+     * @param g_is_plex serve as return
+     * @param S_is_plex serve as return
      */
     void fast_reduction(Set &S, Set &C, bool &g_is_plex, bool &S_is_plex)
     {
@@ -289,7 +301,7 @@ public:
     }
 
     /**
-     * Branch-aNd-Bound
+     * @brief Branch-aNd-Bound on subgraph g_i
      */
     void bnb(Set &S, Set &C)
     {
@@ -310,13 +322,15 @@ public:
         fast_reduce_time += get_system_time_microsecond() - start_fast_reduce;
 
         // bounding & stronger reduction
-        int ub = get_UB(S, C);
+        int pivot1;
+        int ub = get_UB(S, C, &pivot1);
         if (ub <= lb)
             return;
 
         // select pivot to generate 2 branches
         double start_select_time = get_system_time_microsecond();
-        int pivot = select_pivot_vertex_with_min_degree(C);
+        // int pivot = select_pivot_vertex_with_min_degree(C);
+        int pivot = pivot1;
         if (pivot == -1)
             return;
         pivot_select_time += get_system_time_microsecond() - start_select_time;
@@ -340,7 +354,9 @@ public:
         }
     }
 
-    // reduce P to (cnt-k)-core, namely P need to provide at least cnt vertices
+    /**
+     * @brief reduce P to (cnt-k)-core, namely P need to provide at least cnt vertices
+     */
     void core_reduction(Set &P, int cnt)
     {
         // if |P|<cnt, then P must be reduce to empty; if cnt<=k, then we can't reduce any vertex
@@ -453,11 +469,11 @@ public:
     }
 
     /**
-     * we partition C to |S| sets: Pi_0, Pi_1, ..., Pi_|S|
+     * @brief we partition C to |S| sets: Pi_0, Pi_1, ..., Pi_|S|; we will also reduce unpromissing vertices from C
+     * @param pivot if not NULL, pivot should be stored as the vertex in C with min ub
      * @return ub
-     * we will also reduce unpromissing vertices from C
      */
-    int get_part_UB(Set &S, Set &C)
+    int get_part_UB(Set &S, Set &C, int *pivot = nullptr)
     {
         double start_part = get_system_time_microsecond();
         auto copy_S = S;
@@ -524,31 +540,56 @@ public:
         }
         C_reduce += get_system_time_microsecond() - start_C_reduce;
 #endif
-        // for u in C, if UB(S+u, C-u)<=lb , remove u
-        for (int u : C)
         {
-            int sub = non_A[u].intersect(copy_C); // Pi_u get |sub| vertices from Pi_0
-            // due to u is included to S, loss_cnt[v] will increse, decreasing ub; decre<=loss_cnt[u] because not all v in S has Pi_v
-            int decre = useful_S.intersect(non_A[u]);
-            int ub_u = ret - sub + (paramK - loss_cnt[u] - 1) + 1 - decre; // ub_u=UB(S+u, C)>=UB(S+u,C-u)
-            if (ub_u <= lb)
+            Timer t;
+            int piv = -1, min_ub = INF;
+            // for u in C, if UB(S+u, C-u)<=lb , remove u
+            for (int u : C)
             {
-                C.reset(u);
-                if (copy_C[u])
+                int sub = non_A[u].intersect(copy_C); // Pi_u get |sub| vertices from Pi_0
+                // due to u is included to S, loss_cnt[v] will increse, decreasing ub; decre<=loss_cnt[u] because not all v in S has Pi_v
+                int decre = useful_S.intersect(non_A[u]);
+                int ub_u = ret - sub + (paramK - loss_cnt[u] - 1) + 1 - decre; // ub_u=UB(S+u, C)>=UB(S+u,C-u)
+                if (ub_u <= lb)
                 {
-                    ret--;
-                    copy_C.reset(u);
-                    if (ret <= lb)
-                        return ret;
+                    C.reset(u);
+                    if (copy_C[u])
+                    {
+                        ret--;
+                        copy_C.reset(u);
+                        if (ret <= lb)
+                            return ret;
+                    }
+                }
+                else
+                {
+                    if (min_ub > ub_u)
+                    {
+                        min_ub = ub_u;
+                        piv = u;
+                    }
+                    else if (min_ub == ub_u && deg[u] < deg[piv])
+                    {
+                        piv = u;
+                    }
                 }
             }
+            if (pivot != nullptr)
+            {
+                *pivot = piv;
+            }
+            ub_try_time += t.get_time();
         }
         return ret;
     }
 
-    int get_UB(Set &S, Set &C)
+    /**
+     * @param pivot if not NULL, we should select a pivot vertex in it
+     * @return UB(S, C)
+     */
+    int get_UB(Set &S, Set &C, int *pivot = nullptr)
     {
-        return get_part_UB(S, C);
+        return get_part_UB(S, C, pivot);
     }
 
     /**
@@ -588,7 +629,7 @@ public:
     }
 
     /**
-     * abandoned due to bad performance
+     * @brief abandoned due to bad performance
      */
     int get_UB_degree(Set &S, Set &C)
     {

@@ -4,6 +4,7 @@
 #include <bits/stdc++.h>
 #include <sys/time.h> // gettimeofday
 #include <unistd.h>
+#include <chrono>
 #define x first
 #define y second
 
@@ -21,13 +22,9 @@ double list_triangle_time;
 
 inline ll get_system_time_microsecond()
 {
-    static struct timeval timestamp = {};
-    gettimeofday(&timestamp, NULL);
-    return timestamp.tv_sec * 1000000 + timestamp.tv_usec;
-    if (0 == gettimeofday(&timestamp, NULL))
-        return timestamp.tv_sec * 1000000 + timestamp.tv_usec;
-    else
-        return 0;
+    auto duration = std::chrono::system_clock::now().time_since_epoch();
+    auto microseconds = std::chrono::duration_cast<std::chrono::microseconds>(duration);
+    return static_cast<long long>(microseconds.count());
 }
 
 string get_file_name(string str)
@@ -254,7 +251,7 @@ public:
     }
     void print_time()
     {
-        printf("%s use time: %.4lf s\n", log.c_str(), get_time()/1e6);
+        printf("%s use time: %.4lf s\n", log.c_str(), get_time() / 1e6);
         fflush(stdout);
     }
 };

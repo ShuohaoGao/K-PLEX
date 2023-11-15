@@ -957,7 +957,6 @@ public:
     int get_min_degree_v()
     {
         int ret = heap.get_min_node();
-        assert(d[ret] + paramK > lb);
         return ret;
     }
     /**

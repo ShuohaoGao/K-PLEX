@@ -111,7 +111,7 @@ public:
             for (ui j = pstart[u]; j < pstart[u + 1]; j++)
             {
                 ui v = edge_to[j];
-                if (vertex_removed[v])
+                if (vertex_removed[v] || edge_removed[j])
                     continue;
                 if (deg[u] < deg[v] || (deg[u] == deg[v] && u < v)) // each edge computes only once
                     continue;

@@ -112,11 +112,12 @@ void heuris()
 
     // strong reduce
     {
-        double start_strong_reduce = get_system_time_microsecond();
+        Timer start_strong_reduce;
         Reduction reduce(&g);
         ui pre_n = g.n;
         reduce.strong_reduce(lb);
-        strong_reduce_time += get_system_time_microsecond() - start_strong_reduce;
+        printf("Afer CTCP, n= %u , m= %u, use time %.4lf s\n", g.n, g.m, start_strong_reduce.get_time() / 1e6);
+        strong_reduce_time += start_strong_reduce.get_time();
 
         if (lb >= g.n)
         {
@@ -154,11 +155,12 @@ void heuris()
 
         // strong reduce
         {
-            double start_strong_reduce = get_system_time_microsecond();
+            Timer start_strong_reduce;
             Reduction reduce(&g);
             ui pre_n = g.n;
             reduce.strong_reduce(lb);
-            strong_reduce_time += get_system_time_microsecond() - start_strong_reduce;
+            printf("Afer CTCP, n= %u , m= %u, use time %.4lf s\n", g.n, g.m, start_strong_reduce.get_time() / 1e6);
+            strong_reduce_time += start_strong_reduce.get_time();
 
             if (lb >= g.n)
             {

@@ -591,7 +591,33 @@ public:
         int ret = paramK;
         for (auto &h : s)
             ret = max(ret, sqrt_degeneracy(h.y, solution));
+        ret = max(ret, first_sqrt_vertices_degeneracy(solution));
         return ret;
+    }
+    /**
+     * @brief stage-IV: degeneracy of G[{0,1,...,sqrt(n)}]
+     *
+     * @param solution the solution set of heuristic plex
+     *
+     * @return lb
+     */
+    int first_sqrt_vertices_degeneracy(set<ui> *solution = nullptr)
+    {
+        ui range = sqrt(n)+1;
+        vector<vector<ui>> neighbor(range);
+        vector<ui> d(range, 0), id(range, 0);
+        for(ui u=0;u<range;u++)
+        {
+            for(ui i=pstart[u];i<pstart[u+1];i++)
+            {
+                ui v=edge_to[i];
+                if(v>=range) break;
+                neighbor[u].push_back(v);
+            }
+            d[u]=neighbor[u].size();
+            id[u]=u;
+        }
+        return sqrt_degeneracy(range, neighbor, d, id, solution);
     }
     /**
      * useless, just a demo of usage of pstart[] and edge_to[]

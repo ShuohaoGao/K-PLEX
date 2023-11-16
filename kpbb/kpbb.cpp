@@ -65,7 +65,7 @@ void heuris()
         double start_weak_reduce = get_system_time_microsecond();
         g.fast_weak_reduce(lb);
         g.weak_reduce(lb);
-        printf("After weak reduce: n= %d , ", g.n);
+        printf("After weak reduce: n= %u , m= %u ,", g.n, g.m);
         print_time(start_weak_reduce);
 
         if (lb >= g.n)
@@ -77,7 +77,7 @@ void heuris()
             exit(0);
         }
 
-        break;
+        // break;
     }
 
     iteration_cnt = 1;
@@ -95,7 +95,7 @@ void heuris()
         // weak reduce, T(n)=O(m)
         double start_weak_reduce = get_system_time_microsecond();
         g.weak_reduce(lb);
-        printf("After weak reduce: n= %d , ", g.n);
+        printf("After weak reduce: n= %u , m= %u ,", g.n, g.m);
         print_time(start_weak_reduce);
 
         if (lb >= g.n)

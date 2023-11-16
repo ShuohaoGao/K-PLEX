@@ -3,6 +3,9 @@
 
 #include "Graph.h"
 
+/**
+ * @brief second order reduction
+ */
 class Reduction
 {
 private:
@@ -11,7 +14,10 @@ private:
     ui n, m;
     vector<bool> vis;
     ui *edge_to, *pstart, *deg;
-    // T(n)=O(m + sigma( min(d[from], d[to]) | (from,to) in E) )
+    /**
+     * @brief count the number of triangles for each edge and save the results in triangls[]
+     * T(n)=O(m + sigma( min(d[from], d[to]) | (from,to) in E) )
+     */
     void countTriangles()
     {
         if (triangles == nullptr)
@@ -57,6 +63,34 @@ private:
         }
         list_triangle_time += get_system_time_microsecond() - start_list;
     }
+    /**
+     * @brief weak reduce
+     *
+     * @param q containg the vertices that we need to remove; Initially, q is not empty
+     * @param vertex_removed a mask to record whether a vertex is in queue
+     * @param edge_removed a mask recording whether an edge is removed by strong reduction
+     *
+     * @return the number of vertices that we remove
+     */
+    int remove_vertex(queue<ui> &q, vector<bool> &vertex_removed, vector<bool> &edge_removed)
+    {
+        int cnt = 0;
+        while (q.size())
+        {
+            ui u = q.front();
+            q.pop();
+            cnt++;
+            for (ui i = pstart[u]; i < pstart[u + 1]; i++)
+            {
+                ui v = edge_to[i];
+                if (vertex_removed[v] || edge_removed[i])
+                    continue;
+                if (--deg[v] + paramK <= lb)
+                    q.push(v), vertex_removed[v] = 1;
+            }
+        }
+        return cnt;
+    }
 
 public:
     Reduction(Graph *_g) : g(_g), triangles(nullptr)
@@ -73,22 +107,6 @@ public:
             triangles = nullptr;
         }
     }
-    void remove_vertex(queue<ui> &q, vector<bool> &vertex_removed, vector<bool> &edge_removed)
-    {
-        while (q.size())
-        {
-            ui u = q.front();
-            q.pop();
-            for (ui i = pstart[u]; i < pstart[u + 1]; i++)
-            {
-                ui v = edge_to[i];
-                if (vertex_removed[v] || edge_removed[i])
-                    continue;
-                if (--deg[v] + paramK <= lb)
-                    q.push(v), vertex_removed[v] = 1;
-            }
-        }
-    }
     // assume we already conduct weak reduce
     void strong_reduce(int lb)
     {
@@ -101,13 +119,13 @@ public:
         queue<ui> q_vertex;
         bool reduced = 0;
         double start_list = get_system_time_microsecond();
+        int remove_cnt = 0;
         for (ui u = 0; u < n; u++)
         {
             if (vertex_removed[u])
                 continue;
             for (ui j = pstart[u]; j < pstart[u + 1]; j++)
                 vis[edge_to[j]] = !vertex_removed[edge_to[j]];
-            // vis[edge_to[j]]=1;
             for (ui j = pstart[u]; j < pstart[u + 1]; j++)
             {
                 ui v = edge_to[j];
@@ -141,7 +159,7 @@ public:
                     edge_removed[find(edge_to + pstart[v], edge_to + pstart[v + 1], u) + pstart[v]] = 1;
                     if (q_vertex.size())
                     {
-                        remove_vertex(q_vertex, vertex_removed, edge_removed);
+                        remove_cnt += remove_vertex(q_vertex, vertex_removed, edge_removed);
                     }
                     if (vertex_removed[u])
                         break;
@@ -149,6 +167,13 @@ public:
             }
             for (ui j = pstart[u]; j < pstart[u + 1]; j++)
                 vis[edge_to[j]] = 0;
+            if (remove_cnt * 4 >= n) // there are already n/4 vertices have been removed, so we refresh the graph to boost
+            {
+                list_triangle_time += get_system_time_microsecond() - start_list;
+                rebuild_graph(vertex_removed, edge_removed);
+                strong_reduce(lb);
+                return;
+            }
         }
         list_triangle_time += get_system_time_microsecond() - start_list;
         if (!reduced)

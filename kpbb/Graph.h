@@ -180,8 +180,16 @@ public:
                 printf("Failed to open %s \n", file_path.c_str());
                 exit(1);
             }
+            ui size_int;
+            fread(&size_int, sizeof(ui), 1, in);
+            if (size_int != sizeof(ui))
+            {
+                printf("sizeof int is different: graph_file(%u), machine(%u)\n", size_int, (int)sizeof(ui));
+                exit(1);
+            }
             fread(&n, sizeof(ui), 1, in);
             fread(&m, sizeof(ui), 1, in);
+            cout << "File: " << get_file_name_without_suffix(file_path) << " n= " << n << " m= " << m << " k= " << paramK << endl;
             d = new ui[n];
             pstart = new ui[n + 1];
             edge_to = new ui[m];

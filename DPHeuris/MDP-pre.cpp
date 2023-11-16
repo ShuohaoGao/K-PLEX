@@ -125,6 +125,7 @@ int main(int argc, char *argv[])
         ui pre_n = g.n;
         reduce.strong_reduce(lb);
         strong_reduce_time += get_system_time_microsecond() - start_strong_reduce;
+        printf("Afer CTCP, n= %u , m= %u, use time %.4lf s\n", g.n, g.m, strong_reduce_time / 1e6);
 
         if (lb >= g.n)
         {
@@ -167,6 +168,7 @@ int main(int argc, char *argv[])
             ui pre_n = g.n;
             reduce.strong_reduce(lb);
             strong_reduce_time += get_system_time_microsecond() - start_strong_reduce;
+            printf("Afer CTCP, n= %u , m= %u, use time %.4lf s\n", g.n, g.m, strong_reduce_time / 1e6);
 
             if (lb >= g.n)
             {

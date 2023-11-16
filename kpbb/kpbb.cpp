@@ -39,6 +39,7 @@ void print_heuris_log()
         printf("The heuristic solution is the ground truth!\n");
         puts("------------------{whole procedure: kpbb}---------------------");
         printf("kpbb time: %.4lf s\n\n", (get_system_time_microsecond() - algorithm_start_time) / 1e6);
+        cout << g.n << endl;
     }
 }
 
@@ -183,7 +184,8 @@ void heuris()
         if (pre_sz == must_contain.size())
             break;
         printf("must contain: %u\n", must_contain.size());
-        g.remove_v_must_include(rm, lb - (int)must_contain.size()); // we conduct weak reduce too
+        g.remove_v_must_include(rm, lb - (int)must_contain.size());
+        break;
     }
 }
 

@@ -348,7 +348,7 @@ public:
                 rm[u] = 1;
                 continue;
             }
-            ui cnt = 0;
+            ui cnt = 0; // the number of satisfied vertices that are non-neighbor of u
             for (ui v : satisfied)
             {
                 if (v != u && !exist_edge(u, v))
@@ -603,19 +603,20 @@ public:
      */
     int first_sqrt_vertices_degeneracy(set<ui> *solution = nullptr)
     {
-        ui range = sqrt(n)+1;
+        ui range = sqrt(n) + 1;
         vector<vector<ui>> neighbor(range);
         vector<ui> d(range, 0), id(range, 0);
-        for(ui u=0;u<range;u++)
+        for (ui u = 0; u < range; u++)
         {
-            for(ui i=pstart[u];i<pstart[u+1];i++)
+            for (ui i = pstart[u]; i < pstart[u + 1]; i++)
             {
-                ui v=edge_to[i];
-                if(v>=range) break;
+                ui v = edge_to[i];
+                if (v >= range)
+                    break;
                 neighbor[u].push_back(v);
             }
-            d[u]=neighbor[u].size();
-            id[u]=u;
+            d[u] = neighbor[u].size();
+            id[u] = u;
         }
         return sqrt_degeneracy(range, neighbor, d, id, solution);
     }

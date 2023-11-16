@@ -254,6 +254,12 @@ public:
         vector<bool> vertex_removed(n, 0);
         for (ui u = 0; u < n; u++)
         {
+            if (deg[u] + paramK <= lb)
+            {
+                q_vertex.push(u);
+                vertex_removed[u] = 1;
+                continue;
+            }
             for (ui i = pstart[u]; i < pstart[u + 1]; i++)
             {
                 ui v = edge_to[i];
@@ -265,8 +271,6 @@ public:
                 }
             }
         }
-        if (q_edge.empty())
-            return;
         vector<bool> actually_rm(m, 0); // pop from queue
         while (q_edge.size() || q_vertex.size())
         {
@@ -376,11 +380,11 @@ public:
                         {
                             ui id_vw = find(st, ed, w) + pstart[v];
                             ui id_wv = find(edge_to + pstart[w], edge_to + pstart[w + 1], v) + pstart[w];
-                            assert(triangles[id_vw] == triangles[id_wv]);
                             assert(edge_to[id_vw] == w);
                             assert(edge_to[id_wv] == v);
                             if (edge_removed[id_vw])
                                 continue;
+                            assert(triangles[id_vw] == triangles[id_wv]);
                             if (--triangles[id_vw] + 2 * paramK <= lb)
                             {
                                 edge_removed[id_vw] = edge_removed[id_wv] = 1;

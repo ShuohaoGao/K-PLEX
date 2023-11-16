@@ -17,7 +17,7 @@ public:
     ui max_range;
     ui min_key;
     ui sz, n; // sz will decrease , but n won't
-    LinearHeap() : max_range(0), n(0), sz(0), h(nullptr), nodes(nullptr)
+    LinearHeap() : max_range(0), n(0), sz(0), min_key(0), h(nullptr), nodes(nullptr)
     {
     }
     LinearHeap(ui _range, ui _n, int pd[]) : max_range(_range), n(_n), sz(0), h(nullptr), nodes(nullptr)
@@ -56,6 +56,7 @@ public:
         max_range = other.max_range;
         n = other.n;
         sz = other.sz;
+        min_key = other.min_key;
         if (h != nullptr)
         {
             delete[] h;

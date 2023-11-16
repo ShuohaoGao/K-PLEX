@@ -196,7 +196,7 @@ public:
             fread(d, sizeof(ui), n, in);
             fread(edge_to, sizeof(ui), m, in);
             pstart[0] = 0;
-            for (ui i = 1; i < n; i++)
+            for (ui i = 1; i <= n; i++)
                 pstart[i] = pstart[i - 1] + d[i - 1];
         }
         else // default graph file format: n m \n edges

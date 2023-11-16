@@ -39,7 +39,7 @@ void print_heuris_log()
         printf("The heuristic solution is the ground truth!\n");
         puts("------------------{whole procedure: kpbb}---------------------");
         printf("kpbb time: %.4lf s\n\n", (get_system_time_microsecond() - algorithm_start_time) / 1e6);
-        cout << g.n << endl;
+        exit(0);
     }
 }
 
@@ -141,14 +141,19 @@ void heuris()
         double start_current_iteration = get_system_time_microsecond();
         int extend_times = sqrt(input_n) + 1;
         extend_times = min(extend_times, (int)g.n);
+        ui *seq=new ui[g.n];
+        g.sort_by_degree(seq);
+        // for(int i=0;i<g.n;i++)
+        //     seq[i]=i;
         for (ui i = 0; i < extend_times; i++)
         {
-            extend_lb = max(extend_lb, g.extend(i, &solution));
+            extend_lb = max(extend_lb, g.extend(seq[i], &solution));
             if (extend_lb > lb)
             {
                 break;
             }
         }
+        delete[] seq;
         printf("%dth-StrongHeuris lb= %d\n", iteration_cnt++, extend_lb);
         if (extend_lb <= lb)
             break;

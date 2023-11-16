@@ -338,6 +338,44 @@ public:
         return true;
     }
     /**
+     * @brief a[] = {0,1,2,...,n-1}, we need sort a[] by degree; counting sort O(n) is faster than std::sort O(nlogn)
+     *
+     * @param descending if so , d[a[0]] >= d[a[1]] >= ... >= d[a[n-1]]; else, d[a[0]] <= d[a[1]] <= ... <= d[a[n-1]]
+     */
+    void sort_by_degree(ui a[], bool descending = true)
+    {
+        vector<int> cnt(n, 0);
+        if (descending) // key=n-1-deg[i], deg[i]↑, key↓, so the larger degree, the smaller index
+        {
+            for (ui i = 0; i < n; i++)
+                cnt[n - 1 - d[i]]++;
+            for (ui i = 1; i < n; i++)
+                cnt[i] += cnt[i - 1];
+            for (ui i = 0; i < n; i++)
+            {
+                ui key = n - 1 - d[i];
+                a[cnt[key] - 1] = i;
+                cnt[key]--;
+            }
+            // for (ui i = 1; i < n; i++)
+            //     assert(d[a[i]] <= d[a[i - 1]]);
+        }
+        else // key=deg[i], deg[i]↑, key↑, so the larger degree, the larger index
+        {
+            for (ui i = 0; i < n; i++)
+                cnt[d[i]]++;
+            for (ui i = 1; i < n; i++)
+                cnt[i] += cnt[i - 1];
+            for (ui i = 0; i < n; i++)
+            {
+                a[cnt[d[i]] - 1] = i;
+                cnt[d[i]]--;
+            }
+            // for (ui i = 1; i < n; i++)
+            //     assert(d[a[i]] >= d[a[i - 1]]);
+        }
+    }
+    /**
      * @brief select vertices that must occur in maximum k-plex, and store them in s
      *
      * @param rm rm[u]=1 <==> u in s

@@ -621,24 +621,84 @@ public:
      *
      * @return lb
      */
-    int sqrt_degeneracy(set<ui> *solution = nullptr, ui cnt = 5)
+    int sqrt_degeneracy(set<ui> *solution = nullptr, ui cnt = 10)
     {
-        set<pii> s;
-        for (ui i = 0; i < n; i++)
-        {
-            if (s.size() < cnt)
-                s.insert({d[i], i});
-            else if (d[i] > s.begin()->x)
-            {
-                s.erase(s.begin());
-                s.insert({d[i], i});
-            }
-        }
+        // set<pii> s;
+        // for (ui i = 0; i < n; i++)
+        // {
+        //     if (s.size() < cnt)
+        //         s.insert({d[i], i});
+        //     else if (d[i] > s.begin()->x)
+        //     {
+        //         s.erase(s.begin());
+        //         s.insert({d[i], i});
+        //     }
+        // }
         int ret = paramK;
-        for (auto &h : s)
-            ret = max(ret, sqrt_degeneracy(h.y, solution));
+        // for (auto &h : s)
+        // {
+        //     // ret = max(ret, sqrt_degeneracy(h.y, solution));
+        //     int u = h.y;
+        //     ll id_v = pstart[u];
+        //     id_v = (id_v + pstart[u + 1]) / 2;
+        //     ret = max(ret, sqrt_degeneracy(u, edge_to[id_v], ret - paramK, solution));
+        // }
         ret = max(ret, first_sqrt_vertices_degeneracy(solution));
         return ret;
+    }
+    /**
+     * @brief bfs  from (u,v)
+     */
+    int sqrt_degeneracy(ui u, ui v, ui deg_threshold, set<ui> *solution = nullptr)
+    {
+        ui range = sqrt(n);
+        int max_cnt = range - 2;
+        vector<int> vis(n, 0);
+        vis[u] = vis[v] = 2;
+        queue<ui> q;
+        q.push(u);
+        q.push(v);
+        while (q.size() && max_cnt > 0)
+        {
+            ui w = q.front();
+            q.pop();
+            for (ui i = pstart[w]; i < pstart[w + 1]; i++)
+            {
+                ui y = edge_to[i];
+                if (deg_threshold > d[y])
+                    continue;
+                if (++vis[y] == 2)
+                {
+                    q.push(y);
+                    if (--max_cnt == 0)
+                        break;
+                }
+            }
+        }
+        range -= max_cnt;
+        vector<ui> id(range);
+        for (ui i = 0, j = 0; i < n; i++)
+            if (vis[i] >= 2)
+            {
+                vis[i] = j;
+                id[j++] = i;
+            }
+            else
+                vis[i] = 0;
+        vector<vector<ui>> neighbor(range);
+        vector<ui> d(range, 0);
+        for (ui u = 0; u < range; u++)
+        {
+            for (ui i = pstart[id[u]]; i < pstart[id[u] + 1]; i++)
+            {
+                ui v = edge_to[i];
+                if (!vis[v])
+                    continue;
+                neighbor[u].push_back(vis[v]);
+            }
+            d[u] = neighbor[u].size();
+        }
+        return sqrt_degeneracy(range, neighbor, d, id, solution);
     }
     /**
      * @brief stage-IV: degeneracy of G[{0,1,...,sqrt(n)}]
@@ -649,7 +709,7 @@ public:
      */
     int first_sqrt_vertices_degeneracy(set<ui> *solution = nullptr)
     {
-        ui range = sqrt(n) + 1;
+        ui range = sqrt(m) + 1;
         vector<vector<ui>> neighbor(range);
         vector<ui> d(range, 0), id(range, 0);
         for (ui u = 0; u < range; u++)

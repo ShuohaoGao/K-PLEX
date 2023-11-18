@@ -868,11 +868,6 @@ public:
         delete[] pstart;
         d = new_d;
         pstart = new_pstart;
-        // you can ignore the following
-        ui *new_edge_to = new ui[j];
-        memcpy(new_edge_to, edge_to, sizeof(ui) * j);
-        delete[] edge_to;
-        edge_to = new_edge_to;
         m = j;
         n = new_n;
         delete[] q;
@@ -947,6 +942,150 @@ public:
         // }
         // next, we extend the plex to maximal
         delete[] pd;
+        if (solution != nullptr && solution->size() < plex.size())
+        {
+            solution->clear();
+            if (reduced)
+            {
+                for (ui i : plex)
+                    solution->insert(map_refresh_id[i]);
+            }
+            else
+            {
+                for (ui i : plex)
+                    solution->insert(i);
+            }
+        }
+        return plex.size();
+    }
+    /**
+     * @brief degenaracy order to get lb, i.e., each time we remove the vertex with min degree
+     *
+     * @param solution if not NULL, the heuristic result should be stored
+     *
+     * @return lb
+     *
+     * T(n)=O(n+m)
+     */
+    int degeneracy_and_reduce(int lb, set<ui> *solution = nullptr)
+    {
+        vector<bool> rm(n, 0); // rm[u]=1 <==> u is peeled and removed
+        queue<ui> q;
+        for (ui i = 0; i < n; i++)
+            if (d[i] + paramK <= lb)
+            {
+                q.push(i);
+                rm[i] = 1;
+            }
+        while (q.size())
+        {
+            ui u = q.front();
+            q.pop();
+            for (ui i = pstart[u]; i < pstart[u + 1]; i++)
+            {
+                ui v = edge_to[i];
+                assert(v < n);
+                if (!rm[v])
+                {
+                    if (--d[v] + paramK <= lb)
+                    {
+                        q.push(v);
+                        rm[v] = 1;
+                    }
+                }
+            }
+        }
+        int *pd = new int[n]; // copy of d[]
+        memcpy(pd, d, sizeof(int) * n);
+        LinearHeap heap(n, n);
+        for (ui i = 0; i < n; i++)
+            if (!rm[i])
+            {
+                assert(pd[i] + paramK > lb);
+                heap.insert(pd[i], i);
+            }
+        vector<int> core(n, 0);
+        int max_core = 0;
+        while (heap.get_min_key() + paramK < heap.sz)
+        {
+            ui u = heap.get_min_node();
+            max_core = max(max_core, pd[u]);
+            core[u] = max_core;
+            assert(u < n);
+            heap.delete_node(u);
+            rm[u] = 1;
+            // update the degrees of the rest vertices
+            for (ui i = pstart[u]; i < pstart[u + 1]; i++)
+            {
+                ui v = edge_to[i];
+                assert(v < n);
+                if (!rm[v])
+                {
+                    assert(pd[v] > 0);
+                    heap.decrease(--pd[v], v);
+                }
+            }
+        }
+        int rest = heap.sz;
+        set<ui> plex;
+        while (heap.sz)
+        {
+            ui u = heap.get_min_node();
+            heap.delete_node(u);
+            plex.insert(u);
+            max_core = max(max_core, pd[u]);
+            core[u] = max_core;
+        }
+        lb = max(lb, rest);
+        for (ui i = 0; i < n; i++)
+            rm[i] = (core[i] + paramK > lb) ? 0:1;
+        // rebuild graph
+        {
+            ui *q = new ui[n];
+            ui new_n = 0;
+            vector<ui> new_map(n);
+            for (ui i = 0; i < n; i++)
+                if (!rm[i])
+                {
+                    new_map[new_n] = map_refresh_id[i];
+                    q[i] = new_n++;
+                }
+            new_map.resize(new_n);
+            map_refresh_id = new_map;
+            ui *new_pstart = new ui[new_n + 1];
+            ui *new_d = new ui[new_n];
+            ui j = 0; // we don't need extra memory to store new-edge_to, just re-use edge_to[]
+            for (ui i = 0; i < n; i++)
+            {
+                if (rm[i])
+                    continue;
+                ui u = q[i];
+                new_pstart[u] = j;
+                for (ui p = pstart[i]; p < pstart[i + 1]; p++)
+                {
+                    ui v = edge_to[p];
+                    if (!rm[v])
+                        edge_to[j++] = q[edge_to[p]];
+                }
+                new_d[u] = j - new_pstart[u];
+            }
+            new_pstart[new_n] = j;
+            delete[] d;
+            delete[] pstart;
+            d = new_d;
+            pstart = new_pstart;
+            // you can ignore the following
+            if (j * 2 < m)
+            {
+                ui *new_edge_to = new ui[j];
+                memcpy(new_edge_to, edge_to, sizeof(ui) * j);
+                delete[] edge_to;
+                edge_to = new_edge_to;
+            }
+            m = j;
+            n = new_n;
+            delete[] q;
+        }
         if (solution != nullptr && solution->size() < plex.size())
         {
             solution->clear();

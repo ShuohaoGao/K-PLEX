@@ -47,28 +47,77 @@ void heuris()
 {
     int iteration_cnt = 1;
     int input_n = g.n;
-    while (1)
+    //     while (1)
+    //     {
+    // #ifdef NO_SQRT
+    //         break;
+    // #endif
+    //         // degeracy order for the front sqrt(n) vertices, T(n)=O(n)
+    //         double start_first_extend = get_system_time_microsecond();
+    //         int ret = g.sqrt_degeneracy(&solution);
+    //         printf("%d-th sqrt degeneracy lb= %d ,", iteration_cnt++, ret);
+    //         print_time(start_first_extend);
+
+    //         if (lb >= ret)
+    //             break;
+    //         lb = ret;
+
+    //         // weak reduce, T(n)=O(m)
+    //         double start_weak_reduce = get_system_time_microsecond();
+    //         g.fast_weak_reduce(lb);
+    //         g.weak_reduce(lb);
+    //         printf("After weak reduce: n= %u , m= %u ,", g.n, g.m);
+    //         print_time(start_weak_reduce);
+
+    //         if (lb >= g.n)
+    //         {
+    //             g.n = 0;
+    //             FastHeuris_lb = lb;
+    //             FastHeuris_time = get_system_time_microsecond() - algorithm_start_time;
+    //             print_heuris_log();
+    //             exit(0);
+    //         }
+
+    //         // break;
+    //     }
+
+    //     iteration_cnt = 1;
+    //     while (1) // degeracy order for the whole graph, T(n)=O(m)
+    //     {
+    //         double start_degeneracy = get_system_time_microsecond();
+    //         int degeneracy_lb = g.degeneracyLB(&solution);
+    //         printf("%d-th degeneracy order lb= %d ,", iteration_cnt++, degeneracy_lb);
+    //         print_time(start_degeneracy);
+
+    //         if (lb >= degeneracy_lb)
+    //             break;
+    //         lb = degeneracy_lb;
+
+    //         // weak reduce, T(n)=O(m)
+    //         double start_weak_reduce = get_system_time_microsecond();
+    //         g.weak_reduce(lb);
+    //         printf("After weak reduce: n= %u , m= %u ,", g.n, g.m);
+    //         print_time(start_weak_reduce);
+
+    //         if (lb >= g.n)
+    //         {
+    //             g.n = 0;
+    //             FastHeuris_lb = lb;
+    //             FastHeuris_time = get_system_time_microsecond() - algorithm_start_time;
+    //             print_heuris_log();
+    //             exit(0);
+    //         }
+
+    //         break;
+    //     }
+
+    // sqrt degeneracy + weak reduce
     {
-#ifdef NO_SQRT
-        break;
-#endif
-        // degeracy order for the front sqrt(n) vertices, T(n)=O(n)
-        double start_first_extend = get_system_time_microsecond();
-        int ret = g.sqrt_degeneracy(&solution);
-        printf("%d-th sqrt degeneracy lb= %d ,", iteration_cnt++, ret);
-        print_time(start_first_extend);
-
-        if (lb >= ret)
-            break;
-        lb = ret;
-
-        // weak reduce, T(n)=O(m)
-        double start_weak_reduce = get_system_time_microsecond();
-        g.fast_weak_reduce(lb);
-        g.weak_reduce(lb);
-        printf("After weak reduce: n= %u , m= %u ,", g.n, g.m);
-        print_time(start_weak_reduce);
-
+        Timer t("FastHeuris");
+        lb = g.sqrt_degeneracy(&solution);
+        printf("sqrt lb= %d, use time %.4lf s\n", lb, t.get_time()/1e6);
+        lb = max(lb, g.degeneracy_and_reduce(lb, &solution));
+        printf("After degeneracy and weak reduce, n= %u , m= %u , use time %.4lf s\n", g.n, g.m, t.get_time()/1e6);
         if (lb >= g.n)
         {
             g.n = 0;
@@ -77,38 +126,6 @@ void heuris()
             print_heuris_log();
             exit(0);
         }
-
-        // break;
-    }
-
-    iteration_cnt = 1;
-    while (1) // degeracy order for the whole graph, T(n)=O(m)
-    {
-        double start_degeneracy = get_system_time_microsecond();
-        int degeneracy_lb = g.degeneracyLB(&solution);
-        printf("%d-th degeneracy order lb= %d ,", iteration_cnt++, degeneracy_lb);
-        print_time(start_degeneracy);
-
-        if (lb >= degeneracy_lb)
-            break;
-        lb = degeneracy_lb;
-
-        // weak reduce, T(n)=O(m)
-        double start_weak_reduce = get_system_time_microsecond();
-        g.weak_reduce(lb);
-        printf("After weak reduce: n= %u , m= %u ,", g.n, g.m);
-        print_time(start_weak_reduce);
-
-        if (lb >= g.n)
-        {
-            g.n = 0;
-            FastHeuris_lb = lb;
-            FastHeuris_time = get_system_time_microsecond() - algorithm_start_time;
-            print_heuris_log();
-            exit(0);
-        }
-
-        break;
     }
 
     // strong reduce
@@ -141,7 +158,7 @@ void heuris()
         double start_current_iteration = get_system_time_microsecond();
         int extend_times = sqrt(input_n) + 1;
         extend_times = min(extend_times, (int)g.n);
-        ui *seq=new ui[g.n];
+        ui *seq = new ui[g.n];
         g.sort_by_degree(seq);
         // for(int i=0;i<g.n;i++)
         //     seq[i]=i;

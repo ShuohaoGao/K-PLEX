@@ -20,6 +20,16 @@ public:
     LinearHeap() : max_range(0), n(0), sz(0), min_key(0), h(nullptr), nodes(nullptr)
     {
     }
+    LinearHeap(ui _range, ui _n) : max_range(_range), n(_n), sz(0), h(nullptr), nodes(nullptr)
+    {
+        h = new ui[max_range];
+        for (ui i = 0; i < max_range; i++)
+            h[i] = n;
+        nodes = new Node[n];
+        // for (ui i = 0; i < n; i++)
+        //     nodes[i] = {n, n};
+        min_key = max_range;
+    }
     LinearHeap(ui _range, ui _n, int pd[]) : max_range(_range), n(_n), sz(0), h(nullptr), nodes(nullptr)
     {
         h = new ui[max_range];

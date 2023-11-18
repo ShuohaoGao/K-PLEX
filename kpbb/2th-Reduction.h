@@ -191,13 +191,14 @@ public:
         }
         ui new_n = 0;
         assert(n == g->map_refresh_id.size());
-        unordered_map<ui, ui> new_map;
+        vector<ui> new_map(n);
         for (ui i = 0; i < n; i++)
             if (!vertex_removed[i])
             {
                 new_map[new_n] = g->map_refresh_id[i];
                 q[i] = new_n++;
             }
+        new_map.resize(new_n);
         g->map_refresh_id = new_map;
         ui *new_pstart = new ui[new_n + 1];
         ui *new_d = new ui[new_n];

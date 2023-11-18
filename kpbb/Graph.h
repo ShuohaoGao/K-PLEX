@@ -16,9 +16,9 @@ public:
     ui n, m;
     ui *d; // degree
     // edge_to[ pstart[a] ... pstart[a+1] ] is the neighbor of a
-    ui *edge_to;                          // size = m
-    ui *pstart;                           // size = n+1
-    unordered_map<ui, ui> map_refresh_id; // we need to re-map the reduced graph to {0,1,...,n-1}, thus requiring to record the map
+    ui *edge_to;               // size = m
+    ui *pstart;                // size = n+1
+    vector<ui> map_refresh_id; // we need to re-map the reduced graph to {0,1,...,n-1}, thus requiring to record the map
     Graph() : n(0), m(0), d(nullptr), edge_to(nullptr), pstart(nullptr), reduced(false)
     {
     }
@@ -242,7 +242,9 @@ public:
                 pstart[last_v] = m;
             }
         }
-
+        map_refresh_id.resize(n);
+        for (ui i = 0; i < n; i++)
+            map_refresh_id[i] = i;
         printf("Graph init ok\n");
         fflush(stdout);
     }
@@ -438,27 +440,15 @@ public:
             }
         }
         ui new_n = 0;
-        if (reduced)
-        {
-            unordered_map<ui, ui> new_map;
-            for (ui i = 0; i < n; i++)
-                if (!rm[i])
-                {
-                    new_map[new_n] = map_refresh_id[i];
-                    q[i] = new_n++;
-                }
-            map_refresh_id = new_map;
-        }
-        else
-        {
-            for (ui i = 0; i < n; i++)
-                if (!rm[i])
-                {
-                    map_refresh_id[new_n] = i;
-                    q[i] = new_n++;
-                }
-            reduced = true;
-        }
+        vector<ui> new_map(n);
+        for (ui i = 0; i < n; i++)
+            if (!rm[i])
+            {
+                new_map[new_n] = map_refresh_id[i];
+                q[i] = new_n++;
+            }
+        new_map.resize(new_n);
+        map_refresh_id = new_map;
         ui *new_pstart = new ui[new_n + 1];
         ui *new_d = new ui[new_n];
         ui j = 0;
@@ -778,27 +768,15 @@ public:
         }
         // re-build the graph : re-map the id of the rest vertices; the array q[] is recycled to save the map
         ui new_n = 0;
-        if (reduced)
-        {
-            unordered_map<ui, ui> new_map;
-            for (ui i = 0; i < n; i++)
-                if (!rm[i])
-                {
-                    new_map[new_n] = map_refresh_id[i];
-                    q[i] = new_n++;
-                }
-            map_refresh_id = new_map;
-        }
-        else
-        {
-            for (ui i = 0; i < n; i++)
-                if (!rm[i])
-                {
-                    map_refresh_id[new_n] = i;
-                    q[i] = new_n++;
-                }
-            reduced = true;
-        }
+        vector<ui> new_map(n);
+        for (ui i = 0; i < n; i++)
+            if (!rm[i])
+            {
+                new_map[new_n] = map_refresh_id[i];
+                q[i] = new_n++;
+            }
+        new_map.resize(new_n);
+        map_refresh_id = new_map;
         ui *new_pstart = new ui[new_n + 1];
         ui *new_d = new ui[new_n];
         ui j = 0; // we don't need extra memory to store new-edge_to, just re-use edge_to[]
@@ -859,27 +837,15 @@ public:
         // re-build the graph : re-map the id of the rest vertices; the array q[] is recycled to save the map
         ui *q = new ui[n + 1];
         ui new_n = 0;
-        if (reduced)
-        {
-            unordered_map<ui, ui> new_map;
-            for (ui i = 0; i < n; i++)
-                if (!rm[i])
-                {
-                    new_map[new_n] = map_refresh_id[i];
-                    q[i] = new_n++;
-                }
-            map_refresh_id = new_map;
-        }
-        else
-        {
-            for (ui i = 0; i < n; i++)
-                if (!rm[i])
-                {
-                    map_refresh_id[new_n] = i;
-                    q[i] = new_n++;
-                }
-            reduced = true;
-        }
+        vector<ui> new_map(n);
+        for (ui i = 0; i < n; i++)
+            if (!rm[i])
+            {
+                new_map[new_n] = map_refresh_id[i];
+                q[i] = new_n++;
+            }
+        new_map.resize(new_n);
+        map_refresh_id = new_map;
         ui *new_pstart = new ui[new_n + 1];
         ui *new_d = new ui[new_n];
         ui j = 0; // we don't need extra memory to store new-edge_to, just re-use edge_to[]

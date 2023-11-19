@@ -3,7 +3,10 @@
 
 #include "Utility.h"
 
-// used for degeneracy order
+/**
+ * @brief used for degeneracy order, which can be done in O(m).
+ * based on linked list
+ */
 class LinearHeap
 {
     struct Node

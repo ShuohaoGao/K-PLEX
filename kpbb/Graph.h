@@ -1139,6 +1139,7 @@ public:
 
 /**
  * base class : can be implemented using adj-matrix or adj-list
+ * @brief this is a base class representing the reduced graph which serves for IE (or DC)
  */
 class Graph_reduced
 {

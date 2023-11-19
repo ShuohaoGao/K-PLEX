@@ -43,6 +43,9 @@ void print_heuris_log()
     }
 }
 
+/**
+ * @brief stage-I: we conduct heuristic and preprocessing stage 
+ */
 void heuris()
 {
     int iteration_cnt = 1;
@@ -211,6 +214,9 @@ void heuris()
     }
 }
 
+/**
+ * @brief branch and bound searching
+ */
 void bnb()
 {
     Graph_reduced *G;

@@ -12,7 +12,7 @@ private:
     ui *triangles;
     Graph *g;
     ui n, m;
-    vector<bool> vis;
+    vector<bool> vis; // a cache when counting triangles
     ui *edge_to, *pstart, *deg;
     /**
      * @brief count the number of triangles for each edge and save the results in triangls[]
@@ -107,7 +107,10 @@ public:
             triangles = nullptr;
         }
     }
-    // assume we already conduct weak reduce
+    /**
+     * @brief we first remove edges with updating triangles[]; also, we put core-reduce on highest priority.
+     * assume we already conduct weak reduce
+     */
     void strong_reduce(int lb)
     {
         edge_to = g->edge_to;
@@ -243,6 +246,9 @@ public:
             delete[] q;
         }
     }
+    /**
+     * @brief core-truss co-pruning
+     */
     void CTCP(int lb)
     {
         edge_to = g->edge_to;

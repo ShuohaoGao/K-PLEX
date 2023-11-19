@@ -174,6 +174,8 @@ public:
                 solution.insert(v);
             solution = ptr_g->get_ori_vertices(solution);
             assert(solution.size() == lb);
+            printf("Find a larger plex : %d\n", sz + (int)G_input.must_contain.size());
+            fflush(stdout);
         }
     }
     /**

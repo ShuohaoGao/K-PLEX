@@ -3,6 +3,10 @@
 
 #include "Utility.h"
 
+/**
+ * @brief bitset, which supports & | bit-operation in O(n/64).
+ * we provide an iterator too
+ */
 class MyBitset
 {
 public:
@@ -208,6 +212,9 @@ public:
     }
 };
 
+/**
+ * @brief use n*n bits to store a graph
+ */
 class AjacentMatrix
 {
 public:

@@ -167,6 +167,7 @@ void heuris()
         //     seq[i]=i;
         for (ui i = 0; i < extend_times; i++)
         {
+            if(get_system_time_microsecond() - start_current_iteration > time_limit) break;
             extend_lb = max(extend_lb, g.extend(seq[i], &solution));
             if (extend_lb > lb)
             {

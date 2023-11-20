@@ -21,7 +21,14 @@ void print_heuris_log()
     printf("total-heuristic-time= %.4lf s, FastHeuris-time= %.4lf s, StrongHeuris-time= %.4lf s\n",
            total_heuris_time / 1e6, FastHeuris_time / 1e6, StrongHeuris_time / 1e6);
     printf("lb= %d , FastHeuris-lb= %d \n", lb, FastHeuris_lb);
-    assert(solution.size() == lb);
+    if (solution.size() < 2 * paramK - 1)
+    {
+        printf("there is no such a plex size >= 2k - 1  !!\n");
+    }
+    else
+    {
+        assert(solution.size() == lb);
+    }
     printf("Heuristic solution(size= %d ):\n", (int)solution.size());
     print_set(solution);
     fflush(stdout);
@@ -44,7 +51,7 @@ void print_heuris_log()
 }
 
 /**
- * @brief stage-I: we conduct heuristic and preprocessing stage 
+ * @brief stage-I: we conduct heuristic and preprocessing stage
  */
 void heuris()
 {
@@ -118,9 +125,10 @@ void heuris()
     {
         Timer t("FastHeuris");
         lb = g.sqrt_degeneracy(&solution);
-        printf("sqrt lb= %d, use time %.4lf s\n", lb, t.get_time()/1e6);
+        printf("sqrt lb= %d, use time %.4lf s\n", lb, t.get_time() / 1e6);
+        lb = max(lb, 2 * paramK - 2);
         lb = max(lb, g.degeneracy_and_reduce(lb, &solution));
-        printf("After degeneracy and weak reduce, n= %u , m= %u , use time %.4lf s\n", g.n, g.m, t.get_time()/1e6);
+        printf("After degeneracy and weak reduce, n= %u , m= %u , use time %.4lf s\n", g.n, g.m, t.get_time() / 1e6);
         if (lb >= g.n)
         {
             g.n = 0;
@@ -158,23 +166,8 @@ void heuris()
     while (1)
     {
         int extend_lb = 0;
-        double start_current_iteration = get_system_time_microsecond();
         int extend_times = sqrt(input_n) + 1;
-        extend_times = min(extend_times, (int)g.n);
-        ui *seq = new ui[g.n];
-        g.sort_by_degree(seq);
-        // for(int i=0;i<g.n;i++)
-        //     seq[i]=i;
-        for (ui i = 0; i < extend_times; i++)
-        {
-            if(get_system_time_microsecond() - start_current_iteration > time_limit) break;
-            extend_lb = max(extend_lb, g.extend(seq[i], &solution));
-            if (extend_lb > lb)
-            {
-                break;
-            }
-        }
-        delete[] seq;
+        extend_lb = g.strong_heuris(lb, extend_times, &solution, time_limit);
         printf("%dth-StrongHeuris lb= %d\n", iteration_cnt++, extend_lb);
         if (extend_lb <= lb)
             break;

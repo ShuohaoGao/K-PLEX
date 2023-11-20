@@ -254,6 +254,10 @@ public:
         printf("%s use time: %.4lf s\n", log.c_str(), get_time() / 1e6);
         fflush(stdout);
     }
+    double get_time_seconds()
+    {
+        return (get_system_time_microsecond() - start_time)/1e6;
+    }
 };
 
 #endif

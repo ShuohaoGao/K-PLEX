@@ -111,7 +111,7 @@ public:
      * @brief we first remove edges with updating triangles[]; also, we put core-reduce on highest priority.
      * assume we already conduct weak reduce
      */
-    void strong_reduce(int lb)
+    void strong_reduce(int lb, int start_u = 0)
     {
         edge_to = g->edge_to;
         pstart = g->pstart;
@@ -123,7 +123,7 @@ public:
         bool reduced = 0;
         double start_list = get_system_time_microsecond();
         int remove_cnt = 0;
-        for (ui u = 0; u < n; u++)
+        for (ui u = start_u; u < n; u++)
         {
             if (vertex_removed[u])
                 continue;

@@ -103,22 +103,29 @@ public:
             int u = G_input.get_min_degree_v();
 
             auto &vis = bool_array;
-            vis.clear();
             vis.set(u);
 
-            G_input.induce_to_2hop(vis, u);
-            Graph_adjacent g(vis, G_input, array_N);
+            vector<int> vertices_2hops{u};
+            G_input.induce_to_2hop(u, vis, vertices_2hops);
+            vector<int> &inv = array_N;
+            Graph_adjacent g(vis, vertices_2hops,  G_input, inv);
+            if (vertices_2hops.size() > 2)
+            {
+                // <==> vis.clear() but this may be too time-consuming, so we clear it as follows
+                for (int v : vertices_2hops)
+                    vis.reset(v);
+            }
+            else
+            {
+                // the reduced graph is stored as adjacent matrix, so O(n) is acceptable
+                vis.clear();
+            }
             IE_graph_size += g.size();
             IE_graph_cnt++;
             matrix_init_time += g.init_time;
             ptr_g = &g;
 
-            int id_u = 0; // the index of u in the new-induced graph g
-            for (int v : vis)
-                if (v == u)
-                    break;
-                else
-                    id_u++;
+            int id_u = inv[u]; // the index of u in the new-induced graph g
 
             Set S(g.size()), C(g.size());
             S.set(id_u);

@@ -189,7 +189,7 @@ public:
             }
             fread(&n, sizeof(ui), 1, in);
             fread(&m, sizeof(ui), 1, in);
-            cout << "File: " << get_file_name_without_suffix(file_path) << " n= " << n << " m= " << m << " k= " << paramK << endl;
+            cout << "File: " << get_file_name_without_suffix(file_path) << " n= " << n << " m= " << m/2 << " k= " << paramK << endl;
             d = new ui[n];
             pstart = new ui[n + 1];
             edge_to = new ui[m];
@@ -1446,8 +1446,9 @@ public:
     /**
      * given a vertex v, induce the 2-hop neighbor of v
      * @param vis stores the 2-hop neighbor of v
+     * @param vertices stores the 2-hop neighbor of v
      */
-    virtual void induce_to_2hop(MyBitset &vis, int v)
+    virtual void induce_to_2hop(int v, MyBitset &vis, vector<int> &vertices)
     {
     }
     /**
@@ -1781,10 +1782,12 @@ public:
     /**
      * given a vertex v, induce the 2-hop neighbor of v
      * @param vis stores the 2-hop neighbor of v
+     * @param vertices stores the 2-hop neighbor of v
      */
-    void induce_to_2hop(MyBitset &vis, int v)
+    void induce_to_2hop(int v, MyBitset &vis, vector<int> &vertices)
     {
         assert(vertex[v]);
+        assert(vertices.size()==1 && vertices[0]==v);
         for (int i = pstart[v]; i < pstart[v + 1]; i++)
         {
             if (edge_removed[i])
@@ -1793,7 +1796,10 @@ public:
             if (!vertex[a])
                 continue;
             if (!vis[a])
+            {
                 vis.set(a);
+                vertices.push_back(a);
+            }
             for (int j = pstart[a]; j < pstart[a + 1]; j++)
             {
                 if (edge_removed[j])
@@ -1802,7 +1808,10 @@ public:
                 if (!vertex[b])
                     continue;
                 if (!vis[b])
+                {
                     vis.set(b);
+                    vertices.push_back(b);
+                }
             }
         }
     }
@@ -2040,7 +2049,7 @@ public:
      * given a vertex v, induce the 2-hop neighbor of v
      * @param vis stores the 2-hop neighbor of v
      */
-    void induce_to_2hop(MyBitset &vis, int v)
+    void induce_to_2hop(int v, MyBitset &vis, vector<int> &vertices)
     {
         for (int u : A[v])
         {
@@ -2067,10 +2076,11 @@ public:
      * @brief given vertex set V_mask, induce subgraph
      *
      * @param V_mask V_mask[u]=1 <==> u in the subgraph
+     * @param vertices the vertex set of induced graph(which can avoid huge cost when reduced graph is too large but 2-hop induced graph is small)
      * @param g reduced graph which use adj-list to store edges
      * @param inv each vertex in subgraph is [0, n-1], so we need to save the origin index
      */
-    Graph_adjacent(MyBitset &V_mask, Graph_reduced &g, vector<int> &inv)
+    Graph_adjacent(MyBitset &V_mask, vector<int> &vertices, Graph_reduced &g, vector<int> &inv)
     {
         if (g.is_matrix())
         {
@@ -2078,10 +2088,7 @@ public:
         }
         else // init from adj-list
         {
-            for (int i : V_mask)
-            {
-                vertex_id.push_back(i);
-            }
+            vertex_id = vertices;
             n = vertex_id.size();
 
             adj_matrix = AjacentMatrix(n);
@@ -2106,6 +2113,17 @@ public:
             }
             init_time = t.get_time();
         }
+    }
+    
+    Graph_adjacent &operator=(const Graph_adjacent &other)
+    {
+        if (this == &other)
+            return *this;
+        init_time = other.init_time;
+        adj_matrix = other.adj_matrix;
+        n = other.n;
+        vertex_id = other.vertex_id;
+        return *this;
     }
     /**
      * @brief given vertex set V_mask, induce subgraph

@@ -12,6 +12,7 @@ double FastHeuris_time;
 double StrongHeuris_time;
 double strong_reduce_time;
 int FastHeuris_lb;
+int input_n;
 
 void print_heuris_log()
 {
@@ -51,81 +52,17 @@ void print_heuris_log()
 }
 
 /**
- * @brief stage-I: we conduct heuristic and preprocessing stage
+ * @brief the heuristic stage without StrongHeuris
  */
-void heuris()
+void FastHeuris()
 {
-    int iteration_cnt = 1;
-    int input_n = g.n;
-    //     while (1)
-    //     {
-    // #ifdef NO_SQRT
-    //         break;
-    // #endif
-    //         // degeracy order for the front sqrt(n) vertices, T(n)=O(n)
-    //         double start_first_extend = get_system_time_microsecond();
-    //         int ret = g.sqrt_degeneracy(&solution);
-    //         printf("%d-th sqrt degeneracy lb= %d ,", iteration_cnt++, ret);
-    //         print_time(start_first_extend);
-
-    //         if (lb >= ret)
-    //             break;
-    //         lb = ret;
-
-    //         // weak reduce, T(n)=O(m)
-    //         double start_weak_reduce = get_system_time_microsecond();
-    //         g.fast_weak_reduce(lb);
-    //         g.weak_reduce(lb);
-    //         printf("After weak reduce: n= %u , m= %u ,", g.n, g.m);
-    //         print_time(start_weak_reduce);
-
-    //         if (lb >= g.n)
-    //         {
-    //             g.n = 0;
-    //             FastHeuris_lb = lb;
-    //             FastHeuris_time = get_system_time_microsecond() - algorithm_start_time;
-    //             print_heuris_log();
-    //             exit(0);
-    //         }
-
-    //         // break;
-    //     }
-
-    //     iteration_cnt = 1;
-    //     while (1) // degeracy order for the whole graph, T(n)=O(m)
-    //     {
-    //         double start_degeneracy = get_system_time_microsecond();
-    //         int degeneracy_lb = g.degeneracyLB(&solution);
-    //         printf("%d-th degeneracy order lb= %d ,", iteration_cnt++, degeneracy_lb);
-    //         print_time(start_degeneracy);
-
-    //         if (lb >= degeneracy_lb)
-    //             break;
-    //         lb = degeneracy_lb;
-
-    //         // weak reduce, T(n)=O(m)
-    //         double start_weak_reduce = get_system_time_microsecond();
-    //         g.weak_reduce(lb);
-    //         printf("After weak reduce: n= %u , m= %u ,", g.n, g.m);
-    //         print_time(start_weak_reduce);
-
-    //         if (lb >= g.n)
-    //         {
-    //             g.n = 0;
-    //             FastHeuris_lb = lb;
-    //             FastHeuris_time = get_system_time_microsecond() - algorithm_start_time;
-    //             print_heuris_log();
-    //             exit(0);
-    //         }
-
-    //         break;
-    //     }
-
-    // sqrt degeneracy + weak reduce
+    Timer t("FastHeuris");
+    // degeneracy + weak reduce
     {
-        Timer t("FastHeuris");
+#ifndef NO_SQRT
         lb = g.sqrt_degeneracy(&solution);
         printf("sqrt lb= %d, use time %.4lf s\n", lb, t.get_time() / 1e6);
+#endif
         lb = max(lb, 2 * paramK - 2);
         lb = max(lb, g.degeneracy_and_reduce(lb, &solution));
         printf("After degeneracy and weak reduce, n= %u , m= %u , use time %.4lf s\n", g.n, g.m, t.get_time() / 1e6);
@@ -133,11 +70,12 @@ void heuris()
         {
             g.n = 0;
             FastHeuris_lb = lb;
-            FastHeuris_time = get_system_time_microsecond() - algorithm_start_time;
+            FastHeuris_time = t.get_time();
             print_heuris_log();
             exit(0);
         }
     }
+    FastHeuris_lb = lb;
 
     // strong reduce
     {
@@ -151,18 +89,22 @@ void heuris()
         if (lb >= g.n)
         {
             g.n = 0;
-            FastHeuris_time = get_system_time_microsecond() - algorithm_start_time;
+            FastHeuris_time = t.get_time();
             print_heuris_log();
             exit(0);
         }
     }
+    FastHeuris_time = t.get_time();
+}
 
-    FastHeuris_time = get_system_time_microsecond() - algorithm_start_time;
-    FastHeuris_lb = lb;
-
-    iteration_cnt = 1;
+/**
+ * @brief we make more efforts to get better lb and then reduce graph
+ */
+void StrongHeuris()
+{
+    int iteration_cnt = 1;
     double time_limit = FastHeuris_time * 3;
-    double start_extend_time = get_system_time_microsecond();
+    Timer t_extend("StrongHeuris");
     while (1)
     {
         int extend_lb = 0;
@@ -185,14 +127,24 @@ void heuris()
             if (lb >= g.n)
             {
                 g.n = 0;
-                StrongHeuris_time = get_system_time_microsecond() - start_extend_time;
+                StrongHeuris_time = t_extend.get_time();
                 print_heuris_log();
                 exit(0);
             }
         }
     }
+    StrongHeuris_time = t_extend.get_time();
+}
 
-    StrongHeuris_time = get_system_time_microsecond() - start_extend_time;
+/**
+ * @brief stage-I: we conduct heuristic and preprocessing stage
+ */
+void heuris()
+{
+    input_n = g.n;
+
+    FastHeuris();
+    StrongHeuris();
 
     // next, we will remove the vertices that must occur in the solution
     while (1)

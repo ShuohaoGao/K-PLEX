@@ -30,9 +30,6 @@ void print_heuris_log()
     {
         assert(solution.size() == lb);
     }
-    printf("Heuristic solution(size= %d ):\n", (int)solution.size());
-    print_set(solution);
-    fflush(stdout);
 
 #ifdef VERIFY
     Verifier_undirected_kPlex<ui> verifier(solution, file_path);
@@ -45,8 +42,11 @@ void print_heuris_log()
     if (g.n + must_contain.size() <= lb)
     {
         printf("The heuristic solution is the ground truth!\n");
+        printf("Maximum solution(size= %d ):\n", (int)solution.size());
+        print_set(solution);
+        fflush(stdout);
         puts("------------------{whole procedure: kpbb}---------------------");
-        printf("kpbb time: %.4lf s\n\n", (get_system_time_microsecond() - algorithm_start_time) / 1e6);
+        printf("ground truth= %u , kpbb time: %.4lf s\n\n", solution.size(), (get_system_time_microsecond() - algorithm_start_time) / 1e6);
         exit(0);
     }
 }
@@ -176,6 +176,12 @@ void bnb()
     }
     Branch branch(*G, lb - G->must_contain.size());
     branch.IE_framework();
+    if(solution.size() < branch.solution.size())
+    {
+        solution.clear();
+        for(int v:branch.solution)
+            solution.insert(v);
+    }
 }
 
 int main(int argc, char *argv[])
@@ -201,8 +207,11 @@ int main(int argc, char *argv[])
     // branch and bound
     bnb();
 
+    printf("Maximum solution(size= %d ):\n", (int)solution.size());
+    print_set(solution);
+    fflush(stdout);
     puts("------------------{whole procedure: kpbb}---------------------");
-    printf("kpbb time: %.4lf s\n\n", (get_system_time_microsecond() - algorithm_start_time) / 1e6);
+    printf("ground truth= %u , kpbb time: %.4lf s\n\n", solution.size(), (get_system_time_microsecond() - algorithm_start_time) / 1e6);
 
     return 0;
 }

@@ -2,7 +2,6 @@
 #define BRANCH_H
 
 #include "Graph.h"
-#include "verify.h"
 
 class Branch
 {
@@ -10,6 +9,14 @@ private:
     using Set = MyBitset;
     Graph_reduced &G_input;
     int lb;
+
+    // used for branching rule: select the vertex that must contain
+    struct Must_contain_status
+    {
+        int must_contain_u;
+        int v, w;
+        bool on;
+    } must_contain_status;
 
     // info of the search tree
     int v_just_add;
@@ -38,6 +45,8 @@ private:
     double CTCP_time;
     double C_reduce;
     double ub_try_time;
+    double test_time;
+    map<int, int> test_cnt;
 
 public:
     set<int> solution;
@@ -45,10 +54,11 @@ public:
                                             dfs_cnt(0), run_time(0), fast_reduce_time(0), core_reduce_time(0),
                                             part_PI_time(0), pivot_select_time(0), IE_induce_time(0), S_size(0),
                                             matrix_init_time(0), IE_graph_cnt(0), IE_graph_size(0), CTCP_time(0),
-                                            C_reduce(0), ub_try_time(0)
+                                            C_reduce(0), ub_try_time(0), test_time(0)
     {
     }
     ~Branch() {}
+    
     /**
      * @brief print some logs
      */
@@ -72,18 +82,22 @@ public:
         printf("average S size: %.2lf  ", S_size * 1.0 / dfs_cnt);
         puts("");
         puts("*************bnb result*************");
-        printf("ground truth= %d , use time= %.4lf s\n", lb, run_time / 1e6);
+        printf("ground truth= %d , exact searching use time= %.4lf s\n", lb, run_time / 1e6);
         if (solution.size())
         {
             G_input.get_ground_truth(solution, true);
-            printf("Solution (size= %u):\n", solution.size());
-            print_set(solution);
+            // printf("Solution (size= %u):\n", solution.size());
+            // print_set(solution);
             assert(solution.size() == lb);
         }
         else
             printf("The heuristic solution is the ground truth!\n");
         // puts("");
+        printf("test time: %.4lf s\n", test_time / 1e6);
+        for (auto h : test_cnt)
+            cout << h.x << ' ' << h.y << endl;
     }
+    
     /**
      * @brief each time we enumerate v_i that must be included into S, and C is the 2-hop neighbors of v_i
      * another name: Divide and Conquer framework
@@ -108,7 +122,7 @@ public:
             vector<int> vertices_2hops{u};
             G_input.induce_to_2hop(u, vis, vertices_2hops);
             vector<int> &inv = array_N;
-            Graph_adjacent g(vis, vertices_2hops,  G_input, inv);
+            Graph_adjacent g(vis, vertices_2hops, G_input, inv);
             if (vertices_2hops.size() > 2)
             {
                 // <==> vis.clear() but this may be too time-consuming, so we clear it as follows
@@ -136,8 +150,6 @@ public:
             init_info(id_u, g);
 
             IE_induce_time += get_system_time_microsecond() - start_induce;
-
-            v_just_add = id_u;
 
             int pre_lb = lb;
             bnb(S, C);
@@ -167,6 +179,7 @@ public:
         int_array.clear();
         int_array.resize(g.size());
     }
+    
     /**
      * @brief plex=S
      */
@@ -211,7 +224,7 @@ public:
      * @param g_is_plex serve as return
      * @param S_is_plex serve as return
      */
-    void fast_reduction(Set &S, Set &C, bool &g_is_plex, bool &S_is_plex)
+    void fast_reduction(Set &S, Set &C, bool &g_is_plex, bool &S_is_plex, Must_contain_status &must_contain_status)
     {
         if (v_just_add != -1) // only if S changed, we can update loss_cnt[]
         {
@@ -288,6 +301,21 @@ public:
                     S_changed = true;
                 }
             }
+#ifdef BR3
+            if (satisfied_non_neighbor + 2 == tot_non_neighbor && !must_contain_status.on)
+            {
+                must_contain_status.on = true;
+                must_contain_status.must_contain_u = u;
+                auto copy = non_neighbor;
+                copy &= satisfied;
+                non_neighbor ^= copy;
+                assert(non_neighbor.size() == 2);
+                auto it = non_neighbor.begin();
+                must_contain_status.v = *it;
+                ++it;
+                must_contain_status.w = *it;
+            }
+#endif
         }
         // S is changed, so we need to re-compute loss_cnt[]; but this won't cause any reduction
         if (S_changed)
@@ -315,7 +343,8 @@ public:
         // reduction rules
         double start_fast_reduce = get_system_time_microsecond();
         bool S_is_plex, g_is_plex;
-        fast_reduction(S, C, g_is_plex, S_is_plex);
+        must_contain_status.on = false;
+        fast_reduction(S, C, g_is_plex, S_is_plex, must_contain_status);
         if (!S_is_plex)
             return;
         if (g_is_plex)
@@ -324,6 +353,38 @@ public:
             return;
         }
         fast_reduce_time += get_system_time_microsecond() - start_fast_reduce;
+
+#ifdef BR3
+        if (must_contain_status.on)
+        {
+            // cout<<"!!!!!!!"<<endl;
+            auto new_S = S, new_C = C;
+            int u = must_contain_status.must_contain_u, v = must_contain_status.v, w = must_contain_status.w;
+            v_just_add = -1;
+            if (!new_S[v])
+            {
+                new_S.set(v);
+                new_C.reset(v);
+                v_just_add = v;
+            }
+            if (!new_S[w])
+            {
+                new_S.set(w);
+                new_C.reset(w);
+                v_just_add = w;
+            }
+            new_C.reset(u);
+            // branch1: excluding u and including both {v,w}
+            bnb(new_S, new_C);
+
+            S.set(u);
+            C.reset(u);
+            v_just_add = u;
+            // branch2: including u
+            bnb(S, C);
+            return;
+        }
+#endif
 
         // bounding & stronger reduction
         int pivot1;
@@ -335,6 +396,13 @@ public:
         double start_select_time = get_system_time_microsecond();
         // int pivot = select_pivot_vertex_with_min_degree(C);
         int pivot = pivot1;
+#ifdef NO_LOOKAHEAD
+        pivot = select_pivot_vertex_with_min_degree(C);
+#endif
+
+#ifdef DEGREE_BRANCH
+        pivot = select_pivot_vertex_with_min_degree(C);
+#endif
         if (pivot == -1)
             return;
         pivot_select_time += get_system_time_microsecond() - start_select_time;
@@ -413,7 +481,7 @@ public:
      * if P has a plex of size = x, then P must have at least x vertices whose degrees >= x+k
      * conclusion: this ub can be replaced by core-reduction for Pi_0
      */
-    int erfen_UB(Set &P)
+    int binary_UB(Set &P)
     {
         int sz = P.size();
         if (sz <= paramK)
@@ -479,10 +547,11 @@ public:
      */
     int get_part_UB(Set &S, Set &C, int *pivot = nullptr)
     {
-        double start_part = get_system_time_microsecond();
+        Timer part_timer;
         auto copy_S = S;
         auto copy_C = C;
-        int ub = S.size();
+        int S_sz = S.size();
+        int ub = S_sz;
         Set useful_S(S.range);
         while (copy_S.size())
         {
@@ -513,66 +582,71 @@ public:
             ub += ub_cnt;
             copy_C &= A[sel]; // remove the non-neighbors of sel
         }
-        part_PI_time += get_system_time_microsecond() - start_part;
-#ifndef NO_CORE_REDUCTION
+        part_PI_time += part_timer.get_time();
+
         // now copy_C = Pi_0
-        core_reduction(copy_C, lb + 1 - ub);
-        int ret = ub + copy_C.size();
+        auto &Pi_0 = copy_C;
+#ifndef NO_CORE_REDUCTION
+        core_reduction(Pi_0, lb + 1 - ub);
+#endif
+        int ret = ub + Pi_0.size();
         if (ret <= lb) // pruned
             return ret;
-        // //er fen UB will not cause due to core-reduce, but it will decrease ub indeed
-        // {
-        //     ret -= copy_C.size();
-        //     ret += erfen_UB(copy_C);
-        // }
+
+#ifndef NO_REDUCE_PI_I
         // assume we need to include at least $h$ vertices from S+Pi_0; $h$=lb+1-(ub-|S|);
         // then for u∈Pi_i, u must has at least $h-k+1$ neighbors from S+Pi_0
-        double start_C_reduce = get_system_time_microsecond();
-        int neighbor_cnt = lb + 1 - (ub - S.size()) - (paramK - 1);
-        if (neighbor_cnt > 0)
         {
-            auto S_Pi0 = S;
-            S_Pi0 |= copy_C; // S+Pi_0
-            auto temp = C;
-            temp ^= copy_C; // temp = C - Pi_0 = Pi_i
-            // u∈Pi_i, then u has at least (lb+1-sigma_(min(|Pi_i|, k-|S\N(v_i)|))-(k-1) = neighbor_cnt) neighbors in Pi_0∪S
-            for (int u : temp)
+            Timer t;
+            int neighbor_cnt = lb + 1 - (ub - S_sz) - (paramK - 1);
+            if (neighbor_cnt > 0)
             {
-                if (A[u].intersect(S_Pi0) < neighbor_cnt)
-                    C.reset(u);
+                auto S_Pi0 = S;
+                S_Pi0 |= Pi_0; // S+Pi_0
+                auto temp = C;
+                temp ^= Pi_0; // temp = C - Pi_0 = Pi_i
+                // u∈Pi_i, then u has at least (lb+1-sigma_(min(|Pi_i|, k-|S\N(v_i)|))-(k-1) = neighbor_cnt) neighbors in Pi_0∪S
+                for (int u : temp)
+                {
+                    if (A[u].intersect(S_Pi0) < neighbor_cnt)
+                        C.reset(u);
+                }
             }
+            C_reduce += t.get_time();
         }
-        C_reduce += get_system_time_microsecond() - start_C_reduce;
 #endif
+
+#ifndef NO_LOOKAHEAD
         {
             Timer t;
             int piv = -1, min_ub = INF;
             // for u in C, if UB(S+u, C-u)<=lb , remove u
             for (int u : C)
             {
-                int sub = non_A[u].intersect(copy_C); // Pi_u get |sub| vertices from Pi_0
-                // due to u is included to S, loss_cnt[v] will increse, decreasing ub; decre<=loss_cnt[u] because not all v in S has Pi_v
+                int sub = non_A[u].intersect(Pi_0); // Pi_u get $sub$ vertices from Pi_0
+                // due to u is included to S, loss_cnt[v] will increase, decreasing ub;
+                // decre<=loss_cnt[u] because not all v in S has corresponding Pi_v(i.e., Pi_v is useless for ub so we include Pi_v to Pi_0)
                 int decre = useful_S.intersect(non_A[u]);
                 int ub_u = ret - sub + (paramK - loss_cnt[u] - 1) + 1 - decre; // ub_u=UB(S+u, C)>=UB(S+u,C-u)
                 if (ub_u <= lb)
                 {
                     C.reset(u);
-                    if (copy_C[u])
+                    if (Pi_0[u])
                     {
                         ret--;
-                        copy_C.reset(u);
+                        Pi_0.reset(u);
                         if (ret <= lb)
                             return ret;
                     }
                 }
-                else
+                else // for select a branching pivot
                 {
                     if (min_ub > ub_u)
                     {
                         min_ub = ub_u;
                         piv = u;
                     }
-                    else if (min_ub == ub_u && deg[u] < deg[piv])
+                    else if (min_ub == ub_u && (deg[u] < deg[piv]))
                     {
                         piv = u;
                     }
@@ -584,6 +658,7 @@ public:
             }
             ub_try_time += t.get_time();
         }
+#endif
         return ret;
     }
 

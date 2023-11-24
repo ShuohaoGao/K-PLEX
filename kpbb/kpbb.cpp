@@ -65,7 +65,7 @@ void FastHeuris()
 #endif
         lb = max(lb, 2 * paramK - 2);
         lb = max(lb, g.degeneracy_and_reduce(lb, &solution));
-        printf("After degeneracy and weak reduce, n= %u , m= %u , use time %.4lf s\n", g.n, g.m, t.get_time() / 1e6);
+        printf("After degeneracy and weak reduce, n= %u , m= %u , lb= %d , use time %.4lf s\n", g.n, g.m, lb, t.get_time() / 1e6);
         if (lb >= g.n)
         {
             g.n = 0;

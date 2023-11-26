@@ -45,8 +45,6 @@ private:
     double CTCP_time;
     double C_reduce;
     double ub_try_time;
-    double test_time;
-    map<int, int> test_cnt;
 
 public:
     set<int> solution;
@@ -54,7 +52,7 @@ public:
                                             dfs_cnt(0), run_time(0), fast_reduce_time(0), core_reduce_time(0),
                                             part_PI_time(0), pivot_select_time(0), IE_induce_time(0), S_size(0),
                                             matrix_init_time(0), IE_graph_cnt(0), IE_graph_size(0), CTCP_time(0),
-                                            C_reduce(0), ub_try_time(0), test_time(0)
+                                            C_reduce(0), ub_try_time(0)
     {
     }
     ~Branch() {}
@@ -93,9 +91,6 @@ public:
         else
             printf("The heuristic solution is the ground truth!\n");
         // puts("");
-        printf("test time: %.4lf s\n", test_time / 1e6);
-        for (auto h : test_cnt)
-            cout << h.x << ' ' << h.y << endl;
     }
     
     /**

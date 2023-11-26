@@ -9,11 +9,13 @@
 class Reduction
 {
 private:
+    // the edge in the edge queue is stored as {from_v, edge_id, remove_time}
     struct EdgeForQ_E
     {
         ui u, edge_id;
         ui remove_time;
     };
+    // my queue
     class Queue
     {
         ui *q;
@@ -48,17 +50,23 @@ private:
             return tt + 1 - hh;
         }
     };
-    // G-fast
+    // G-fast: only vertices in G-fast are useful
     Graph &G_fast;
     ui *triangles, *compute_time, *another_edge;
     vector<bool> vertex_removed_from_G_fast, edge_removed_from_G_fast;
     ui n, m;
     ui timestamp;
-    // G-slow: only vertices in G-fast are useful
+    // G-slow: this is used to update triangle count
     vector<bool> edge_removed_from_G_slow;
     // cache
     vector<bool> vis;
 
+    /**
+     * @brief reduce G-fast to (lb+1-k)-core
+     *
+     * @param q_v the vertices that must remove
+     * @param q_e the edges removed should be pushed to queue
+     */
     void core_reduce(queue<ui> &q_v, int lb, vector<EdgeForQ_E> &q_e)
     {
         ui *pstart = G_fast.pstart, *edge_to = G_fast.edge_to;
@@ -87,6 +95,14 @@ private:
         }
     }
 
+    /**
+     * @brief remove the edge(u,v) and reduce G-fast to (lb+1-k)-core immediately
+     *
+     * @param u from
+     * @param v to
+     * @param edge_id make sure that edge_to[edge_id] = v
+     * @param q_e the edges removed should be pushed to queue
+     */
     void remove_edge_from_G_fast(ui u, ui v, ui edge_id, int lb, vector<EdgeForQ_E> &q_e)
     {
         q_e.push_back({u, edge_id, ++timestamp});
@@ -110,7 +126,13 @@ private:
         }
     }
 
-    // for the first round: we don't consider updating triangles count
+    /**
+     * @brief reduce G-fast to (lb+1-k)-core for the first round: we don't consider updating triangles count
+     *
+     * @param q_v the vertices that must remove
+     *
+     * @return the number of vertices we remove
+     */
     ui core_reduce(Queue &q_v, int lb)
     {
         ui *pstart = G_fast.pstart, *edge_to = G_fast.edge_to;
@@ -140,6 +162,13 @@ private:
         return cnt;
     }
 
+    /**
+     * @brief refresh the graph which can fast the computation of counting triangles
+     *
+     * @param u the next vertex that we are going to enumerate its edges
+     *
+     * @return the index of u in the new graph(if u is not in new graph, return the next vertex of u)
+     */
     ui rebuild_graph_for_first_round(ui u)
     {
         ui *pstart = G_fast.pstart, *edge_to = G_fast.edge_to;
@@ -203,6 +232,9 @@ private:
     /**
      * @brief for the first round, we think almost each edge can be removed
      * so we compute a near-exact triangle count(slightly greater than the fact) and judge if it can be removed
+     *
+     * @param q_v a queue that can be shared
+     * @param start_u for v<start_u, we don't consider the edges related to v
      */
     void first_round_reduce(int lb, Queue &q_v, ui start_u = 0)
     {
@@ -232,7 +264,7 @@ private:
                 ui v = edge_to[i];
                 if (vertex_removed_from_G_fast[v])
                     continue;
-                if (v >= u)
+                if (v >= u) // make sure v<u in degeneracy order
                     break;
                 ui edge_cnt = 0;
                 // compute the triangle count of (u,v)
@@ -277,6 +309,7 @@ private:
                 ui v = edge_to[i];
                 vis[v] = 0;
             }
+            // shrink current graph to boost the computation
             if (remove_vertex_cnt * 4 >= n)
             {
                 ui new_start_u = rebuild_graph_for_first_round(u + 1);
@@ -299,7 +332,7 @@ public:
     }
     ~Reduction()
     {
-        vector<ui *> ptrs{triangles, compute_time, another_edge };
+        vector<ui *> ptrs{triangles, compute_time, another_edge};
         for (auto p : ptrs)
             if (p != nullptr)
             {
@@ -307,19 +340,18 @@ public:
             }
     }
     /**
-     * the entrance
+     * the entrance of our second-order reduction
      */
     void strong_reduce(int lb)
     {
+        // the first round, we brutely remove edges (of course, core-reduce is always first)
         {
-            ui previous_m=m;
+            ui previous_m = m;
             vertex_removed_from_G_fast.resize(n, 0);
             edge_removed_from_G_fast.resize(m, 0);
-            Timer first("first round");
             Queue q_v(n);
             first_round_reduce(lb, q_v);
-            first.print_time();
-            if(previous_m == m)//none of the edges can be reduced
+            if (previous_m == m) // none of the edges can be reduced
             {
                 return;
             }
@@ -404,6 +436,7 @@ public:
         ui *pstart = G_fast.pstart, *edge_to = G_fast.edge_to;
         ui *d = G_fast.d;
         Timer t;
+        // list triangles and reduce G-fast to (lb+1-k)-core whenever we can
         for (ui u = 0; u < n; u++)
         {
             if (vertex_removed_from_G_fast[u])
@@ -467,6 +500,9 @@ public:
             }
         }
         list_triangle_time += t.get_time();
+        if (!q_e.size())
+            return;
+        // update the information of triangle count exactly
         ui front_idx = 0;
         while (front_idx < q_e.size())
         {
@@ -480,7 +516,8 @@ public:
                 continue;
             if (!vertex_removed_from_G_fast[u])
             {
-                for (ui i = pstart[u], j = pstart[v]; i < pstart[u + 1] && j < pstart[v+1];)
+                // i for G-fast and j for G-slow
+                for (ui i = pstart[u], j = pstart[v]; i < pstart[u + 1] && j < pstart[v + 1];)
                 {
                     if (edge_removed_from_G_fast[i] || vertex_removed_from_G_fast[edge_to[i]])
                     {
@@ -530,7 +567,8 @@ public:
 
             if (!vertex_removed_from_G_fast[v])
             {
-                for (ui i = pstart[v], j = pstart[u]; i < pstart[v + 1] && j < pstart[u+1];)
+                // i for G-fast and j for G-slow
+                for (ui i = pstart[v], j = pstart[u]; i < pstart[v + 1] && j < pstart[u + 1];)
                 {
                     if (edge_removed_from_G_fast[i] || vertex_removed_from_G_fast[edge_to[i]])
                     {

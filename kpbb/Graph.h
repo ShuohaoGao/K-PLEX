@@ -475,7 +475,8 @@ public:
         //     seq[i]=i;
         Timer t;
         int ret = 2 * paramK - 2;
-        if ((int)(log2(n) * 10) > lb + 1) // just brute select the best vertex
+        // if ((int)(log2(n) * 10) > lb + 1) // just brute select the best vertex
+        if(true)
         {
             vector<bool> rm(n, true); // rm[v]=0 <==> v in candidate
             vector<int> cnt(n, 0);    // neighbor count
@@ -485,7 +486,7 @@ public:
             {
                 if (t.get_time() > time_limit)
                 {
-                    printf("StrongHeuris is stoped due to time limit! extend times= %u\n", i);
+                    // printf("StrongHeuris is stoped due to time limit! extend times= %u\n", i);
                     break;
                 }
                 ret = max(ret, extend_brute_select(seq[i], rm, deg, cnt, in_plex, solution));
@@ -501,7 +502,7 @@ public:
             {
                 if (t.get_time() > time_limit)
                 {
-                    printf("StrongHeuris is stoped due to time limit! extend times= %u\n", i);
+                    // printf("StrongHeuris is stoped due to time limit! extend times= %u\n", i);
                     break;
                 }
                 ret = max(ret, extend(seq[i], solution));
@@ -1152,7 +1153,8 @@ public:
         return plex.size();
     }
     /**
-     * @brief degenaracy order to get lb, i.e., each time we remove the vertex with min degree
+     * @brief degenaracy order to get lb, i.e., each time we remove the vertex with min degree;
+     * then we reduce the graph to (lb+1-k)-core
      *
      * @param solution if not NULL, the heuristic result should be stored
      *
@@ -1180,7 +1182,6 @@ public:
                 for (ui i = pstart[u]; i < pstart[u + 1]; i++)
                 {
                     ui v = edge_to[i];
-                    assert(v < n);
                     if (!rm[v])
                     {
                         if (--d[v] + paramK <= lb)
@@ -1194,11 +1195,10 @@ public:
         }
         vector<ui> core(n, 0);
         vector<ui> seq(n); // the reverse order of degeneracy order, i.e., v_0 is seq[n-1] while v_{n-1} is seq[0]
-        set<ui> plex;
+        vector<ui> plex;
         // compute degeneracy order
         {
-            ui *pd = new ui[n]; // copy of d[]
-            memcpy(pd, d, sizeof(ui) * n);
+            ui *pd = d; // this may destroy d[]; however, d[] is useless for us now
             LinearHeap heap(n, n);
             for (ui i = 0; i < n; i++)
                 if (!rm[i])
@@ -1238,16 +1238,16 @@ public:
                 ui u = heap.get_min_node();
                 heap.delete_node(u);
                 seq[heap.sz] = u;
-                plex.insert(u);
+                plex.push_back(u);
                 max_core = max(max_core, pd[u]);
                 core[u] = max_core;
             }
             lb = max(lb, rest);
-            delete[] pd;
         }
         // rebuild graph: following degeneracy order
         {
-            ui new_n = 0;
+            ui new_n = n;
+            // first order reduction can be done with the information of core[]
             for (ui i = 0; i < n; i++) // compute the number of rest vertices
             {
                 if (core[seq[i]] + paramK <= lb)
@@ -1263,9 +1263,11 @@ public:
             ui most_edge_cnt = 0;
             for (ui i = 0; i < new_n; i++) // store the map of indices of vertices
             {
-                new_map[i] = map_refresh_id[seq[i]];
-                q[seq[i]] = i;
-                most_edge_cnt += d[seq[i]];
+                ui u = seq[i];
+                new_map[i] = map_refresh_id[u];
+                q[u] = i;
+                ui deg = pstart[u + 1] - pstart[u];
+                most_edge_cnt += deg;
             }
             map_refresh_id = new_map;
             ui *new_edge_to = new ui[most_edge_cnt];
@@ -1425,33 +1427,6 @@ public:
         {
             CTCP(lb);
         }
-        // cout<<v<<' '<<vertex.size()<<' '<<get_m()<<endl;
-        // if(v==169 || v==160)
-        // {
-        //     for (int v : vertex)
-        //     {
-        //         for (int i = pstart[v]; i < pstart[v + 1]; i++)
-        //         {
-        //             int w = edge_to[i];
-        //             if (!vertex[w] || edge_removed[i])
-        //                 continue;
-        //             int cnt = 0;
-        //             for (int j = pstart[w]; j < pstart[w + 1]; j++)
-        //             {
-        //                 if (edge_removed[j])
-        //                     continue;
-        //                 int x = edge_to[j];
-        //                 if (!vertex[x])
-        //                     continue;
-        //                 if (has(edge_to + pstart[v], edge_to + pstart[v + 1], x))
-        //                 {
-        //                     cnt++;
-        //                 }
-        //             }
-        //             // assert(cnt==triangles_m[i]);
-        //         }
-        //     }
-        // }
     }
     /**
      * @brief inspired by Lijun Chang
@@ -1852,7 +1827,7 @@ public:
     {
         n = g.n;
         m = g.m;
-        printf("reduced graph n= %d m= %d lb= %d\n", n, m, lb);
+        printf("reduced graph n= %d m= %d lb= %d\n", n, m/2, lb);
         A = AjacentMatrix(n);
         for (ui i = 0; i < n; i++)
         {

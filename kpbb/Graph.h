@@ -189,7 +189,7 @@ public:
             }
             fread(&n, sizeof(ui), 1, in);
             fread(&m, sizeof(ui), 1, in);
-            cout << "File: " << get_file_name_without_suffix(file_path) << " n= " << n << " m= " << m/2 << " k= " << paramK << endl;
+            cout << "File: " << get_file_name_without_suffix(file_path) << " n= " << n << " m= " << m / 2 << " k= " << paramK << endl;
             d = new ui[n];
             pstart = new ui[n + 1];
             edge_to = new ui[m];
@@ -1158,132 +1158,149 @@ public:
      *
      * @return lb
      *
-     * T(n)=O(n+m)
+     * T(n)=O(n+m) [actually, the code is O(n+mlogn)]
      */
     int degeneracy_and_reduce(int lb, set<ui> *solution = nullptr)
     {
         vector<bool> rm(n, 0); // rm[u]=1 <==> u is peeled and removed
-        queue<ui> q;
-        for (ui i = 0; i < n; i++)
-            if (d[i] + paramK <= lb)
-            {
-                q.push(i);
-                rm[i] = 1;
-            }
-        while (q.size())
+        // weak reduce
+        if (lb > paramK)
         {
-            ui u = q.front();
-            q.pop();
-            for (ui i = pstart[u]; i < pstart[u + 1]; i++)
-            {
-                ui v = edge_to[i];
-                assert(v < n);
-                if (!rm[v])
+            queue<ui> q;
+            for (ui i = 0; i < n; i++)
+                if (d[i] + paramK <= lb)
                 {
-                    if (--d[v] + paramK <= lb)
+                    q.push(i);
+                    rm[i] = 1;
+                }
+            while (q.size())
+            {
+                ui u = q.front();
+                q.pop();
+                for (ui i = pstart[u]; i < pstart[u + 1]; i++)
+                {
+                    ui v = edge_to[i];
+                    assert(v < n);
+                    if (!rm[v])
                     {
-                        q.push(v);
-                        rm[v] = 1;
+                        if (--d[v] + paramK <= lb)
+                        {
+                            q.push(v);
+                            rm[v] = 1;
+                        }
                     }
                 }
             }
         }
-        int *pd = new int[n]; // copy of d[]
-        memcpy(pd, d, sizeof(int) * n);
-        LinearHeap heap(n, n);
-        for (ui i = 0; i < n; i++)
-            if (!rm[i])
-            {
-                assert(pd[i] + paramK > lb);
-                heap.insert(pd[i], i);
-            }
-        if (!heap.sz)
-        {
-            n = m = 0;
-            return lb;
-        }
-        vector<int> core(n, 0);
-        int max_core = 0;
-        while (heap.get_min_key() + paramK < heap.sz)
-        {
-            ui u = heap.get_min_node();
-            max_core = max(max_core, pd[u]);
-            core[u] = max_core;
-            assert(u < n);
-            heap.delete_node(u);
-            rm[u] = 1;
-            // update the degrees of the rest vertices
-            for (ui i = pstart[u]; i < pstart[u + 1]; i++)
-            {
-                ui v = edge_to[i];
-                assert(v < n);
-                if (!rm[v])
-                {
-                    assert(pd[v] > 0);
-                    heap.decrease(--pd[v], v);
-                }
-            }
-        }
-        int rest = heap.sz;
+        vector<ui> core(n, 0);
+        vector<ui> seq(n); // the reverse order of degeneracy order, i.e., v_0 is seq[n-1] while v_{n-1} is seq[0]
         set<ui> plex;
-        while (heap.sz)
+        // compute degeneracy order
         {
-            ui u = heap.get_min_node();
-            heap.delete_node(u);
-            plex.insert(u);
-            max_core = max(max_core, pd[u]);
-            core[u] = max_core;
-        }
-        lb = max(lb, rest);
-        for (ui i = 0; i < n; i++)
-            rm[i] = (core[i] + paramK > lb) ? 0 : 1;
-        // rebuild graph
-        {
-            ui *q = new ui[n];
-            ui new_n = 0;
-            vector<ui> new_map(n);
+            ui *pd = new ui[n]; // copy of d[]
+            memcpy(pd, d, sizeof(ui) * n);
+            LinearHeap heap(n, n);
             for (ui i = 0; i < n; i++)
                 if (!rm[i])
                 {
-                    new_map[new_n] = map_refresh_id[i];
-                    q[i] = new_n++;
+                    assert(pd[i] + paramK > lb);
+                    heap.insert(pd[i], i);
                 }
-            new_map.resize(new_n);
+            if (!heap.sz)
+            {
+                n = m = 0;
+                return lb;
+            }
+            ui max_core = 0;
+            // each time we remove the vertex with min degree
+            while (heap.get_min_key() + paramK < heap.sz)
+            {
+                ui u = heap.get_min_node();
+                max_core = max(max_core, pd[u]);
+                core[u] = max_core;
+                heap.delete_node(u);
+                seq[heap.sz] = u;
+                rm[u] = 1;
+                // update the degrees of the rest vertices
+                for (ui i = pstart[u]; i < pstart[u + 1]; i++)
+                {
+                    ui v = edge_to[i];
+                    if (!rm[v])
+                    {
+                        assert(pd[v] > 0);
+                        heap.decrease(--pd[v], v);
+                    }
+                }
+            }
+            int rest = heap.sz;
+            while (heap.sz)
+            {
+                ui u = heap.get_min_node();
+                heap.delete_node(u);
+                seq[heap.sz] = u;
+                plex.insert(u);
+                max_core = max(max_core, pd[u]);
+                core[u] = max_core;
+            }
+            lb = max(lb, rest);
+            delete[] pd;
+        }
+        // rebuild graph: following degeneracy order
+        {
+            ui new_n = 0;
+            for (ui i = 0; i < n; i++) // compute the number of rest vertices
+            {
+                if (core[seq[i]] + paramK <= lb)
+                {
+                    new_n = i;
+                    break;
+                }
+            }
+            seq.resize(new_n);
+            reverse(seq.begin(), seq.end()); // now seq[] is degeneracy order, v_i is seq[i]
+            vector<ui> new_map(new_n);
+            vector<ui> q(n, n); // q[seq[u]]=u
+            ui most_edge_cnt = 0;
+            for (ui i = 0; i < new_n; i++) // store the map of indices of vertices
+            {
+                new_map[i] = map_refresh_id[seq[i]];
+                q[seq[i]] = i;
+                most_edge_cnt += d[seq[i]];
+            }
             map_refresh_id = new_map;
+            ui *new_edge_to = new ui[most_edge_cnt];
             ui *new_pstart = new ui[new_n + 1];
             ui *new_d = new ui[new_n];
-            ui j = 0; // we don't need extra memory to store new-edge_to, just re-use edge_to[]
-            for (ui i = 0; i < n; i++)
+            ui new_m = 0;
+            // rebuild graph
+            for (ui u = 0; u < new_n; u++)
             {
-                if (rm[i])
-                    continue;
-                ui u = q[i];
-                new_pstart[u] = j;
-                for (ui p = pstart[i]; p < pstart[i + 1]; p++)
+                new_pstart[u] = new_m;
+                ui pre_u = seq[u];
+                assert(q[pre_u] == u);
+                for (ui i = pstart[pre_u]; i < pstart[pre_u + 1]; i++)
                 {
-                    ui v = edge_to[p];
-                    if (!rm[v])
-                        edge_to[j++] = q[edge_to[p]];
+                    ui v = edge_to[i];
+                    if (q[v] >= n)
+                        continue;
+                    new_edge_to[new_m++] = q[v];
                 }
-                new_d[u] = j - new_pstart[u];
+                new_d[u] = new_m - new_pstart[u];
+                // this cause T(n)=O(mlogn), we can use countingSort to improve the complexity, but we choose not
+                sort(new_edge_to + new_pstart[u], new_edge_to + new_m);
             }
-            new_pstart[new_n] = j;
-            delete[] d;
+            new_pstart[new_n] = new_m;
+            assert(new_m <= most_edge_cnt);
             delete[] pstart;
+            delete[] d;
+            delete[] edge_to;
             d = new_d;
             pstart = new_pstart;
-            // you can ignore the following
-            if (j * 2 < m)
-            {
-                ui *new_edge_to = new ui[j];
-                memcpy(new_edge_to, edge_to, sizeof(ui) * j);
-                delete[] edge_to;
-                edge_to = new_edge_to;
-            }
-            m = j;
+            edge_to = new_edge_to;
+            m = new_m;
             n = new_n;
-            delete[] q;
         }
+        // store k-plex
         if (solution != nullptr && solution->size() < plex.size())
         {
             solution->clear();
@@ -1787,7 +1804,7 @@ public:
     void induce_to_2hop(int v, MyBitset &vis, vector<int> &vertices)
     {
         assert(vertex[v]);
-        assert(vertices.size()==1 && vertices[0]==v);
+        assert(vertices.size() == 1 && vertices[0] == v);
         for (int i = pstart[v]; i < pstart[v + 1]; i++)
         {
             if (edge_removed[i])
@@ -2114,7 +2131,7 @@ public:
             init_time = t.get_time();
         }
     }
-    
+
     Graph_adjacent &operator=(const Graph_adjacent &other)
     {
         if (this == &other)

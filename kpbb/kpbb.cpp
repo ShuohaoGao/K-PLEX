@@ -114,6 +114,7 @@ void StrongHeuris()
         if (extend_lb <= lb)
             break;
         lb = extend_lb;
+        g.weak_reduce(lb);
 
         // strong reduce
         {

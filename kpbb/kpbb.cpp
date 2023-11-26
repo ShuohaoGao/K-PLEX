@@ -65,7 +65,7 @@ void FastHeuris()
 #endif
         lb = max(lb, 2 * paramK - 2);
         lb = max(lb, g.degeneracy_and_reduce(lb, &solution));
-        printf("After degeneracy and weak reduce, n= %u , m= %u , lb= %d , use time %.4lf s\n", g.n, g.m, lb, t.get_time() / 1e6);
+        printf("After degeneracy and weak reduce, n= %u , m= %u , lb= %d , use time %.4lf s\n", g.n, g.m / 2, lb, t.get_time() / 1e6);
         if (lb >= g.n)
         {
             g.n = 0;
@@ -83,7 +83,7 @@ void FastHeuris()
         Reduction reduce(&g);
         ui pre_n = g.n;
         reduce.strong_reduce(lb);
-        printf("Afer CF-CTCP, n= %u , m= %u, use time %.4lf s\n", g.n, g.m/2, start_strong_reduce.get_time() / 1e6);
+        printf("Afer CF-CTCP, n= %u , m= %u, use time %.4lf s\n", g.n, g.m / 2, start_strong_reduce.get_time() / 1e6);
         strong_reduce_time += start_strong_reduce.get_time();
 
         if (lb >= g.n)
@@ -124,7 +124,7 @@ void StrongHeuris()
             Reduction reduce(&g);
             ui pre_n = g.n;
             reduce.strong_reduce(lb);
-            printf("Afer CF-CTCP, n= %u , m= %u, use time %.4lf s\n", g.n, g.m/2, start_strong_reduce.get_time() / 1e6);
+            printf("Afer CF-CTCP, n= %u , m= %u, use time %.4lf s\n", g.n, g.m / 2, start_strong_reduce.get_time() / 1e6);
             strong_reduce_time += start_strong_reduce.get_time();
 
             if (lb >= g.n)
@@ -179,10 +179,10 @@ void bnb()
     }
     Branch branch(*G, lb - G->must_contain.size());
     branch.IE_framework();
-    if(solution.size() < branch.solution.size())
+    if (solution.size() < branch.solution.size())
     {
         solution.clear();
-        for(int v:branch.solution)
+        for (int v : branch.solution)
             solution.insert(v);
     }
 }
@@ -191,10 +191,8 @@ int main(int argc, char *argv[])
 {
     if (argc < 3)
     {
-        // printf("3 params are required !!! \n");
-        // exit(1);
-        char *a[]={"", "..\\data\\bin\\brock200-2.bin", "2"};
-        argv = a;
+        printf("3 params are required !!! \n");
+        exit(1);
     }
     file_path = string(argv[1]);
     paramK = atoi(argv[2]);

@@ -1,64 +1,56 @@
 # Code for Maximum  k-Plex Searching.
 
-Written by ***Shuohao Gao*** in **HITSZ**.
-
+Written by [***Shuohao Gao***](https://shuohaogao.github.io/) in **HITSZ**.\
+If you find bugs or meet problems, just feel free to contact us.
 
 # Graph data format:
+Two kinds of graph formats are supported, and you can find the details in ***Graph::readFromFile*** in [**kpbb/Graph.h**](./kpbb/Graph.h).
+
+## 1. *.out or *.txt
 first line: 
-```n m```
-
-next $m$ lines are undirected edges: ```a b```
-
+```n m```\
+next $m$ lines are undirected edges: ```a b```\
 Note that  $0 \leq a,b \leq n-1$ & you need to make sure that self-loops are removed (multi-edges are allowed).
 
+We provide  two example graphs in [data/edges/](./data/edges/).
+
+## 2. *.bin
+binary graph \
+first $4$ Bytes: **sizeof(uint32_t)**, which should be $4$\
+then $4$ Bytes: $n$\
+then $4$ Bytes: $2\times m$\
+then $4\times n$ Bytes: the degree $d_G(\cdot)$ of $n$ vertices\
+then: $n$ parts ($2m\times 4$ Bytes in total), each part has $d_G(u)$ integers which are the neighbors of $u$ ***in ascending order***
+
+We provide an example of binary graph file  in [data/bin/](./data/bin/).
+
 # Usage
-**MDPS** has two stages: *heuristic stage (preprocessing stage)* and *exact search stage*.
+The whole procedure for searching Maximum K-Plex is located at [kpbb/](./kpbb/). And we show an example in [run.sh](./kpbb/run.sh).
 
-If you just need a relative large instead of strictly maximum  k-plex, then **DPHeuris** is suitable due to its high accuracy and little time cost.
-
-### 1. DPHeuris
-compile command need at least c++11:
+## compile
 ```
-cd DPHeuris
-g++ -std=c++11 -O3 -w MDP-pre.cpp -o MDP-pre
-./MDP-pre input_graph_file_path k
+g++ -std=c++11 -O3 -w kpbb.cpp -o kpbb -DNDEBUG -DNO_PROGRESS_BAR
 ```
-reduced graph is dumped to ```./reduced_graph/```
 
-### 2. DPBB
-The **DPBB** procedure is based on the output of **DPHeuris**\
-Compile command need at least c++11:
+Note that we add a macro definition in the compile command: \
+***-DNO_PROGRESS_BAR*** will disable the progress bar;\
+we recommend to use this definition when you use batch commands. 
+
+## run
 ```
-cd DPBB
-g++ -std=c++11 -O3 -w MDP-bb.cpp -o MDP-bb -DNO_PROGRESS_BAR -DNDEBUG
-./MDP-bb reduced_graph_file_path k 
+./kpbb graph_path k
 ```
-Note that we add two macro definitions in the compile command: \
-***-DNO_PROGRESS_BAR*** will disable the progress bar; we recommend to use this definition when you use batch commands. \
-***-DNDEBUG*** will disable the *assert()*, making the program faster.
 
-The format of ***reduced_graph_file***:
-first line: ```n m lb```;\
-next $m$ lines are edges: ```a b```;\
-next $n$ lines are $v_i$, i.e., a vertex in the reduced graph whose id is $j$ is the vertex $v_j$ in the intial graph.
-
-then ```cnt```, which is the count of vertices that must be included. \
-next $cnt$ lines are $v_i$, i.e., a vertex id that must be included.
+## an example
+```
+cd kpbb
+g++ -std=c++11 -O3 -w kpbb.cpp -o kpbb -DNDEBUG -DNO_PROGRESS_BAR
+./kpbb ../data/bin/brock200-2.bin 2
+./kpbb ../data/edges/email-Eu-core.out 2
+```
 
 
-# Example
-```data/email-Eu-core.out``` is an example graph
+#### We offer two kinds of executable programs:
+```kpbb/kpbb```  can be executed in Ubuntu 20.04\
+```kpbbb/kpbb.exe``` can be executed in Win11 and Win10
 
-### DPHeuris:
-```
-./MDP-pre ../data/email-Eu-core.out 2
-```
-### DPBB:
-```
-./MDP-bb ../reduced_graph/email-Eu-core_K=2.out 2
-```
-#### More details of usage example are shown in ```DPHeuris/pre.sh``` and ```DPBB/run.sh```, the running results are shown in ```DPHeuris/log/pre_log.txt``` and ```DPBB/log/run_log.txt```
-
-We offer two kinds of executable programs:\
-```DPHeuris/MDP-pre``` and ```DPBB/MDP-bb``` can be executed in Ubuntu 20.04\
-```DPHeuris/MDP-pre.exe``` and ```DPBB/MDP-bb.exe``` can be executed in Win11 and Win10( note that we use *gettimeofday(&timestamp, NULL)* to compute the time cost, which may be incorrect in Windows)

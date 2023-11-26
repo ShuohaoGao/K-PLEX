@@ -1194,8 +1194,9 @@ public:
             }
         }
         vector<ui> core(n, 0);
-        vector<ui> seq(n); // the reverse order of degeneracy order, i.e., v_0 is seq[n-1] while v_{n-1} is seq[0]
+        vector<ui> seq(n, n); // the reverse order of degeneracy order, i.e., v_0 is seq[n-1] while v_{n-1} is seq[0]
         vector<ui> plex;
+        ui rest_v_cnt=0;
         // compute degeneracy order
         {
             ui *pd = d; // this may destroy d[]; however, d[] is useless for us now
@@ -1211,6 +1212,7 @@ public:
                 n = m = 0;
                 return lb;
             }
+            rest_v_cnt = heap.sz;
             ui max_core = 0;
             // each time we remove the vertex with min degree
             while (heap.get_min_key() + paramK < heap.sz)
@@ -1246,10 +1248,12 @@ public:
         }
         // rebuild graph: following degeneracy order
         {
-            ui new_n = n;
+            ui new_n = rest_v_cnt;
             // first order reduction can be done with the information of core[]
-            for (ui i = 0; i < n; i++) // compute the number of rest vertices
+            for (ui i = 0; i < rest_v_cnt; i++) // compute the number of rest vertices
             {
+                ui u=seq[i];
+                assert(u<n);
                 if (core[seq[i]] + paramK <= lb)
                 {
                     new_n = i;

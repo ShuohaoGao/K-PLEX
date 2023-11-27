@@ -1,6 +1,5 @@
 #include "Graph.h"
 #include "2th-Reduction.h"
-#include "verify.h"
 #include "Branch.h"
 
 string file_path;
@@ -22,14 +21,8 @@ void print_heuris_log()
     printf("total-heuristic-time= %.4lf s, FastHeuris-time= %.4lf s, StrongHeuris-time= %.4lf s\n",
            total_heuris_time / 1e6, FastHeuris_time / 1e6, StrongHeuris_time / 1e6);
     printf("lb= %d , FastHeuris-lb= %d \n", lb, FastHeuris_lb);
-    if (solution.size() < 2 * paramK - 1)
-    {
-        printf("there is no such a plex size >= 2k - 1  !!\n");
-    }
-    else
-    {
+    if (solution.size() >= 2 * paramK - 1)
         assert(solution.size() == lb);
-    }
 
 #ifdef VERIFY
     Verifier_undirected_kPlex<ui> verifier(solution, file_path);
@@ -187,6 +180,17 @@ void bnb()
     }
 }
 
+void print_solution()
+{
+    if (solution.size() < 2 * paramK - 1)
+    {
+        printf("We can't find a plex larger than 2k-1!! The following is a heuristic solution.\n");
+    }
+    printf("Maximum solution(size= %d ):\n", (int)solution.size());
+    print_set(solution);
+    fflush(stdout);
+}
+
 int main(int argc, char *argv[])
 {
     if (argc < 3)
@@ -210,9 +214,7 @@ int main(int argc, char *argv[])
     // branch and bound
     bnb();
 
-    printf("Maximum solution(size= %d ):\n", (int)solution.size());
-    print_set(solution);
-    fflush(stdout);
+    print_solution();
     puts("------------------{whole procedure: kpbb}---------------------");
     printf("ground truth= %u , kpbb time: %.4lf s\n\n", solution.size(), (get_system_time_microsecond() - algorithm_start_time) / 1e6);
 

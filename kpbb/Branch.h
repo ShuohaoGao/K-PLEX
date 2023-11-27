@@ -679,6 +679,21 @@ public:
     }
 
     /**
+     * @return the vertex with minimum degree in the non-neighbors of v
+     */
+    int select_pivot_vertex_in_non_neighbor(int v, Set &C)
+    {
+        int sel = -1;
+        for (int u : C)
+            if(non_A[v][u])
+                if (sel == -1 || deg[u] < deg[sel])
+                    sel = u;
+        if(sel == -1)
+            sel = select_pivot_vertex_with_min_degree(C);
+        return sel;
+    }
+
+    /**
      * @return the vertex with minimum degree
      */
     int select_pivot_vertex_with_max_degree(Set &C)

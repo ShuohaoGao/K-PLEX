@@ -1522,7 +1522,7 @@ public:
             must_contain.push_back(u);
         vertex = MyBitset(n);
         vertex.flip();
-        printf("Graph for bnb init ok\n");
+        // printf("Graph for bnb init ok\n");
         fflush(stdout);
     }
     ~Graph_reduced_adjacent_list()
@@ -1855,7 +1855,7 @@ public:
         d = new int[n];
         for (int i = 0; i < n; i++)
             d[i] = A[i].size();
-        printf("Graph for bnb init ok\n");
+        // printf("Graph for bnb init ok\n");
         fflush(stdout);
     }
     ~Graph_reduced_adjacent_matrix()

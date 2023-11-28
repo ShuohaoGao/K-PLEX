@@ -74,7 +74,7 @@ public:
         print_module_time("CTCP", CTCP_time);
         print_module_time("C-reduce", C_reduce);
         puts("");
-        print_module_time("ub-try-time", ub_try_time);
+        print_module_time("look-ahead", ub_try_time);
         puts("");
         printf("average g_i size: %.2lf ", IE_graph_size * 1.0 / IE_graph_cnt);
         printf("average S size: %.2lf  ", S_size * 1.0 / dfs_cnt);
@@ -147,6 +147,7 @@ public:
             IE_induce_time += get_system_time_microsecond() - start_induce;
 
             int pre_lb = lb;
+            v_just_add = id_u;
             bnb(S, C);
 
             double start_CTCP = get_system_time_microsecond();
@@ -386,7 +387,6 @@ public:
         int ub = get_UB(S, C, &pivot1);
         if (ub <= lb)
             return;
-
         // select pivot to generate 2 branches
         double start_select_time = get_system_time_microsecond();
         // int pivot = select_pivot_vertex_with_min_degree(C);
@@ -631,6 +631,8 @@ public:
             }
             if (sel == -1)
                 break;
+            if (lb + 1 > ub && size * 1.0 / ub_cnt <= copy_C.size() * 1.0 / (lb + 1 - ub))
+                break;
             copy_S.reset(sel);
             useful_S.set(sel);
             ub += ub_cnt;
@@ -670,7 +672,39 @@ public:
         }
 #endif
 
+        while (copy_S.size())
+        {
+            int sel = -1, size = 0, ub_cnt = 0;
+            for (int v : copy_S)
+            {
+                int sz = non_A[v].intersect(copy_C);
+                int cnt = (paramK - loss_cnt[v]);
+                if (sz <= cnt) // Pi_i is useless
+                {
+                    copy_S.reset(v);
+                }
+                else
+                {
+                    if (sel == -1 || size * cnt < sz * ub_cnt) // (size/ub_cnt)<(sz/cnt)
+                    {
+                        sel = v;
+                        size = sz;
+                        ub_cnt = cnt;
+                        // break;
+                    }
+                }
+            }
+            if (sel == -1)
+                break;
+            copy_S.reset(sel);
+            useful_S.set(sel);
+            ub += ub_cnt;
+            copy_C &= A[sel]; // remove the non-neighbors of sel
+        }
+        ret = ub + Pi_0.size();
+
 #ifndef NO_LOOKAHEAD
+        // for u in C, if UB(S+u, C-u) <= lb then remove u
         {
             Timer t;
             int piv = -1, min_ub = INF;
@@ -712,6 +746,66 @@ public:
             }
             ub_try_time += t.get_time();
         }
+        // note that only the first time we invoke bnb can we modify A[][] and non_A[][] (because all sub-tree shares the same array)
+        if (S_sz <= 1 && v_just_add != -1) // we conduct higher-order reduction to further reduce edges
+        {
+            // int v = *S.begin();
+            // we should have UB(Pi_0)>= lb+1-k, so we can reduce Pi_0 to a (lb+1-3k)-truss
+            for (int u : Pi_0)
+            {
+                auto N_u = A[u];
+                N_u &= Pi_0;
+                for (int v : Pi_0)
+                {
+                    if (v >= u)
+                        break;
+                    if (!A[u][v])
+                        continue;
+                    bool remove_u_v = false;
+                    int common_neighbor_cnt = N_u.intersect(A[v]);
+                    if (common_neighbor_cnt + 2 * paramK < lb + 1 - paramK)
+                    {
+                        remove_u_v = true;
+                    }
+                    if (remove_u_v)
+                    {
+                        A[u].reset(v);
+                        A[v].reset(u);
+                        non_A[u].set(v);
+                        non_A[v].set(u);
+                        N_u.reset(v);
+                    }
+                }
+            }
+            // next we reduce edges between Pi_0 and C-Pi_0
+            // for (u,v) in E(G) where u in Pi_0 and v in C-Pi_0, we should have UB({u,v}, Pi_0-u)>=lb+1-k+1
+            auto temp = Pi_0;
+            temp ^= C;
+            assert(C.size() == temp.size() + Pi_0.size());
+            for (int u : Pi_0)
+            {
+                auto N_u = A[u];
+                N_u &= Pi_0;
+                for (int v : temp)
+                {
+                    if (!A[u][v])
+                        continue;
+                    bool remove_u_v = false;
+                    int common_neighbor_cnt = N_u.intersect(A[v]);
+                    if (common_neighbor_cnt + 2 * paramK < lb + 2 - paramK)
+                    {
+                        remove_u_v = true;
+                    }
+                    if (remove_u_v)
+                    {
+                        A[u].reset(v);
+                        A[v].reset(u);
+                        non_A[u].set(v);
+                        non_A[v].set(u);
+                    }
+                }
+            }
+        }
 #endif
         return ret;
     }
@@ -732,8 +826,12 @@ public:
     {
         int sel = -1;
         for (int u : C)
-            if (sel == -1 || deg[u] < deg[sel])
+        {
+            if (loss_cnt[u] == paramK - 1)
+                return u;
+            if (sel == -1 || deg[u] < deg[sel] || deg[u] == deg[sel] && loss_cnt[sel] < loss_cnt[u])
                 sel = u;
+        }
         return sel;
     }
 
@@ -771,8 +869,12 @@ public:
     {
         int sel = -1;
         for (int u : C)
+        {
+            if (loss_cnt[u] == paramK - 1)
+                return u;
             if (sel == -1 || loss_cnt[u] > loss_cnt[sel] || (loss_cnt[u] == loss_cnt[sel] && deg[u] < deg[sel]))
                 sel = u;
+        }
         return sel;
     }
 

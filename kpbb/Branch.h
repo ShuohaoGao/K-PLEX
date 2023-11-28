@@ -56,7 +56,7 @@ public:
     {
     }
     ~Branch() {}
-    
+
     /**
      * @brief print some logs
      */
@@ -92,7 +92,7 @@ public:
             printf("The heuristic solution is the ground truth!\n");
         // puts("");
     }
-    
+
     /**
      * @brief each time we enumerate v_i that must be included into S, and C is the 2-hop neighbors of v_i
      * another name: Divide and Conquer framework
@@ -174,7 +174,7 @@ public:
         int_array.clear();
         int_array.resize(g.size());
     }
-    
+
     /**
      * @brief plex=S
      */
@@ -419,6 +419,65 @@ public:
             // bnb(new_S, new_C);
             bnb(S, C);
         }
+    }
+
+    /**
+     * @brief extend S to a maximal k-plex in G[S\cup C]
+     * by greedily select a best vertex to include
+     */
+    void extend(Set S, Set C)
+    {
+        while (C.size())
+        {
+            int sel = -1, nc = 0;
+            for (int u : C)
+            {
+                int cnt = S.intersect(A[u]);
+                if (sel == -1 || (cnt > nc) || (cnt == nc && deg[u] > deg[sel]))
+                {
+                    sel = u;
+                    nc = cnt;
+                }
+            }
+            if (nc + paramK < S.size() + 1)
+                break;
+            C.reset(sel);
+            for (int v : S)
+            {
+                if (!A[sel][v] && non_A[v].intersect(S) == paramK - 1)
+                {
+                    C &= A[v];
+                }
+            }
+            S.set(sel);
+        }
+        update_lb(S);
+    }
+
+    void degenerate(Set &S, Set &C)
+    {
+        auto V = S;
+        V |= C;
+        int sz = V.size();
+        while (1)
+        {
+            int sel = -1;
+            int d = sz;
+            for (int u : V)
+            {
+                int d_u = A[u].intersect(V);
+                if (sel == -1 || (d_u < d))
+                {
+                    sel = u;
+                    d = d_u;
+                }
+            }
+            if (d + paramK >= sz)
+                break;
+            V.reset(sel);
+            sz--;
+        }
+        update_lb(V);
     }
 
     /**
@@ -685,10 +744,10 @@ public:
     {
         int sel = -1;
         for (int u : C)
-            if(non_A[v][u])
+            if (non_A[v][u])
                 if (sel == -1 || deg[u] < deg[sel])
                     sel = u;
-        if(sel == -1)
+        if (sel == -1)
             sel = select_pivot_vertex_with_min_degree(C);
         return sel;
     }

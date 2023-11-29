@@ -140,6 +140,7 @@ public:
                 ptr_g = &g;
 
                 int id_u = inv[u]; // the index of u in the new-induced graph g
+                g.edge_reduction(id_u, lb);
 
                 Set S(g.size()), C(g.size());
                 S.set(id_u);

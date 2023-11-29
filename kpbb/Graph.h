@@ -2332,6 +2332,78 @@ public:
         return *this;
     }
     /**
+     * @brief reduce edges: second & higher order reduction
+     */
+    void edge_reduction(int v_in_S, int lb)
+    {
+        auto &A = adj_matrix;
+        bool reduced = false;
+        do
+        {
+            reduced = false;
+            for (int u = 0; u < n; u++)
+            {
+                for (int v : A[u])
+                {
+                    if (v >= u)
+                        break;
+                    int common_neighbor_cnt = A[u].intersect(A[v]);
+                    if (common_neighbor_cnt + 2 * paramK <= lb)
+                    {
+                        A[u].reset(v);
+                        A[v].reset(u);
+                        reduced = true;
+                    }
+                }
+                int deg = A[u].size();
+                if (deg + paramK <= lb && deg > 0)
+                {
+                    for (int v : A[u])
+                    {
+                        A[v].reset(u);
+                    }
+                    A[u].clear();
+                    reduced = true;
+                }
+            }
+            if (reduced || paramK == 2)
+            {
+                continue;
+            }
+            auto &N_v = A[v_in_S];
+            for (int u = 0; u < n; u++)
+            {
+                if (u == v_in_S)
+                    continue;
+                for (int v : A[u])
+                {
+                    if (v == v_in_S)
+                        continue;
+                    if (v >= u)
+                        break;
+                    int common_neighbor_cnt = N_v.intersect(A[u], A[v]); // common neighbors of {u,v,v_in_S}
+                    int loss_cnt = (!A[v_in_S][u]) + (!A[v_in_S][v]);
+                    if (common_neighbor_cnt + 3 * paramK - 2 * loss_cnt <= lb)
+                    {
+                        A[u].reset(v);
+                        A[v].reset(u);
+                        reduced = true;
+                    }
+                }
+                int deg = A[u].size();
+                if (deg + paramK <= lb && deg > 0)
+                {
+                    for (int v : A[u])
+                    {
+                        A[v].reset(u);
+                    }
+                    A[u].clear();
+                    reduced = true;
+                }
+            }
+        } while (reduced);
+    }
+    /**
      * @brief given vertex set V_mask, induce subgraph
      *
      * @param V_mask V_mask[u]=1 <==> u in the subgraph

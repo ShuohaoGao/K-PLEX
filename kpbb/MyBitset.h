@@ -139,6 +139,14 @@ public:
         //   { return countBits(a & b); });
     }
 
+    int intersect(const MyBitset &a, const MyBitset &b)
+    {
+        int ret = 0;
+        for (int i = 0; i <= n; i++)
+            ret += __builtin_popcountll((buf[i] & a.buf[i]) & b.buf[i]);
+        return ret;
+    }
+
     class Iterator
     {
     private:

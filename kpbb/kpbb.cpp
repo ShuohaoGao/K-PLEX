@@ -13,6 +13,17 @@ double strong_reduce_time;
 int FastHeuris_lb;
 int input_n;
 
+void print_solution()
+{
+    if (solution.size() < 2 * paramK - 1)
+    {
+        printf("***We can't find a plex larger than 2k-1!! The following is a heuristic solution.\n");
+    }
+    printf("Maximum solution(size= %d ):\n", (int)solution.size());
+    print_set(solution);
+    fflush(stdout);
+}
+
 void print_heuris_log()
 {
     puts("*************Heuristic result*************");
@@ -35,9 +46,7 @@ void print_heuris_log()
     if (g.n + must_contain.size() <= lb)
     {
         printf("The heuristic solution is the ground truth!\n");
-        printf("Maximum solution(size= %d ):\n", (int)solution.size());
-        print_set(solution);
-        fflush(stdout);
+        print_solution();
         puts("------------------{whole procedure: kpbb}---------------------");
         printf("ground truth= %u , kpbb time: %.4lf s\n\n", solution.size(), (get_system_time_microsecond() - algorithm_start_time) / 1e6);
         exit(0);
@@ -178,17 +187,6 @@ void bnb()
         for (int v : branch.solution)
             solution.insert(v);
     }
-}
-
-void print_solution()
-{
-    if (solution.size() < 2 * paramK - 1)
-    {
-        printf("We can't find a plex larger than 2k-1!! The following is a heuristic solution.\n");
-    }
-    printf("Maximum solution(size= %d ):\n", (int)solution.size());
-    print_set(solution);
-    fflush(stdout);
 }
 
 int main(int argc, char *argv[])

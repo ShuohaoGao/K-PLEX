@@ -253,6 +253,16 @@ public:
         for (int v : V)
         {
             deg[v] = A[v].intersect(V);
+            // weak reduce: if d[v] + k <= lb, then remove v
+            if(deg[v] + paramK <= lb)
+            {
+                V.reset(v);
+                if(C[v])
+                {
+                    C.reset(v);
+                }
+                continue;
+            }
             if (deg[v] + paramK >= sz)
             {
                 // if (C[v])
@@ -391,6 +401,7 @@ public:
         double start_select_time = get_system_time_microsecond();
         // int pivot = select_pivot_vertex_with_min_degree(C);
         int pivot = pivot1;
+        // pivot = select_pivot_vertex_in_non_neighbor(S, C);
 #ifdef NO_LOOKAHEAD
         pivot = select_pivot_vertex_with_min_degree(C);
 #endif
@@ -838,15 +849,42 @@ public:
     /**
      * @return the vertex with minimum degree in the non-neighbors of v
      */
-    int select_pivot_vertex_in_non_neighbor(int v, Set &C)
+    int select_pivot_vertex_in_non_neighbor(Set &S, Set &C)
     {
         int sel = -1;
-        for (int u : C)
-            if (non_A[v][u])
-                if (sel == -1 || deg[u] < deg[sel])
-                    sel = u;
-        if (sel == -1)
-            sel = select_pivot_vertex_with_min_degree(C);
+        // select the vertex with min degree d_{G[S]}(sel) in S
+        for (int v : S)
+            if (non_A[v].intersect(C) > 0)
+            {
+                if (sel == -1)
+                    sel = v;
+                else if (loss_cnt[v] < paramK)
+                {
+                    if (loss_cnt[v] > loss_cnt[sel])
+                    {
+                        sel = v;
+                        if (loss_cnt[v] == paramK - 1)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+        if (sel == -1) // C are the common neighbors of S
+            return select_pivot_vertex_with_max_loss(C);
+        auto temp = C;
+        temp &= non_A[sel];
+        sel = -1;
+        for (int u : temp)
+        {
+            if (sel == -1)
+                sel = u;
+            else if (loss_cnt[sel] < loss_cnt[u])
+                sel = u;
+            else if(loss_cnt[sel] == loss_cnt[u] && deg[sel] > deg[u])
+                sel = u;
+        }
+        assert(sel != -1);
         return sel;
     }
 

@@ -476,7 +476,7 @@ public:
         Timer t;
         int ret = 2 * paramK - 2;
         // if ((int)(log2(n) * 10) > lb + 1) // just brute select the best vertex
-        if(true)
+        if (true)
         {
             vector<bool> rm(n, true); // rm[v]=0 <==> v in candidate
             vector<int> cnt(n, 0);    // neighbor count
@@ -1196,7 +1196,7 @@ public:
         vector<ui> core(n, 0);
         vector<ui> seq(n, n); // the reverse order of degeneracy order, i.e., v_0 is seq[n-1] while v_{n-1} is seq[0]
         vector<ui> plex;
-        ui rest_v_cnt=0;
+        ui rest_v_cnt = 0;
         // compute degeneracy order
         {
             ui *pd = d; // this may destroy d[]; however, d[] is useless for us now
@@ -1252,8 +1252,8 @@ public:
             // first order reduction can be done with the information of core[]
             for (ui i = 0; i < rest_v_cnt; i++) // compute the number of rest vertices
             {
-                ui u=seq[i];
-                assert(u<n);
+                ui u = seq[i];
+                assert(u < n);
                 if (core[seq[i]] + paramK <= lb)
                 {
                     new_n = i;
@@ -1445,6 +1445,18 @@ public:
      * @param vertices stores the 2-hop neighbor of v
      */
     virtual void induce_to_2hop(int v, MyBitset &vis, vector<int> &vertices)
+    {
+    }
+    /**
+     * given a vertex v, induce the 2-hop neighbor of v; In addition, we will reduce it(according to Chang)
+     * @param vis stores the 2-hop neighbor of v
+     * @param vertices stores the 2-hop neighbor of v
+     * @param deg used for storing the degree of the subgraph, which should be all 0;
+     *              also it can store the neighbor count; don't forget to clear it
+     *
+     * @return if this subgraph can be pruned, then we set vis[v]=0, i.e., vis.size()=0
+     */
+    virtual void induce_to_2hop_and_reduce(int v, MyBitset &vis, vector<int> &vertices, vector<int> &deg, int lb)
     {
     }
     /**
@@ -1811,6 +1823,137 @@ public:
             }
         }
     }
+    /**
+     * given a vertex v, induce the 2-hop neighbor of v; In addition, we will reduce it(according to Chang)
+     * @param vis stores the 2-hop neighbor of v
+     * @param vertices stores the 2-hop neighbor of v
+     * @param deg used for storing the degree of the subgraph, which should be all 0;
+     *              also it can store the neighbor count; don't forget to clear it
+     *
+     * @return if this subgraph can be pruned, then we set vis[v]=0, i.e., vis.size()=0
+     */
+    void induce_to_2hop_and_reduce(int v, MyBitset &vis, vector<int> &vertices, vector<int> &deg, int lb)
+    {
+        assert(vertex[v]);
+        assert(vertices.size() == 1 && vertices[0] == v);
+        assert(deg.size() >= n);
+        for (int i = 0; i < n; i++)
+            assert(deg[i] == 0);
+        // get G[N(v)] and compute degree
+        vis.reset(v);
+        for (int i = pstart[v]; i < pstart[v + 1]; i++)
+        {
+            if (edge_removed[i])
+                continue;
+            int a = edge_to[i];
+            if (!vertex[a])
+                continue;
+            assert(!vis[a]);
+            vis.set(a);
+            vertices.push_back(a);
+            // update the deg
+            for (int j = pstart[a]; j < pstart[a + 1]; j++)
+            {
+                int b = edge_to[j];
+                if (b > a)
+                    break;
+                if (!vis[b])
+                    continue;
+                deg[a]++;
+                deg[b]++;
+            }
+        }
+        // reduce G[N(v)] to (lb+1-2k)-core
+        queue<int> q;
+        for (int i = 1; i < (int)vertices.size(); i++)
+        {
+            int u = vertices[i];
+            assert(vis[u]);
+            if (deg[u] < lb + 1 - 2 * paramK)
+            {
+                vis.reset(u);
+                q.push(u);
+            }
+        }
+        while (q.size())
+        {
+            int a = q.front();
+            q.pop();
+            for (int j = pstart[a]; j < pstart[a + 1]; j++)
+            {
+                int b = edge_to[j];
+                if (!vis[b])
+                    continue;
+                if (--deg[b] < lb + 1 - 2 * paramK)
+                {
+                    vis.reset(b);
+                    q.push(b);
+                }
+            }
+        }
+        // store the rest of N(v)
+        int cnt = 0;
+        for (int i = 1; i < (int)vertices.size(); i++)
+        {
+            int u = vertices[i];
+            if (vis[u])
+            {
+                vertices[++cnt] = u;
+            }
+            deg[u] = 0; // clear deg[]
+        }
+        if (cnt < lb + 1 - paramK) // current subgraph can be pruned
+        {
+            // clear the vis[]
+            for (int i = 1; i <= cnt; i++)
+            {
+                int u = vertices[i];
+                vis.reset(u);
+            }
+            vertices.resize(1);
+            assert(vis.size() == 0);
+            return;
+        }
+        vis.set(v);
+        vertices.resize(cnt + 1);
+        // next, we add 2-hops neighbors, for u in N_G^2(v), u should have at least lb+3-2k neighbors in N(v)
+        auto &neighbor_cnt = deg;
+        for (int i = 0; i < n; i++)
+            assert(deg[i] == 0);
+        for (int i = 1; i <= cnt; i++)
+        {
+            int a = vertices[i];
+            assert(vis[a]);
+            for (int j = pstart[a]; j < pstart[a + 1]; j++)
+            {
+                if (edge_removed[j])
+                    continue;
+                int b = edge_to[j];
+                if (!vertex[b])
+                    continue;
+                neighbor_cnt[b]++;
+            }
+        }
+        for (int i = 1; i <= cnt; i++)
+        {
+            int a = vertices[i];
+            assert(vis[a]);
+            neighbor_cnt[a] = 0;
+            for (int j = pstart[a]; j < pstart[a + 1]; j++)
+            {
+                int b = edge_to[j];
+                if (neighbor_cnt[b] >= lb + 3 - 2 * paramK && !vis[b])
+                {
+                    vis.set(b);
+                    vertices.push_back(b);
+                }
+                neighbor_cnt[b] = 0;
+            }
+        }
+        assert(vis.size() == vertices.size());
+        for (int i = 0; i < n; i++)
+            assert(deg[i] == 0);
+    }
 };
 
 /**
@@ -1831,7 +1974,7 @@ public:
     {
         n = g.n;
         m = g.m;
-        printf("reduced graph n= %d m= %d lb= %d\n", n, m/2, lb);
+        printf("reduced graph n= %d m= %d lb= %d\n", n, m / 2, lb);
         A = AjacentMatrix(n);
         for (ui i = 0; i < n; i++)
         {
@@ -2054,6 +2197,73 @@ public:
                 vis.set(u);
             vis |= A[u];
         }
+    }
+    /**
+     * given a vertex v, induce the 2-hop neighbor of v; In addition, we will reduce it(according to Chang)
+     * @param vis stores the 2-hop neighbor of v
+     * @param vertices stores the 2-hop neighbor of v; this is useless when using adj-matrix
+     * @param deg used for storing the degree of the subgraph, which should be all 0
+     *
+     * @return if this subgraph can be pruned, then we set vis[v]=0, i.e., vis.size()=0
+     */
+    void induce_to_2hop_and_reduce(int v, MyBitset &vis, vector<int> &vertices, vector<int> &deg, int lb)
+    {
+        assert(vertex[v]);
+        assert(deg.size() >= n);
+        for (int i = 0; i < n; i++)
+            assert(deg[i] == 0);
+        vis |= A[v];
+        vis.reset(v);
+        // get G[N(v)] and compute degree, reduce G[N(v)] to (lb+1-2k)-core
+        queue<int> q;
+        for (int u : A[v])
+        {
+            deg[u] = A[u].intersect(A[v]);
+            if (deg[u] < lb + 1 - 2 * paramK)
+            {
+                vis.reset(u);
+                q.push(u);
+            }
+        }
+        while (q.size())
+        {
+            int a = q.front();
+            q.pop();
+            for (int b : vis)
+            {
+                if (A[a][b])
+                {
+                    deg[b]--;
+                    if (deg[b] < lb + 1 - 2 * paramK)
+                    {
+                        vis.reset(b);
+                        q.push(b);
+                    }
+                }
+            }
+        }
+        // now vis stores the rest of N(v)+v
+        for (int &x : deg) // clear deg[]
+            x = 0;
+        if (vis.size() < lb + 1 - paramK) // current subgraph can be pruned
+        {
+            vis.clear();
+            return;
+        }
+        vis.set(v);
+        // next, we add 2-hops neighbors, for u in N_G^2(v), u should have at least lb+3-2k neighbors in N(v)
+        auto N_2 = A[v];
+        N_2.flip();
+        N_2 &= vertex;
+        MyBitset temp(vertex.range);
+        for (int u : N_2)
+        {
+            if (A[u].intersect(vis) >= lb + 3 - 2 * paramK)
+            {
+                temp.set(u);
+            }
+        }
+        vis |= temp;
     }
 };
 

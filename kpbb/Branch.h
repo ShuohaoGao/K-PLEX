@@ -26,9 +26,10 @@ private:
     Graph_adjacent *ptr_g;
 
     // arrays that can be shared
-    vector<int> int_array;
+    vector<int> array_n; // n is the size of subgraph g_i
     Set bool_array;
     vector<int> array_N; // N is the input graph size
+    vector<int> array1_N;
 
     // information of log
     ll dfs_cnt;
@@ -103,6 +104,7 @@ public:
         G_input.init_before_IE();
         CTCP_time += get_system_time_microsecond() - start_IE;
         array_N.resize(G_input.n);
+        array1_N.resize(G_input.n, 0);
         while (G_input.size() > lb)
         {
             double percentage = 1.0 - G_input.size() * 1.0 / G_input.n;
@@ -110,48 +112,51 @@ public:
             double start_induce = get_system_time_microsecond();
 
             int u = G_input.get_min_degree_v();
+            int previous_lb = lb;
 
             auto &vis = bool_array;
             vis.set(u);
 
             vector<int> vertices_2hops{u};
-            G_input.induce_to_2hop(u, vis, vertices_2hops);
-            vector<int> &inv = array_N;
-            Graph_adjacent g(vis, vertices_2hops, G_input, inv);
-            if (vertices_2hops.size() > 2)
+            // G_input.induce_to_2hop(u, vis, vertices_2hops);
+            G_input.induce_to_2hop_and_reduce(u, vis, vertices_2hops, array1_N, lb);
+            if (vis[u]) // this subgraph is not pruned: begin bnb
             {
-                // <==> vis.clear() but this may be too time-consuming, so we clear it as follows
-                for (int v : vertices_2hops)
-                    vis.reset(v);
+                vector<int> &inv = array_N;
+                Graph_adjacent g(vis, vertices_2hops, G_input, inv);
+                if (vertices_2hops.size() > 2) // this is equivalent to that G_input is stored using adjacent list
+                {
+                    // <==> vis.clear() but this may be too time-consuming, so we clear it as follows
+                    for (int v : vertices_2hops)
+                        vis.reset(v);
+                }
+                else // the reduced graph is stored as adjacent matrix, so O(n) is acceptable
+                {
+                    vis.clear();
+                }
+                IE_graph_size += g.size();
+                IE_graph_cnt++;
+                matrix_init_time += g.init_time;
+                ptr_g = &g;
+
+                int id_u = inv[u]; // the index of u in the new-induced graph g
+
+                Set S(g.size()), C(g.size());
+                S.set(id_u);
+                C.flip();
+                C.reset(id_u);
+                assert(S.size() + C.size() == g.size());
+
+                init_info(id_u, g);
+
+                IE_induce_time += get_system_time_microsecond() - start_induce;
+
+                v_just_add = id_u;
+                bnb(S, C);
             }
-            else
-            {
-                // the reduced graph is stored as adjacent matrix, so O(n) is acceptable
-                vis.clear();
-            }
-            IE_graph_size += g.size();
-            IE_graph_cnt++;
-            matrix_init_time += g.init_time;
-            ptr_g = &g;
-
-            int id_u = inv[u]; // the index of u in the new-induced graph g
-
-            Set S(g.size()), C(g.size());
-            S.set(id_u);
-            C.flip();
-            C.reset(id_u);
-            assert(S.size() + C.size() == g.size());
-
-            init_info(id_u, g);
-
-            IE_induce_time += get_system_time_microsecond() - start_induce;
-
-            int pre_lb = lb;
-            v_just_add = id_u;
-            bnb(S, C);
 
             double start_CTCP = get_system_time_microsecond();
-            G_input.remove_v(u, lb, lb > pre_lb ? true : false);
+            G_input.remove_v(u, lb, lb > previous_lb ? true : false);
             CTCP_time += get_system_time_microsecond() - start_CTCP;
         }
         run_time = get_system_time_microsecond() - start_IE;
@@ -172,8 +177,8 @@ public:
         non_A = g.adj_matrix;
         non_A.flip();
         A = g.adj_matrix;
-        int_array.clear();
-        int_array.resize(g.size());
+        array_n.clear();
+        array_n.resize(g.size());
     }
 
     /**
@@ -254,10 +259,10 @@ public:
         {
             deg[v] = A[v].intersect(V);
             // weak reduce: if d[v] + k <= lb, then remove v
-            if(deg[v] + paramK <= lb)
+            if (deg[v] + paramK <= lb)
             {
                 V.reset(v);
-                if(C[v])
+                if (C[v])
                 {
                     C.reset(v);
                 }
@@ -500,7 +505,7 @@ public:
         if (P.size() < cnt || cnt <= paramK)
             return;
         double start_core_reduce = get_system_time_microsecond();
-        auto &deg = int_array; // we reuse the array to decrease time cost
+        auto &deg = array_n; // we reuse the array to decrease time cost
         for (int u : P)
         {
             int d = A[u].intersect(P);
@@ -881,7 +886,7 @@ public:
                 sel = u;
             else if (loss_cnt[sel] < loss_cnt[u])
                 sel = u;
-            else if(loss_cnt[sel] == loss_cnt[u] && deg[sel] > deg[u])
+            else if (loss_cnt[sel] == loss_cnt[u] && deg[sel] > deg[u])
                 sel = u;
         }
         assert(sel != -1);

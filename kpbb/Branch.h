@@ -10,14 +10,6 @@ private:
     Graph_reduced &G_input;
     int lb;
 
-    // used for branching rule: select the vertex that must contain
-    struct Must_contain_status
-    {
-        int must_contain_u;
-        int v, w;
-        bool on;
-    } must_contain_status;
-
     // info of the search tree
     int v_just_add;
     vector<int> loss_cnt;
@@ -45,7 +37,7 @@ private:
     ll IE_graph_size;
     double CTCP_time;
     double C_reduce;
-    double ub_try_time;
+    double lookahead_time;
 
 public:
     set<int> solution;
@@ -53,11 +45,10 @@ public:
                                             dfs_cnt(0), run_time(0), fast_reduce_time(0), core_reduce_time(0),
                                             part_PI_time(0), pivot_select_time(0), IE_induce_time(0), S_size(0),
                                             matrix_init_time(0), IE_graph_cnt(0), IE_graph_size(0), CTCP_time(0),
-                                            C_reduce(0), ub_try_time(0)
+                                            C_reduce(0), lookahead_time(0)
     {
     }
     ~Branch() {}
-
     /**
      * @brief print some logs
      */
@@ -75,7 +66,7 @@ public:
         print_module_time("CTCP", CTCP_time);
         print_module_time("C-reduce", C_reduce);
         puts("");
-        print_module_time("look-ahead", ub_try_time);
+        print_module_time("look-ahead", lookahead_time);
         puts("");
         printf("average g_i size: %.2lf ", IE_graph_size * 1.0 / IE_graph_cnt);
         printf("average S size: %.2lf  ", S_size * 1.0 / dfs_cnt);
@@ -85,15 +76,11 @@ public:
         if (solution.size())
         {
             G_input.get_ground_truth(solution, true);
-            // printf("Solution (size= %u):\n", solution.size());
-            // print_set(solution);
             assert(solution.size() == lb);
         }
         else
             printf("The heuristic solution is the ground truth!\n");
-        // puts("");
     }
-
     /**
      * @brief each time we enumerate v_i that must be included into S, and C is the 2-hop neighbors of v_i
      * another name: Divide and Conquer framework
@@ -181,7 +168,6 @@ public:
         array_n.clear();
         array_n.resize(g.size());
     }
-
     /**
      * @brief plex=S
      */
@@ -220,13 +206,13 @@ public:
             fflush(stdout);
         }
     }
-
     /**
      * @brief using reduction rules & acquire degree; mainly based on definition and heredictary property
      * @param g_is_plex serve as return
      * @param S_is_plex serve as return
+     * @param edges_removed we record the edges we remove in order to rollback when backtrack
      */
-    void fast_reduction(Set &S, Set &C, bool &g_is_plex, bool &S_is_plex, Must_contain_status &must_contain_status)
+    void fast_reduction(Set &S, Set &C, bool &g_is_plex, bool &S_is_plex)
     {
         if (v_just_add != -1) // only if S changed, we can update loss_cnt[]
         {
@@ -320,37 +306,6 @@ public:
                 C.reset(u);
                 S_changed = true;
             }
-#ifdef BR3
-            if (satisfied_non_neighbor + 2 == tot_non_neighbor && !must_contain_status.on)
-            {
-                must_contain_status.on = true;
-                must_contain_status.must_contain_u = u;
-                auto copy = non_neighbor;
-                copy &= satisfied;
-                non_neighbor ^= copy;
-                assert(non_neighbor.size() == 2);
-                auto it = non_neighbor.begin();
-                must_contain_status.v = *it;
-                ++it;
-                must_contain_status.w = *it;
-            }
-#endif
-        }
-        for (int u : C)
-        {
-            if (A[u].intersect(S) == S.size())
-            {
-                auto non_neighbor = non_A[u];
-                non_neighbor &= V;
-                int satisfied_non_neighbor = non_neighbor.intersect(satisfied);
-                int tot_non_neighbor = non_neighbor.size();
-                if (tot_non_neighbor == paramK + 1 && satisfied_non_neighbor + 3 >= tot_non_neighbor)
-                {
-                    S.set(u);
-                    C.reset(u);
-                    S_changed = 1;
-                }
-            }
         }
         // S is changed, so we need to re-compute loss_cnt[]; but this won't cause any reduction
         if (S_changed)
@@ -371,7 +326,6 @@ public:
             }
         }
     }
-
     /**
      * @brief Branch-aNd-Bound on subgraph g_i
      */
@@ -383,8 +337,7 @@ public:
         // reduction rules
         double start_fast_reduce = get_system_time_microsecond();
         bool S_is_plex, g_is_plex;
-        must_contain_status.on = false;
-        fast_reduction(S, C, g_is_plex, S_is_plex, must_contain_status);
+        fast_reduction(S, C, g_is_plex, S_is_plex);
         if (!S_is_plex)
             return;
         if (g_is_plex)
@@ -394,48 +347,16 @@ public:
         }
         fast_reduce_time += get_system_time_microsecond() - start_fast_reduce;
 
-#ifdef BR3
-        if (must_contain_status.on)
-        {
-            // cout<<"!!!!!!!"<<endl;
-            auto new_S = S, new_C = C;
-            int u = must_contain_status.must_contain_u, v = must_contain_status.v, w = must_contain_status.w;
-            v_just_add = -1;
-            if (!new_S[v])
-            {
-                new_S.set(v);
-                new_C.reset(v);
-                v_just_add = v;
-            }
-            if (!new_S[w])
-            {
-                new_S.set(w);
-                new_C.reset(w);
-                v_just_add = w;
-            }
-            new_C.reset(u);
-            // branch1: excluding u and including both {v,w}
-            bnb(new_S, new_C);
-
-            S.set(u);
-            C.reset(u);
-            v_just_add = u;
-            // branch2: including u
-            bnb(S, C);
-            return;
-        }
-#endif
-
         // bounding & stronger reduction
-        int pivot1;
-        int ub = get_UB(S, C, &pivot1);
+        int pivot1 = -1;
+        vector<pii> edges_removed;
+        int ub = get_UB(S, C, pivot1, edges_removed);
         if (ub <= lb)
             return;
         // select pivot to generate 2 branches
         double start_select_time = get_system_time_microsecond();
         // int pivot = select_pivot_vertex_with_min_degree(C);
         int pivot = pivot1;
-        // pivot = select_pivot_vertex_in_non_neighbor(S, C);
 #ifdef NO_LOOKAHEAD
         pivot = select_pivot_vertex_with_min_degree(C);
 #endif
@@ -444,7 +365,20 @@ public:
         pivot = select_pivot_vertex_with_min_degree(C);
 #endif
         if (pivot == -1)
+        {
+            assert(!C.size());
+            // rollback
+            for (auto &h : edges_removed)
+            {
+                int u = h.x, v = h.y;
+                A[u].set(v);
+                A[v].set(u);
+                non_A[u].reset(v);
+                non_A[v].reset(u);
+            }
             return;
+        }
+
         pivot_select_time += get_system_time_microsecond() - start_select_time;
 
         {
@@ -459,72 +393,20 @@ public:
             // branch 2: include pivot
             S.set(pivot);
             C.reset(pivot);
-            // new_S.set(pivot);
             v_just_add = pivot;
-            // bnb(new_S, new_C);
             bnb(S, C);
         }
-    }
 
-    /**
-     * @brief extend S to a maximal k-plex in G[S\cup C]
-     * by greedily select a best vertex to include
-     */
-    void extend(Set S, Set C)
-    {
-        while (C.size())
+        // rollback
+        for (auto &h : edges_removed)
         {
-            int sel = -1, nc = 0;
-            for (int u : C)
-            {
-                int cnt = S.intersect(A[u]);
-                if (sel == -1 || (cnt > nc) || (cnt == nc && deg[u] > deg[sel]))
-                {
-                    sel = u;
-                    nc = cnt;
-                }
-            }
-            if (nc + paramK < S.size() + 1)
-                break;
-            C.reset(sel);
-            for (int v : S)
-            {
-                if (!A[sel][v] && non_A[v].intersect(S) == paramK - 1)
-                {
-                    C &= A[v];
-                }
-            }
-            S.set(sel);
+            int u = h.x, v = h.y;
+            A[u].set(v);
+            A[v].set(u);
+            non_A[u].reset(v);
+            non_A[v].reset(u);
         }
-        update_lb(S);
     }
-
-    void degenerate(Set &S, Set &C)
-    {
-        auto V = S;
-        V |= C;
-        int sz = V.size();
-        while (1)
-        {
-            int sel = -1;
-            int d = sz;
-            for (int u : V)
-            {
-                int d_u = A[u].intersect(V);
-                if (sel == -1 || (d_u < d))
-                {
-                    sel = u;
-                    d = d_u;
-                }
-            }
-            if (d + paramK >= sz)
-                break;
-            V.reset(sel);
-            sz--;
-        }
-        update_lb(V);
-    }
-
     /**
      * @brief reduce P to (cnt-k)-core, namely P need to provide at least cnt vertices
      */
@@ -574,77 +456,64 @@ public:
         }
         core_reduce_time += get_system_time_microsecond() - start_core_reduce;
     }
-
     /**
-     * @return ub of P
-     * if P has a plex of size = x, then P must have at least x vertices whose degrees >= x+k
-     * conclusion: this ub can be replaced by core-reduction for Pi_0
+     * @brief reduce an edge (u,v) if u,v in C and UB(S+u+v, C-u-v)<=lb
+     *
+     * @param edges_removed we record the edges we remove in order to rollback when backtrack
      */
-    int binary_UB(Set &P)
+    void lookahead_edge(Set &S, Set &C, vector<pii> &edges_removed)
     {
-        int sz = P.size();
-        if (sz <= paramK)
-            return sz;
-        vector<int> cnt(sz + paramK, 0);
-        for (int u : P)
+        int S_sz = S.size();
+        for (int u : C)
         {
-            int d = A[u].intersect(P);
-            cnt[d + paramK]++;
-        }
-        int sum = 0; // the number of vertices that pseudo-degree is not less than ub, i.e., sum is suffix-sum
-        for (int ub = sz + paramK - 1; ub >= paramK; ub--)
-        {
-            sum += cnt[ub];
-            if (sum >= ub)
+            auto N_u = C;
+            N_u &= A[u];
+            for (int v : N_u)
             {
-                return ub;
+                int common_neighbor_cnt = N_u.intersect(A[v]);
+                int ub = S_sz + common_neighbor_cnt + (paramK - 1 - loss_cnt[u]) + (paramK - 1 - loss_cnt[v]);
+                if (ub <= lb)
+                {
+                    edges_removed.push_back({u, v});
+                    A[u].reset(v);
+                    A[v].reset(u);
+                    N_u.reset(v);
+                    non_A[u].set(v);
+                    non_A[v].set(u);
+                }
             }
         }
-        // should not reach here
-        assert(false);
-        return -1;
     }
-
     /**
-     * @return the ub of P by partitioning P into several independent sets
-     * conclusion: useless
+     * @brief reduce a vertex (u,v) if u in C and UB(S+u, C-u)<=lb
      */
-    int color_UB(Set &P)
+    void lookahead_vertex(Set &S, Set &C)
     {
-        int sz = P.size();
-        if (sz <= paramK)
-            return sz;
-        vector<Set> colors(1, Set(P.range)); // in the begin, there is only one color
-        for (int u : P)
+        int v = *S.begin();
+        auto N_v = A[v];
+        N_v &= C;
+        int S_sz = S.size();
+        for (int u : C)
         {
-            bool ok = 0;
-            for (auto &c : colors)
+            int common_neighbor = N_v.intersect(A[u]);
+            int loss_v = loss_cnt[v] + (!A[v][u]);
+            int loss_u = loss_cnt[u] + 1;
+            int ub = common_neighbor + S_sz + 1 + (paramK - loss_v) + (paramK - loss_u);
+            if (ub <= lb)
             {
-                if (A[u].intersect(c) > 0)
-                    continue;
-                ok = 1;
-                c.set(u);
-                break;
-            }
-            if (!ok) // we need to create a new color
-            {
-                Set temp(P.range);
-                temp.set(u);
-                colors.push_back(temp);
+                C.reset(u);
+                if (N_v[u])
+                    N_v.reset(u);
             }
         }
-        int ret = 0;
-        for (auto &s : colors)
-            ret += min(s.size(), paramK);
-        return ret;
     }
-
     /**
      * @brief we partition C to |S| sets: Pi_0, Pi_1, ..., Pi_|S|; we will also reduce unpromissing vertices from C
      * @param pivot if not NULL, pivot should be stored as the vertex in C with min ub
+     * @param edges_removed we record the edges we remove in order to rollback when backtrack
      * @return ub
      */
-    int get_part_UB(Set &S, Set &C, int *pivot = nullptr)
+    int get_part_UB(Set &S, Set &C, int &pivot, vector<pii> &edges_removed)
     {
         Timer part_timer;
         auto copy_S = S;
@@ -687,7 +556,7 @@ public:
 
         // now copy_C = Pi_0
         auto &Pi_0 = copy_C;
-#ifndef NO_CORE_REDUCTION
+#ifndef NO_REDUCE_PI_0
         core_reduction(Pi_0, lb + 1 - ub);
 #endif
         int ret = ub + Pi_0.size();
@@ -716,7 +585,6 @@ public:
             C_reduce += t.get_time();
         }
 #endif
-
         while (copy_S.size())
         {
             int sel = -1, size = 0, ub_cnt = 0;
@@ -747,11 +615,15 @@ public:
             copy_C &= A[sel]; // remove the non-neighbors of sel
         }
         ret = ub + Pi_0.size();
+        if (ret <= lb)
+            return ret;
 
 #ifndef NO_LOOKAHEAD
         // for u in C, if UB(S+u, C-u) <= lb then remove u
         {
             Timer t;
+            if (paramK > 5)
+                lookahead_vertex(S, C);
             int piv = -1, min_ub = INF;
             // for u in C, if UB(S+u, C-u)<=lb , remove u
             for (int u : C)
@@ -785,85 +657,23 @@ public:
                     }
                 }
             }
-            if (pivot != nullptr)
-            {
-                *pivot = piv;
-            }
-            ub_try_time += t.get_time();
-        }
-        // note that only the first time we invoke bnb can we modify A[][] and non_A[][] (because all sub-tree shares the same array)
-        if (S_sz <= 1 && v_just_add != -1) // we conduct higher-order reduction to further reduce edges
-        {
-            // int v = *S.begin();
-            // we should have UB(Pi_0)>= lb+1-k, so we can reduce Pi_0 to a (lb+1-3k)-truss
-            for (int u : Pi_0)
-            {
-                auto N_u = A[u];
-                N_u &= Pi_0;
-                for (int v : Pi_0)
-                {
-                    if (v >= u)
-                        break;
-                    if (!A[u][v])
-                        continue;
-                    bool remove_u_v = false;
-                    int common_neighbor_cnt = N_u.intersect(A[v]);
-                    if (common_neighbor_cnt + 2 * paramK < lb + 1 - paramK)
-                    {
-                        remove_u_v = true;
-                    }
-                    if (remove_u_v)
-                    {
-                        A[u].reset(v);
-                        A[v].reset(u);
-                        non_A[u].set(v);
-                        non_A[v].set(u);
-                        N_u.reset(v);
-                    }
-                }
-            }
-            // next we reduce edges between Pi_0 and C-Pi_0
-            // for (u,v) in E(G) where u in Pi_0 and v in C-Pi_0, we should have UB({u,v}, Pi_0-u)>=lb+1-k+1
-            auto temp = Pi_0;
-            temp ^= C;
-            assert(C.size() == temp.size() + Pi_0.size());
-            for (int u : Pi_0)
-            {
-                auto N_u = A[u];
-                N_u &= Pi_0;
-                for (int v : temp)
-                {
-                    if (!A[u][v])
-                        continue;
-                    bool remove_u_v = false;
-                    int common_neighbor_cnt = N_u.intersect(A[v]);
-                    if (common_neighbor_cnt + 2 * paramK < lb + 2 - paramK)
-                    {
-                        remove_u_v = true;
-                    }
-                    if (remove_u_v)
-                    {
-                        A[u].reset(v);
-                        A[v].reset(u);
-                        non_A[u].set(v);
-                        non_A[v].set(u);
-                    }
-                }
-            }
+            pivot = piv;
+            if (paramK >= 10)
+                lookahead_edge(S, C, edges_removed);
+            lookahead_time += t.get_time();
         }
 #endif
         return ret;
     }
-
     /**
      * @param pivot if not NULL, we should select a pivot vertex in it
+     * @param edges_removed we record the edges we remove in order to rollback when backtrack
      * @return UB(S, C)
      */
-    int get_UB(Set &S, Set &C, int *pivot = nullptr)
+    int get_UB(Set &S, Set &C, int &pivot, vector<pii> &edges_removed)
     {
-        return get_part_UB(S, C, pivot);
+        return get_part_UB(S, C, pivot, edges_removed);
     }
-
     /**
      * @return the vertex with minimum degree
      */
@@ -878,87 +688,6 @@ public:
                 sel = u;
         }
         return sel;
-    }
-
-    /**
-     * @return the vertex with minimum degree in the non-neighbors of v
-     */
-    int select_pivot_vertex_in_non_neighbor(Set &S, Set &C)
-    {
-        int sel = -1;
-        // select the vertex with min degree d_{G[S]}(sel) in S
-        for (int v : S)
-            if (non_A[v].intersect(C) > 0)
-            {
-                if (sel == -1)
-                    sel = v;
-                else if (loss_cnt[v] < paramK)
-                {
-                    if (loss_cnt[v] > loss_cnt[sel])
-                    {
-                        sel = v;
-                        if (loss_cnt[v] == paramK - 1)
-                        {
-                            break;
-                        }
-                    }
-                }
-            }
-        if (sel == -1) // C are the common neighbors of S
-            return select_pivot_vertex_with_max_loss(C);
-        auto temp = C;
-        temp &= non_A[sel];
-        sel = -1;
-        for (int u : temp)
-        {
-            if (sel == -1)
-                sel = u;
-            else if (loss_cnt[sel] < loss_cnt[u])
-                sel = u;
-            else if (loss_cnt[sel] == loss_cnt[u] && deg[sel] > deg[u])
-                sel = u;
-        }
-        assert(sel != -1);
-        return sel;
-    }
-
-    /**
-     * @return the vertex with minimum degree
-     */
-    int select_pivot_vertex_with_max_degree(Set &C)
-    {
-        int sel = -1;
-        for (int u : C)
-            if (sel == -1 || deg[u] > deg[sel])
-                sel = u;
-        return sel;
-    }
-
-    /**
-     * @return the vertex with maximum loss & minimum degree
-     */
-    int select_pivot_vertex_with_max_loss(Set &C)
-    {
-        int sel = -1;
-        for (int u : C)
-        {
-            if (loss_cnt[u] == paramK - 1)
-                return u;
-            if (sel == -1 || loss_cnt[u] > loss_cnt[sel] || (loss_cnt[u] == loss_cnt[sel] && deg[u] < deg[sel]))
-                sel = u;
-        }
-        return sel;
-    }
-
-    /**
-     * @brief abandoned due to bad performance
-     */
-    int get_UB_degree(Set &S, Set &C)
-    {
-        int ub = S.size() + C.size();
-        for (int v : S)
-            ub = min(ub, deg[v] + paramK);
-        return ub;
     }
 };
 

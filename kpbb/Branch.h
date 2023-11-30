@@ -304,7 +304,8 @@ public:
                 non_neighbor ^= copy;
                 assert(non_neighbor.size() == 1);
                 int w = *non_neighbor.begin();
-                if (!S[w])
+                // even if w in S, we can still include u to S
+                // if (!S[w])
                 {
                     assert(!A[u][w]);
                     assert(!satisfied[w]);
@@ -312,6 +313,12 @@ public:
                     C.reset(u);
                     S_changed = true;
                 }
+            }
+            if (satisfied_non_neighbor + 2 == tot_non_neighbor && A[u].intersect(S) == S.size())
+            {
+                S.set(u);
+                C.reset(u);
+                S_changed = true;
             }
 #ifdef BR3
             if (satisfied_non_neighbor + 2 == tot_non_neighbor && !must_contain_status.on)
@@ -329,12 +336,33 @@ public:
             }
 #endif
         }
+        for (int u : C)
+        {
+            if (A[u].intersect(S) == S.size())
+            {
+                auto non_neighbor = non_A[u];
+                non_neighbor &= V;
+                int satisfied_non_neighbor = non_neighbor.intersect(satisfied);
+                int tot_non_neighbor = non_neighbor.size();
+                if (tot_non_neighbor == paramK + 1 && satisfied_non_neighbor + 3 >= tot_non_neighbor)
+                {
+                    S.set(u);
+                    C.reset(u);
+                    S_changed = 1;
+                }
+            }
+        }
         // S is changed, so we need to re-compute loss_cnt[]; but this won't cause any reduction
         if (S_changed)
         {
             for (int v : S)
             {
                 loss_cnt[v] = non_A[v].intersect(S); // v∈S, delta[v] = the number of non-neighbors of v in S
+                if (loss_cnt[v] > paramK)
+                {
+                    S_is_plex = false;
+                    return;
+                }
             }
             update_lb(S);
             for (int u : C)

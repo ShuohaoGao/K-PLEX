@@ -119,27 +119,51 @@ public:
         std::transform(buf, buf + n + 1, other.buf, buf, std::bit_xor<uint64_t>());
     }
 
+    bool operator==(const MyBitset &other) const
+    {
+        for (int i = 0; i <= n; i++)
+            if (buf[i] != other.buf[i])
+                return false;
+        return true;
+    }
+
+    int operator^(const MyBitset &other) const
+    {
+        return std::inner_product(buf, buf + n + 1, other.buf, 0, std::plus<int>(), [](uint64_t a, uint64_t b)
+                                  { return __builtin_popcountll(a ^ b); });
+    }
+
+    int operator&(const MyBitset &other) const
+    {
+        return std::inner_product(buf, buf + n + 1, other.buf, 0, std::plus<int>(), [](uint64_t a, uint64_t b)
+                                  { return __builtin_popcountll(a & b); });
+    }
+
+    int operator|(const MyBitset &other) const
+    {
+        return std::inner_product(buf, buf + n + 1, other.buf, 0, std::plus<int>(), [](uint64_t a, uint64_t b)
+                                  { return __builtin_popcountll(a | b); });
+    }
+
     bool operator[](int x) const
     {
         assert(x < capacity);
         return (buf[x >> 6] >> (x & 63)) & 1ULL;
     }
 
-    int size()
+    int size() const
     {
         return std::accumulate(buf, buf + n + 1, 0, [](int sum, uint64_t val)
                                { return sum + __builtin_popcountll(val); });
-        //    { return sum + countBits(val); });
     }
 
-    int intersect(const MyBitset &other)
+    int intersect(const MyBitset &other) const
     {
         return std::inner_product(buf, buf + n + 1, other.buf, 0, std::plus<int>(), [](uint64_t a, uint64_t b)
                                   { return __builtin_popcountll(a & b); });
-        //   { return countBits(a & b); });
     }
 
-    int intersect(const MyBitset &a, const MyBitset &b)
+    int intersect(const MyBitset &a, const MyBitset &b) const
     {
         int ret = 0;
         for (int i = 0; i <= n; i++)
@@ -242,6 +266,14 @@ public:
         n = other.n;
         A = other.A;
         return *this;
+    }
+
+    bool operator==(const AjacentMatrix &other) const
+    {
+        for (int i = 0; i < n; i++)
+            if (!(A[i] == other.A[i]))
+                return false;
+        return true;
     }
 
     void add_edge(int a, int b)

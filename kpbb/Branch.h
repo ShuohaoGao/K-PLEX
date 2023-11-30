@@ -14,7 +14,7 @@ private:
     int v_just_add;
     vector<int> loss_cnt;
     vector<int> deg;
-    AjacentMatrix non_A, A;
+    AdjacentMatrix non_A, A;
     Graph_adjacent *ptr_g;
 
     // arrays that can be shared

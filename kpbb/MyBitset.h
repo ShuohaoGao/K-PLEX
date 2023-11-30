@@ -244,31 +244,49 @@ public:
     }
 };
 
+std::string ll2string(uint64_t x, int len = 64)
+{
+    std::string ret;
+    for (int i = 0; i < len; i++)
+        ret += ((x >> i) & 1) ? '1' : '0';
+    return ret;
+}
+
+std::ostream &operator<<(std::ostream &out, MyBitset &s)
+{
+    for (int i = 0; i < s.n; i++)
+    {
+        out << ll2string(s.buf[i]);
+    }
+    out << ll2string(s.buf[s.n], s.m);
+    return out;
+}
+
 /**
  * @brief use n*n bits to store a graph
  */
-class AjacentMatrix
+class AdjacentMatrix
 {
 public:
     int n;
     vector<MyBitset> A;
 
-    AjacentMatrix() {}
-    AjacentMatrix(int _n) : n(_n), A(_n, MyBitset(_n))
+    AdjacentMatrix() {}
+    AdjacentMatrix(int _n) : n(_n), A(_n, MyBitset(_n))
     {
         // for (auto &s : A)
         //     s = MyBitset(n);
     }
-    ~AjacentMatrix() {}
+    ~AdjacentMatrix() {}
 
-    AjacentMatrix &operator=(const AjacentMatrix &other)
+    AdjacentMatrix &operator=(const AdjacentMatrix &other)
     {
         n = other.n;
         A = other.A;
         return *this;
     }
 
-    bool operator==(const AjacentMatrix &other) const
+    bool operator==(const AdjacentMatrix &other) const
     {
         for (int i = 0; i < n; i++)
             if (!(A[i] == other.A[i]))
@@ -307,6 +325,21 @@ public:
         for (auto &s : A)
             s.flip();
     }
+
+    double density()
+    {
+        int m = 0;
+        for (auto &h : A)
+            m += h.size();
+        return 1.0 * m / (n * (n - 1));
+    }
 };
+
+std::ostream &operator<<(std::ostream &out, AdjacentMatrix &A)
+{
+    for (auto &h : A.A)
+        out << h << '\n';
+    return out;
+}
 
 #endif

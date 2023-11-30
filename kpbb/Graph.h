@@ -1372,7 +1372,7 @@ public:
     vector<int> must_contain;
     unordered_map<ll, int> triangles_nn; // the key of edge (u,v) is u*n+v , make sure u<v
     int *d;                              // degree
-    AjacentMatrix A;
+    AdjacentMatrix A;
     // shared memory for CTCP
     vector<bool> bool_array_n_n, bool_array_m, bool_array_n;
     int *pstart, *edge_to, *triangles_m;
@@ -1975,7 +1975,7 @@ public:
         n = g.n;
         m = g.m;
         printf("reduced graph n= %d m= %d lb= %d\n", n, m / 2, lb);
-        A = AjacentMatrix(n);
+        A = AdjacentMatrix(n);
         for (ui i = 0; i < n; i++)
         {
             for (ui j = g.pstart[i]; j < g.pstart[i + 1]; j++)
@@ -2274,7 +2274,7 @@ class Graph_adjacent
 {
 public:
     double init_time; // used for log
-    AjacentMatrix adj_matrix;
+    AdjacentMatrix adj_matrix;
     int n;
     vector<int> vertex_id; // for u in this, vertex_id[u] in G_reduced
     Graph_adjacent() : init_time(0) {}
@@ -2297,7 +2297,7 @@ public:
             vertex_id = vertices;
             n = vertex_id.size();
 
-            adj_matrix = AjacentMatrix(n);
+            adj_matrix = AdjacentMatrix(n);
 
             int id = 0;
             for (int i = 0; i < vertex_id.size(); i++)
@@ -2409,7 +2409,7 @@ public:
      * @param V_mask V_mask[u]=1 <==> u in the subgraph
      * @param inv each vertex in subgraph is [0, n-1], so we need to save the origin index
      */
-    void init_from_A(MyBitset &V_mask, AjacentMatrix &A, vector<int> &inv)
+    void init_from_A(MyBitset &V_mask, AdjacentMatrix &A, vector<int> &inv)
     {
         for (int i : V_mask)
         {
@@ -2417,7 +2417,7 @@ public:
         }
         n = vertex_id.size();
 
-        adj_matrix = AjacentMatrix(n);
+        adj_matrix = AdjacentMatrix(n);
 
         int id = 0;
         for (int i = 0; i < vertex_id.size(); i++)

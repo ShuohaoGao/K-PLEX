@@ -15,6 +15,7 @@ public:
     int capacity;
     int range;
     uint64_t *buf;
+    int sz;
 
     MyBitset() : n(0), m(0), capacity(0), buf(nullptr) {}
 

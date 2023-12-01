@@ -25,6 +25,7 @@ private:
 
     // information of log
     ll dfs_cnt;
+    ll leaf_cnt;
     double part_PI_time;
     double run_time;
     double fast_reduce_time;
@@ -33,11 +34,14 @@ private:
     double IE_induce_time;
     double matrix_init_time;
     ll S_size;
+    ll S_size_when_pruned;
     int IE_graph_cnt;
     ll IE_graph_size;
     double CTCP_time;
     double C_reduce;
     double lookahead_time;
+    double lookahead_vertex_time;
+    double lookahead_edge_time;
 
 public:
     set<int> solution;
@@ -45,7 +49,8 @@ public:
                                             dfs_cnt(0), run_time(0), fast_reduce_time(0), core_reduce_time(0),
                                             part_PI_time(0), pivot_select_time(0), IE_induce_time(0), S_size(0),
                                             matrix_init_time(0), IE_graph_cnt(0), IE_graph_size(0), CTCP_time(0),
-                                            C_reduce(0), lookahead_time(0)
+                                            C_reduce(0), lookahead_time(0), lookahead_vertex_time(0), lookahead_edge_time(0),
+                                            leaf_cnt(0), S_size_when_pruned(0)
     {
     }
     ~Branch() {}
@@ -67,9 +72,12 @@ public:
         print_module_time("C-reduce", C_reduce);
         puts("");
         print_module_time("look-ahead", lookahead_time);
+        print_module_time("look-ahead-vertex", lookahead_vertex_time);
+        print_module_time("look-ahead-edge", lookahead_edge_time);
         puts("");
         printf("average g_i size: %.2lf ", IE_graph_size * 1.0 / IE_graph_cnt);
         printf("average S size: %.2lf  ", S_size * 1.0 / dfs_cnt);
+        printf("average S size when pruned: %.2lf  ", S_size_when_pruned * 1.0 / leaf_cnt);
         puts("");
         puts("*************bnb result*************");
         printf("ground truth= %d , exact searching use time= %.4lf s\n", lb, run_time / 1e6);
@@ -383,15 +391,55 @@ public:
         fast_reduce_time += get_system_time_microsecond() - start_fast_reduce;
 
         // bounding & stronger reduction
-        int pivot1 = -1;
         vector<pii> edges_removed;
-        int ub = get_UB(S, C, pivot1, edges_removed);
+        int ub = get_UB(S, C, edges_removed);
         if (ub <= lb)
+        {
+            leaf_cnt++;
+            S_size_when_pruned += S.size();
             return;
+        }
         // select pivot to generate 2 branches
+        int pivot = -1;
+        Timer look;
+        if (paramK >= 10)
+            lookahead_edge(S, C, edges_removed);
+        if (paramK > 5)
+        {
+            Timer look_vertex;
+            if (paramK > 5)
+                lookahead_vertex(S, C);
+            // look ahead
+            int pivot1 = -1;
+            int min_ub = INF;
+            for (int u : C)
+            {
+                S.set(u);
+                C.reset(u);
+                int ub = only_part_UB(S, C);
+                S.reset(u);
+                C.set(u);
+                if (ub <= lb)
+                {
+                    C.reset(u);
+                }
+                else
+                {
+                    if (ub < min_ub)
+                    {
+                        pivot1 = u;
+                        min_ub = ub;
+                    }
+                }
+            }
+            lookahead_vertex_time += look_vertex.get_time();
+            pivot = pivot1;
+        }
+        else
+            pivot = select_pivot_vertex_with_min_degree(C);
+        lookahead_time += look.get_time();
+
         double start_select_time = get_system_time_microsecond();
-        // int pivot = select_pivot_vertex_with_min_degree(C);
-        int pivot = pivot1;
 #ifdef NO_LOOKAHEAD
         pivot = select_pivot_vertex_with_min_degree(C);
 #endif
@@ -498,6 +546,7 @@ public:
      */
     void lookahead_edge(Set &S, Set &C, vector<pii> &edges_removed)
     {
+        Timer t;
         int S_sz = S.size();
         for (int u : C)
         {
@@ -518,12 +567,14 @@ public:
                 }
             }
         }
+        lookahead_edge_time += t.get_time();
     }
     /**
      * @brief reduce a vertex (u,v) if u in C and UB(S+u, C-u)<=lb
      */
     void lookahead_vertex(Set &S, Set &C)
     {
+        Timer t;
         int v = *S.begin();
         auto N_v = A[v];
         N_v &= C;
@@ -541,14 +592,58 @@ public:
                     N_v.reset(u);
             }
         }
+        lookahead_vertex_time += t.get_time();
+    }
+    int only_part_UB(Set &S, Set &C)
+    {
+        Timer part_timer;
+        auto &loss = deg;
+        for (int v : S)
+            loss[v] = non_A[v].intersect(S);
+        auto copy_S = S;
+        auto copy_C = C;
+        int S_sz = S.size();
+        int ub = S_sz;
+        while (copy_S.size())
+        {
+            int sel = -1, size = 0, ub_cnt = 0;
+            for (int v : copy_S)
+            {
+                int sz = non_A[v].intersect(copy_C);
+                int cnt = (paramK - loss[v]);
+                if (sz <= cnt) // Pi_i is useless
+                {
+                    copy_S.reset(v);
+                }
+                else
+                {
+                    if (sel == -1 || size * cnt < sz * ub_cnt) // (size/ub_cnt)<(sz/cnt)
+                    {
+                        sel = v;
+                        size = sz;
+                        ub_cnt = cnt;
+                        // break;
+                    }
+                }
+            }
+            if (sel == -1)
+                break;
+            copy_S.reset(sel);
+            ub += ub_cnt;
+            copy_C &= A[sel]; // remove the non-neighbors of sel
+        }
+        part_PI_time += part_timer.get_time();
+        // now copy_C = Pi_0
+        auto &Pi_0 = copy_C;
+        int ret = ub + Pi_0.size();
+        return ret;
     }
     /**
      * @brief we partition C to |S| sets: Pi_0, Pi_1, ..., Pi_|S|; we will also reduce unpromissing vertices from C
-     * @param pivot if not NULL, pivot should be stored as the vertex in C with min ub
      * @param edges_removed we record the edges we remove in order to rollback when backtrack
      * @return ub
      */
-    int get_part_UB(Set &S, Set &C, int &pivot, vector<pii> &edges_removed)
+    int get_part_UB(Set &S, Set &C, vector<pii> &edges_removed)
     {
         Timer part_timer;
         auto copy_S = S;
@@ -654,60 +749,55 @@ public:
             return ret;
 
 #ifndef NO_LOOKAHEAD
-        // for u in C, if UB(S+u, C-u) <= lb then remove u
-        {
-            Timer t;
-            if (paramK > 5)
-                lookahead_vertex(S, C);
-            int piv = -1, min_ub = INF;
-            // for u in C, if UB(S+u, C-u)<=lb , remove u
-            for (int u : C)
-            {
-                int sub = non_A[u].intersect(Pi_0); // Pi_u get $sub$ vertices from Pi_0
-                // due to u is included to S, loss_cnt[v] will increase, decreasing ub;
-                // decre<=loss_cnt[u] because not all v in S has corresponding Pi_v(i.e., Pi_v is useless for ub so we include Pi_v to Pi_0)
-                int decre = useful_S.intersect(non_A[u]);
-                int ub_u = ret - sub + (paramK - loss_cnt[u] - 1) + 1 - decre; // ub_u=UB(S+u, C)>=UB(S+u,C-u)
-                if (ub_u <= lb)
-                {
-                    C.reset(u);
-                    if (Pi_0[u])
-                    {
-                        ret--;
-                        Pi_0.reset(u);
-                        if (ret <= lb)
-                            return ret;
-                    }
-                }
-                else // for select a branching pivot
-                {
-                    if (min_ub > ub_u)
-                    {
-                        min_ub = ub_u;
-                        piv = u;
-                    }
-                    else if (min_ub == ub_u && (deg[u] < deg[piv]))
-                    {
-                        piv = u;
-                    }
-                }
-            }
-            pivot = piv;
-            if (paramK >= 10)
-                lookahead_edge(S, C, edges_removed);
-            lookahead_time += t.get_time();
-        }
+            // for u in C, if UB(S+u, C-u) <= lb then remove u
+            // {
+            //     Timer t;
+            //     int piv = -1, min_ub = INF;
+            //     // for u in C, if UB(S+u, C-u)<=lb , remove u
+            //     for (int u : C)
+            //     {
+            //         int sub = non_A[u].intersect(Pi_0); // Pi_u get $sub$ vertices from Pi_0
+            //         // due to u is included to S, loss_cnt[v] will increase, decreasing ub;
+            //         // decre<=loss_cnt[u] because not all v in S has corresponding Pi_v(i.e., Pi_v is useless for ub so we include Pi_v to Pi_0)
+            //         int decre = useful_S.intersect(non_A[u]);
+            //         int ub_u = ret - sub + (paramK - loss_cnt[u] - 1) + 1 - decre; // ub_u=UB(S+u, C)>=UB(S+u,C-u)
+            //         if (ub_u <= lb)
+            //         {
+            //             C.reset(u);
+            //             if (Pi_0[u])
+            //             {
+            //                 ret--;
+            //                 Pi_0.reset(u);
+            //                 if (ret <= lb)
+            //                     return ret;
+            //             }
+            //         }
+            //         else // for select a branching pivot
+            //         {
+            //             if (min_ub > ub_u)
+            //             {
+            //                 min_ub = ub_u;
+            //                 piv = u;
+            //             }
+            //             else if (min_ub == ub_u && (deg[u] < deg[piv]))
+            //             {
+            //                 piv = u;
+            //             }
+            //         }
+            //     }
+            //     pivot = piv;
+            //     lookahead_time += t.get_time();
+            // }
 #endif
         return ret;
     }
     /**
-     * @param pivot if not NULL, we should select a pivot vertex in it
      * @param edges_removed we record the edges we remove in order to rollback when backtrack
      * @return UB(S, C)
      */
-    int get_UB(Set &S, Set &C, int &pivot, vector<pii> &edges_removed)
+    int get_UB(Set &S, Set &C, vector<pii> &edges_removed)
     {
-        return get_part_UB(S, C, pivot, edges_removed);
+        return get_part_UB(S, C, edges_removed);
     }
     /**
      * @return the vertex with minimum degree

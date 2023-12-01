@@ -106,13 +106,14 @@ void StrongHeuris()
 {
     int iteration_cnt = 1;
     double time_limit = FastHeuris_time * 3;
-    time_limit = max(time_limit, 0.02);
+    time_limit = max(time_limit, 0.5);
     Timer t_extend("StrongHeuris");
     while (1)
     {
         int extend_lb = 0;
         int extend_times = sqrt(input_n) + 1;
-        extend_times = max(extend_times, 100);
+        // extend_times = max(extend_times, 100);
+        extend_times = input_n;
         extend_lb = g.strong_heuris(lb, extend_times, &solution, time_limit);
         printf("%dth-StrongHeuris lb= %d\n", iteration_cnt++, extend_lb);
         if (extend_lb <= lb)
@@ -193,10 +194,8 @@ int main(int argc, char *argv[])
 {
     if (argc < 3)
     {
-        // printf("3 params are required !!! \n");
-        // exit(1);
-        char *a[] = {"", "..\\data\\bin\\brock200-2.bin", "2"};
-        argv = a;
+        printf("3 params are required !!! \n");
+        exit(1);
     }
     file_path = string(argv[1]);
     paramK = atoi(argv[2]);

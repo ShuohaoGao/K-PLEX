@@ -193,8 +193,10 @@ int main(int argc, char *argv[])
 {
     if (argc < 3)
     {
-        printf("3 params are required !!! \n");
-        exit(1);
+        // printf("3 params are required !!! \n");
+        // exit(1);
+        char *a[] = {"", "..\\data\\bin\\brock200-2.bin", "2"};
+        argv = a;
     }
     file_path = string(argv[1]);
     paramK = atoi(argv[2]);

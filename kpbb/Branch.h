@@ -241,7 +241,10 @@ public:
         V |= S;
         g_is_plex = 1;
         int sz = V.size();
+        // u is k-satisfied <==> deg[u]+k >= n
+        // u is C_near-satisfied <==> deg[u]+k+1 >= n and u in C
         Set satisfied(S.range);
+        Set C_near_satisfied(S.range);
         for (int v : V)
         {
             deg[v] = A[v].intersect(V);
@@ -257,50 +260,82 @@ public:
             }
             if (deg[v] + paramK >= sz)
             {
-                // if (C[v])
                 satisfied.set(v);
+                if (C[v])
+                    C_near_satisfied.set(v);
             }
             else
+            {
                 g_is_plex = false;
+                if (deg[v] + paramK + 1 == sz && C[v])
+                    C_near_satisfied.set(v);
+            }
         }
         if (g_is_plex)
             return;
-        // now we consider the vertices that must be included:
-        //  if deg[u]>=n-k and each neighbor v of u satisfies: deg[v]>=n-k, then we must include u
+        // now we consider the vertices that must be included
         int satis_cnt = satisfied.size();
-        auto C_satisfied = satisfied;
-        C_satisfied &= C;
         bool S_changed = false;
-        for (int u : C_satisfied)
+        for (int u : C_near_satisfied)
         {
-            auto non_neighbor = non_A[u];
-            non_neighbor &= V;
-            int satisfied_non_neighbor = non_neighbor.intersect(satisfied);
-            int tot_non_neighbor = non_neighbor.size();
-            if (satisfied_non_neighbor == tot_non_neighbor)
+            bool must_include = 0;
+            // case 1
+            if (deg[u] + 2 >= sz)
             {
-                S.set(u);
-                C.reset(u);
-                S_changed = true;
+                must_include = 1;
             }
-            else if (satisfied_non_neighbor + 1 == tot_non_neighbor) // if only one of the non-neighbors of u is un-satisfied (denoted by w), then u must be included
+            else
             {
-                auto copy = non_neighbor;
-                copy &= satisfied;
-                non_neighbor ^= copy;
-                assert(non_neighbor.size() == 1);
-                int w = *non_neighbor.begin();
-                // even if w in S, we can still include u to S
-                // if (!S[w])
+                // we consider the non-neighbors of u (excluding u itself)
+                int satisfied_non_neighbor = satisfied.intersect(non_A[u]);
+                int tot_non_neighbor = non_A[u].intersect(V);
+                if (satisfied[u])
                 {
-                    assert(!A[u][w]);
-                    assert(!satisfied[w]);
-                    S.set(u);
-                    C.reset(u);
-                    S_changed = true;
+                    satisfied_non_neighbor--;
+                }
+                tot_non_neighbor--;
+                // case 2: u is satisfied and all non-neighbors of u are satisfied
+                if (satisfied_non_neighbor == tot_non_neighbor)
+                {
+                    if (satisfied[u])
+                        must_include = 1;
+                }
+                // case 3: deg[u]>=n-k-1 and only one non-neighbor of u is un-satisfied
+                else if (satisfied_non_neighbor + 1 == tot_non_neighbor)
+                {
+                    must_include = 1;
+                }
+                // case 4: deg[u]>=n-k-1 and all the un-satisfied non-neighbors form an independent vertex set
+                else
+                {
+                    auto non_neighbor = V;
+                    non_neighbor &= non_A[u];
+                    auto satisfied_non_neighbor = satisfied;
+                    satisfied_non_neighbor &= non_A[u];
+                    auto &un_satisfied_non_neighbor = non_neighbor;
+                    un_satisfied_non_neighbor ^= satisfied_non_neighbor;
+                    assert(un_satisfied_non_neighbor.size() >= 2);
+                    bool is_independent = true;
+                    for (int a : un_satisfied_non_neighbor)
+                    {
+                        for (int b : un_satisfied_non_neighbor)
+                        {
+                            if (b >= a)
+                                break;
+                            if (A[a][b])
+                            {
+                                is_independent = false;
+                                break;
+                            }
+                        }
+                        if (!is_independent)
+                            break;
+                    }
+                    if (is_independent)
+                        must_include = 1;
                 }
             }
-            if (satisfied_non_neighbor + 2 == tot_non_neighbor && A[u].intersect(S) == S.size())
+            if (must_include)
             {
                 S.set(u);
                 C.reset(u);

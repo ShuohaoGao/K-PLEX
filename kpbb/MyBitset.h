@@ -164,6 +164,16 @@ public:
         return (buf[x >> 6] >> (x & 63)) & 1ULL;
     }
 
+    // a.sub(b) <==> a= a - a ∩ b
+    void sub(const MyBitset &other)
+    {
+        for (int i = 0; i <= n; i++)
+        {
+            buf[i] &= ~other.buf[i];
+        }
+        sz_changed = true;
+    }
+
     int size()
     {
         if (!sz_changed)

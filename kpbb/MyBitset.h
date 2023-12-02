@@ -16,16 +16,18 @@ public:
     int range;
     uint64_t *buf;
     int sz;
+    bool sz_changed;
 
-    MyBitset() : n(0), m(0), capacity(0), buf(nullptr) {}
+    MyBitset() : n(0), m(0), capacity(0), buf(nullptr), sz(0), sz_changed(false) {}
 
-    MyBitset(int _range) : range(_range), n(_range >> 6), m(_range & 63), capacity(_range)
+    MyBitset(int _range) : range(_range), n(_range >> 6), m(_range & 63), capacity(_range), sz(0), sz_changed(false)
     {
         buf = new uint64_t[n + 1];
         memset(buf, 0, sizeof(uint64_t) * (n + 1));
     }
 
-    MyBitset(const MyBitset &other) : range(other.range), n(other.n), m(other.m), capacity(other.capacity)
+    MyBitset(const MyBitset &other) : range(other.range), n(other.n), m(other.m), capacity(other.capacity),
+                                      sz(other.sz), sz_changed(other.sz_changed)
     {
         buf = new uint64_t[n + 1];
         memcpy(buf, other.buf, sizeof(uint64_t) * (n + 1));
@@ -43,7 +45,9 @@ public:
         range = other.range;
         n = other.n;
         m = other.m;
+        sz = other.sz;
         capacity = other.capacity;
+        sz_changed = other.sz_changed;
         buf = new uint64_t[n + 1];
         memcpy(buf, other.buf, sizeof(uint64_t) * (n + 1));
         return *this;
@@ -61,6 +65,8 @@ public:
     void clear()
     {
         memset(buf, 0, sizeof(uint64_t) * (n + 1));
+        sz = 0;
+        sz_changed = false;
     }
 
     void flip()
@@ -68,6 +74,7 @@ public:
         for (int i = 0; i < n; ++i)
             buf[i] = ~buf[i];
         buf[n] ^= (1ULL << m) - 1;
+        sz_changed = true;
     }
 
     void set(int x)
@@ -75,6 +82,7 @@ public:
         assert(x < capacity);
         assert(!test(x));
         buf[x >> 6] |= 1ULL << (x & 63);
+        sz++;
     }
 
     void reset(int x)
@@ -82,6 +90,7 @@ public:
         assert(x < capacity);
         assert(test(x));
         buf[x >> 6] &= ~(1ULL << (x & 63));
+        sz--;
     }
 
     bool test(int x) const
@@ -106,18 +115,21 @@ public:
     {
         assert(n == other.n);
         std::transform(buf, buf + n + 1, other.buf, buf, std::bit_and<uint64_t>());
+        sz_changed = true;
     }
 
     void operator|=(const MyBitset &other)
     {
         assert(n == other.n);
         std::transform(buf, buf + n + 1, other.buf, buf, std::bit_or<uint64_t>());
+        sz_changed = true;
     }
 
     void operator^=(const MyBitset &other)
     {
         assert(n == other.n);
         std::transform(buf, buf + n + 1, other.buf, buf, std::bit_xor<uint64_t>());
+        sz_changed = true;
     }
 
     bool operator==(const MyBitset &other) const
@@ -152,10 +164,14 @@ public:
         return (buf[x >> 6] >> (x & 63)) & 1ULL;
     }
 
-    int size() const
+    int size()
     {
-        return std::accumulate(buf, buf + n + 1, 0, [](int sum, uint64_t val)
-                               { return sum + __builtin_popcountll(val); });
+        if (!sz_changed)
+            return sz;
+        sz = std::accumulate(buf, buf + n + 1, 0, [](int sum, uint64_t val)
+                             { return sum + __builtin_popcountll(val); });
+        sz_changed = false;
+        return sz;
     }
 
     int intersect(const MyBitset &other) const
@@ -301,7 +317,7 @@ public:
         A[b].set(a);
     }
 
-    bool exist_edge(int a, int b)
+    bool exist_edge(int a, int b) const
     {
         return A[a][b];
     }

@@ -805,28 +805,28 @@ public:
      *
      * @return lb
      */
-    int sqrt_degeneracy(set<ui> *solution = nullptr, ui cnt = 10)
+    int sqrt_degeneracy(set<ui> *solution = nullptr, ui cnt = 5)
     {
-        // set<pii> s;
-        // for (ui i = 0; i < n; i++)
-        // {
-        //     if (s.size() < cnt)
-        //         s.insert({d[i], i});
-        //     else if (d[i] > s.begin()->x)
-        //     {
-        //         s.erase(s.begin());
-        //         s.insert({d[i], i});
-        //     }
-        // }
+        set<pii> s;
+        for (ui i = 0; i < n; i++)
+        {
+            if (s.size() < cnt)
+                s.insert({d[i], i});
+            else if (d[i] > s.begin()->x)
+            {
+                s.erase(s.begin());
+                s.insert({d[i], i});
+            }
+        }
         int ret = paramK;
-        // for (auto &h : s)
-        // {
-        //     // ret = max(ret, sqrt_degeneracy(h.y, solution));
-        //     int u = h.y;
-        //     ll id_v = pstart[u];
-        //     id_v = (id_v + pstart[u + 1]) / 2;
-        //     ret = max(ret, sqrt_degeneracy(u, edge_to[id_v], ret - paramK, solution));
-        // }
+        for (auto &h : s)
+        {
+            ret = max(ret, sqrt_degeneracy(h.y, solution));
+            // int u = h.y;
+            // ll id_v = pstart[u];
+            // id_v = (id_v + pstart[u + 1]) / 2;
+            // ret = max(ret, sqrt_degeneracy(u, edge_to[id_v], ret - paramK, solution));
+        }
         ret = max(ret, first_sqrt_vertices_degeneracy(solution));
         return ret;
     }

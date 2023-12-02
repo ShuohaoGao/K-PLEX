@@ -43,6 +43,7 @@ private:
     double lookahead_vertex_time;
     double lookahead_edge_time;
     ll optimal_cnt;
+    map<int, int> counter;
 
 public:
     set<int> solution;
@@ -90,6 +91,8 @@ public:
         else
             printf("The heuristic solution is the ground truth!\n");
         printf("optimal-pruned cnt= %lld\n", optimal_cnt);
+        for (auto &h : counter)
+            cout << h.x << ' ' << h.y << endl;
     }
     /**
      * @brief each time we enumerate v_i that must be included into S, and C is the 2-hop neighbors of v_i
@@ -395,10 +398,10 @@ public:
         // bounding & stronger reduction
         vector<pii> edges_removed;
         int ub = get_UB(S, C, edges_removed);
-        if (ub > lb)
-        {
-            ub = optimal_partition(S, C);
-        }
+        // if (ub > lb)
+        // {
+        //     ub = optimal_partition(S, C);
+        // }
         if (ub <= lb)
         {
             leaf_cnt++;
@@ -606,8 +609,8 @@ public:
         auto &loss = deg;
         for (int v : S)
             loss[v] = non_A[v].intersect(S);
-        if (S.size() <= 3)
-            return optimal_partition(S, C);
+        // if (S.size() <= 3)
+        //     return optimal_partition(S, C);
         auto copy_S = S;
         auto copy_C = C;
         int S_sz = S.size();
@@ -694,8 +697,10 @@ public:
     }
     /**
      * @brief compute the optimal ub=UB(S, C) using a,b,c in S to partition C
+     *
+     * @param threshold if ub<=threshold, we can return immediately
      */
-    int optimal_partition_abc(Set &S, Set &C, int a, int b, int c)
+    int optimal_partition_abc(Set &S, Set &C, int a, int b, int c, int threshold)
     {
         assert(S[a] && S[b] && S[c]);
         int min_ub;
@@ -706,7 +711,7 @@ public:
             temp &= A[a];
             int ub = optimal_partition_ab(S, temp, b, c);
             ub += min(paramK - loss_cnt[a], non_neighbor_cnt_a);
-            if (ub <= lb)
+            if (ub <= threshold)
                 return ub;
             min_ub = ub;
         }
@@ -717,7 +722,7 @@ public:
             temp &= A[b];
             int ub = optimal_partition_ab(S, temp, a, c);
             ub += min(paramK - loss_cnt[b], non_neighbor_cnt_b);
-            if (ub <= lb)
+            if (ub <= threshold)
                 return ub;
             min_ub = min(min_ub, ub);
         }
@@ -728,9 +733,67 @@ public:
             temp &= A[c];
             int ub = optimal_partition_ab(S, temp, a, b);
             ub += min(paramK - loss_cnt[c], non_neighbor_cnt_c);
-            if (ub <= lb)
+            if (ub <= threshold)
                 return ub;
             min_ub = min(min_ub, ub);
+        }
+        return min_ub;
+    }
+    int optimal_partition_abcd(Set &S, Set &C, int a, int b, int c, int d, int threshold)
+    {
+        assert(S[a] && S[b] && S[c] && S[d]);
+        int min_ub;
+        // a
+        {
+            auto temp = C;
+            int non_neighbor_cnt_a = temp.intersect(non_A[a]);
+            int allow_a = paramK - loss_cnt[a];
+            temp &= A[a];
+            int contribution_a = min(paramK - loss_cnt[a], non_neighbor_cnt_a);
+            int ub = optimal_partition_abc(S, temp, b, c, d, threshold - contribution_a);
+            ub += contribution_a;
+            if (ub <= threshold)
+                return ub;
+            min_ub = ub;
+        }
+        // b
+        {
+            auto temp = C;
+            int non_neighbor_cnt_b = temp.intersect(non_A[b]);
+            int allow_b = paramK - loss_cnt[b];
+            temp &= A[b];
+            int contribution_b = min(paramK - loss_cnt[b], non_neighbor_cnt_b);
+            int ub = optimal_partition_abc(S, temp, a, c, d, threshold - contribution_b);
+            ub += contribution_b;
+            if (ub <= threshold)
+                return ub;
+            min_ub = ub;
+        }
+        // c
+        {
+            auto temp = C;
+            int non_neighbor_cnt_c = temp.intersect(non_A[c]);
+            int allow_c = paramK - loss_cnt[c];
+            temp &= A[c];
+            int contribution_c = min(paramK - loss_cnt[c], non_neighbor_cnt_c);
+            int ub = optimal_partition_abc(S, temp, a, b, d, threshold - contribution_c);
+            ub += contribution_c;
+            if (ub <= threshold)
+                return ub;
+            min_ub = ub;
+        }
+        // d
+        {
+            auto temp = C;
+            int non_neighbor_cnt_d = temp.intersect(non_A[d]);
+            int allow_d = paramK - loss_cnt[d];
+            temp &= A[d];
+            int contribution_d = min(paramK - loss_cnt[d], non_neighbor_cnt_d);
+            int ub = optimal_partition_abc(S, temp, a, b, c, threshold - contribution_d);
+            ub += contribution_d;
+            if (ub <= threshold)
+                return ub;
+            min_ub = ub;
         }
         return min_ub;
     }
@@ -755,7 +818,7 @@ public:
                 optimal_cnt++;
             return ub;
         }
-        else if (S_sz >= 3)
+        else if (S_sz == 3)
         {
             int a = -1, b = -1, c = -1;
             for (int v : S)
@@ -770,7 +833,23 @@ public:
                     break;
                 }
             }
-            int ub = optimal_partition_abc(S, C, a, b, c);
+            int ub = optimal_partition_abc(S, C, a, b, c, lb);
+            if (ub <= lb)
+                optimal_cnt++;
+            return ub;
+        }
+        else if (S_sz >= 4)
+        {
+            int a, b, c, d;
+            auto it = S.begin();
+            a = *it;
+            ++it;
+            b = *it;
+            ++it;
+            c = *it;
+            ++it;
+            d = *it;
+            int ub = optimal_partition_abcd(S, C, a, b, c, d, lb);
             if (ub <= lb)
                 optimal_cnt++;
             return ub;

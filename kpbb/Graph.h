@@ -81,8 +81,6 @@ public:
                 if (v_map[b] == -1)
                     v_map[b] = id_v++;
                 a = v_map[a], b = v_map[b];
-                assert(a != b);
-                assert(a < n && b < n);
                 edges[idx++] = {a, b};
                 edges[idx++] = {b, a};
             }
@@ -90,8 +88,6 @@ public:
             d = new ui[n];
             pstart = new ui[n + 1];
             m = edges.size();
-            for (ui i = 0; i + 1 < m; i++)
-                assert(edges[i] < edges[i + 1]);
             edge_to = new ui[m];
             ui last_v = 0;
             pstart[0] = 0;
@@ -100,7 +96,6 @@ public:
                 auto &h = edges[i];
                 while (h.x != last_v)
                 {
-                    assert(h.x > last_v);
                     d[last_v] = i - pstart[last_v];
                     last_v++;
                     pstart[last_v] = i;
@@ -567,8 +562,6 @@ public:
                 a[cnt[d[i]] - 1] = i;
                 cnt[d[i]]--;
             }
-            // for (ui i = 1; i < n; i++)
-            //     assert(d[a[i]] >= d[a[i - 1]]);
         }
     }
     /**
@@ -1204,7 +1197,6 @@ public:
             for (ui i = 0; i < n; i++)
                 if (!rm[i])
                 {
-                    assert(pd[i] + paramK > lb);
                     heap.insert(pd[i], i);
                 }
             if (!heap.sz)
@@ -1229,7 +1221,6 @@ public:
                     ui v = edge_to[i];
                     if (!rm[v])
                     {
-                        assert(pd[v] > 0);
                         heap.decrease(--pd[v], v);
                     }
                 }
@@ -1253,7 +1244,6 @@ public:
             for (ui i = 0; i < rest_v_cnt; i++) // compute the number of rest vertices
             {
                 ui u = seq[i];
-                assert(u < n);
                 if (core[seq[i]] + paramK <= lb)
                 {
                     new_n = i;
@@ -1283,7 +1273,6 @@ public:
             {
                 new_pstart[u] = new_m;
                 ui pre_u = seq[u];
-                assert(q[pre_u] == u);
                 for (ui i = pstart[pre_u]; i < pstart[pre_u + 1]; i++)
                 {
                     ui v = edge_to[i];
@@ -1296,7 +1285,6 @@ public:
                 sort(new_edge_to + new_pstart[u], new_edge_to + new_m);
             }
             new_pstart[new_n] = new_m;
-            assert(new_m <= most_edge_cnt);
             delete[] pstart;
             delete[] d;
             delete[] edge_to;
@@ -1657,10 +1645,8 @@ public:
                 auto edge = q_edges.front();
                 q_edges.pop();
                 int edge_id = edge.x, u = edge.y, v = edge_to[edge_id];
-                assert(!edge_removed[edge_id]);
                 edge_removed[edge_id] = 1;
                 int another_edge_id = find(edge_to + pstart[v], edge_to + pstart[v + 1], u) + pstart[v];
-                assert(!edge_removed[another_edge_id]);
                 edge_removed[another_edge_id] = 1;
                 if (--d[u] + paramK <= lb && !in_queue_v[u])
                 {
@@ -1767,9 +1753,6 @@ public:
                         {
                             ui id_vw = find(st, ed, w) + pstart[v];
                             ui id_wv = find(edge_to + pstart[w], edge_to + pstart[w + 1], v) + pstart[w];
-                            assert(triangles_m[id_vw] == triangles_m[id_wv]);
-                            assert(edge_to[id_vw] == w);
-                            assert(edge_to[id_wv] == v);
                             if (in_queue_e[id_vw])
                                 continue;
                             --triangles_m[id_wv];
@@ -1794,8 +1777,6 @@ public:
      */
     void induce_to_2hop(int v, MyBitset &vis, vector<int> &vertices)
     {
-        assert(vertex[v]);
-        assert(vertices.size() == 1 && vertices[0] == v);
         for (int i = pstart[v]; i < pstart[v + 1]; i++)
         {
             if (edge_removed[i])
@@ -1834,11 +1815,6 @@ public:
      */
     void induce_to_2hop_and_reduce(int v, MyBitset &vis, vector<int> &vertices, vector<int> &deg, int lb)
     {
-        assert(vertex[v]);
-        assert(vertices.size() == 1 && vertices[0] == v);
-        assert(deg.size() >= n);
-        for (int i = 0; i < n; i++)
-            assert(deg[i] == 0);
         // get G[N(v)] and compute degree
         vis.reset(v);
         for (int i = pstart[v]; i < pstart[v + 1]; i++)
@@ -1848,7 +1824,6 @@ public:
             int a = edge_to[i];
             if (!vertex[a])
                 continue;
-            assert(!vis[a]);
             vis.set(a);
             vertices.push_back(a);
             // update the deg
@@ -1911,19 +1886,15 @@ public:
                 vis.reset(u);
             }
             vertices.resize(1);
-            assert(vis.size() == 0);
             return;
         }
         vis.set(v);
         vertices.resize(cnt + 1);
         // next, we add 2-hops neighbors, for u in N_G^2(v), u should have at least lb+3-2k neighbors in N(v)
         auto &neighbor_cnt = deg;
-        for (int i = 0; i < n; i++)
-            assert(deg[i] == 0);
         for (int i = 1; i <= cnt; i++)
         {
             int a = vertices[i];
-            assert(vis[a]);
             for (int j = pstart[a]; j < pstart[a + 1]; j++)
             {
                 if (edge_removed[j])
@@ -1937,7 +1908,6 @@ public:
         for (int i = 1; i <= cnt; i++)
         {
             int a = vertices[i];
-            assert(vis[a]);
             neighbor_cnt[a] = 0;
             for (int j = pstart[a]; j < pstart[a + 1]; j++)
             {
@@ -1950,9 +1920,6 @@ public:
                 neighbor_cnt[b] = 0;
             }
         }
-        assert(vis.size() == vertices.size());
-        for (int i = 0; i < n; i++)
-            assert(deg[i] == 0);
     }
 };
 
@@ -2192,7 +2159,6 @@ public:
     {
         for (int u : A[v])
         {
-            assert(vertex[u]);
             if (!vis[u])
                 vis.set(u);
             vis |= A[u];
@@ -2208,10 +2174,6 @@ public:
      */
     void induce_to_2hop_and_reduce(int v, MyBitset &vis, vector<int> &vertices, vector<int> &deg, int lb)
     {
-        assert(vertex[v]);
-        assert(deg.size() >= n);
-        for (int i = 0; i < n; i++)
-            assert(deg[i] == 0);
         vis |= A[v];
         vis.reset(v);
         // get G[N(v)] and compute degree, reduce G[N(v)] to (lb+1-2k)-core

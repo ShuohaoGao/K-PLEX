@@ -85,7 +85,7 @@ public:
         return *this;
     }
     // key is the degree of a vertex; val is the index of a vertex
-    void insert(ui key, ui val)
+    inline void insert(ui key, ui val)
     {
         min_key = min(min_key, key);
         sz++;
@@ -102,7 +102,7 @@ public:
             min_key++;
         return min_key;
     }
-    void delete_node(ui id)
+    inline void delete_node(ui id)
     {
         sz--;
         auto &cur = nodes[id];
@@ -113,10 +113,29 @@ public:
         if (cur.ne < n)
             nodes[cur.ne].pre = cur.pre;
     }
-    void decrease(ui key_now, ui id)
+    inline void decrease(ui key_now, ui id)
     {
-        delete_node(id);
-        insert(key_now, id);
+        // delete_node(id);
+        // insert(key_now, id);
+        int pre = nodes[id].pre, ne = nodes[id].ne;
+        if (pre >= n)
+        {
+            h[pre - n] = ne;
+        }
+        else
+            nodes[pre].ne = ne;
+        if (ne < n)
+        {
+            nodes[ne].pre = pre;
+        }
+        min_key = min(min_key, key_now);
+        ui nxt = h[key_now];
+        nodes[id] = {key_now + n, nxt};
+        if (nxt < n)
+        {
+            nodes[nxt].pre = id;
+        }
+        h[key_now] = id;
     }
     ui get_min_node()
     {

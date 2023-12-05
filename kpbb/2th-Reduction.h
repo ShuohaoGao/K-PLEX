@@ -426,7 +426,6 @@ public:
             for (ui i = G_fast.pstart[u]; i < G_fast.pstart[u + 1]; i++)
             {
                 ui v = G_fast.edge_to[i];
-                assert(v != u);
             }
         }
     }

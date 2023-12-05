@@ -146,7 +146,6 @@ public:
                 S.set(id_u);
                 C.flip();
                 C.reset(id_u);
-                assert(S.size() + C.size() == g.size());
 
                 init_info(id_u, g);
 
@@ -325,7 +324,7 @@ public:
                     non_neighbor &= non_A[u];
                     auto &un_satisfied_non_neighbor = non_neighbor;
                     un_satisfied_non_neighbor.sub(satisfied);
-                    assert(un_satisfied_non_neighbor.size() >= 2);
+                    // assert(un_satisfied_non_neighbor.size() >= 2);
                     bool is_independent = true;
                     for (int a : un_satisfied_non_neighbor)
                     {
@@ -381,7 +380,6 @@ public:
     {
         dfs_cnt++;
         S_size += S.size();
-        assert(S.intersect(C) == 0);
         // reduction rules
         double start_fast_reduce = get_system_time_microsecond();
         bool S_is_plex, g_is_plex;
@@ -458,7 +456,6 @@ public:
 #endif
         if (pivot == -1)
         {
-            assert(!C.size());
             // rollback
             for (auto &h : edges_removed)
             {

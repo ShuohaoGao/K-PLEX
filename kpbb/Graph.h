@@ -1990,14 +1990,13 @@ public:
                 if (vis[a])
                     vertices[cnt++] = a, deg[a] = 0;
             }
+            vertices.resize(cnt);
             if (!vis[v] || cnt <= lb)
             {
                 for (int a : vertices)
                     vis.reset(a);
                 assert(!vis[v]);
             }
-            else
-                vertices.resize(cnt);
         }
     }
 };

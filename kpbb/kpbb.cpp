@@ -105,7 +105,7 @@ void FastHeuris()
 void StrongHeuris()
 {
     int iteration_cnt = 1;
-    double time_limit = FastHeuris_time * 3;
+    double time_limit = FastHeuris_time;
     time_limit = max(time_limit, 0.5);
     Timer t_extend("StrongHeuris");
     while (1)

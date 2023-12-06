@@ -1499,7 +1499,7 @@ public:
         n = g.n;
         m = g.m;
         edge_removed.resize(m);
-        printf("reduced graph n= %d m= %d lb= %d\n", n, m, lb);
+        printf("reduced graph n= %d m= %d lb= %d\n", n, m / 2, lb);
         pstart = new int[n + 1];
         edge_to = new int[m];
         d = new int[n];
@@ -1752,9 +1752,9 @@ public:
                         if (has(st, ed, w)) // v is connected to w
                         {
                             ui id_vw = find(st, ed, w) + pstart[v];
-                            ui id_wv = find(edge_to + pstart[w], edge_to + pstart[w + 1], v) + pstart[w];
                             if (in_queue_e[id_vw])
                                 continue;
+                            ui id_wv = find(edge_to + pstart[w], edge_to + pstart[w + 1], v) + pstart[w];
                             --triangles_m[id_wv];
                             --triangles_m[id_vw];
                             if (triangles_m[id_vw] + 2 * paramK <= lb)
@@ -1815,8 +1815,8 @@ public:
      */
     void induce_to_2hop_and_reduce(int v, MyBitset &vis, vector<int> &vertices, vector<int> &deg, int lb)
     {
-        // get G[N(v)] and compute degree
         vis.reset(v);
+        // get G[N(v)] and compute degree
         for (int i = pstart[v]; i < pstart[v + 1]; i++)
         {
             if (edge_removed[i])
@@ -1839,86 +1839,165 @@ public:
             }
         }
         // reduce G[N(v)] to (lb+1-2k)-core
-        queue<int> q;
-        for (int i = 1; i < (int)vertices.size(); i++)
         {
-            int u = vertices[i];
-            assert(vis[u]);
-            if (deg[u] < lb + 1 - 2 * paramK)
-            {
-                vis.reset(u);
-                q.push(u);
-            }
-        }
-        while (q.size())
-        {
-            int a = q.front();
-            q.pop();
-            for (int j = pstart[a]; j < pstart[a + 1]; j++)
-            {
-                int b = edge_to[j];
-                if (!vis[b])
-                    continue;
-                if (--deg[b] < lb + 1 - 2 * paramK)
-                {
-                    vis.reset(b);
-                    q.push(b);
-                }
-            }
-        }
-        // store the rest of N(v)
-        int cnt = 0;
-        for (int i = 1; i < (int)vertices.size(); i++)
-        {
-            int u = vertices[i];
-            if (vis[u])
-            {
-                vertices[++cnt] = u;
-            }
-            deg[u] = 0; // clear deg[]
-        }
-        if (cnt < lb + 1 - paramK) // current subgraph can be pruned
-        {
-            // clear the vis[]
-            for (int i = 1; i <= cnt; i++)
+            queue<int> q;
+            for (int i = 1; i < (int)vertices.size(); i++)
             {
                 int u = vertices[i];
-                vis.reset(u);
+                if (deg[u] < lb + 1 - 2 * paramK)
+                {
+                    vis.reset(u);
+                    q.push(u);
+                }
             }
-            vertices.resize(1);
-            return;
+            if (vertices.size() - 1 + paramK - q.size() <= lb) // |N(v)| + k <= lb
+            {
+                for (int u : vertices) // clear the arrays
+                {
+                    deg[u] = 0;
+                    if (vis[u])
+                        vis.reset(u);
+                }
+                return;
+            }
+            while (q.size())
+            {
+                int a = q.front();
+                q.pop();
+                for (int j = pstart[a]; j < pstart[a + 1]; j++)
+                {
+                    int b = edge_to[j];
+                    if (!vis[b])
+                        continue;
+                    if (--deg[b] < lb + 1 - 2 * paramK)
+                    {
+                        vis.reset(b);
+                        q.push(b);
+                    }
+                }
+            }
+            // store the rest of N(v)
+            int cnt = 0;
+            for (int i = 1; i < (int)vertices.size(); i++)
+            {
+                int u = vertices[i];
+                if (vis[u])
+                {
+                    vertices[++cnt] = u;
+                }
+                deg[u] = 0; // clear deg[]
+            }
+            vertices.resize(cnt + 1);
+            if (cnt < lb + 1 - paramK) // current subgraph can be pruned
+            {
+                // clear the vis[]
+                for (int i = 1; i <= cnt; i++)
+                {
+                    int u = vertices[i];
+                    vis.reset(u);
+                }
+                assert(!vis[v]);
+                return;
+            }
         }
         vis.set(v);
-        vertices.resize(cnt + 1);
+        int cnt = vertices.size() - 1; // count of |N(v)|
         // next, we add 2-hops neighbors, for u in N_G^2(v), u should have at least lb+3-2k neighbors in N(v)
-        auto &neighbor_cnt = deg;
-        for (int i = 1; i <= cnt; i++)
         {
-            int a = vertices[i];
-            for (int j = pstart[a]; j < pstart[a + 1]; j++)
+            auto &neighbor_cnt = deg;
+            for (int i = 1; i <= cnt; i++)
             {
-                if (edge_removed[j])
-                    continue;
-                int b = edge_to[j];
-                if (!vertex[b])
-                    continue;
-                neighbor_cnt[b]++;
+                int a = vertices[i];
+                for (int j = pstart[a]; j < pstart[a + 1]; j++)
+                {
+                    if (edge_removed[j])
+                        continue;
+                    int b = edge_to[j];
+                    if (!vertex[b])
+                        continue;
+                    neighbor_cnt[b]++;
+                }
+            }
+            for (int i = 1; i <= cnt; i++)
+            {
+                int a = vertices[i];
+                neighbor_cnt[a] = 0;
+                for (int j = pstart[a]; j < pstart[a + 1]; j++)
+                {
+                    int b = edge_to[j];
+                    if (neighbor_cnt[b] >= lb + 3 - 2 * paramK && !vis[b])
+                    {
+                        vis.set(b);
+                        vertices.push_back(b);
+                    }
+                    neighbor_cnt[b] = 0;
+                }
             }
         }
-        for (int i = 1; i <= cnt; i++)
+        if (vertices.size() <= lb)
         {
-            int a = vertices[i];
-            neighbor_cnt[a] = 0;
-            for (int j = pstart[a]; j < pstart[a + 1]; j++)
+            for (int u : vertices)
+                if (vis[u])
+                    vis.reset(u);
+            assert(!vis[v]);
+            return;
+        }
+        else
+        {
+            // reduce g_i to a (lb+1-k)-core
+            for (int a : vertices)
             {
-                int b = edge_to[j];
-                if (neighbor_cnt[b] >= lb + 3 - 2 * paramK && !vis[b])
+                for (int j = pstart[a]; j < pstart[a + 1]; j++)
                 {
-                    vis.set(b);
-                    vertices.push_back(b);
+                    int b = edge_to[j];
+                    if (b >= a)
+                        break;
+                    if (vis[b])
+                    {
+                        deg[a]++, deg[b]++;
+                    }
                 }
-                neighbor_cnt[b] = 0;
             }
+            queue<int> q;
+            for (int a : vertices)
+            {
+                if (deg[a] + paramK <= lb)
+                {
+                    q.push(a);
+                    vis.reset(a);
+                }
+            }
+            while (q.size())
+            {
+                int a = q.front();
+                q.pop();
+                deg[a] = 0;
+                for (int j = pstart[a]; j < pstart[a + 1]; j++)
+                {
+                    int b = edge_to[j];
+                    if (!vis[b])
+                        continue;
+                    if (--deg[b] + paramK <= lb)
+                    {
+                        vis.reset(b);
+                        q.push(b);
+                    }
+                }
+            }
+            int cnt = 0;
+            for (int a : vertices)
+            {
+                if (vis[a])
+                    vertices[cnt++] = a, deg[a] = 0;
+            }
+            if (!vis[v] || cnt <= lb)
+            {
+                for (int a : vertices)
+                    vis.reset(a);
+                assert(!vis[v]);
+            }
+            else
+                vertices.resize(cnt);
         }
     }
 };
@@ -2265,7 +2344,7 @@ public:
             for (int i = 0; i < vertex_id.size(); i++)
                 inv[vertex_id[i]] = i;
             Timer t;
-            for (int u : V_mask)
+            for (int u : vertices)
             {
                 for (int i = g.pstart[u]; i < g.pstart[u + 1]; i++)
                 {

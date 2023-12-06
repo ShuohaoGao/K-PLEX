@@ -43,7 +43,9 @@ private:
     double lookahead_vertex_time;
     double lookahead_edge_time;
     ll optimal_cnt;
+    ll subgraph_pruned_cnt, subgraph_search_cnt;
     map<int, int> counter;
+    double stage2, stage1;
 
 public:
     set<int> solution;
@@ -52,7 +54,8 @@ public:
                                             part_PI_time(0), pivot_select_time(0), IE_induce_time(0), S_size(0),
                                             matrix_init_time(0), IE_graph_cnt(0), IE_graph_size(0), CTCP_time(0),
                                             C_reduce(0), lookahead_time(0), lookahead_vertex_time(0), lookahead_edge_time(0),
-                                            leaf_cnt(0), S_size_when_pruned(0), optimal_cnt(0)
+                                            leaf_cnt(0), S_size_when_pruned(0), optimal_cnt(0), subgraph_pruned_cnt(0),
+                                            subgraph_search_cnt(0), stage1(0), stage2(0)
     {
     }
     ~Branch() {}
@@ -76,10 +79,13 @@ public:
         print_module_time("look-ahead", lookahead_time);
         print_module_time("look-ahead-vertex", lookahead_vertex_time);
         print_module_time("look-ahead-edge", lookahead_edge_time);
+        print_module_time("stage1", stage1);
+        print_module_time("stage2", stage2);
         puts("");
         printf("average g_i size: %.2lf ", IE_graph_size * 1.0 / IE_graph_cnt);
         printf("average S size: %.2lf  ", S_size * 1.0 / dfs_cnt);
         printf("average S size when pruned: %.2lf  ", S_size_when_pruned * 1.0 / leaf_cnt);
+        printf("g_i pruned: %lld g_i searched: %lld ", subgraph_pruned_cnt, subgraph_search_cnt);
         puts("");
         puts("*************bnb result*************");
         printf("ground truth= %d , exact searching use time= %.4lf s\n", lb, run_time / 1e6);
@@ -118,10 +124,10 @@ public:
             vis.set(u);
 
             vector<int> vertices_2hops{u};
-            // G_input.induce_to_2hop(u, vis, vertices_2hops);
             G_input.induce_to_2hop_and_reduce(u, vis, vertices_2hops, array1_N, lb);
             if (vis[u]) // this subgraph is not pruned: begin bnb
             {
+                subgraph_search_cnt++;
                 vector<int> &inv = array_N;
                 Graph_adjacent g(vis, vertices_2hops, G_input, inv);
                 if (vertices_2hops.size() > 2) // this is equivalent to that G_input is stored using adjacent list
@@ -134,6 +140,7 @@ public:
                 {
                     vis.clear();
                 }
+                IE_induce_time += get_system_time_microsecond() - start_induce;
                 IE_graph_size += g.size();
                 IE_graph_cnt++;
                 matrix_init_time += g.init_time;
@@ -146,13 +153,14 @@ public:
                 S.set(id_u);
                 C.flip();
                 C.reset(id_u);
-
                 init_info(id_u, g);
-
-                IE_induce_time += get_system_time_microsecond() - start_induce;
-
                 v_just_add = id_u;
                 bnb(S, C);
+            }
+            else
+            {
+                IE_induce_time += get_system_time_microsecond() - start_induce;
+                subgraph_pruned_cnt++;
             }
 
             double start_CTCP = get_system_time_microsecond();
@@ -381,9 +389,10 @@ public:
         dfs_cnt++;
         S_size += S.size();
         // reduction rules
-        double start_fast_reduce = get_system_time_microsecond();
+        Timer start_fast_reduce;
         bool S_is_plex, g_is_plex;
         fast_reduction(S, C, g_is_plex, S_is_plex);
+        fast_reduce_time += start_fast_reduce.get_time();
         if (!S_is_plex)
             return;
         if (g_is_plex)
@@ -391,7 +400,6 @@ public:
             update_lb(S, C);
             return;
         }
-        fast_reduce_time += get_system_time_microsecond() - start_fast_reduce;
 
         // bounding & stronger reduction
         vector<pii> edges_removed;

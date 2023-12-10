@@ -114,6 +114,10 @@ void StrongHeuris()
         int extend_times = sqrt(input_n) + 1;
         // extend_times = max(extend_times, 100);
         extend_times = input_n;
+        if(solution.size() <= 2*paramK -2 )// this means we probably find no larger plex
+        {
+            extend_times = 1;
+        }
         extend_lb = g.strong_heuris(lb, extend_times, &solution, time_limit);
         printf("%dth-StrongHeuris lb= %d\n", iteration_cnt++, extend_lb);
         if (extend_lb <= lb)

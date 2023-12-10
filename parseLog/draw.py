@@ -21,4 +21,5 @@ for key in gap_size:
         k = get_k_value_from_name(key)
         if gap_size[key] != kpbb_size[key]:
             if max(gap_size[key], kpbb_size[key]) > 2*k-2:
-                print(key, gap_size[key], kpbb_size[key])
+                if gap_size[key] > kpbb_size[key]:
+                    print(key, gap_size[key], kpbb_size[key])

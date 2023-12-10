@@ -413,10 +413,6 @@ public:
         // bounding & stronger reduction
         vector<pii> edges_removed;
         int ub = get_UB(S, C, edges_removed);
-        // if (ub > lb)
-        // {
-        //     ub = optimal_partition(S, C);
-        // }
         if (ub <= lb)
         {
             leaf_cnt++;
@@ -431,8 +427,7 @@ public:
         if (paramK > 5)
         {
             Timer look_vertex;
-            if (paramK > 5)
-                lookahead_vertex(S, C);
+            lookahead_vertex(S, C);
             // look ahead: if UB(S+u, C-u)<=lb, then remove u; we select the vertex with min ub as pivot
             int pivot1 = -1;
             int min_ub = INF;
@@ -519,7 +514,7 @@ public:
     void core_reduction(Set &P, int cnt)
     {
         // if |P|<cnt, then P must be reduce to empty; if cnt<=k, then we can't reduce any vertex
-        if (P.size() < cnt || cnt <= paramK)
+        if (cnt <= paramK || P.size() < cnt)
             return;
         double start_core_reduce = get_system_time_microsecond();
         auto &deg = array_n; // we reuse the array to decrease time cost

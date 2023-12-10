@@ -275,7 +275,8 @@ public:
                 if (C[v])
                 {
                     C.reset(v);
-                }else 
+                }
+                else
                 {
                     S_is_plex = 0;
                     return;
@@ -301,9 +302,6 @@ public:
         if (g_is_plex)
             return;
         // now we consider the vertices that must be included
-        /**
-         * now we have bugs in the following codes!!!!!!!!!
-        */
         int satis_cnt = satisfied.size();
         bool S_changed = false;
         for (int u : C_near_satisfied)
@@ -368,6 +366,7 @@ public:
                 S.set(u);
                 C.reset(u);
                 S_changed = true;
+                break; // each time we only include one vertex that must be included
             }
         }
         // S is changed, so we need to re-compute loss_cnt[]

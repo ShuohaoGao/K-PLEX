@@ -275,7 +275,14 @@ public:
                 if (C[v])
                 {
                     C.reset(v);
+                }else 
+                {
+                    S_is_plex = 0;
+                    return;
                 }
+                // note that if we change $sz$, it may affect the later process when finding vertices must include;
+                // to avoid bugs, we choose not to decrease $sz$
+                // sz--;
                 continue;
             }
             if (deg[v] + paramK >= sz)
@@ -294,6 +301,9 @@ public:
         if (g_is_plex)
             return;
         // now we consider the vertices that must be included
+        /**
+         * now we have bugs in the following codes!!!!!!!!!
+        */
         int satis_cnt = satisfied.size();
         bool S_changed = false;
         for (int u : C_near_satisfied)

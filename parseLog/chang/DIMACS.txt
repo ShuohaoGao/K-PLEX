@@ -1,0 +1,5591 @@
+2023年 11月 23日 星期四 02:39:30 CST
+============== brock200-1 2 ==============
+-------------- brock200-1  2 --------------
+
+
+============== brock200-1 3 ==============
+-------------- brock200-1  3 --------------
+
+
+============== brock200-1 4 ==============
+-------------- brock200-1  4 --------------
+
+
+============== brock200-1 5 ==============
+-------------- brock200-1  5 --------------
+
+
+============== brock200-1 6 ==============
+-------------- brock200-1  6 --------------
+
+
+============== brock200-1 7 ==============
+-------------- brock200-1  7 --------------
+
+
+============== brock200-1 8 ==============
+-------------- brock200-1  8 --------------
+
+
+============== brock200-1 9 ==============
+-------------- brock200-1  9 --------------
+
+
+============== brock200-1 10 ==============
+-------------- brock200-1  10 --------------
+
+
+============== brock200-1 15 ==============
+-------------- brock200-1  15 --------------
+
+
+============== brock200-1 20 ==============
+-------------- brock200-1  20 --------------
+
+
+============== brock200-2 2 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 9,876 (undirected)
+*** Heuristic kplex size: 10, time: 1,384 (microseconds)
+*** Degeneracy k-plex size: 11, max_core: 84, UB: 86, Time: 193 (microseconds)
+*** After core shrink: n = 200, m = 9,876 (undirected)
+*** After core-truss co-pruning: n = 200, m = 9,876, density = 0.4963
+prune_cnt: 173, max_n: 200, min_density: 0.4963, avg_density: 0.5720
+search_cnt: 173, max_n: 200, min_density: 0.4963, avg_density: 0.5720
+*** Search time: 19,054,735
+	Maximum kPlex Size: 13, Total Time: 19,059,559 (microseconds)
+ground truth= 13 , use time 19.0596 s
+
+-------------- brock200-2  2 --------------
+
+
+============== brock200-2 3 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 9,876 (undirected)
+*** Heuristic kplex size: 10, time: 1,383 (microseconds)
+*** Degeneracy k-plex size: 13, max_core: 84, UB: 87, Time: 193 (microseconds)
+*** After core shrink: n = 200, m = 9,876 (undirected)
+*** After core-truss co-pruning: n = 200, m = 9,876, density = 0.4963
+prune_cnt: 169, max_n: 200, min_density: 0.4963, avg_density: 0.5684
+search_cnt: 169, max_n: 200, min_density: 0.4963, avg_density: 0.5684
+*** Search time: 710,055,233
+	Maximum kPlex Size: 16, Total Time: 710,060,042 (microseconds)
+ground truth= 16 , use time 710.0600 s
+
+-------------- brock200-2  3 --------------
+
+
+============== brock200-2 4 ==============
+-------------- brock200-2  4 --------------
+
+
+============== brock200-2 5 ==============
+-------------- brock200-2  5 --------------
+
+
+============== brock200-2 6 ==============
+-------------- brock200-2  6 --------------
+
+
+============== brock200-2 7 ==============
+-------------- brock200-2  7 --------------
+
+
+============== brock200-2 8 ==============
+-------------- brock200-2  8 --------------
+
+
+============== brock200-2 9 ==============
+-------------- brock200-2  9 --------------
+
+
+============== brock200-2 10 ==============
+-------------- brock200-2  10 --------------
+
+
+============== brock200-2 15 ==============
+-------------- brock200-2  15 --------------
+
+
+============== brock200-2 20 ==============
+-------------- brock200-2  20 --------------
+
+
+============== brock200-3 2 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 12,048 (undirected)
+*** Heuristic kplex size: 13, time: 1,261 (microseconds)
+*** Degeneracy k-plex size: 14, max_core: 105, UB: 107, Time: 147 (microseconds)
+*** After core shrink: n = 200, m = 12,048 (undirected)
+*** After core-truss co-pruning: n = 200, m = 12,048, density = 0.6054
+Degen find a solution of size 15
+prune_cnt: 175, max_n: 200, min_density: 0.6054, avg_density: 0.6820
+search_cnt: 175, max_n: 200, min_density: 0.6054, avg_density: 0.6820
+*** Search time: 137,591,572
+	Maximum kPlex Size: 17, Total Time: 137,595,902 (microseconds)
+ground truth= 17 , use time 137.5959 s
+
+-------------- brock200-3  2 --------------
+
+
+============== brock200-3 3 ==============
+-------------- brock200-3  3 --------------
+
+
+============== brock200-3 4 ==============
+-------------- brock200-3  4 --------------
+
+
+============== brock200-3 5 ==============
+-------------- brock200-3  5 --------------
+
+
+============== brock200-3 6 ==============
+-------------- brock200-3  6 --------------
+
+
+============== brock200-3 7 ==============
+-------------- brock200-3  7 --------------
+
+
+============== brock200-3 8 ==============
+-------------- brock200-3  8 --------------
+
+
+============== brock200-3 9 ==============
+-------------- brock200-3  9 --------------
+
+
+============== brock200-3 10 ==============
+-------------- brock200-3  10 --------------
+
+
+============== brock200-3 15 ==============
+-------------- brock200-3  15 --------------
+
+
+============== brock200-3 20 ==============
+-------------- brock200-3  20 --------------
+
+
+============== brock200-4 2 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 13,089 (undirected)
+*** Heuristic kplex size: 15, time: 1,401 (microseconds)
+*** Degeneracy k-plex size: 17, max_core: 117, UB: 119, Time: 162 (microseconds)
+*** After core shrink: n = 200, m = 13,089 (undirected)
+*** After core-truss co-pruning: n = 200, m = 13,089, density = 0.6577
+prune_cnt: 173, max_n: 200, min_density: 0.6577, avg_density: 0.7296
+search_cnt: 173, max_n: 200, min_density: 0.6577, avg_density: 0.7296
+*** Search time: 602,625,185
+	Maximum kPlex Size: 20, Total Time: 602,629,870 (microseconds)
+ground truth= 20 , use time 602.6299 s
+
+-------------- brock200-4  2 --------------
+
+
+============== brock200-4 3 ==============
+-------------- brock200-4  3 --------------
+
+
+============== brock200-4 4 ==============
+-------------- brock200-4  4 --------------
+
+
+============== brock200-4 5 ==============
+-------------- brock200-4  5 --------------
+
+
+============== brock200-4 6 ==============
+-------------- brock200-4  6 --------------
+
+
+============== brock200-4 7 ==============
+-------------- brock200-4  7 --------------
+
+
+============== brock200-4 8 ==============
+-------------- brock200-4  8 --------------
+
+
+============== brock200-4 9 ==============
+-------------- brock200-4  9 --------------
+
+
+============== brock200-4 10 ==============
+-------------- brock200-4  10 --------------
+
+
+============== brock200-4 15 ==============
+-------------- brock200-4  15 --------------
+
+
+============== brock200-4 20 ==============
+-------------- brock200-4  20 --------------
+
+
+============== brock400-1 2 ==============
+-------------- brock400-1  2 --------------
+
+
+============== brock400-1 3 ==============
+-------------- brock400-1  3 --------------
+
+
+============== brock400-1 4 ==============
+-------------- brock400-1  4 --------------
+
+
+============== brock400-1 5 ==============
+-------------- brock400-1  5 --------------
+
+
+============== brock400-1 6 ==============
+-------------- brock400-1  6 --------------
+
+
+============== brock400-1 7 ==============
+-------------- brock400-1  7 --------------
+
+
+============== brock400-1 8 ==============
+-------------- brock400-1  8 --------------
+
+
+============== brock400-1 9 ==============
+-------------- brock400-1  9 --------------
+
+
+============== brock400-1 10 ==============
+-------------- brock400-1  10 --------------
+
+
+============== brock400-1 15 ==============
+-------------- brock400-1  15 --------------
+
+
+============== brock400-1 20 ==============
+-------------- brock400-1  20 --------------
+
+
+============== brock400-2 2 ==============
+-------------- brock400-2  2 --------------
+
+
+============== brock400-2 3 ==============
+-------------- brock400-2  3 --------------
+
+
+============== brock400-2 4 ==============
+-------------- brock400-2  4 --------------
+
+
+============== brock400-2 5 ==============
+-------------- brock400-2  5 --------------
+
+
+============== brock400-2 6 ==============
+-------------- brock400-2  6 --------------
+
+
+============== brock400-2 7 ==============
+-------------- brock400-2  7 --------------
+
+
+============== brock400-2 8 ==============
+-------------- brock400-2  8 --------------
+
+
+============== brock400-2 9 ==============
+-------------- brock400-2  9 --------------
+
+
+============== brock400-2 10 ==============
+-------------- brock400-2  10 --------------
+
+
+============== brock400-2 15 ==============
+-------------- brock400-2  15 --------------
+
+
+============== brock400-2 20 ==============
+-------------- brock400-2  20 --------------
+
+
+============== brock400-3 2 ==============
+-------------- brock400-3  2 --------------
+
+
+============== brock400-3 3 ==============
+-------------- brock400-3  3 --------------
+
+
+============== brock400-3 4 ==============
+-------------- brock400-3  4 --------------
+
+
+============== brock400-3 5 ==============
+-------------- brock400-3  5 --------------
+
+
+============== brock400-3 6 ==============
+-------------- brock400-3  6 --------------
+
+
+============== brock400-3 7 ==============
+-------------- brock400-3  7 --------------
+
+
+============== brock400-3 8 ==============
+-------------- brock400-3  8 --------------
+
+
+============== brock400-3 9 ==============
+-------------- brock400-3  9 --------------
+
+
+============== brock400-3 10 ==============
+-------------- brock400-3  10 --------------
+
+
+============== brock400-3 15 ==============
+-------------- brock400-3  15 --------------
+
+
+============== brock400-3 20 ==============
+-------------- brock400-3  20 --------------
+
+
+============== brock400-4 2 ==============
+-------------- brock400-4  2 --------------
+
+
+============== brock400-4 3 ==============
+-------------- brock400-4  3 --------------
+
+
+============== brock400-4 4 ==============
+-------------- brock400-4  4 --------------
+
+
+============== brock400-4 5 ==============
+-------------- brock400-4  5 --------------
+
+
+============== brock400-4 6 ==============
+-------------- brock400-4  6 --------------
+
+
+============== brock400-4 7 ==============
+-------------- brock400-4  7 --------------
+
+
+============== brock400-4 8 ==============
+-------------- brock400-4  8 --------------
+
+
+============== brock400-4 9 ==============
+-------------- brock400-4  9 --------------
+
+
+============== brock400-4 10 ==============
+-------------- brock400-4  10 --------------
+
+
+============== brock400-4 15 ==============
+-------------- brock400-4  15 --------------
+
+
+============== brock400-4 20 ==============
+-------------- brock400-4  20 --------------
+
+
+============== brock800-1 2 ==============
+-------------- brock800-1  2 --------------
+
+
+============== brock800-1 3 ==============
+-------------- brock800-1  3 --------------
+
+
+============== brock800-1 4 ==============
+-------------- brock800-1  4 --------------
+
+
+============== brock800-1 5 ==============
+-------------- brock800-1  5 --------------
+
+
+============== brock800-1 6 ==============
+-------------- brock800-1  6 --------------
+
+
+============== brock800-1 7 ==============
+-------------- brock800-1  7 --------------
+
+
+============== brock800-1 8 ==============
+-------------- brock800-1  8 --------------
+
+
+============== brock800-1 9 ==============
+-------------- brock800-1  9 --------------
+
+
+============== brock800-1 10 ==============
+-------------- brock800-1  10 --------------
+
+
+============== brock800-1 15 ==============
+-------------- brock800-1  15 --------------
+
+
+============== brock800-1 20 ==============
+-------------- brock800-1  20 --------------
+
+
+============== brock800-2 2 ==============
+-------------- brock800-2  2 --------------
+
+
+============== brock800-2 3 ==============
+-------------- brock800-2  3 --------------
+
+
+============== brock800-2 4 ==============
+-------------- brock800-2  4 --------------
+
+
+============== brock800-2 5 ==============
+-------------- brock800-2  5 --------------
+
+
+============== brock800-2 6 ==============
+-------------- brock800-2  6 --------------
+
+
+============== brock800-2 7 ==============
+-------------- brock800-2  7 --------------
+
+
+============== brock800-2 8 ==============
+-------------- brock800-2  8 --------------
+
+
+============== brock800-2 9 ==============
+-------------- brock800-2  9 --------------
+
+
+============== brock800-2 10 ==============
+-------------- brock800-2  10 --------------
+
+
+============== brock800-2 15 ==============
+-------------- brock800-2  15 --------------
+
+
+============== brock800-2 20 ==============
+-------------- brock800-2  20 --------------
+
+
+============== brock800-3 2 ==============
+-------------- brock800-3  2 --------------
+
+
+============== brock800-3 3 ==============
+-------------- brock800-3  3 --------------
+
+
+============== brock800-3 4 ==============
+-------------- brock800-3  4 --------------
+
+
+============== brock800-3 5 ==============
+-------------- brock800-3  5 --------------
+
+
+============== brock800-3 6 ==============
+-------------- brock800-3  6 --------------
+
+
+============== brock800-3 7 ==============
+-------------- brock800-3  7 --------------
+
+
+============== brock800-3 8 ==============
+-------------- brock800-3  8 --------------
+
+
+============== brock800-3 9 ==============
+-------------- brock800-3  9 --------------
+
+
+============== brock800-3 10 ==============
+-------------- brock800-3  10 --------------
+
+
+============== brock800-3 15 ==============
+-------------- brock800-3  15 --------------
+
+
+============== brock800-3 20 ==============
+-------------- brock800-3  20 --------------
+
+
+============== brock800-4 2 ==============
+-------------- brock800-4  2 --------------
+
+
+============== brock800-4 3 ==============
+-------------- brock800-4  3 --------------
+
+
+============== brock800-4 4 ==============
+-------------- brock800-4  4 --------------
+
+
+============== brock800-4 5 ==============
+-------------- brock800-4  5 --------------
+
+
+============== brock800-4 6 ==============
+-------------- brock800-4  6 --------------
+
+
+============== brock800-4 7 ==============
+-------------- brock800-4  7 --------------
+
+
+============== brock800-4 8 ==============
+-------------- brock800-4  8 --------------
+
+
+============== brock800-4 9 ==============
+-------------- brock800-4  9 --------------
+
+
+============== brock800-4 10 ==============
+-------------- brock800-4  10 --------------
+
+
+============== brock800-4 15 ==============
+-------------- brock800-4  15 --------------
+
+
+============== brock800-4 20 ==============
+-------------- brock800-4  20 --------------
+
+
+============== c-fat200-1 2 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 1,534 (undirected)
+*** Heuristic kplex size: 12, time: 35 (microseconds)
+*** Degeneracy k-plex size: 12, max_core: 14, UB: 16, Time: 22 (microseconds)
+*** After core shrink: n = 200, m = 1,534 (undirected)
+*** After core-truss co-pruning: n = 90, m = 729, density = 0.1820
+prune_cnt: 14, max_n: 12, min_density: 1.0000, avg_density: 1.0000
+search_cnt: 1, max_n: 0, min_density: 1.0000, avg_density: 0.0000
+*** Search time: 94
+	Maximum kPlex Size: 12, Total Time: 333 (microseconds)
+ground truth= 12 , use time 0.0003 s
+
+-------------- c-fat200-1  2 --------------
+
+
+============== c-fat200-1 3 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 1,534 (undirected)
+*** Heuristic kplex size: 12, time: 39 (microseconds)
+*** Degeneracy k-plex size: 12, max_core: 14, UB: 17, Time: 22 (microseconds)
+*** After core shrink: n = 200, m = 1,534 (undirected)
+*** After core-truss co-pruning: n = 200, m = 1,534, density = 0.0771
+prune_cnt: 32, max_n: 15, min_density: 0.7619, avg_density: 0.9857
+search_cnt: 2, max_n: 15, min_density: 0.7619, avg_density: 0.7711
+*** Search time: 201
+	Maximum kPlex Size: 12, Total Time: 360 (microseconds)
+ground truth= 12 , use time 0.0004 s
+
+-------------- c-fat200-1  3 --------------
+
+
+============== c-fat200-1 4 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 1,534 (undirected)
+*** Heuristic kplex size: 12, time: 36 (microseconds)
+*** Degeneracy k-plex size: 12, max_core: 14, UB: 18, Time: 21 (microseconds)
+*** After core shrink: n = 200, m = 1,534 (undirected)
+*** After core-truss co-pruning: n = 200, m = 1,534, density = 0.0771
+prune_cnt: 68, max_n: 15, min_density: 0.7436, avg_density: 0.9862
+search_cnt: 3, max_n: 15, min_density: 0.7436, avg_density: 0.7619
+*** Search time: 263
+	Maximum kPlex Size: 12, Total Time: 413 (microseconds)
+ground truth= 12 , use time 0.0004 s
+
+-------------- c-fat200-1  4 --------------
+
+
+============== c-fat200-1 5 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 1,534 (undirected)
+*** Heuristic kplex size: 12, time: 39 (microseconds)
+*** Degeneracy k-plex size: 12, max_core: 14, UB: 19, Time: 22 (microseconds)
+*** After core shrink: n = 200, m = 1,534 (undirected)
+*** After core-truss co-pruning: n = 200, m = 1,534, density = 0.0771
+prune_cnt: 53, max_n: 26, min_density: 0.4923, avg_density: 0.9678
+search_cnt: 3, max_n: 26, min_density: 0.4923, avg_density: 0.6840
+*** Search time: 343
+	Maximum kPlex Size: 14, Total Time: 500 (microseconds)
+ground truth= 14 , use time 0.0005 s
+
+-------------- c-fat200-1  5 --------------
+
+
+============== c-fat200-1 6 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 1,534 (undirected)
+*** Heuristic kplex size: 12, time: 25 (microseconds)
+*** Degeneracy k-plex size: 12, max_core: 14, UB: 20, Time: 15 (microseconds)
+*** After core shrink: n = 200, m = 1,534 (undirected)
+*** After core-truss co-pruning: n = 200, m = 1,534, density = 0.0771
+prune_cnt: 20, max_n: 26, min_density: 0.4923, avg_density: 0.9148
+search_cnt: 2, max_n: 26, min_density: 0.4923, avg_density: 0.6359
+*** Search time: 179
+	Maximum kPlex Size: 16, Total Time: 287 (microseconds)
+ground truth= 16 , use time 0.0003 s
+
+-------------- c-fat200-1  6 --------------
+
+
+============== c-fat200-1 7 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 1,534 (undirected)
+*** Heuristic kplex size: 12, time: 39 (microseconds)
+*** Degeneracy k-plex size: 18, max_core: 14, UB: 21, Time: 23 (microseconds)
+*** After core shrink: n = 200, m = 1,534 (undirected)
+*** After core-truss co-pruning: n = 200, m = 1,534, density = 0.0771
+prune_cnt: 3, max_n: 15, min_density: 0.7436, avg_density: 0.7619
+search_cnt: 1, max_n: 0, min_density: 1.0000, avg_density: 0.0000
+*** Search time: 133
+	Maximum kPlex Size: 18, Total Time: 289 (microseconds)
+ground truth= 18 , use time 0.0003 s
+
+-------------- c-fat200-1  7 --------------
+
+
+============== c-fat200-1 8 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 1,534 (undirected)
+*** Heuristic kplex size: 12, time: 28 (microseconds)
+*** Degeneracy k-plex size: 18, max_core: 14, UB: 22, Time: 15 (microseconds)
+*** After core shrink: n = 200, m = 1,534 (undirected)
+*** After core-truss co-pruning: n = 200, m = 1,534, density = 0.0771
+prune_cnt: 18, max_n: 26, min_density: 0.4923, avg_density: 0.7382
+search_cnt: 3, max_n: 26, min_density: 0.4923, avg_density: 0.5715
+*** Search time: 121
+	Maximum kPlex Size: 18, Total Time: 228 (microseconds)
+ground truth= 18 , use time 0.0002 s
+
+-------------- c-fat200-1  8 --------------
+
+
+============== c-fat200-1 9 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 1,534 (undirected)
+*** Heuristic kplex size: 12, time: 109 (microseconds)
+*** Degeneracy k-plex size: 18, max_core: 14, UB: 23, Time: 62 (microseconds)
+*** After core shrink: n = 200, m = 1,534 (undirected)
+*** After core-truss co-pruning: n = 200, m = 1,534, density = 0.0771
+prune_cnt: 35, max_n: 26, min_density: 0.4762, avg_density: 0.7445
+search_cnt: 5, max_n: 26, min_density: 0.4762, avg_density: 0.4847
+*** Search time: 245
+	Maximum kPlex Size: 18, Total Time: 529 (microseconds)
+ground truth= 18 , use time 0.0005 s
+
+-------------- c-fat200-1  9 --------------
+
+
+============== c-fat200-1 10 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 1,534 (undirected)
+*** Heuristic kplex size: 12, time: 26 (microseconds)
+*** Degeneracy k-plex size: 18, max_core: 14, UB: 24, Time: 15 (microseconds)
+*** After core shrink: n = 200, m = 1,534 (undirected)
+prune_cnt: 70, max_n: 26, min_density: 0.4737, avg_density: 0.7605
+search_cnt: 6, max_n: 26, min_density: 0.4737, avg_density: 0.4829
+*** Search time: 238
+	Maximum kPlex Size: 18, Total Time: 336 (microseconds)
+ground truth= 18 , use time 0.0003 s
+
+-------------- c-fat200-1  10 --------------
+
+
+============== c-fat200-1 15 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 1,534 (undirected)
+*** Heuristic kplex size: 12, time: 38 (microseconds)
+*** Degeneracy k-plex size: 24, max_core: 14, UB: 29, Time: 23 (microseconds)
+*** After core shrink: n = 200, m = 1,534 (undirected)
+prune_cnt: 35, max_n: 26, min_density: 0.4762, avg_density: 0.7445
+search_cnt: 1, max_n: 26, min_density: 0.4923, avg_density: 0.4923
+*** Search time: 209
+	Maximum kPlex Size: 24, Total Time: 358 (microseconds)
+ground truth= 24 , use time 0.0004 s
+
+-------------- c-fat200-1  15 --------------
+
+
+============== c-fat200-1 20 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 1,534 (undirected)
+*** Heuristic kplex size: 12, time: 39 (microseconds)
+*** Degeneracy k-plex size: 30, max_core: 14, UB: 34, Time: 24 (microseconds)
+*** After core shrink: n = 200, m = 1,534 (undirected)
+prune_cnt: 18, max_n: 26, min_density: 0.4805, avg_density: 0.7160
+search_cnt: 1, max_n: 0, min_density: 1.0000, avg_density: 0.0000
+*** Search time: 175
+	Maximum kPlex Size: 30, Total Time: 330 (microseconds)
+ground truth= 30 , use time 0.0003 s
+
+-------------- c-fat200-1  20 --------------
+
+
+============== c-fat200-2 2 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 3,235 (undirected)
+*** Heuristic kplex size: 24, time: 80 (microseconds)
+*** Degeneracy k-plex size: 24, max_core: 32, UB: 34, Time: 34 (microseconds)
+*** After core shrink: n = 200, m = 3,235 (undirected)
+*** After core-truss co-pruning: n = 24, m = 276, density = 1.0000
+prune_cnt: 1, max_n: 24, min_density: 1.0000, avg_density: 1.0000
+search_cnt: 1, max_n: 0, min_density: 1.0000, avg_density: 0.0000
+*** Search time: 49
+	Maximum kPlex Size: 24, Total Time: 817 (microseconds)
+ground truth= 24 , use time 0.0008 s
+
+-------------- c-fat200-2  2 --------------
+
+
+============== c-fat200-2 3 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 3,235 (undirected)
+*** Heuristic kplex size: 24, time: 84 (microseconds)
+*** Degeneracy k-plex size: 24, max_core: 32, UB: 35, Time: 35 (microseconds)
+*** After core shrink: n = 200, m = 3,235 (undirected)
+*** After core-truss co-pruning: n = 200, m = 3,235, density = 0.1626
+prune_cnt: 6, max_n: 33, min_density: 0.7708, avg_density: 0.9248
+search_cnt: 2, max_n: 33, min_density: 0.7708, avg_density: 0.7745
+*** Search time: 497
+	Maximum kPlex Size: 24, Total Time: 833 (microseconds)
+ground truth= 24 , use time 0.0008 s
+
+-------------- c-fat200-2  3 --------------
+
+
+============== c-fat200-2 4 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 3,235 (undirected)
+*** Heuristic kplex size: 24, time: 100 (microseconds)
+*** Degeneracy k-plex size: 24, max_core: 32, UB: 36, Time: 34 (microseconds)
+*** After core shrink: n = 200, m = 3,235 (undirected)
+*** After core-truss co-pruning: n = 200, m = 3,235, density = 0.1626
+prune_cnt: 23, max_n: 33, min_density: 0.7634, avg_density: 0.9602
+search_cnt: 4, max_n: 33, min_density: 0.7634, avg_density: 0.7712
+*** Search time: 720
+	Maximum kPlex Size: 24, Total Time: 1,068 (microseconds)
+ground truth= 24 , use time 0.0011 s
+
+-------------- c-fat200-2  4 --------------
+
+
+============== c-fat200-2 5 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 3,235 (undirected)
+*** Heuristic kplex size: 24, time: 100 (microseconds)
+*** Degeneracy k-plex size: 24, max_core: 32, UB: 37, Time: 34 (microseconds)
+*** After core shrink: n = 200, m = 3,235 (undirected)
+*** After core-truss co-pruning: n = 200, m = 3,235, density = 0.1626
+prune_cnt: 40, max_n: 33, min_density: 0.7562, avg_density: 0.9652
+search_cnt: 6, max_n: 33, min_density: 0.7562, avg_density: 0.7680
+*** Search time: 977
+	Maximum kPlex Size: 24, Total Time: 1,313 (microseconds)
+ground truth= 24 , use time 0.0013 s
+
+-------------- c-fat200-2  5 --------------
+
+
+============== c-fat200-2 6 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 3,235 (undirected)
+*** Heuristic kplex size: 24, time: 102 (microseconds)
+*** Degeneracy k-plex size: 24, max_core: 32, UB: 38, Time: 33 (microseconds)
+*** After core shrink: n = 200, m = 3,235 (undirected)
+*** After core-truss co-pruning: n = 200, m = 3,235, density = 0.1626
+prune_cnt: 57, max_n: 33, min_density: 0.7493, avg_density: 0.9670
+search_cnt: 8, max_n: 33, min_density: 0.7493, avg_density: 0.7651
+*** Search time: 1,216
+	Maximum kPlex Size: 24, Total Time: 1,565 (microseconds)
+ground truth= 24 , use time 0.0016 s
+
+-------------- c-fat200-2  6 --------------
+
+
+============== c-fat200-2 7 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 3,235 (undirected)
+*** Heuristic kplex size: 24, time: 100 (microseconds)
+*** Degeneracy k-plex size: 24, max_core: 32, UB: 39, Time: 33 (microseconds)
+*** After core shrink: n = 200, m = 3,235 (undirected)
+*** After core-truss co-pruning: n = 200, m = 3,235, density = 0.1626
+prune_cnt: 74, max_n: 33, min_density: 0.7433, avg_density: 0.9679
+search_cnt: 9, max_n: 33, min_density: 0.7433, avg_density: 0.7627
+*** Search time: 1,474
+	Maximum kPlex Size: 24, Total Time: 1,812 (microseconds)
+ground truth= 24 , use time 0.0018 s
+
+-------------- c-fat200-2  7 --------------
+
+
+============== c-fat200-2 8 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 3,235 (undirected)
+*** Heuristic kplex size: 24, time: 97 (microseconds)
+*** Degeneracy k-plex size: 24, max_core: 32, UB: 40, Time: 33 (microseconds)
+*** After core shrink: n = 200, m = 3,235 (undirected)
+*** After core-truss co-pruning: n = 200, m = 3,235, density = 0.1626
+prune_cnt: 72, max_n: 56, min_density: 0.5071, avg_density: 0.9566
+search_cnt: 9, max_n: 56, min_density: 0.5071, avg_density: 0.7372
+*** Search time: 1,924
+	Maximum kPlex Size: 26, Total Time: 2,252 (microseconds)
+ground truth= 26 , use time 0.0023 s
+
+-------------- c-fat200-2  8 --------------
+
+
+============== c-fat200-2 9 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 3,235 (undirected)
+*** Heuristic kplex size: 24, time: 101 (microseconds)
+*** Degeneracy k-plex size: 24, max_core: 32, UB: 41, Time: 35 (microseconds)
+*** After core shrink: n = 200, m = 3,235 (undirected)
+*** After core-truss co-pruning: n = 200, m = 3,235, density = 0.1626
+prune_cnt: 57, max_n: 56, min_density: 0.5071, avg_density: 0.9452
+search_cnt: 7, max_n: 56, min_density: 0.5071, avg_density: 0.7318
+*** Search time: 1,727
+	Maximum kPlex Size: 28, Total Time: 2,069 (microseconds)
+ground truth= 28 , use time 0.0021 s
+
+-------------- c-fat200-2  9 --------------
+
+
+============== c-fat200-2 10 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 3,235 (undirected)
+*** Heuristic kplex size: 24, time: 102 (microseconds)
+*** Degeneracy k-plex size: 24, max_core: 32, UB: 42, Time: 33 (microseconds)
+*** After core shrink: n = 200, m = 3,235 (undirected)
+*** After core-truss co-pruning: n = 200, m = 3,235, density = 0.1626
+prune_cnt: 42, max_n: 56, min_density: 0.5071, avg_density: 0.9257
+search_cnt: 5, max_n: 56, min_density: 0.5071, avg_density: 0.7199
+*** Search time: 1,404
+	Maximum kPlex Size: 30, Total Time: 1,742 (microseconds)
+ground truth= 30 , use time 0.0017 s
+
+-------------- c-fat200-2  10 --------------
+
+
+============== c-fat200-2 15 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 3,235 (undirected)
+*** Heuristic kplex size: 24, time: 96 (microseconds)
+*** Degeneracy k-plex size: 35, max_core: 32, UB: 47, Time: 33 (microseconds)
+*** After core shrink: n = 200, m = 3,235 (undirected)
+*** After core-truss co-pruning: n = 200, m = 3,235, density = 0.1626
+prune_cnt: 31, max_n: 56, min_density: 0.4931, avg_density: 0.7132
+search_cnt: 9, max_n: 56, min_density: 0.4931, avg_density: 0.5306
+*** Search time: 1,177
+	Maximum kPlex Size: 35, Total Time: 1,508 (microseconds)
+ground truth= 35 , use time 0.0015 s
+
+-------------- c-fat200-2  15 --------------
+
+
+============== c-fat200-2 20 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 3,235 (undirected)
+*** Heuristic kplex size: 24, time: 97 (microseconds)
+*** Degeneracy k-plex size: 35, max_core: 32, UB: 52, Time: 32 (microseconds)
+*** After core shrink: n = 200, m = 3,235 (undirected)
+prune_cnt: 63, max_n: 56, min_density: 0.4884, avg_density: 0.7347
+search_cnt: 14, max_n: 56, min_density: 0.4884, avg_density: 0.4954
+*** Search time: 3,620
+	Maximum kPlex Size: 38, Total Time: 3,936 (microseconds)
+ground truth= 38 , use time 0.0039 s
+
+-------------- c-fat200-2  20 --------------
+
+
+============== c-fat200-5 2 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 8,473 (undirected)
+*** Heuristic kplex size: 58, time: 402 (microseconds)
+*** Degeneracy k-plex size: 58, max_core: 83, UB: 85, Time: 73 (microseconds)
+*** After core shrink: n = 200, m = 8,473 (undirected)
+*** After core-truss co-pruning: n = 116, m = 4,147, density = 0.6217
+prune_cnt: 3, max_n: 58, min_density: 1.0000, avg_density: 1.0000
+search_cnt: 1, max_n: 0, min_density: 1.0000, avg_density: 0.0000
+*** Search time: 1,084
+	Maximum kPlex Size: 58, Total Time: 3,852 (microseconds)
+ground truth= 58 , use time 0.0039 s
+
+-------------- c-fat200-5  2 --------------
+
+
+============== c-fat200-5 3 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 8,473 (undirected)
+*** Heuristic kplex size: 58, time: 407 (microseconds)
+*** Degeneracy k-plex size: 58, max_core: 83, UB: 86, Time: 69 (microseconds)
+*** After core shrink: n = 200, m = 8,473 (undirected)
+*** After core-truss co-pruning: n = 200, m = 8,473, density = 0.4258
+prune_cnt: 10, max_n: 84, min_density: 0.7696, avg_density: 0.9545
+search_cnt: 2, max_n: 84, min_density: 0.7696, avg_density: 0.7724
+*** Search time: 2,727
+	Maximum kPlex Size: 58, Total Time: 4,038 (microseconds)
+ground truth= 58 , use time 0.0040 s
+
+-------------- c-fat200-5  3 --------------
+
+
+============== c-fat200-5 4 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 8,473 (undirected)
+*** Heuristic kplex size: 58, time: 463 (microseconds)
+*** Degeneracy k-plex size: 58, max_core: 83, UB: 87, Time: 69 (microseconds)
+*** After core shrink: n = 200, m = 8,473 (undirected)
+*** After core-truss co-pruning: n = 200, m = 8,473, density = 0.4258
+prune_cnt: 17, max_n: 84, min_density: 0.7580, avg_density: 0.9451
+search_cnt: 4, max_n: 84, min_density: 0.7580, avg_density: 0.7667
+*** Search time: 4,421
+	Maximum kPlex Size: 58, Total Time: 5,790 (microseconds)
+ground truth= 58 , use time 0.0058 s
+
+-------------- c-fat200-5  4 --------------
+
+
+============== c-fat200-5 5 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 8,473 (undirected)
+*** Heuristic kplex size: 58, time: 538 (microseconds)
+*** Degeneracy k-plex size: 58, max_core: 83, UB: 88, Time: 69 (microseconds)
+*** After core shrink: n = 200, m = 8,473 (undirected)
+*** After core-truss co-pruning: n = 200, m = 8,473, density = 0.4258
+prune_cnt: 24, max_n: 84, min_density: 0.7455, avg_density: 0.9402
+search_cnt: 6, max_n: 84, min_density: 0.7455, avg_density: 0.7607
+*** Search time: 6,312
+	Maximum kPlex Size: 58, Total Time: 7,733 (microseconds)
+ground truth= 58 , use time 0.0077 s
+
+-------------- c-fat200-5  5 --------------
+
+
+============== c-fat200-5 6 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 8,473 (undirected)
+*** Heuristic kplex size: 58, time: 486 (microseconds)
+*** Degeneracy k-plex size: 58, max_core: 83, UB: 89, Time: 69 (microseconds)
+*** After core shrink: n = 200, m = 8,473 (undirected)
+*** After core-truss co-pruning: n = 200, m = 8,473, density = 0.4258
+prune_cnt: 31, max_n: 84, min_density: 0.7321, avg_density: 0.9366
+search_cnt: 8, max_n: 84, min_density: 0.7321, avg_density: 0.7544
+*** Search time: 8,666
+	Maximum kPlex Size: 58, Total Time: 10,039 (microseconds)
+ground truth= 58 , use time 0.0100 s
+
+-------------- c-fat200-5  6 --------------
+
+
+============== c-fat200-5 7 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 8,473 (undirected)
+*** Heuristic kplex size: 58, time: 465 (microseconds)
+*** Degeneracy k-plex size: 58, max_core: 83, UB: 90, Time: 67 (microseconds)
+*** After core shrink: n = 200, m = 8,473 (undirected)
+*** After core-truss co-pruning: n = 200, m = 8,473, density = 0.4258
+prune_cnt: 38, max_n: 84, min_density: 0.7175, avg_density: 0.9336
+search_cnt: 10, max_n: 84, min_density: 0.7175, avg_density: 0.7477
+*** Search time: 10,935
+	Maximum kPlex Size: 58, Total Time: 12,244 (microseconds)
+ground truth= 58 , use time 0.0122 s
+
+-------------- c-fat200-5  7 --------------
+
+
+============== c-fat200-5 8 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 8,473 (undirected)
+*** Heuristic kplex size: 58, time: 514 (microseconds)
+*** Degeneracy k-plex size: 58, max_core: 83, UB: 91, Time: 73 (microseconds)
+*** After core shrink: n = 200, m = 8,473 (undirected)
+*** After core-truss co-pruning: n = 200, m = 8,473, density = 0.4258
+prune_cnt: 45, max_n: 84, min_density: 0.7017, avg_density: 0.9309
+search_cnt: 12, max_n: 84, min_density: 0.7017, avg_density: 0.7407
+*** Search time: 13,825
+	Maximum kPlex Size: 58, Total Time: 15,286 (microseconds)
+ground truth= 58 , use time 0.0153 s
+
+-------------- c-fat200-5  8 --------------
+
+
+============== c-fat200-5 9 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 8,473 (undirected)
+*** Heuristic kplex size: 58, time: 429 (microseconds)
+*** Degeneracy k-plex size: 58, max_core: 83, UB: 92, Time: 62 (microseconds)
+*** After core shrink: n = 200, m = 8,473 (undirected)
+*** After core-truss co-pruning: n = 200, m = 8,473, density = 0.4258
+prune_cnt: 52, max_n: 84, min_density: 0.6845, avg_density: 0.9282
+search_cnt: 14, max_n: 84, min_density: 0.6845, avg_density: 0.7333
+*** Search time: 15,770
+	Maximum kPlex Size: 58, Total Time: 17,003 (microseconds)
+ground truth= 58 , use time 0.0170 s
+
+-------------- c-fat200-5  9 --------------
+
+
+============== c-fat200-5 10 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 8,473 (undirected)
+*** Heuristic kplex size: 58, time: 428 (microseconds)
+*** Degeneracy k-plex size: 58, max_core: 83, UB: 93, Time: 61 (microseconds)
+*** After core shrink: n = 200, m = 8,473 (undirected)
+*** After core-truss co-pruning: n = 200, m = 8,473, density = 0.4258
+prune_cnt: 59, max_n: 84, min_density: 0.6658, avg_density: 0.9256
+search_cnt: 16, max_n: 84, min_density: 0.6658, avg_density: 0.7255
+*** Search time: 18,375
+	Maximum kPlex Size: 58, Total Time: 19,587 (microseconds)
+ground truth= 58 , use time 0.0196 s
+
+-------------- c-fat200-5  10 --------------
+
+
+============== c-fat200-5 15 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 8,473 (undirected)
+*** Heuristic kplex size: 58, time: 428 (microseconds)
+*** Degeneracy k-plex size: 58, max_core: 83, UB: 98, Time: 64 (microseconds)
+*** After core shrink: n = 200, m = 8,473 (undirected)
+*** After core-truss co-pruning: n = 200, m = 8,473, density = 0.4258
+prune_cnt: 94, max_n: 84, min_density: 0.5418, avg_density: 0.9110
+search_cnt: 26, max_n: 84, min_density: 0.5418, avg_density: 0.6782
+*** Search time: 33,339
+	Maximum kPlex Size: 58, Total Time: 34,562 (microseconds)
+ground truth= 58 , use time 0.0346 s
+
+-------------- c-fat200-5  15 --------------
+
+
+============== c-fat200-5 20 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 8,473 (undirected)
+*** Heuristic kplex size: 58, time: 433 (microseconds)
+*** Degeneracy k-plex size: 58, max_core: 83, UB: 103, Time: 63 (microseconds)
+*** After core shrink: n = 200, m = 8,473 (undirected)
+*** After core-truss co-pruning: n = 200, m = 8,473, density = 0.4258
+prune_cnt: 76, max_n: 142, min_density: 0.5088, avg_density: 0.8708
+search_cnt: 19, max_n: 142, min_density: 0.5132, avg_density: 0.7066
+*** Search time: 28,585
+	Maximum kPlex Size: 67, Total Time: 29,804 (microseconds)
+ground truth= 67 , use time 0.0298 s
+
+-------------- c-fat200-5  20 --------------
+
+
+============== c-fat500-1 2 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 4,459 (undirected)
+*** Heuristic kplex size: 14, time: 38 (microseconds)
+*** Degeneracy k-plex size: 14, max_core: 17, UB: 19, Time: 45 (microseconds)
+*** After core shrink: n = 500, m = 4,459 (undirected)
+*** After core-truss co-pruning: n = 140, m = 1,351, density = 0.1388
+prune_cnt: 19, max_n: 14, min_density: 1.0000, avg_density: 1.0000
+search_cnt: 1, max_n: 0, min_density: 1.0000, avg_density: 0.0000
+*** Search time: 134
+	Maximum kPlex Size: 14, Total Time: 661 (microseconds)
+ground truth= 14 , use time 0.0007 s
+
+-------------- c-fat500-1  2 --------------
+
+
+============== c-fat500-1 3 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 4,459 (undirected)
+*** Heuristic kplex size: 14, time: 37 (microseconds)
+*** Degeneracy k-plex size: 14, max_core: 17, UB: 20, Time: 45 (microseconds)
+*** After core shrink: n = 500, m = 4,459 (undirected)
+*** After core-truss co-pruning: n = 500, m = 4,459, density = 0.0357
+prune_cnt: 42, max_n: 18, min_density: 0.7647, avg_density: 0.9891
+search_cnt: 2, max_n: 18, min_density: 0.7647, avg_density: 0.7721
+*** Search time: 355
+	Maximum kPlex Size: 14, Total Time: 658 (microseconds)
+ground truth= 14 , use time 0.0007 s
+
+-------------- c-fat500-1  3 --------------
+
+
+============== c-fat500-1 4 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 4,459 (undirected)
+*** Heuristic kplex size: 14, time: 29 (microseconds)
+*** Degeneracy k-plex size: 14, max_core: 17, UB: 21, Time: 34 (microseconds)
+*** After core shrink: n = 500, m = 4,459 (undirected)
+*** After core-truss co-pruning: n = 500, m = 4,459, density = 0.0357
+prune_cnt: 121, max_n: 18, min_density: 0.7500, avg_density: 0.9923
+search_cnt: 4, max_n: 18, min_density: 0.7500, avg_density: 0.7664
+*** Search time: 364
+	Maximum kPlex Size: 14, Total Time: 598 (microseconds)
+ground truth= 14 , use time 0.0006 s
+
+-------------- c-fat500-1  4 --------------
+
+
+============== c-fat500-1 5 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 4,459 (undirected)
+*** Heuristic kplex size: 14, time: 45 (microseconds)
+*** Degeneracy k-plex size: 14, max_core: 17, UB: 22, Time: 54 (microseconds)
+*** After core shrink: n = 500, m = 4,459 (undirected)
+*** After core-truss co-pruning: n = 500, m = 4,459, density = 0.0357
+prune_cnt: 179, max_n: 20, min_density: 0.7363, avg_density: 0.9908
+search_cnt: 5, max_n: 20, min_density: 0.7500, avg_density: 0.7689
+*** Search time: 726
+	Maximum kPlex Size: 15, Total Time: 1,081 (microseconds)
+ground truth= 15 , use time 0.0011 s
+
+-------------- c-fat500-1  5 --------------
+
+
+============== c-fat500-1 6 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 4,459 (undirected)
+*** Heuristic kplex size: 14, time: 29 (microseconds)
+*** Degeneracy k-plex size: 14, max_core: 17, UB: 23, Time: 38 (microseconds)
+*** After core shrink: n = 500, m = 4,459 (undirected)
+*** After core-truss co-pruning: n = 500, m = 4,459, density = 0.0357
+prune_cnt: 102, max_n: 31, min_density: 0.4968, avg_density: 0.9812
+search_cnt: 3, max_n: 31, min_density: 0.4968, avg_density: 0.6850
+*** Search time: 433
+	Maximum kPlex Size: 17, Total Time: 669 (microseconds)
+ground truth= 17 , use time 0.0007 s
+
+-------------- c-fat500-1  6 --------------
+
+
+============== c-fat500-1 7 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 4,459 (undirected)
+*** Heuristic kplex size: 14, time: 36 (microseconds)
+*** Degeneracy k-plex size: 14, max_core: 17, UB: 24, Time: 45 (microseconds)
+*** After core shrink: n = 500, m = 4,459 (undirected)
+*** After core-truss co-pruning: n = 500, m = 4,459, density = 0.0357
+prune_cnt: 26, max_n: 31, min_density: 0.4968, avg_density: 0.9262
+search_cnt: 2, max_n: 31, min_density: 0.4968, avg_density: 0.6379
+*** Search time: 430
+	Maximum kPlex Size: 19, Total Time: 729 (microseconds)
+ground truth= 19 , use time 0.0007 s
+
+-------------- c-fat500-1  7 --------------
+
+
+============== c-fat500-1 8 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 4,459 (undirected)
+*** Heuristic kplex size: 14, time: 29 (microseconds)
+*** Degeneracy k-plex size: 21, max_core: 17, UB: 25, Time: 36 (microseconds)
+*** After core shrink: n = 500, m = 4,459 (undirected)
+*** After core-truss co-pruning: n = 500, m = 4,459, density = 0.0357
+prune_cnt: 4, max_n: 18, min_density: 0.7500, avg_density: 0.7664
+search_cnt: 1, max_n: 0, min_density: 1.0000, avg_density: 0.0000
+*** Search time: 191
+	Maximum kPlex Size: 21, Total Time: 426 (microseconds)
+ground truth= 21 , use time 0.0004 s
+
+-------------- c-fat500-1  8 --------------
+
+
+============== c-fat500-1 9 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 4,459 (undirected)
+*** Heuristic kplex size: 14, time: 42 (microseconds)
+*** Degeneracy k-plex size: 21, max_core: 17, UB: 26, Time: 50 (microseconds)
+*** After core shrink: n = 500, m = 4,459 (undirected)
+*** After core-truss co-pruning: n = 500, m = 4,459, density = 0.0357
+prune_cnt: 24, max_n: 31, min_density: 0.4968, avg_density: 0.7404
+search_cnt: 3, max_n: 31, min_density: 0.4968, avg_density: 0.5740
+*** Search time: 359
+	Maximum kPlex Size: 21, Total Time: 691 (microseconds)
+ground truth= 21 , use time 0.0007 s
+
+-------------- c-fat500-1  9 --------------
+
+
+============== c-fat500-1 10 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 4,459 (undirected)
+*** Heuristic kplex size: 14, time: 29 (microseconds)
+*** Degeneracy k-plex size: 21, max_core: 17, UB: 27, Time: 35 (microseconds)
+*** After core shrink: n = 500, m = 4,459 (undirected)
+*** After core-truss co-pruning: n = 500, m = 4,459, density = 0.0357
+prune_cnt: 46, max_n: 31, min_density: 0.4815, avg_density: 0.7495
+search_cnt: 5, max_n: 31, min_density: 0.4815, avg_density: 0.4901
+*** Search time: 300
+	Maximum kPlex Size: 21, Total Time: 531 (microseconds)
+ground truth= 21 , use time 0.0005 s
+
+-------------- c-fat500-1  10 --------------
+
+
+============== c-fat500-1 15 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 4,459 (undirected)
+*** Heuristic kplex size: 14, time: 37 (microseconds)
+*** Degeneracy k-plex size: 28, max_core: 17, UB: 32, Time: 47 (microseconds)
+*** After core shrink: n = 500, m = 4,459 (undirected)
+prune_cnt: 4, max_n: 31, min_density: 0.4872, avg_density: 0.4923
+search_cnt: 3, max_n: 31, min_density: 0.4877, avg_density: 0.4940
+*** Search time: 270
+	Maximum kPlex Size: 28, Total Time: 594 (microseconds)
+ground truth= 28 , use time 0.0006 s
+
+-------------- c-fat500-1  15 --------------
+
+
+============== c-fat500-1 20 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 4,459 (undirected)
+*** Heuristic kplex size: 14, time: 29 (microseconds)
+*** Degeneracy k-plex size: 28, max_core: 17, UB: 37, Time: 36 (microseconds)
+*** After core shrink: n = 500, m = 4,459 (undirected)
+Degen find a solution of size 31
+prune_cnt: 46, max_n: 31, min_density: 0.4800, avg_density: 0.7459
+search_cnt: 1, max_n: 31, min_density: 0.4968, avg_density: 0.4968
+*** Search time: 277
+	Maximum kPlex Size: 31, Total Time: 502 (microseconds)
+ground truth= 31 , use time 0.0005 s
+
+-------------- c-fat500-1  20 --------------
+
+
+============== c-fat500-10 2 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 46,627 (undirected)
+*** Heuristic kplex size: 126, time: 1,691 (microseconds)
+*** Degeneracy k-plex size: 126, max_core: 185, UB: 187, Time: 357 (microseconds)
+*** After core shrink: n = 500, m = 46,627 (undirected)
+*** After core-truss co-pruning: n = 252, m = 19,719, density = 0.6235
+prune_cnt: 3, max_n: 126, min_density: 1.0000, avg_density: 1.0000
+search_cnt: 1, max_n: 0, min_density: 1.0000, avg_density: 0.0000
+*** Search time: 8,215
+	Maximum kPlex Size: 126, Total Time: 34,146 (microseconds)
+ground truth= 126 , use time 0.0341 s
+
+-------------- c-fat500-10  2 --------------
+
+
+============== c-fat500-10 3 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 46,627 (undirected)
+*** Heuristic kplex size: 126, time: 1,183 (microseconds)
+*** Degeneracy k-plex size: 126, max_core: 185, UB: 188, Time: 232 (microseconds)
+*** After core shrink: n = 500, m = 46,627 (undirected)
+*** After core-truss co-pruning: n = 500, m = 46,627, density = 0.3738
+prune_cnt: 10, max_n: 186, min_density: 0.7766, avg_density: 0.9554
+search_cnt: 2, max_n: 186, min_density: 0.7766, avg_density: 0.7772
+*** Search time: 18,111
+	Maximum kPlex Size: 126, Total Time: 25,838 (microseconds)
+ground truth= 126 , use time 0.0258 s
+
+-------------- c-fat500-10  3 --------------
+
+
+============== c-fat500-10 4 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 46,627 (undirected)
+*** Heuristic kplex size: 126, time: 2,071 (microseconds)
+*** Degeneracy k-plex size: 126, max_core: 185, UB: 189, Time: 367 (microseconds)
+*** After core shrink: n = 500, m = 46,627 (undirected)
+*** After core-truss co-pruning: n = 500, m = 46,627, density = 0.3738
+prune_cnt: 17, max_n: 186, min_density: 0.7754, avg_density: 0.9474
+search_cnt: 4, max_n: 186, min_density: 0.7754, avg_density: 0.7766
+*** Search time: 39,088
+	Maximum kPlex Size: 126, Total Time: 50,869 (microseconds)
+ground truth= 126 , use time 0.0509 s
+
+-------------- c-fat500-10  4 --------------
+
+
+============== c-fat500-10 5 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 46,627 (undirected)
+*** Heuristic kplex size: 126, time: 1,387 (microseconds)
+*** Degeneracy k-plex size: 126, max_core: 185, UB: 190, Time: 234 (microseconds)
+*** After core shrink: n = 500, m = 46,627 (undirected)
+*** After core-truss co-pruning: n = 500, m = 46,627, density = 0.3738
+prune_cnt: 24, max_n: 186, min_density: 0.7741, avg_density: 0.9440
+search_cnt: 6, max_n: 186, min_density: 0.7741, avg_density: 0.7760
+*** Search time: 46,097
+	Maximum kPlex Size: 126, Total Time: 54,120 (microseconds)
+ground truth= 126 , use time 0.0541 s
+
+-------------- c-fat500-10  5 --------------
+
+
+============== c-fat500-10 6 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 46,627 (undirected)
+*** Heuristic kplex size: 126, time: 2,147 (microseconds)
+*** Degeneracy k-plex size: 126, max_core: 185, UB: 191, Time: 361 (microseconds)
+*** After core shrink: n = 500, m = 46,627 (undirected)
+*** After core-truss co-pruning: n = 500, m = 46,627, density = 0.3738
+prune_cnt: 31, max_n: 186, min_density: 0.7729, avg_density: 0.9420
+search_cnt: 8, max_n: 186, min_density: 0.7729, avg_density: 0.7754
+*** Search time: 87,395
+	Maximum kPlex Size: 126, Total Time: 99,183 (microseconds)
+ground truth= 126 , use time 0.0992 s
+
+-------------- c-fat500-10  6 --------------
+
+
+============== c-fat500-10 7 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 46,627 (undirected)
+*** Heuristic kplex size: 126, time: 2,002 (microseconds)
+*** Degeneracy k-plex size: 126, max_core: 185, UB: 192, Time: 357 (microseconds)
+*** After core shrink: n = 500, m = 46,627 (undirected)
+*** After core-truss co-pruning: n = 500, m = 46,627, density = 0.3738
+prune_cnt: 38, max_n: 186, min_density: 0.7717, avg_density: 0.9407
+search_cnt: 10, max_n: 186, min_density: 0.7717, avg_density: 0.7748
+*** Search time: 94,908
+	Maximum kPlex Size: 126, Total Time: 106,250 (microseconds)
+ground truth= 126 , use time 0.1063 s
+
+-------------- c-fat500-10  7 --------------
+
+
+============== c-fat500-10 8 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 46,627 (undirected)
+*** Heuristic kplex size: 126, time: 1,804 (microseconds)
+*** Degeneracy k-plex size: 126, max_core: 185, UB: 193, Time: 317 (microseconds)
+*** After core shrink: n = 500, m = 46,627 (undirected)
+*** After core-truss co-pruning: n = 500, m = 46,627, density = 0.3738
+prune_cnt: 45, max_n: 186, min_density: 0.7705, avg_density: 0.9398
+search_cnt: 12, max_n: 186, min_density: 0.7705, avg_density: 0.7742
+*** Search time: 153,603
+	Maximum kPlex Size: 126, Total Time: 165,074 (microseconds)
+ground truth= 126 , use time 0.1651 s
+
+-------------- c-fat500-10  8 --------------
+
+
+============== c-fat500-10 9 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 46,627 (undirected)
+*** Heuristic kplex size: 126, time: 2,136 (microseconds)
+*** Degeneracy k-plex size: 126, max_core: 185, UB: 194, Time: 371 (microseconds)
+*** After core shrink: n = 500, m = 46,627 (undirected)
+*** After core-truss co-pruning: n = 500, m = 46,627, density = 0.3738
+prune_cnt: 52, max_n: 186, min_density: 0.7693, avg_density: 0.9390
+search_cnt: 14, max_n: 186, min_density: 0.7693, avg_density: 0.7736
+*** Search time: 192,675
+	Maximum kPlex Size: 126, Total Time: 204,537 (microseconds)
+ground truth= 126 , use time 0.2045 s
+
+-------------- c-fat500-10  9 --------------
+
+
+============== c-fat500-10 10 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 46,627 (undirected)
+*** Heuristic kplex size: 126, time: 2,129 (microseconds)
+*** Degeneracy k-plex size: 126, max_core: 185, UB: 195, Time: 342 (microseconds)
+*** After core shrink: n = 500, m = 46,627 (undirected)
+*** After core-truss co-pruning: n = 500, m = 46,627, density = 0.3738
+prune_cnt: 59, max_n: 186, min_density: 0.7681, avg_density: 0.9384
+search_cnt: 16, max_n: 186, min_density: 0.7681, avg_density: 0.7730
+*** Search time: 234,570
+	Maximum kPlex Size: 126, Total Time: 246,253 (microseconds)
+ground truth= 126 , use time 0.2463 s
+
+-------------- c-fat500-10  10 --------------
+
+
+============== c-fat500-10 15 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 46,627 (undirected)
+*** Heuristic kplex size: 126, time: 2,115 (microseconds)
+*** Degeneracy k-plex size: 126, max_core: 185, UB: 200, Time: 367 (microseconds)
+*** After core shrink: n = 500, m = 46,627 (undirected)
+*** After core-truss co-pruning: n = 500, m = 46,627, density = 0.3738
+prune_cnt: 94, max_n: 186, min_density: 0.7623, avg_density: 0.9364
+search_cnt: 26, max_n: 186, min_density: 0.7623, avg_density: 0.7701
+*** Search time: 488,599
+	Maximum kPlex Size: 126, Total Time: 500,201 (microseconds)
+ground truth= 126 , use time 0.5002 s
+
+-------------- c-fat500-10  15 --------------
+
+
+============== c-fat500-10 20 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 46,627 (undirected)
+*** Heuristic kplex size: 126, time: 2,139 (microseconds)
+*** Degeneracy k-plex size: 126, max_core: 185, UB: 205, Time: 357 (microseconds)
+*** After core shrink: n = 500, m = 46,627 (undirected)
+*** After core-truss co-pruning: n = 500, m = 46,627, density = 0.3738
+prune_cnt: 129, max_n: 186, min_density: 0.7569, avg_density: 0.9351
+search_cnt: 36, max_n: 186, min_density: 0.7569, avg_density: 0.7673
+*** Search time: 790,282
+	Maximum kPlex Size: 126, Total Time: 801,787 (microseconds)
+ground truth= 126 , use time 0.8018 s
+
+-------------- c-fat500-10  20 --------------
+
+
+============== c-fat500-2 2 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 9,139 (undirected)
+*** Heuristic kplex size: 26, time: 111 (microseconds)
+*** Degeneracy k-plex size: 26, max_core: 35, UB: 37, Time: 89 (microseconds)
+*** After core shrink: n = 500, m = 9,139 (undirected)
+*** After core-truss co-pruning: n = 260, m = 4,771, density = 0.1417
+prune_cnt: 19, max_n: 26, min_density: 1.0000, avg_density: 1.0000
+search_cnt: 1, max_n: 0, min_density: 1.0000, avg_density: 0.0000
+*** Search time: 706
+	Maximum kPlex Size: 26, Total Time: 2,200 (microseconds)
+ground truth= 26 , use time 0.0022 s
+
+-------------- c-fat500-2  2 --------------
+
+
+============== c-fat500-2 3 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 9,139 (undirected)
+*** Heuristic kplex size: 26, time: 113 (microseconds)
+*** Degeneracy k-plex size: 26, max_core: 35, UB: 38, Time: 90 (microseconds)
+*** After core shrink: n = 500, m = 9,139 (undirected)
+*** After core-truss co-pruning: n = 500, m = 9,139, density = 0.0733
+prune_cnt: 42, max_n: 36, min_density: 0.7714, avg_density: 0.9893
+search_cnt: 2, max_n: 36, min_density: 0.7714, avg_density: 0.7748
+*** Search time: 1,399
+	Maximum kPlex Size: 26, Total Time: 2,234 (microseconds)
+ground truth= 26 , use time 0.0022 s
+
+-------------- c-fat500-2  3 --------------
+
+
+============== c-fat500-2 4 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 9,139 (undirected)
+*** Heuristic kplex size: 26, time: 107 (microseconds)
+*** Degeneracy k-plex size: 26, max_core: 35, UB: 39, Time: 83 (microseconds)
+*** After core shrink: n = 500, m = 9,139 (undirected)
+*** After core-truss co-pruning: n = 500, m = 9,139, density = 0.0733
+prune_cnt: 81, max_n: 36, min_density: 0.7647, avg_density: 0.9887
+search_cnt: 4, max_n: 36, min_density: 0.7647, avg_density: 0.7718
+*** Search time: 1,731
+	Maximum kPlex Size: 26, Total Time: 2,504 (microseconds)
+ground truth= 26 , use time 0.0025 s
+
+-------------- c-fat500-2  4 --------------
+
+
+============== c-fat500-2 5 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 9,139 (undirected)
+*** Heuristic kplex size: 26, time: 109 (microseconds)
+*** Degeneracy k-plex size: 26, max_core: 35, UB: 40, Time: 89 (microseconds)
+*** After core shrink: n = 500, m = 9,139 (undirected)
+*** After core-truss co-pruning: n = 500, m = 9,139, density = 0.0733
+prune_cnt: 120, max_n: 36, min_density: 0.7581, avg_density: 0.9884
+search_cnt: 6, max_n: 36, min_density: 0.7581, avg_density: 0.7688
+*** Search time: 2,091
+	Maximum kPlex Size: 26, Total Time: 2,872 (microseconds)
+ground truth= 26 , use time 0.0029 s
+
+-------------- c-fat500-2  5 --------------
+
+
+============== c-fat500-2 6 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 9,139 (undirected)
+*** Heuristic kplex size: 26, time: 111 (microseconds)
+*** Degeneracy k-plex size: 26, max_core: 35, UB: 41, Time: 88 (microseconds)
+*** After core shrink: n = 500, m = 9,139 (undirected)
+*** After core-truss co-pruning: n = 500, m = 9,139, density = 0.0733
+prune_cnt: 159, max_n: 36, min_density: 0.7517, avg_density: 0.9882
+search_cnt: 8, max_n: 36, min_density: 0.7517, avg_density: 0.7660
+*** Search time: 2,634
+	Maximum kPlex Size: 26, Total Time: 3,450 (microseconds)
+ground truth= 26 , use time 0.0035 s
+
+-------------- c-fat500-2  6 --------------
+
+
+============== c-fat500-2 7 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 9,139 (undirected)
+*** Heuristic kplex size: 26, time: 116 (microseconds)
+*** Degeneracy k-plex size: 26, max_core: 35, UB: 42, Time: 93 (microseconds)
+*** After core shrink: n = 500, m = 9,139 (undirected)
+*** After core-truss co-pruning: n = 500, m = 9,139, density = 0.0733
+prune_cnt: 198, max_n: 36, min_density: 0.7460, avg_density: 0.9881
+search_cnt: 10, max_n: 36, min_density: 0.7460, avg_density: 0.7635
+*** Search time: 3,086
+	Maximum kPlex Size: 26, Total Time: 3,903 (microseconds)
+ground truth= 26 , use time 0.0039 s
+
+-------------- c-fat500-2  7 --------------
+
+
+============== c-fat500-2 8 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 9,139 (undirected)
+*** Heuristic kplex size: 26, time: 108 (microseconds)
+*** Degeneracy k-plex size: 26, max_core: 35, UB: 43, Time: 83 (microseconds)
+*** After core shrink: n = 500, m = 9,139 (undirected)
+*** After core-truss co-pruning: n = 500, m = 9,139, density = 0.0733
+prune_cnt: 216, max_n: 38, min_density: 0.7415, avg_density: 0.9857
+search_cnt: 11, max_n: 38, min_density: 0.7460, avg_density: 0.7648
+*** Search time: 3,461
+	Maximum kPlex Size: 27, Total Time: 4,227 (microseconds)
+ground truth= 27 , use time 0.0042 s
+
+-------------- c-fat500-2  8 --------------
+
+
+============== c-fat500-2 9 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 9,139 (undirected)
+*** Heuristic kplex size: 26, time: 330 (microseconds)
+*** Degeneracy k-plex size: 26, max_core: 35, UB: 44, Time: 243 (microseconds)
+*** After core shrink: n = 500, m = 9,139 (undirected)
+*** After core-truss co-pruning: n = 500, m = 9,139, density = 0.0733
+prune_cnt: 179, max_n: 61, min_density: 0.5082, avg_density: 0.9813
+search_cnt: 9, max_n: 61, min_density: 0.5082, avg_density: 0.7381
+*** Search time: 3,532
+	Maximum kPlex Size: 29, Total Time: 4,821 (microseconds)
+ground truth= 29 , use time 0.0048 s
+
+-------------- c-fat500-2  9 --------------
+
+
+============== c-fat500-2 10 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 9,139 (undirected)
+*** Heuristic kplex size: 26, time: 108 (microseconds)
+*** Degeneracy k-plex size: 26, max_core: 35, UB: 45, Time: 83 (microseconds)
+*** After core shrink: n = 500, m = 9,139 (undirected)
+*** After core-truss co-pruning: n = 500, m = 9,139, density = 0.0733
+prune_cnt: 142, max_n: 61, min_density: 0.5082, avg_density: 0.9764
+search_cnt: 7, max_n: 61, min_density: 0.5082, avg_density: 0.7325
+*** Search time: 3,517
+	Maximum kPlex Size: 31, Total Time: 4,282 (microseconds)
+ground truth= 31 , use time 0.0043 s
+
+-------------- c-fat500-2  10 --------------
+
+
+============== c-fat500-2 15 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 9,139 (undirected)
+*** Heuristic kplex size: 26, time: 109 (microseconds)
+*** Degeneracy k-plex size: 39, max_core: 35, UB: 50, Time: 85 (microseconds)
+*** After core shrink: n = 500, m = 9,139 (undirected)
+*** After core-truss co-pruning: n = 500, m = 9,139, density = 0.0733
+prune_cnt: 30, max_n: 61, min_density: 0.5082, avg_density: 0.7226
+search_cnt: 9, max_n: 61, min_density: 0.5082, avg_density: 0.6108
+*** Search time: 1,289
+	Maximum kPlex Size: 39, Total Time: 2,070 (microseconds)
+ground truth= 39 , use time 0.0021 s
+
+-------------- c-fat500-2  15 --------------
+
+
+============== c-fat500-2 20 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 9,139 (undirected)
+*** Heuristic kplex size: 26, time: 112 (microseconds)
+*** Degeneracy k-plex size: 39, max_core: 35, UB: 55, Time: 90 (microseconds)
+*** After core shrink: n = 500, m = 9,139 (undirected)
+prune_cnt: 204, max_n: 61, min_density: 0.4894, avg_density: 0.7716
+search_cnt: 16, max_n: 61, min_density: 0.4894, avg_density: 0.4961
+*** Search time: 7,667
+	Maximum kPlex Size: 39, Total Time: 8,467 (microseconds)
+ground truth= 39 , use time 0.0085 s
+
+-------------- c-fat500-2  20 --------------
+
+
+2023年 11月 28日 星期二 11:46:43 CST
+ok
+
+2023年 11月 23日 星期四 02:39:38 CST
+============== c-fat500-5 2 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 23,191 (undirected)
+*** Heuristic kplex size: 64, time: 484 (microseconds)
+*** Degeneracy k-plex size: 64, max_core: 92, UB: 94, Time: 282 (microseconds)
+*** After core shrink: n = 500, m = 23,191 (undirected)
+*** After core-truss co-pruning: n = 128, m = 5,056, density = 0.6220
+prune_cnt: 3, max_n: 64, min_density: 1.0000, avg_density: 1.0000
+search_cnt: 1, max_n: 0, min_density: 1.0000, avg_density: 0.0000
+*** Search time: 1,310
+	Maximum kPlex Size: 64, Total Time: 10,560 (microseconds)
+ground truth= 64 , use time 0.0106 s
+
+-------------- c-fat500-5  2 --------------
+
+
+============== c-fat500-5 3 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 23,191 (undirected)
+*** Heuristic kplex size: 64, time: 510 (microseconds)
+*** Degeneracy k-plex size: 64, max_core: 92, UB: 95, Time: 203 (microseconds)
+*** After core shrink: n = 500, m = 23,191 (undirected)
+*** After core-truss co-pruning: n = 500, m = 23,191, density = 0.1859
+prune_cnt: 10, max_n: 93, min_density: 0.7754, avg_density: 0.9553
+search_cnt: 2, max_n: 93, min_density: 0.7754, avg_density: 0.7766
+*** Search time: 6,833
+	Maximum kPlex Size: 64, Total Time: 10,303 (microseconds)
+ground truth= 64 , use time 0.0103 s
+
+-------------- c-fat500-5  3 --------------
+
+
+============== c-fat500-5 4 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 23,191 (undirected)
+*** Heuristic kplex size: 64, time: 534 (microseconds)
+*** Degeneracy k-plex size: 64, max_core: 92, UB: 96, Time: 176 (microseconds)
+*** After core shrink: n = 500, m = 23,191 (undirected)
+*** After core-truss co-pruning: n = 500, m = 23,191, density = 0.1859
+prune_cnt: 25, max_n: 93, min_density: 0.7729, avg_density: 0.9641
+search_cnt: 4, max_n: 93, min_density: 0.7729, avg_density: 0.7754
+*** Search time: 8,939
+	Maximum kPlex Size: 64, Total Time: 12,104 (microseconds)
+ground truth= 64 , use time 0.0121 s
+
+-------------- c-fat500-5  4 --------------
+
+
+============== c-fat500-5 5 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 23,191 (undirected)
+*** Heuristic kplex size: 64, time: 599 (microseconds)
+*** Degeneracy k-plex size: 64, max_core: 92, UB: 97, Time: 202 (microseconds)
+*** After core shrink: n = 500, m = 23,191 (undirected)
+*** After core-truss co-pruning: n = 500, m = 23,191, density = 0.1859
+prune_cnt: 40, max_n: 93, min_density: 0.7704, avg_density: 0.9661
+search_cnt: 6, max_n: 93, min_density: 0.7704, avg_density: 0.7742
+*** Search time: 12,910
+	Maximum kPlex Size: 64, Total Time: 16,521 (microseconds)
+ground truth= 64 , use time 0.0165 s
+
+-------------- c-fat500-5  5 --------------
+
+
+============== c-fat500-5 6 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 23,191 (undirected)
+*** Heuristic kplex size: 64, time: 543 (microseconds)
+*** Degeneracy k-plex size: 64, max_core: 92, UB: 98, Time: 170 (microseconds)
+*** After core shrink: n = 500, m = 23,191 (undirected)
+*** After core-truss co-pruning: n = 500, m = 23,191, density = 0.1859
+prune_cnt: 55, max_n: 93, min_density: 0.7680, avg_density: 0.9670
+search_cnt: 8, max_n: 93, min_density: 0.7680, avg_density: 0.7730
+*** Search time: 15,497
+	Maximum kPlex Size: 64, Total Time: 18,547 (microseconds)
+ground truth= 64 , use time 0.0185 s
+
+-------------- c-fat500-5  6 --------------
+
+
+============== c-fat500-5 7 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 23,191 (undirected)
+*** Heuristic kplex size: 64, time: 536 (microseconds)
+*** Degeneracy k-plex size: 64, max_core: 92, UB: 99, Time: 178 (microseconds)
+*** After core shrink: n = 500, m = 23,191 (undirected)
+*** After core-truss co-pruning: n = 500, m = 23,191, density = 0.1859
+prune_cnt: 70, max_n: 93, min_density: 0.7655, avg_density: 0.9674
+search_cnt: 10, max_n: 93, min_density: 0.7655, avg_density: 0.7719
+*** Search time: 19,778
+	Maximum kPlex Size: 64, Total Time: 22,923 (microseconds)
+ground truth= 64 , use time 0.0229 s
+
+-------------- c-fat500-5  7 --------------
+
+
+============== c-fat500-5 8 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 23,191 (undirected)
+*** Heuristic kplex size: 64, time: 513 (microseconds)
+*** Degeneracy k-plex size: 64, max_core: 92, UB: 100, Time: 170 (microseconds)
+*** After core shrink: n = 500, m = 23,191 (undirected)
+*** After core-truss co-pruning: n = 500, m = 23,191, density = 0.1859
+prune_cnt: 85, max_n: 93, min_density: 0.7632, avg_density: 0.9676
+search_cnt: 12, max_n: 93, min_density: 0.7632, avg_density: 0.7707
+*** Search time: 24,140
+	Maximum kPlex Size: 64, Total Time: 27,164 (microseconds)
+ground truth= 64 , use time 0.0272 s
+
+-------------- c-fat500-5  8 --------------
+
+
+============== c-fat500-5 9 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 23,191 (undirected)
+*** Heuristic kplex size: 64, time: 520 (microseconds)
+*** Degeneracy k-plex size: 64, max_core: 92, UB: 101, Time: 171 (microseconds)
+*** After core shrink: n = 500, m = 23,191 (undirected)
+*** After core-truss co-pruning: n = 500, m = 23,191, density = 0.1859
+prune_cnt: 100, max_n: 93, min_density: 0.7608, avg_density: 0.9677
+search_cnt: 14, max_n: 93, min_density: 0.7608, avg_density: 0.7696
+*** Search time: 28,979
+	Maximum kPlex Size: 64, Total Time: 32,010 (microseconds)
+ground truth= 64 , use time 0.0320 s
+
+-------------- c-fat500-5  9 --------------
+
+
+============== c-fat500-5 10 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 23,191 (undirected)
+*** Heuristic kplex size: 64, time: 510 (microseconds)
+*** Degeneracy k-plex size: 64, max_core: 92, UB: 102, Time: 180 (microseconds)
+*** After core shrink: n = 500, m = 23,191 (undirected)
+*** After core-truss co-pruning: n = 500, m = 23,191, density = 0.1859
+prune_cnt: 115, max_n: 93, min_density: 0.7585, avg_density: 0.9678
+search_cnt: 16, max_n: 93, min_density: 0.7585, avg_density: 0.7684
+*** Search time: 33,657
+	Maximum kPlex Size: 64, Total Time: 36,694 (microseconds)
+ground truth= 64 , use time 0.0367 s
+
+-------------- c-fat500-5  10 --------------
+
+
+============== c-fat500-5 15 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 23,191 (undirected)
+*** Heuristic kplex size: 64, time: 604 (microseconds)
+*** Degeneracy k-plex size: 64, max_core: 92, UB: 107, Time: 202 (microseconds)
+*** After core shrink: n = 500, m = 23,191 (undirected)
+*** After core-truss co-pruning: n = 500, m = 23,191, density = 0.1859
+prune_cnt: 190, max_n: 93, min_density: 0.7489, avg_density: 0.9676
+search_cnt: 26, max_n: 93, min_density: 0.7489, avg_density: 0.7633
+*** Search time: 60,613
+	Maximum kPlex Size: 64, Total Time: 64,194 (microseconds)
+ground truth= 64 , use time 0.0642 s
+
+-------------- c-fat500-5  15 --------------
+
+
+============== c-fat500-5 20 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 500; m = 23,191 (undirected)
+*** Heuristic kplex size: 64, time: 514 (microseconds)
+*** Degeneracy k-plex size: 64, max_core: 92, UB: 112, Time: 170 (microseconds)
+*** After core shrink: n = 500, m = 23,191 (undirected)
+*** After core-truss co-pruning: n = 500, m = 23,191, density = 0.1859
+prune_cnt: 190, max_n: 156, min_density: 0.5154, avg_density: 0.9585
+search_cnt: 25, max_n: 156, min_density: 0.5154, avg_density: 0.7544
+*** Search time: 65,953
+	Maximum kPlex Size: 70, Total Time: 68,981 (microseconds)
+ground truth= 70 , use time 0.0690 s
+
+-------------- c-fat500-5  20 --------------
+
+
+============== C1000-9 2 ==============
+-------------- C1000-9  2 --------------
+
+
+============== C1000-9 3 ==============
+-------------- C1000-9  3 --------------
+
+
+============== C1000-9 4 ==============
+-------------- C1000-9  4 --------------
+
+
+============== C1000-9 5 ==============
+-------------- C1000-9  5 --------------
+
+
+============== C1000-9 6 ==============
+-------------- C1000-9  6 --------------
+
+
+============== C1000-9 7 ==============
+-------------- C1000-9  7 --------------
+
+
+============== C1000-9 8 ==============
+-------------- C1000-9  8 --------------
+
+
+============== C1000-9 9 ==============
+-------------- C1000-9  9 --------------
+
+
+============== C1000-9 10 ==============
+-------------- C1000-9  10 --------------
+
+
+============== C1000-9 15 ==============
+-------------- C1000-9  15 --------------
+
+
+============== C1000-9 20 ==============
+-------------- C1000-9  20 --------------
+
+
+============== C125-9 2 ==============
+-------------- C125-9  2 --------------
+
+
+============== C125-9 3 ==============
+-------------- C125-9  3 --------------
+
+
+============== C125-9 4 ==============
+-------------- C125-9  4 --------------
+
+
+============== C125-9 5 ==============
+-------------- C125-9  5 --------------
+
+
+============== C125-9 6 ==============
+-------------- C125-9  6 --------------
+
+
+============== C125-9 7 ==============
+-------------- C125-9  7 --------------
+
+
+============== C125-9 8 ==============
+-------------- C125-9  8 --------------
+
+
+============== C125-9 9 ==============
+-------------- C125-9  9 --------------
+
+
+============== C125-9 10 ==============
+-------------- C125-9  10 --------------
+
+
+============== C125-9 15 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 125; m = 6,963 (undirected)
+*** Heuristic kplex size: 33, time: 710 (microseconds)
+*** Degeneracy k-plex size: 109, max_core: 102, UB: 117, Time: 83 (microseconds)
+*** After core shrink: n = 125, m = 6,963 (undirected)
+*** After core-truss co-pruning: n = 125, m = 6,963, density = 0.8985
+Degen find a solution of size 111
+prune_cnt: 9, max_n: 125, min_density: 0.8985, avg_density: 0.9034
+search_cnt: 9, max_n: 125, min_density: 0.8985, avg_density: 0.9034
+*** Search time: 8,331,871
+	Maximum kPlex Size: 112, Total Time: 8,333,522 (microseconds)
+ground truth= 112 , use time 8.3335 s
+
+-------------- C125-9  15 --------------
+
+
+============== C125-9 20 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 125; m = 6,963 (undirected)
+*** Heuristic kplex size: 33, time: 713 (microseconds)
+*** Degeneracy k-plex size: 122, max_core: 102, UB: 122, Time: 84 (microseconds)
+	Maximum kPlex Size: 122, Total Time: 799 (microseconds)
+ground truth= 122 , use time 0.0008 s
+
+-------------- C125-9  20 --------------
+
+
+============== C2000-5 2 ==============
+-------------- C2000-5  2 --------------
+
+
+============== C2000-5 3 ==============
+-------------- C2000-5  3 --------------
+
+
+============== C2000-5 4 ==============
+-------------- C2000-5  4 --------------
+
+
+============== C2000-5 5 ==============
+-------------- C2000-5  5 --------------
+
+
+============== C2000-5 6 ==============
+-------------- C2000-5  6 --------------
+
+
+============== C2000-5 7 ==============
+-------------- C2000-5  7 --------------
+
+
+============== C2000-5 8 ==============
+-------------- C2000-5  8 --------------
+
+
+============== C2000-5 9 ==============
+-------------- C2000-5  9 --------------
+
+
+============== C2000-5 10 ==============
+-------------- C2000-5  10 --------------
+
+
+============== C2000-5 15 ==============
+-------------- C2000-5  15 --------------
+
+
+============== C2000-5 20 ==============
+-------------- C2000-5  20 --------------
+
+
+============== C2000-9 2 ==============
+-------------- C2000-9  2 --------------
+
+
+============== C2000-9 3 ==============
+-------------- C2000-9  3 --------------
+
+
+============== C2000-9 4 ==============
+-------------- C2000-9  4 --------------
+
+
+============== C2000-9 5 ==============
+-------------- C2000-9  5 --------------
+
+
+============== C2000-9 6 ==============
+-------------- C2000-9  6 --------------
+
+
+============== C2000-9 7 ==============
+-------------- C2000-9  7 --------------
+
+
+============== C2000-9 8 ==============
+-------------- C2000-9  8 --------------
+
+
+============== C2000-9 9 ==============
+-------------- C2000-9  9 --------------
+
+
+============== C2000-9 10 ==============
+-------------- C2000-9  10 --------------
+
+
+============== C2000-9 15 ==============
+-------------- C2000-9  15 --------------
+
+
+============== C2000-9 20 ==============
+-------------- C2000-9  20 --------------
+
+
+============== C250-9 2 ==============
+-------------- C250-9  2 --------------
+
+
+============== C250-9 3 ==============
+-------------- C250-9  3 --------------
+
+
+============== C250-9 4 ==============
+-------------- C250-9  4 --------------
+
+
+============== C250-9 5 ==============
+-------------- C250-9  5 --------------
+
+
+============== C250-9 6 ==============
+-------------- C250-9  6 --------------
+
+
+============== C250-9 7 ==============
+-------------- C250-9  7 --------------
+
+
+============== C250-9 8 ==============
+-------------- C250-9  8 --------------
+
+
+============== C250-9 9 ==============
+-------------- C250-9  9 --------------
+
+
+============== C250-9 10 ==============
+-------------- C250-9  10 --------------
+
+
+============== C250-9 15 ==============
+-------------- C250-9  15 --------------
+
+
+============== C250-9 20 ==============
+-------------- C250-9  20 --------------
+
+
+============== C4000-5 2 ==============
+-------------- C4000-5  2 --------------
+
+
+============== C4000-5 3 ==============
+-------------- C4000-5  3 --------------
+
+
+============== C4000-5 4 ==============
+-------------- C4000-5  4 --------------
+
+
+============== C4000-5 5 ==============
+-------------- C4000-5  5 --------------
+
+
+============== C4000-5 6 ==============
+-------------- C4000-5  6 --------------
+
+
+============== C4000-5 7 ==============
+-------------- C4000-5  7 --------------
+
+
+============== C4000-5 8 ==============
+-------------- C4000-5  8 --------------
+
+
+============== C4000-5 9 ==============
+-------------- C4000-5  9 --------------
+
+
+============== C4000-5 10 ==============
+-------------- C4000-5  10 --------------
+
+
+============== C4000-5 15 ==============
+-------------- C4000-5  15 --------------
+
+
+============== C4000-5 20 ==============
+-------------- C4000-5  20 --------------
+
+
+============== C500-9 2 ==============
+-------------- C500-9  2 --------------
+
+
+============== C500-9 3 ==============
+-------------- C500-9  3 --------------
+
+
+============== C500-9 4 ==============
+-------------- C500-9  4 --------------
+
+
+============== C500-9 5 ==============
+-------------- C500-9  5 --------------
+
+
+============== C500-9 6 ==============
+-------------- C500-9  6 --------------
+
+
+============== C500-9 7 ==============
+-------------- C500-9  7 --------------
+
+
+============== C500-9 8 ==============
+-------------- C500-9  8 --------------
+
+
+============== C500-9 9 ==============
+-------------- C500-9  9 --------------
+
+
+============== C500-9 10 ==============
+-------------- C500-9  10 --------------
+
+
+============== C500-9 15 ==============
+-------------- C500-9  15 --------------
+
+
+============== C500-9 20 ==============
+-------------- C500-9  20 --------------
+
+
+============== DSJC1000-5 2 ==============
+-------------- DSJC1000-5  2 --------------
+
+
+============== DSJC1000-5 3 ==============
+-------------- DSJC1000-5  3 --------------
+
+
+============== DSJC1000-5 4 ==============
+-------------- DSJC1000-5  4 --------------
+
+
+============== DSJC1000-5 5 ==============
+-------------- DSJC1000-5  5 --------------
+
+
+============== DSJC1000-5 6 ==============
+-------------- DSJC1000-5  6 --------------
+
+
+============== DSJC1000-5 7 ==============
+-------------- DSJC1000-5  7 --------------
+
+
+============== DSJC1000-5 8 ==============
+-------------- DSJC1000-5  8 --------------
+
+
+============== DSJC1000-5 9 ==============
+-------------- DSJC1000-5  9 --------------
+
+
+============== DSJC1000-5 10 ==============
+-------------- DSJC1000-5  10 --------------
+
+
+============== DSJC1000-5 15 ==============
+-------------- DSJC1000-5  15 --------------
+
+
+============== DSJC1000-5 20 ==============
+-------------- DSJC1000-5  20 --------------
+
+
+============== DSJC500-5 2 ==============
+-------------- DSJC500-5  2 --------------
+
+
+============== DSJC500-5 3 ==============
+-------------- DSJC500-5  3 --------------
+
+
+============== DSJC500-5 4 ==============
+-------------- DSJC500-5  4 --------------
+
+
+============== DSJC500-5 5 ==============
+-------------- DSJC500-5  5 --------------
+
+
+============== DSJC500-5 6 ==============
+-------------- DSJC500-5  6 --------------
+
+
+============== DSJC500-5 7 ==============
+-------------- DSJC500-5  7 --------------
+
+
+============== DSJC500-5 8 ==============
+-------------- DSJC500-5  8 --------------
+
+
+============== DSJC500-5 9 ==============
+-------------- DSJC500-5  9 --------------
+
+
+============== DSJC500-5 10 ==============
+-------------- DSJC500-5  10 --------------
+
+
+============== DSJC500-5 15 ==============
+-------------- DSJC500-5  15 --------------
+
+
+============== DSJC500-5 20 ==============
+-------------- DSJC500-5  20 --------------
+
+
+============== gen200-p0-9-44 2 ==============
+-------------- gen200-p0-9-44  2 --------------
+
+
+============== gen200-p0-9-44 3 ==============
+-------------- gen200-p0-9-44  3 --------------
+
+
+============== gen200-p0-9-44 4 ==============
+-------------- gen200-p0-9-44  4 --------------
+
+
+============== gen200-p0-9-44 5 ==============
+-------------- gen200-p0-9-44  5 --------------
+
+
+============== gen200-p0-9-44 6 ==============
+-------------- gen200-p0-9-44  6 --------------
+
+
+============== gen200-p0-9-44 7 ==============
+-------------- gen200-p0-9-44  7 --------------
+
+
+============== gen200-p0-9-44 8 ==============
+-------------- gen200-p0-9-44  8 --------------
+
+
+============== gen200-p0-9-44 9 ==============
+-------------- gen200-p0-9-44  9 --------------
+
+
+============== gen200-p0-9-44 10 ==============
+-------------- gen200-p0-9-44  10 --------------
+
+
+============== gen200-p0-9-44 15 ==============
+-------------- gen200-p0-9-44  15 --------------
+
+
+============== gen200-p0-9-44 20 ==============
+-------------- gen200-p0-9-44  20 --------------
+
+
+============== gen200-p0-9-55 2 ==============
+-------------- gen200-p0-9-55  2 --------------
+
+
+============== gen200-p0-9-55 3 ==============
+-------------- gen200-p0-9-55  3 --------------
+
+
+============== gen200-p0-9-55 4 ==============
+-------------- gen200-p0-9-55  4 --------------
+
+
+============== gen200-p0-9-55 5 ==============
+-------------- gen200-p0-9-55  5 --------------
+
+
+============== gen200-p0-9-55 6 ==============
+-------------- gen200-p0-9-55  6 --------------
+
+
+============== gen200-p0-9-55 7 ==============
+-------------- gen200-p0-9-55  7 --------------
+
+
+============== gen200-p0-9-55 8 ==============
+-------------- gen200-p0-9-55  8 --------------
+
+
+============== gen200-p0-9-55 9 ==============
+-------------- gen200-p0-9-55  9 --------------
+
+
+============== gen200-p0-9-55 10 ==============
+-------------- gen200-p0-9-55  10 --------------
+
+
+============== gen200-p0-9-55 15 ==============
+-------------- gen200-p0-9-55  15 --------------
+
+
+============== gen200-p0-9-55 20 ==============
+-------------- gen200-p0-9-55  20 --------------
+
+
+============== gen400-p0-9-55 2 ==============
+-------------- gen400-p0-9-55  2 --------------
+
+
+============== gen400-p0-9-55 3 ==============
+-------------- gen400-p0-9-55  3 --------------
+
+
+============== gen400-p0-9-55 4 ==============
+-------------- gen400-p0-9-55  4 --------------
+
+
+============== gen400-p0-9-55 5 ==============
+-------------- gen400-p0-9-55  5 --------------
+
+
+============== gen400-p0-9-55 6 ==============
+-------------- gen400-p0-9-55  6 --------------
+
+
+============== gen400-p0-9-55 7 ==============
+-------------- gen400-p0-9-55  7 --------------
+
+
+============== gen400-p0-9-55 8 ==============
+-------------- gen400-p0-9-55  8 --------------
+
+
+============== gen400-p0-9-55 9 ==============
+-------------- gen400-p0-9-55  9 --------------
+
+
+============== gen400-p0-9-55 10 ==============
+-------------- gen400-p0-9-55  10 --------------
+
+
+============== gen400-p0-9-55 15 ==============
+-------------- gen400-p0-9-55  15 --------------
+
+
+============== gen400-p0-9-55 20 ==============
+-------------- gen400-p0-9-55  20 --------------
+
+
+============== gen400-p0-9-65 2 ==============
+-------------- gen400-p0-9-65  2 --------------
+
+
+============== gen400-p0-9-65 3 ==============
+-------------- gen400-p0-9-65  3 --------------
+
+
+============== gen400-p0-9-65 4 ==============
+-------------- gen400-p0-9-65  4 --------------
+
+
+============== gen400-p0-9-65 5 ==============
+-------------- gen400-p0-9-65  5 --------------
+
+
+============== gen400-p0-9-65 6 ==============
+-------------- gen400-p0-9-65  6 --------------
+
+
+============== gen400-p0-9-65 7 ==============
+-------------- gen400-p0-9-65  7 --------------
+
+
+============== gen400-p0-9-65 8 ==============
+-------------- gen400-p0-9-65  8 --------------
+
+
+============== gen400-p0-9-65 9 ==============
+-------------- gen400-p0-9-65  9 --------------
+
+
+============== gen400-p0-9-65 10 ==============
+-------------- gen400-p0-9-65  10 --------------
+
+
+============== gen400-p0-9-65 15 ==============
+-------------- gen400-p0-9-65  15 --------------
+
+
+============== gen400-p0-9-65 20 ==============
+-------------- gen400-p0-9-65  20 --------------
+
+
+============== gen400-p0-9-75 2 ==============
+-------------- gen400-p0-9-75  2 --------------
+
+
+============== gen400-p0-9-75 3 ==============
+-------------- gen400-p0-9-75  3 --------------
+
+
+============== gen400-p0-9-75 4 ==============
+-------------- gen400-p0-9-75  4 --------------
+
+
+============== gen400-p0-9-75 5 ==============
+-------------- gen400-p0-9-75  5 --------------
+
+
+============== gen400-p0-9-75 6 ==============
+-------------- gen400-p0-9-75  6 --------------
+
+
+============== gen400-p0-9-75 7 ==============
+-------------- gen400-p0-9-75  7 --------------
+
+
+============== gen400-p0-9-75 8 ==============
+-------------- gen400-p0-9-75  8 --------------
+
+
+============== gen400-p0-9-75 9 ==============
+-------------- gen400-p0-9-75  9 --------------
+
+
+============== gen400-p0-9-75 10 ==============
+-------------- gen400-p0-9-75  10 --------------
+
+
+============== gen400-p0-9-75 15 ==============
+-------------- gen400-p0-9-75  15 --------------
+
+
+============== gen400-p0-9-75 20 ==============
+-------------- gen400-p0-9-75  20 --------------
+
+
+============== hamming10-2 2 ==============
+-------------- hamming10-2  2 --------------
+
+
+============== hamming10-2 3 ==============
+-------------- hamming10-2  3 --------------
+
+
+============== hamming10-2 4 ==============
+-------------- hamming10-2  4 --------------
+
+
+============== hamming10-2 5 ==============
+-------------- hamming10-2  5 --------------
+
+
+============== hamming10-2 6 ==============
+-------------- hamming10-2  6 --------------
+
+
+============== hamming10-2 7 ==============
+-------------- hamming10-2  7 --------------
+
+
+============== hamming10-2 8 ==============
+-------------- hamming10-2  8 --------------
+
+
+============== hamming10-2 9 ==============
+-------------- hamming10-2  9 --------------
+
+
+============== hamming10-2 10 ==============
+-------------- hamming10-2  10 --------------
+
+
+============== hamming10-2 15 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 1,024; m = 518,656 (undirected)
+*** Heuristic kplex size: 512, time: 39,166 (microseconds)
+*** Degeneracy k-plex size: 1024, max_core: 1013, UB: 1024, Time: 3,384 (microseconds)
+	Maximum kPlex Size: 1024, Total Time: 42,562 (microseconds)
+ground truth= 1024 , use time 0.0426 s
+
+-------------- hamming10-2  15 --------------
+
+
+============== hamming10-2 20 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 1,024; m = 518,656 (undirected)
+*** Heuristic kplex size: 512, time: 39,330 (microseconds)
+*** Degeneracy k-plex size: 1024, max_core: 1013, UB: 1024, Time: 3,378 (microseconds)
+	Maximum kPlex Size: 1024, Total Time: 42,719 (microseconds)
+ground truth= 1024 , use time 0.0427 s
+
+-------------- hamming10-2  20 --------------
+
+
+============== hamming10-4 2 ==============
+-------------- hamming10-4  2 --------------
+
+
+============== hamming10-4 3 ==============
+-------------- hamming10-4  3 --------------
+
+
+============== hamming10-4 4 ==============
+-------------- hamming10-4  4 --------------
+
+
+============== hamming10-4 5 ==============
+-------------- hamming10-4  5 --------------
+
+
+============== hamming10-4 6 ==============
+-------------- hamming10-4  6 --------------
+
+
+============== hamming10-4 7 ==============
+-------------- hamming10-4  7 --------------
+
+
+============== hamming10-4 8 ==============
+-------------- hamming10-4  8 --------------
+
+
+============== hamming10-4 9 ==============
+-------------- hamming10-4  9 --------------
+
+
+============== hamming10-4 10 ==============
+-------------- hamming10-4  10 --------------
+
+
+============== hamming10-4 15 ==============
+-------------- hamming10-4  15 --------------
+
+
+============== hamming10-4 20 ==============
+-------------- hamming10-4  20 --------------
+
+
+============== hamming6-2 2 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 64; m = 1,824 (undirected)
+*** Heuristic kplex size: 32, time: 183 (microseconds)
+*** Degeneracy k-plex size: 32, max_core: 57, UB: 59, Time: 17 (microseconds)
+*** After core shrink: n = 64, m = 1,824 (undirected)
+*** After core-truss co-pruning: n = 64, m = 1,824, density = 0.9048
+prune_cnt: 22, max_n: 64, min_density: 0.9048, avg_density: 0.9109
+search_cnt: 22, max_n: 64, min_density: 0.9048, avg_density: 0.9109
+*** Search time: 1,964,900
+	Maximum kPlex Size: 32, Total Time: 1,965,242 (microseconds)
+ground truth= 32 , use time 1.9652 s
+
+-------------- hamming6-2  2 --------------
+
+
+============== hamming6-2 3 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 64; m = 1,824 (undirected)
+*** Heuristic kplex size: 32, time: 279 (microseconds)
+*** Degeneracy k-plex size: 32, max_core: 57, UB: 60, Time: 27 (microseconds)
+*** After core shrink: n = 64, m = 1,824 (undirected)
+*** After core-truss co-pruning: n = 64, m = 1,824, density = 0.9048
+prune_cnt: 26, max_n: 64, min_density: 0.9048, avg_density: 0.9170
+search_cnt: 25, max_n: 64, min_density: 0.9048, avg_density: 0.9137
+*** Search time: 147,616,326
+	Maximum kPlex Size: 32, Total Time: 147,616,851 (microseconds)
+ground truth= 32 , use time 147.6169 s
+
+-------------- hamming6-2  3 --------------
+
+
+============== hamming6-2 4 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 64; m = 1,824 (undirected)
+*** Heuristic kplex size: 32, time: 695 (microseconds)
+*** Degeneracy k-plex size: 32, max_core: 57, UB: 61, Time: 28 (microseconds)
+*** After core shrink: n = 64, m = 1,824 (undirected)
+*** After core-truss co-pruning: n = 64, m = 1,824, density = 0.9048
+prune_cnt: 18, max_n: 64, min_density: 0.9048, avg_density: 0.9082
+search_cnt: 18, max_n: 64, min_density: 0.9048, avg_density: 0.9082
+*** Search time: 500,434,900
+	Maximum kPlex Size: 40, Total Time: 500,435,853 (microseconds)
+ground truth= 40 , use time 500.4359 s
+
+-------------- hamming6-2  4 --------------
+
+
+============== hamming6-2 5 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 64; m = 1,824 (undirected)
+*** Heuristic kplex size: 32, time: 303 (microseconds)
+*** Degeneracy k-plex size: 32, max_core: 57, UB: 62, Time: 28 (microseconds)
+*** After core shrink: n = 64, m = 1,824 (undirected)
+*** After core-truss co-pruning: n = 64, m = 1,824, density = 0.9048
+prune_cnt: 12, max_n: 64, min_density: 0.9048, avg_density: 0.9059
+search_cnt: 12, max_n: 64, min_density: 0.9048, avg_density: 0.9059
+*** Search time: 87,230,284
+	Maximum kPlex Size: 48, Total Time: 87,230,829 (microseconds)
+ground truth= 48 , use time 87.2308 s
+
+-------------- hamming6-2  5 --------------
+
+
+============== hamming6-2 6 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 64; m = 1,824 (undirected)
+*** Heuristic kplex size: 32, time: 307 (microseconds)
+*** Degeneracy k-plex size: 32, max_core: 57, UB: 63, Time: 27 (microseconds)
+*** After core shrink: n = 64, m = 1,824 (undirected)
+*** After core-truss co-pruning: n = 64, m = 1,824, density = 0.9048
+prune_cnt: 10, max_n: 64, min_density: 0.9048, avg_density: 0.9055
+search_cnt: 10, max_n: 64, min_density: 0.9048, avg_density: 0.9055
+*** Search time: 135,139,607
+	Maximum kPlex Size: 52, Total Time: 135,140,162 (microseconds)
+ground truth= 52 , use time 135.1402 s
+
+-------------- hamming6-2  6 --------------
+
+
+============== hamming6-2 7 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 64; m = 1,824 (undirected)
+*** Heuristic kplex size: 32, time: 306 (microseconds)
+*** Degeneracy k-plex size: 64, max_core: 57, UB: 64, Time: 29 (microseconds)
+	Maximum kPlex Size: 64, Total Time: 337 (microseconds)
+ground truth= 64 , use time 0.0003 s
+
+-------------- hamming6-2  7 --------------
+
+
+============== hamming6-2 8 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 64; m = 1,824 (undirected)
+*** Heuristic kplex size: 32, time: 311 (microseconds)
+*** Degeneracy k-plex size: 64, max_core: 57, UB: 64, Time: 28 (microseconds)
+	Maximum kPlex Size: 64, Total Time: 341 (microseconds)
+ground truth= 64 , use time 0.0003 s
+
+-------------- hamming6-2  8 --------------
+
+
+============== hamming6-2 9 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 64; m = 1,824 (undirected)
+*** Heuristic kplex size: 32, time: 307 (microseconds)
+*** Degeneracy k-plex size: 64, max_core: 57, UB: 64, Time: 27 (microseconds)
+	Maximum kPlex Size: 64, Total Time: 336 (microseconds)
+ground truth= 64 , use time 0.0003 s
+
+-------------- hamming6-2  9 --------------
+
+
+============== hamming6-2 10 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 64; m = 1,824 (undirected)
+*** Heuristic kplex size: 32, time: 309 (microseconds)
+*** Degeneracy k-plex size: 64, max_core: 57, UB: 64, Time: 28 (microseconds)
+	Maximum kPlex Size: 64, Total Time: 340 (microseconds)
+ground truth= 64 , use time 0.0003 s
+
+-------------- hamming6-2  10 --------------
+
+
+============== hamming6-2 15 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 64; m = 1,824 (undirected)
+*** Heuristic kplex size: 32, time: 305 (microseconds)
+*** Degeneracy k-plex size: 64, max_core: 57, UB: 64, Time: 27 (microseconds)
+	Maximum kPlex Size: 64, Total Time: 335 (microseconds)
+ground truth= 64 , use time 0.0003 s
+
+-------------- hamming6-2  15 --------------
+
+
+============== hamming6-2 20 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 64; m = 1,824 (undirected)
+*** Heuristic kplex size: 32, time: 303 (microseconds)
+*** Degeneracy k-plex size: 64, max_core: 57, UB: 64, Time: 27 (microseconds)
+	Maximum kPlex Size: 64, Total Time: 332 (microseconds)
+ground truth= 64 , use time 0.0003 s
+
+-------------- hamming6-2  20 --------------
+
+
+============== hamming6-4 2 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 64; m = 704 (undirected)
+*** Heuristic kplex size: 4, time: 48 (microseconds)
+*** Degeneracy k-plex size: 4, max_core: 22, UB: 24, Time: 19 (microseconds)
+*** After core shrink: n = 64, m = 704 (undirected)
+*** After core-truss co-pruning: n = 64, m = 480, density = 0.2381
+prune_cnt: 40, max_n: 31, min_density: 0.4828, avg_density: 0.5675
+search_cnt: 40, max_n: 31, min_density: 0.4828, avg_density: 0.5675
+*** Search time: 5,320
+	Maximum kPlex Size: 6, Total Time: 5,554 (microseconds)
+ground truth= 6 , use time 0.0056 s
+
+-------------- hamming6-4  2 --------------
+
+
+============== hamming6-4 3 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 64; m = 704 (undirected)
+*** Heuristic kplex size: 4, time: 47 (microseconds)
+*** Degeneracy k-plex size: 8, max_core: 22, UB: 25, Time: 19 (microseconds)
+*** After core shrink: n = 64, m = 704 (undirected)
+*** After core-truss co-pruning: n = 64, m = 480, density = 0.2381
+prune_cnt: 40, max_n: 31, min_density: 0.4828, avg_density: 0.5675
+search_cnt: 32, max_n: 31, min_density: 0.4828, avg_density: 0.5309
+*** Search time: 7,706
+	Maximum kPlex Size: 8, Total Time: 7,937 (microseconds)
+ground truth= 8 , use time 0.0079 s
+
+-------------- hamming6-4  3 --------------
+
+
+============== hamming6-4 4 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 64; m = 704 (undirected)
+*** Heuristic kplex size: 4, time: 46 (microseconds)
+*** Degeneracy k-plex size: 8, max_core: 22, UB: 26, Time: 20 (microseconds)
+*** After core shrink: n = 64, m = 704 (undirected)
+*** After core-truss co-pruning: n = 64, m = 480, density = 0.2381
+Degen find a solution of size 10
+prune_cnt: 32, max_n: 31, min_density: 0.4828, avg_density: 0.5309
+search_cnt: 32, max_n: 31, min_density: 0.4828, avg_density: 0.5309
+*** Search time: 7,438
+	Maximum kPlex Size: 10, Total Time: 7,671 (microseconds)
+ground truth= 10 , use time 0.0077 s
+
+-------------- hamming6-4  4 --------------
+
+
+============== hamming6-4 5 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 64; m = 704 (undirected)
+*** Heuristic kplex size: 4, time: 47 (microseconds)
+*** Degeneracy k-plex size: 12, max_core: 22, UB: 27, Time: 20 (microseconds)
+*** After core shrink: n = 64, m = 704 (undirected)
+*** After core-truss co-pruning: n = 64, m = 480, density = 0.2381
+prune_cnt: 32, max_n: 31, min_density: 0.4828, avg_density: 0.5309
+search_cnt: 32, max_n: 31, min_density: 0.4828, avg_density: 0.5309
+*** Search time: 5,768
+	Maximum kPlex Size: 12, Total Time: 6,006 (microseconds)
+ground truth= 12 , use time 0.0060 s
+
+-------------- hamming6-4  5 --------------
+
+
+============== hamming6-4 6 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 64; m = 704 (undirected)
+*** Heuristic kplex size: 4, time: 44 (microseconds)
+*** Degeneracy k-plex size: 12, max_core: 22, UB: 28, Time: 18 (microseconds)
+*** After core shrink: n = 64, m = 704 (undirected)
+*** After core-truss co-pruning: n = 64, m = 480, density = 0.2381
+Degen find a solution of size 13
+prune_cnt: 32, max_n: 31, min_density: 0.4828, avg_density: 0.5159
+search_cnt: 32, max_n: 31, min_density: 0.4828, avg_density: 0.5159
+*** Search time: 20,757
+	Maximum kPlex Size: 13, Total Time: 20,973 (microseconds)
+ground truth= 13 , use time 0.0210 s
+
+-------------- hamming6-4  6 --------------
+
+
+============== hamming6-4 7 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 64; m = 704 (undirected)
+*** Heuristic kplex size: 4, time: 44 (microseconds)
+*** Degeneracy k-plex size: 16, max_core: 22, UB: 29, Time: 18 (microseconds)
+*** After core shrink: n = 64, m = 704 (undirected)
+*** After core-truss co-pruning: n = 64, m = 480, density = 0.2381
+prune_cnt: 20, max_n: 31, min_density: 0.4828, avg_density: 0.4937
+search_cnt: 20, max_n: 31, min_density: 0.4828, avg_density: 0.4937
+*** Search time: 3,061
+	Maximum kPlex Size: 16, Total Time: 3,274 (microseconds)
+ground truth= 16 , use time 0.0033 s
+
+-------------- hamming6-4  7 --------------
+
+
+============== hamming6-4 8 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 64; m = 704 (undirected)
+*** Heuristic kplex size: 4, time: 47 (microseconds)
+*** Degeneracy k-plex size: 16, max_core: 22, UB: 30, Time: 19 (microseconds)
+*** After core shrink: n = 64, m = 704 (undirected)
+*** After core-truss co-pruning: n = 64, m = 480, density = 0.2381
+prune_cnt: 26, max_n: 31, min_density: 0.4828, avg_density: 0.5065
+search_cnt: 24, max_n: 31, min_density: 0.4828, avg_density: 0.4988
+*** Search time: 17,610
+	Maximum kPlex Size: 16, Total Time: 17,844 (microseconds)
+ground truth= 16 , use time 0.0178 s
+
+-------------- hamming6-4  8 --------------
+
+
+============== hamming6-4 9 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 64; m = 704 (undirected)
+*** Heuristic kplex size: 4, time: 31 (microseconds)
+*** Degeneracy k-plex size: 16, max_core: 22, UB: 31, Time: 13 (microseconds)
+*** After core shrink: n = 64, m = 704 (undirected)
+prune_cnt: 20, max_n: 64, min_density: 0.3492, avg_density: 0.4860
+search_cnt: 20, max_n: 64, min_density: 0.3492, avg_density: 0.4860
+*** Search time: 48,753
+	Maximum kPlex Size: 18, Total Time: 48,846 (microseconds)
+ground truth= 18 , use time 0.0488 s
+
+-------------- hamming6-4  9 --------------
+
+
+============== hamming6-4 10 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 64; m = 704 (undirected)
+*** Heuristic kplex size: 4, time: 40 (microseconds)
+*** Degeneracy k-plex size: 20, max_core: 22, UB: 32, Time: 16 (microseconds)
+*** After core shrink: n = 64, m = 704 (undirected)
+*** After core-truss co-pruning: n = 64, m = 480, density = 0.2381
+prune_cnt: 16, max_n: 31, min_density: 0.4828, avg_density: 0.4896
+search_cnt: 16, max_n: 31, min_density: 0.4828, avg_density: 0.4896
+*** Search time: 3,398
+	Maximum kPlex Size: 20, Total Time: 3,597 (microseconds)
+ground truth= 20 , use time 0.0036 s
+
+-------------- hamming6-4  10 --------------
+
+
+============== hamming6-4 15 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 64; m = 704 (undirected)
+*** Heuristic kplex size: 4, time: 31 (microseconds)
+*** Degeneracy k-plex size: 28, max_core: 22, UB: 37, Time: 13 (microseconds)
+*** After core shrink: n = 64, m = 704 (undirected)
+prune_cnt: 1, max_n: 64, min_density: 0.3492, avg_density: 0.3492
+search_cnt: 1, max_n: 64, min_density: 0.3492, avg_density: 0.3492
+*** Search time: 6,127
+	Maximum kPlex Size: 30, Total Time: 6,220 (microseconds)
+ground truth= 30 , use time 0.0062 s
+
+-------------- hamming6-4  15 --------------
+
+
+============== hamming6-4 20 ==============
+-------------- hamming6-4  20 --------------
+
+
+============== hamming8-2 2 ==============
+-------------- hamming8-2  2 --------------
+
+
+============== hamming8-2 3 ==============
+-------------- hamming8-2  3 --------------
+
+
+============== hamming8-2 4 ==============
+-------------- hamming8-2  4 --------------
+
+
+============== hamming8-2 5 ==============
+-------------- hamming8-2  5 --------------
+
+
+============== hamming8-2 6 ==============
+-------------- hamming8-2  6 --------------
+
+
+============== hamming8-2 7 ==============
+-------------- hamming8-2  7 --------------
+
+
+============== hamming8-2 8 ==============
+-------------- hamming8-2  8 --------------
+
+
+============== hamming8-2 9 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 256; m = 31,616 (undirected)
+*** Heuristic kplex size: 128, time: 3,248 (microseconds)
+*** Degeneracy k-plex size: 256, max_core: 247, UB: 256, Time: 277 (microseconds)
+	Maximum kPlex Size: 256, Total Time: 3,529 (microseconds)
+ground truth= 256 , use time 0.0035 s
+
+-------------- hamming8-2  9 --------------
+
+
+============== hamming8-2 10 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 256; m = 31,616 (undirected)
+*** Heuristic kplex size: 128, time: 3,327 (microseconds)
+*** Degeneracy k-plex size: 256, max_core: 247, UB: 256, Time: 298 (microseconds)
+	Maximum kPlex Size: 256, Total Time: 3,630 (microseconds)
+ground truth= 256 , use time 0.0036 s
+
+-------------- hamming8-2  10 --------------
+
+
+============== hamming8-2 15 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 256; m = 31,616 (undirected)
+*** Heuristic kplex size: 128, time: 3,187 (microseconds)
+*** Degeneracy k-plex size: 256, max_core: 247, UB: 256, Time: 282 (microseconds)
+	Maximum kPlex Size: 256, Total Time: 3,473 (microseconds)
+ground truth= 256 , use time 0.0035 s
+
+-------------- hamming8-2  15 --------------
+
+
+============== hamming8-2 20 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 256; m = 31,616 (undirected)
+*** Heuristic kplex size: 128, time: 3,308 (microseconds)
+*** Degeneracy k-plex size: 256, max_core: 247, UB: 256, Time: 295 (microseconds)
+	Maximum kPlex Size: 256, Total Time: 3,607 (microseconds)
+ground truth= 256 , use time 0.0036 s
+
+-------------- hamming8-2  20 --------------
+
+
+2023年 11月 30日 星期四 15:54:21 CST
+ok
+
+2023年 11月 23日 星期四 02:39:42 CST
+============== hamming8-4 2 ==============
+-------------- hamming8-4  2 --------------
+
+
+============== hamming8-4 3 ==============
+-------------- hamming8-4  3 --------------
+
+
+============== hamming8-4 4 ==============
+-------------- hamming8-4  4 --------------
+
+
+============== hamming8-4 5 ==============
+-------------- hamming8-4  5 --------------
+
+
+============== hamming8-4 6 ==============
+-------------- hamming8-4  6 --------------
+
+
+============== hamming8-4 7 ==============
+-------------- hamming8-4  7 --------------
+
+
+============== hamming8-4 8 ==============
+-------------- hamming8-4  8 --------------
+
+
+============== hamming8-4 9 ==============
+-------------- hamming8-4  9 --------------
+
+
+============== hamming8-4 10 ==============
+-------------- hamming8-4  10 --------------
+
+
+============== hamming8-4 15 ==============
+-------------- hamming8-4  15 --------------
+
+
+============== hamming8-4 20 ==============
+-------------- hamming8-4  20 --------------
+
+
+============== johnson16-2-4 2 ==============
+-------------- johnson16-2-4  2 --------------
+
+
+============== johnson16-2-4 3 ==============
+-------------- johnson16-2-4  3 --------------
+
+
+============== johnson16-2-4 4 ==============
+-------------- johnson16-2-4  4 --------------
+
+
+============== johnson16-2-4 5 ==============
+-------------- johnson16-2-4  5 --------------
+
+
+============== johnson16-2-4 6 ==============
+-------------- johnson16-2-4  6 --------------
+
+
+============== johnson16-2-4 7 ==============
+-------------- johnson16-2-4  7 --------------
+
+
+============== johnson16-2-4 8 ==============
+-------------- johnson16-2-4  8 --------------
+
+
+============== johnson16-2-4 9 ==============
+-------------- johnson16-2-4  9 --------------
+
+
+============== johnson16-2-4 10 ==============
+-------------- johnson16-2-4  10 --------------
+
+
+============== johnson16-2-4 15 ==============
+-------------- johnson16-2-4  15 --------------
+
+
+============== johnson16-2-4 20 ==============
+-------------- johnson16-2-4  20 --------------
+
+
+============== johnson32-2-4 2 ==============
+-------------- johnson32-2-4  2 --------------
+
+
+============== johnson32-2-4 3 ==============
+-------------- johnson32-2-4  3 --------------
+
+
+============== johnson32-2-4 4 ==============
+-------------- johnson32-2-4  4 --------------
+
+
+============== johnson32-2-4 5 ==============
+-------------- johnson32-2-4  5 --------------
+
+
+============== johnson32-2-4 6 ==============
+-------------- johnson32-2-4  6 --------------
+
+
+============== johnson32-2-4 7 ==============
+-------------- johnson32-2-4  7 --------------
+
+
+============== johnson32-2-4 8 ==============
+-------------- johnson32-2-4  8 --------------
+
+
+============== johnson32-2-4 9 ==============
+-------------- johnson32-2-4  9 --------------
+
+
+============== johnson32-2-4 10 ==============
+-------------- johnson32-2-4  10 --------------
+
+
+============== johnson32-2-4 15 ==============
+-------------- johnson32-2-4  15 --------------
+
+
+============== johnson32-2-4 20 ==============
+-------------- johnson32-2-4  20 --------------
+
+
+============== johnson8-2-4 2 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 28; m = 210 (undirected)
+*** Heuristic kplex size: 4, time: 18 (microseconds)
+*** Degeneracy k-plex size: 4, max_core: 15, UB: 17, Time: 5 (microseconds)
+*** After core shrink: n = 28, m = 210 (undirected)
+*** After core-truss co-pruning: n = 28, m = 210, density = 0.5556
+prune_cnt: 20, max_n: 28, min_density: 0.5556, avg_density: 0.6011
+search_cnt: 20, max_n: 28, min_density: 0.5556, avg_density: 0.6011
+*** Search time: 1,968
+	Maximum kPlex Size: 5, Total Time: 2,014 (microseconds)
+ground truth= 5 , use time 0.0020 s
+
+-------------- johnson8-2-4  2 --------------
+
+
+============== johnson8-2-4 3 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 28; m = 210 (undirected)
+*** Heuristic kplex size: 4, time: 70 (microseconds)
+*** Degeneracy k-plex size: 8, max_core: 15, UB: 18, Time: 19 (microseconds)
+*** After core shrink: n = 28, m = 210 (undirected)
+*** After core-truss co-pruning: n = 28, m = 210, density = 0.5556
+prune_cnt: 16, max_n: 28, min_density: 0.5556, avg_density: 0.5903
+search_cnt: 14, max_n: 28, min_density: 0.5556, avg_density: 0.5726
+*** Search time: 5,929
+	Maximum kPlex Size: 8, Total Time: 6,102 (microseconds)
+ground truth= 8 , use time 0.0061 s
+
+-------------- johnson8-2-4  3 --------------
+
+
+============== johnson8-2-4 4 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 28; m = 210 (undirected)
+*** Heuristic kplex size: 4, time: 25 (microseconds)
+*** Degeneracy k-plex size: 8, max_core: 15, UB: 19, Time: 7 (microseconds)
+*** After core shrink: n = 28, m = 210 (undirected)
+*** After core-truss co-pruning: n = 28, m = 210, density = 0.5556
+prune_cnt: 17, max_n: 28, min_density: 0.5556, avg_density: 0.5812
+search_cnt: 17, max_n: 28, min_density: 0.5556, avg_density: 0.5812
+*** Search time: 34,183
+	Maximum kPlex Size: 9, Total Time: 34,248 (microseconds)
+ground truth= 9 , use time 0.0343 s
+
+-------------- johnson8-2-4  4 --------------
+
+
+============== johnson8-2-4 5 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 28; m = 210 (undirected)
+*** Heuristic kplex size: 4, time: 18 (microseconds)
+*** Degeneracy k-plex size: 12, max_core: 15, UB: 20, Time: 5 (microseconds)
+*** After core shrink: n = 28, m = 210 (undirected)
+*** After core-truss co-pruning: n = 28, m = 210, density = 0.5556
+prune_cnt: 12, max_n: 28, min_density: 0.5556, avg_density: 0.5696
+search_cnt: 12, max_n: 28, min_density: 0.5556, avg_density: 0.5696
+*** Search time: 11,898
+	Maximum kPlex Size: 12, Total Time: 11,943 (microseconds)
+ground truth= 12 , use time 0.0119 s
+
+-------------- johnson8-2-4  5 --------------
+
+
+============== johnson8-2-4 6 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 28; m = 210 (undirected)
+*** Heuristic kplex size: 4, time: 23 (microseconds)
+*** Degeneracy k-plex size: 12, max_core: 15, UB: 21, Time: 7 (microseconds)
+*** After core shrink: n = 28, m = 210 (undirected)
+*** After core-truss co-pruning: n = 28, m = 210, density = 0.5556
+prune_cnt: 13, max_n: 28, min_density: 0.5556, avg_density: 0.5707
+search_cnt: 13, max_n: 28, min_density: 0.5556, avg_density: 0.5707
+*** Search time: 98,472
+	Maximum kPlex Size: 13, Total Time: 98,532 (microseconds)
+ground truth= 13 , use time 0.0985 s
+
+-------------- johnson8-2-4  6 --------------
+
+
+============== johnson8-2-4 7 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 28; m = 210 (undirected)
+*** Heuristic kplex size: 4, time: 17 (microseconds)
+*** Degeneracy k-plex size: 16, max_core: 15, UB: 22, Time: 5 (microseconds)
+*** After core shrink: n = 28, m = 210 (undirected)
+*** After core-truss co-pruning: n = 28, m = 210, density = 0.5556
+prune_cnt: 9, max_n: 28, min_density: 0.5556, avg_density: 0.5634
+search_cnt: 9, max_n: 28, min_density: 0.5556, avg_density: 0.5634
+*** Search time: 18,228
+	Maximum kPlex Size: 16, Total Time: 18,271 (microseconds)
+ground truth= 16 , use time 0.0183 s
+
+-------------- johnson8-2-4  7 --------------
+
+
+============== johnson8-2-4 8 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 28; m = 210 (undirected)
+*** Heuristic kplex size: 4, time: 23 (microseconds)
+*** Degeneracy k-plex size: 16, max_core: 15, UB: 23, Time: 6 (microseconds)
+*** After core shrink: n = 28, m = 210 (undirected)
+*** After core-truss co-pruning: n = 28, m = 210, density = 0.5556
+prune_cnt: 10, max_n: 28, min_density: 0.5556, avg_density: 0.5650
+search_cnt: 10, max_n: 28, min_density: 0.5556, avg_density: 0.5650
+*** Search time: 65,679
+	Maximum kPlex Size: 17, Total Time: 65,737 (microseconds)
+ground truth= 17 , use time 0.0657 s
+
+-------------- johnson8-2-4  8 --------------
+
+
+============== johnson8-2-4 9 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 28; m = 210 (undirected)
+*** Heuristic kplex size: 4, time: 21 (microseconds)
+*** Degeneracy k-plex size: 20, max_core: 15, UB: 24, Time: 6 (microseconds)
+*** After core shrink: n = 28, m = 210 (undirected)
+*** After core-truss co-pruning: n = 28, m = 210, density = 0.5556
+prune_cnt: 6, max_n: 28, min_density: 0.5556, avg_density: 0.5597
+search_cnt: 6, max_n: 28, min_density: 0.5556, avg_density: 0.5597
+*** Search time: 4,439
+	Maximum kPlex Size: 20, Total Time: 4,492 (microseconds)
+ground truth= 20 , use time 0.0045 s
+
+-------------- johnson8-2-4  9 --------------
+
+
+============== johnson8-2-4 10 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 28; m = 210 (undirected)
+*** Heuristic kplex size: 4, time: 22 (microseconds)
+*** Degeneracy k-plex size: 20, max_core: 15, UB: 25, Time: 6 (microseconds)
+*** After core shrink: n = 28, m = 210 (undirected)
+*** After core-truss co-pruning: n = 28, m = 210, density = 0.5556
+prune_cnt: 6, max_n: 28, min_density: 0.5556, avg_density: 0.5597
+search_cnt: 6, max_n: 28, min_density: 0.5556, avg_density: 0.5597
+*** Search time: 9,233
+	Maximum kPlex Size: 21, Total Time: 9,290 (microseconds)
+ground truth= 21 , use time 0.0093 s
+
+-------------- johnson8-2-4  10 --------------
+
+
+============== johnson8-2-4 15 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 28; m = 210 (undirected)
+*** Heuristic kplex size: 4, time: 21 (microseconds)
+*** Degeneracy k-plex size: 28, max_core: 15, UB: 28, Time: 6 (microseconds)
+	Maximum kPlex Size: 28, Total Time: 29 (microseconds)
+ground truth= 28 , use time 0.0000 s
+
+-------------- johnson8-2-4  15 --------------
+
+
+============== johnson8-2-4 20 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 28; m = 210 (undirected)
+*** Heuristic kplex size: 4, time: 70 (microseconds)
+*** Degeneracy k-plex size: 28, max_core: 15, UB: 28, Time: 18 (microseconds)
+	Maximum kPlex Size: 28, Total Time: 95 (microseconds)
+ground truth= 28 , use time 0.0001 s
+
+-------------- johnson8-2-4  20 --------------
+
+
+============== johnson8-4-4 2 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 70; m = 1,855 (undirected)
+*** Heuristic kplex size: 14, time: 261 (microseconds)
+*** Degeneracy k-plex size: 8, max_core: 53, UB: 55, Time: 38 (microseconds)
+*** After core shrink: n = 70, m = 1,855 (undirected)
+*** After core-truss co-pruning: n = 70, m = 1,855, density = 0.7681
+prune_cnt: 52, max_n: 70, min_density: 0.7681, avg_density: 0.8026
+search_cnt: 52, max_n: 70, min_density: 0.7681, avg_density: 0.8026
+*** Search time: 2,703,384
+	Maximum kPlex Size: 14, Total Time: 2,703,990 (microseconds)
+ground truth= 14 , use time 2.7040 s
+
+-------------- johnson8-4-4  2 --------------
+
+
+============== johnson8-4-4 3 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 70; m = 1,855 (undirected)
+*** Heuristic kplex size: 14, time: 279 (microseconds)
+*** Degeneracy k-plex size: 16, max_core: 53, UB: 56, Time: 39 (microseconds)
+*** After core shrink: n = 70, m = 1,855 (undirected)
+*** After core-truss co-pruning: n = 70, m = 1,855, density = 0.7681
+prune_cnt: 50, max_n: 70, min_density: 0.7681, avg_density: 0.8001
+search_cnt: 50, max_n: 70, min_density: 0.7681, avg_density: 0.8001
+*** Search time: 22,243,824
+	Maximum kPlex Size: 18, Total Time: 22,244,451 (microseconds)
+ground truth= 18 , use time 22.2445 s
+
+-------------- johnson8-4-4  3 --------------
+
+
+============== johnson8-4-4 4 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 70; m = 1,855 (undirected)
+*** Heuristic kplex size: 14, time: 269 (microseconds)
+*** Degeneracy k-plex size: 16, max_core: 53, UB: 57, Time: 38 (microseconds)
+*** After core shrink: n = 70, m = 1,855 (undirected)
+*** After core-truss co-pruning: n = 70, m = 1,855, density = 0.7681
+Degen find a solution of size 20
+prune_cnt: 44, max_n: 70, min_density: 0.7681, avg_density: 0.7931
+search_cnt: 44, max_n: 70, min_density: 0.7681, avg_density: 0.7931
+*** Search time: 287,075,457
+	Maximum kPlex Size: 22, Total Time: 287,076,068 (microseconds)
+ground truth= 22 , use time 287.0761 s
+
+-------------- johnson8-4-4  4 --------------
+
+
+============== johnson8-4-4 5 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 70; m = 1,855 (undirected)
+*** Heuristic kplex size: 14, time: 266 (microseconds)
+*** Degeneracy k-plex size: 24, max_core: 53, UB: 58, Time: 37 (microseconds)
+*** After core shrink: n = 70, m = 1,855 (undirected)
+*** After core-truss co-pruning: n = 70, m = 1,855, density = 0.7681
+prune_cnt: 34, max_n: 70, min_density: 0.7681, avg_density: 0.7838
+search_cnt: 34, max_n: 70, min_density: 0.7681, avg_density: 0.7838
+*** Search time: 187,095,810
+	Maximum kPlex Size: 28, Total Time: 187,096,420 (microseconds)
+ground truth= 28 , use time 187.0964 s
+
+-------------- johnson8-4-4  5 --------------
+
+
+============== johnson8-4-4 6 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 70; m = 1,855 (undirected)
+*** Heuristic kplex size: 14, time: 171 (microseconds)
+*** Degeneracy k-plex size: 24, max_core: 53, UB: 59, Time: 25 (microseconds)
+*** After core shrink: n = 70, m = 1,855 (undirected)
+*** After core-truss co-pruning: n = 70, m = 1,855, density = 0.7681
+Degen find a solution of size 26
+prune_cnt: 34, max_n: 70, min_density: 0.7681, avg_density: 0.7838
+search_cnt: 34, max_n: 70, min_density: 0.7681, avg_density: 0.7838
+*** Search time: 2,134,126,845
+	Maximum kPlex Size: 30, Total Time: 2,134,127,242 (microseconds)
+ground truth= 30 , use time 2134.1272 s
+
+-------------- johnson8-4-4  6 --------------
+
+
+============== johnson8-4-4 7 ==============
+-------------- johnson8-4-4  7 --------------
+
+
+============== johnson8-4-4 8 ==============
+-------------- johnson8-4-4  8 --------------
+
+
+============== johnson8-4-4 9 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 70; m = 1,855 (undirected)
+*** Heuristic kplex size: 14, time: 266 (microseconds)
+*** Degeneracy k-plex size: 40, max_core: 53, UB: 62, Time: 39 (microseconds)
+*** After core shrink: n = 70, m = 1,855 (undirected)
+*** After core-truss co-pruning: n = 70, m = 1,855, density = 0.7681
+Degen find a solution of size 42
+prune_cnt: 21, max_n: 70, min_density: 0.7681, avg_density: 0.7751
+search_cnt: 21, max_n: 70, min_density: 0.7681, avg_density: 0.7751
+*** Search time: 564,570,991
+	Maximum kPlex Size: 42, Total Time: 564,571,616 (microseconds)
+ground truth= 42 , use time 564.5716 s
+
+-------------- johnson8-4-4  9 --------------
+
+
+============== johnson8-4-4 10 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 70; m = 1,855 (undirected)
+*** Heuristic kplex size: 14, time: 267 (microseconds)
+*** Degeneracy k-plex size: 40, max_core: 53, UB: 63, Time: 39 (microseconds)
+*** After core shrink: n = 70, m = 1,855 (undirected)
+*** After core-truss co-pruning: n = 70, m = 1,855, density = 0.7681
+Degen find a solution of size 42
+prune_cnt: 21, max_n: 70, min_density: 0.7681, avg_density: 0.7751
+search_cnt: 21, max_n: 70, min_density: 0.7681, avg_density: 0.7751
+*** Search time: 3,116,492,518
+	Maximum kPlex Size: 44, Total Time: 3,116,493,134 (microseconds)
+ground truth= 44 , use time 3116.4931 s
+
+-------------- johnson8-4-4  10 --------------
+
+
+============== johnson8-4-4 15 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 70; m = 1,855 (undirected)
+*** Heuristic kplex size: 14, time: 265 (microseconds)
+*** Degeneracy k-plex size: 56, max_core: 53, UB: 68, Time: 38 (microseconds)
+*** After core shrink: n = 70, m = 1,855 (undirected)
+*** After core-truss co-pruning: n = 70, m = 1,855, density = 0.7681
+prune_cnt: 7, max_n: 70, min_density: 0.7681, avg_density: 0.7687
+search_cnt: 7, max_n: 70, min_density: 0.7681, avg_density: 0.7687
+*** Search time: 17,157,859
+	Maximum kPlex Size: 60, Total Time: 17,158,474 (microseconds)
+ground truth= 60 , use time 17.1585 s
+
+-------------- johnson8-4-4  15 --------------
+
+
+============== johnson8-4-4 20 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 70; m = 1,855 (undirected)
+*** Heuristic kplex size: 14, time: 267 (microseconds)
+*** Degeneracy k-plex size: 70, max_core: 53, UB: 70, Time: 39 (microseconds)
+	Maximum kPlex Size: 70, Total Time: 309 (microseconds)
+ground truth= 70 , use time 0.0003 s
+
+-------------- johnson8-4-4  20 --------------
+
+
+============== keller4 2 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 171; m = 9,435 (undirected)
+*** Heuristic kplex size: 11, time: 962 (microseconds)
+*** Degeneracy k-plex size: 15, max_core: 102, UB: 104, Time: 176 (microseconds)
+*** After core shrink: n = 171, m = 9,435 (undirected)
+*** After core-truss co-pruning: n = 171, m = 9,435, density = 0.6491
+prune_cnt: 152, max_n: 171, min_density: 0.6491, avg_density: 0.7356
+search_cnt: 152, max_n: 171, min_density: 0.6491, avg_density: 0.7356
+*** Search time: 178,913,332
+	Maximum kPlex Size: 15, Total Time: 178,916,834 (microseconds)
+ground truth= 15 , use time 178.9168 s
+
+-------------- keller4  2 --------------
+
+
+============== keller4 3 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 171; m = 9,435 (undirected)
+*** Heuristic kplex size: 11, time: 978 (microseconds)
+*** Degeneracy k-plex size: 16, max_core: 102, UB: 105, Time: 174 (microseconds)
+*** After core shrink: n = 171, m = 9,435 (undirected)
+*** After core-truss co-pruning: n = 171, m = 9,435, density = 0.6491
+Degen find a solution of size 17
+prune_cnt: 144, max_n: 171, min_density: 0.6491, avg_density: 0.7286
+search_cnt: 144, max_n: 171, min_density: 0.6491, avg_density: 0.7286
+*** Search time: 1,445,942,265
+	Maximum kPlex Size: 21, Total Time: 1,445,945,816 (microseconds)
+ground truth= 21 , use time 1445.9458 s
+
+-------------- keller4  3 --------------
+
+
+============== keller4 4 ==============
+-------------- keller4  4 --------------
+
+
+============== keller4 5 ==============
+-------------- keller4  5 --------------
+
+
+============== keller4 6 ==============
+-------------- keller4  6 --------------
+
+
+============== keller4 7 ==============
+-------------- keller4  7 --------------
+
+
+============== keller4 8 ==============
+-------------- keller4  8 --------------
+
+
+============== keller4 9 ==============
+-------------- keller4  9 --------------
+
+
+============== keller4 10 ==============
+-------------- keller4  10 --------------
+
+
+============== keller4 15 ==============
+-------------- keller4  15 --------------
+
+
+============== keller4 20 ==============
+-------------- keller4  20 --------------
+
+
+============== keller5 2 ==============
+-------------- keller5  2 --------------
+
+
+============== keller5 3 ==============
+-------------- keller5  3 --------------
+
+
+============== keller5 4 ==============
+-------------- keller5  4 --------------
+
+
+============== keller5 5 ==============
+-------------- keller5  5 --------------
+
+
+============== keller5 6 ==============
+-------------- keller5  6 --------------
+
+
+============== keller5 7 ==============
+-------------- keller5  7 --------------
+
+
+============== keller5 8 ==============
+-------------- keller5  8 --------------
+
+
+============== keller5 9 ==============
+-------------- keller5  9 --------------
+
+
+============== keller5 10 ==============
+-------------- keller5  10 --------------
+
+
+============== keller5 15 ==============
+-------------- keller5  15 --------------
+
+
+============== keller5 20 ==============
+-------------- keller5  20 --------------
+
+
+============== keller6 2 ==============
+-------------- keller6  2 --------------
+
+
+============== keller6 3 ==============
+-------------- keller6  3 --------------
+
+
+============== keller6 4 ==============
+-------------- keller6  4 --------------
+
+
+============== keller6 5 ==============
+-------------- keller6  5 --------------
+
+
+============== keller6 6 ==============
+-------------- keller6  6 --------------
+
+
+============== keller6 7 ==============
+-------------- keller6  7 --------------
+
+
+============== keller6 8 ==============
+-------------- keller6  8 --------------
+
+
+============== keller6 9 ==============
+-------------- keller6  9 --------------
+
+
+============== keller6 10 ==============
+-------------- keller6  10 --------------
+
+
+============== keller6 15 ==============
+-------------- keller6  15 --------------
+
+
+============== keller6 20 ==============
+-------------- keller6  20 --------------
+
+
+============== MANN-a27 2 ==============
+-------------- MANN-a27  2 --------------
+
+
+============== MANN-a27 3 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 378; m = 70,551 (undirected)
+*** Heuristic kplex size: 125, time: 5,753 (microseconds)
+*** Degeneracy k-plex size: 351, max_core: 364, UB: 367, Time: 492 (microseconds)
+*** After core shrink: n = 378, m = 70,551 (undirected)
+*** After core-truss co-pruning: n = 378, m = 70,551, density = 0.9901
+prune_cnt: 5, max_n: 378, min_density: 0.9901, avg_density: 0.9904
+search_cnt: 5, max_n: 378, min_density: 0.9901, avg_density: 0.9904
+*** Search time: 934,357
+	Maximum kPlex Size: 351, Total Time: 965,074 (microseconds)
+ground truth= 351 , use time 0.9651 s
+
+-------------- MANN-a27  3 --------------
+
+
+============== MANN-a27 4 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 378; m = 70,551 (undirected)
+*** Heuristic kplex size: 125, time: 3,850 (microseconds)
+*** Degeneracy k-plex size: 351, max_core: 364, UB: 368, Time: 414 (microseconds)
+*** After core shrink: n = 378, m = 70,551 (undirected)
+*** After core-truss co-pruning: n = 378, m = 70,551, density = 0.9901
+prune_cnt: 8, max_n: 378, min_density: 0.9901, avg_density: 0.9910
+search_cnt: 7, max_n: 378, min_density: 0.9901, avg_density: 0.9905
+*** Search time: 3,097,085
+	Maximum kPlex Size: 351, Total Time: 3,119,879 (microseconds)
+ground truth= 351 , use time 3.1199 s
+
+-------------- MANN-a27  4 --------------
+
+
+============== MANN-a27 5 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 378; m = 70,551 (undirected)
+*** Heuristic kplex size: 125, time: 5,769 (microseconds)
+*** Degeneracy k-plex size: 351, max_core: 364, UB: 369, Time: 484 (microseconds)
+*** After core shrink: n = 378, m = 70,551 (undirected)
+*** After core-truss co-pruning: n = 378, m = 70,551, density = 0.9901
+prune_cnt: 11, max_n: 378, min_density: 0.9901, avg_density: 0.9913
+search_cnt: 9, max_n: 378, min_density: 0.9901, avg_density: 0.9907
+*** Search time: 16,325,293
+	Maximum kPlex Size: 351, Total Time: 16,355,198 (microseconds)
+ground truth= 351 , use time 16.3552 s
+
+-------------- MANN-a27  5 --------------
+
+
+============== MANN-a27 6 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 378; m = 70,551 (undirected)
+*** Heuristic kplex size: 125, time: 5,775 (microseconds)
+*** Degeneracy k-plex size: 351, max_core: 364, UB: 370, Time: 509 (microseconds)
+*** After core shrink: n = 378, m = 70,551 (undirected)
+*** After core-truss co-pruning: n = 378, m = 70,551, density = 0.9901
+prune_cnt: 14, max_n: 378, min_density: 0.9901, avg_density: 0.9916
+search_cnt: 11, max_n: 378, min_density: 0.9901, avg_density: 0.9908
+*** Search time: 900,878,560
+	Maximum kPlex Size: 351, Total Time: 900,909,451 (microseconds)
+ground truth= 351 , use time 900.9095 s
+
+-------------- MANN-a27  6 --------------
+
+
+============== MANN-a27 7 ==============
+-------------- MANN-a27  7 --------------
+
+
+============== MANN-a27 8 ==============
+-------------- MANN-a27  8 --------------
+
+
+============== MANN-a27 9 ==============
+-------------- MANN-a27  9 --------------
+
+
+============== MANN-a27 10 ==============
+-------------- MANN-a27  10 --------------
+
+
+============== MANN-a27 15 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 378; m = 70,551 (undirected)
+*** Heuristic kplex size: 125, time: 5,681 (microseconds)
+*** Degeneracy k-plex size: 378, max_core: 364, UB: 378, Time: 493 (microseconds)
+	Maximum kPlex Size: 378, Total Time: 6,181 (microseconds)
+ground truth= 378 , use time 0.0062 s
+
+-------------- MANN-a27  15 --------------
+
+
+============== MANN-a27 20 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 378; m = 70,551 (undirected)
+*** Heuristic kplex size: 125, time: 5,709 (microseconds)
+*** Degeneracy k-plex size: 378, max_core: 364, UB: 378, Time: 493 (microseconds)
+	Maximum kPlex Size: 378, Total Time: 6,208 (microseconds)
+ground truth= 378 , use time 0.0062 s
+
+-------------- MANN-a27  20 --------------
+
+
+============== MANN-a45 2 ==============
+-------------- MANN-a45  2 --------------
+
+
+============== MANN-a45 3 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 1,035; m = 533,115 (undirected)
+*** Heuristic kplex size: 342, time: 26,774 (microseconds)
+*** Degeneracy k-plex size: 990, max_core: 1012, UB: 1015, Time: 2,495 (microseconds)
+*** After core shrink: n = 1,035, m = 533,115 (undirected)
+*** After core-truss co-pruning: n = 1,035, m = 533,115, density = 0.9963
+prune_cnt: 5, max_n: 1035, min_density: 0.9963, avg_density: 0.9964
+search_cnt: 5, max_n: 1035, min_density: 0.9963, avg_density: 0.9964
+*** Search time: 13,768,379
+	Maximum kPlex Size: 990, Total Time: 14,192,540 (microseconds)
+ground truth= 990 , use time 14.1925 s
+
+-------------- MANN-a45  3 --------------
+
+
+============== MANN-a45 4 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 1,035; m = 533,115 (undirected)
+*** Heuristic kplex size: 342, time: 35,160 (microseconds)
+*** Degeneracy k-plex size: 990, max_core: 1012, UB: 1016, Time: 3,256 (microseconds)
+*** After core shrink: n = 1,035, m = 533,115 (undirected)
+*** After core-truss co-pruning: n = 1,035, m = 533,115, density = 0.9963
+prune_cnt: 8, max_n: 1035, min_density: 0.9963, avg_density: 0.9966
+search_cnt: 7, max_n: 1035, min_density: 0.9963, avg_density: 0.9964
+*** Search time: 52,708,262
+	Maximum kPlex Size: 990, Total Time: 53,252,626 (microseconds)
+ground truth= 990 , use time 53.2526 s
+
+-------------- MANN-a45  4 --------------
+
+
+============== MANN-a45 5 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 1,035; m = 533,115 (undirected)
+*** Heuristic kplex size: 342, time: 35,156 (microseconds)
+*** Degeneracy k-plex size: 990, max_core: 1012, UB: 1017, Time: 3,241 (microseconds)
+*** After core shrink: n = 1,035, m = 533,115 (undirected)
+*** After core-truss co-pruning: n = 1,035, m = 533,115, density = 0.9963
+prune_cnt: 11, max_n: 1035, min_density: 0.9963, avg_density: 0.9967
+search_cnt: 9, max_n: 1035, min_density: 0.9963, avg_density: 0.9964
+*** Search time: 269,762,909
+	Maximum kPlex Size: 990, Total Time: 270,310,448 (microseconds)
+ground truth= 990 , use time 270.3105 s
+
+-------------- MANN-a45  5 --------------
+
+
+============== MANN-a45 6 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 1,035; m = 533,115 (undirected)
+*** Heuristic kplex size: 342, time: 35,452 (microseconds)
+*** Degeneracy k-plex size: 990, max_core: 1012, UB: 1018, Time: 3,253 (microseconds)
+*** After core shrink: n = 1,035, m = 533,115 (undirected)
+*** After core-truss co-pruning: n = 1,035, m = 533,115, density = 0.9963
+prune_cnt: 14, max_n: 1035, min_density: 0.9963, avg_density: 0.9968
+search_cnt: 11, max_n: 1035, min_density: 0.9963, avg_density: 0.9965
+*** Search time: 1,576,880,265
+	Maximum kPlex Size: 990, Total Time: 1,577,427,084 (microseconds)
+ground truth= 990 , use time 1577.4271 s
+
+-------------- MANN-a45  6 --------------
+
+
+============== MANN-a45 7 ==============
+-------------- MANN-a45  7 --------------
+
+
+============== MANN-a45 8 ==============
+-------------- MANN-a45  8 --------------
+
+
+============== MANN-a45 9 ==============
+-------------- MANN-a45  9 --------------
+
+
+============== MANN-a45 10 ==============
+-------------- MANN-a45  10 --------------
+
+
+============== MANN-a45 15 ==============
+-------------- MANN-a45  15 --------------
+
+
+============== MANN-a45 20 ==============
+-------------- MANN-a45  20 --------------
+
+
+============== MANN-a81 2 ==============
+-------------- MANN-a81  2 --------------
+
+
+============== MANN-a81 3 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 3,321; m = 5,506,380 (undirected)
+*** Heuristic kplex size: 1096, time: 360,471 (microseconds)
+*** Degeneracy k-plex size: 3240, max_core: 3280, UB: 3283, Time: 34,365 (microseconds)
+*** After core shrink: n = 3,321, m = 5,506,380 (undirected)
+*** After core-truss co-pruning: n = 3,321, m = 5,506,380, density = 0.9988
+prune_cnt: 5, max_n: 3321, min_density: 0.9988, avg_density: 0.9988
+search_cnt: 5, max_n: 3321, min_density: 0.9988, avg_density: 0.9988
+*** Search time: 586,109,345
+	Maximum kPlex Size: 3240, Total Time: 599,479,024 (microseconds)
+ground truth= 3240 , use time 599.4790 s
+
+-------------- MANN-a81  3 --------------
+
+
+============== MANN-a81 4 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 3,321; m = 5,506,380 (undirected)
+*** Heuristic kplex size: 1096, time: 279,008 (microseconds)
+*** Degeneracy k-plex size: 3240, max_core: 3280, UB: 3284, Time: 26,809 (microseconds)
+*** After core shrink: n = 3,321, m = 5,506,380 (undirected)
+*** After core-truss co-pruning: n = 3,321, m = 5,506,380, density = 0.9988
+prune_cnt: 8, max_n: 3321, min_density: 0.9988, avg_density: 0.9989
+search_cnt: 7, max_n: 3321, min_density: 0.9988, avg_density: 0.9988
+*** Search time: 1,837,182,316
+	Maximum kPlex Size: 3240, Total Time: 1,850,343,979 (microseconds)
+ground truth= 3240 , use time 1850.3440 s
+
+-------------- MANN-a81  4 --------------
+
+
+============== MANN-a81 5 ==============
+-------------- MANN-a81  5 --------------
+
+
+============== MANN-a81 6 ==============
+-------------- MANN-a81  6 --------------
+
+
+============== MANN-a81 7 ==============
+-------------- MANN-a81  7 --------------
+
+
+============== MANN-a81 8 ==============
+-------------- MANN-a81  8 --------------
+
+
+============== MANN-a81 9 ==============
+-------------- MANN-a81  9 --------------
+
+
+============== MANN-a81 10 ==============
+-------------- MANN-a81  10 --------------
+
+
+============== MANN-a81 15 ==============
+-------------- MANN-a81  15 --------------
+
+
+============== MANN-a81 20 ==============
+-------------- MANN-a81  20 --------------
+
+
+============== MANN-a9 2 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 45; m = 918 (undirected)
+*** Heuristic kplex size: 16, time: 270 (microseconds)
+*** Degeneracy k-plex size: 24, max_core: 40, UB: 42, Time: 13 (microseconds)
+*** After core shrink: n = 45, m = 918 (undirected)
+*** After core-truss co-pruning: n = 45, m = 918, density = 0.9273
+prune_cnt: 17, max_n: 45, min_density: 0.9273, avg_density: 0.9378
+search_cnt: 17, max_n: 45, min_density: 0.9273, avg_density: 0.9378
+*** Search time: 580,832
+	Maximum kPlex Size: 26, Total Time: 581,206 (microseconds)
+ground truth= 26 , use time 0.5812 s
+
+-------------- MANN-a9  2 --------------
+
+
+============== MANN-a9 3 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 45; m = 918 (undirected)
+*** Heuristic kplex size: 16, time: 143 (microseconds)
+*** Degeneracy k-plex size: 36, max_core: 40, UB: 43, Time: 12 (microseconds)
+*** After core shrink: n = 45, m = 918 (undirected)
+*** After core-truss co-pruning: n = 45, m = 918, density = 0.9273
+prune_cnt: 5, max_n: 45, min_density: 0.9273, avg_density: 0.9293
+search_cnt: 5, max_n: 45, min_density: 0.9273, avg_density: 0.9293
+*** Search time: 8,520
+	Maximum kPlex Size: 36, Total Time: 8,767 (microseconds)
+ground truth= 36 , use time 0.0088 s
+
+-------------- MANN-a9  3 --------------
+
+
+============== MANN-a9 4 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 45; m = 918 (undirected)
+*** Heuristic kplex size: 16, time: 123 (microseconds)
+*** Degeneracy k-plex size: 36, max_core: 40, UB: 44, Time: 11 (microseconds)
+*** After core shrink: n = 45, m = 918 (undirected)
+*** After core-truss co-pruning: n = 45, m = 918, density = 0.9273
+prune_cnt: 8, max_n: 45, min_density: 0.9273, avg_density: 0.9322
+search_cnt: 7, max_n: 45, min_density: 0.9273, avg_density: 0.9307
+*** Search time: 1,070,194
+	Maximum kPlex Size: 36, Total Time: 1,070,409 (microseconds)
+ground truth= 36 , use time 1.0704 s
+
+-------------- MANN-a9  4 --------------
+
+
+============== MANN-a9 5 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 45; m = 918 (undirected)
+*** Heuristic kplex size: 16, time: 415 (microseconds)
+*** Degeneracy k-plex size: 45, max_core: 40, UB: 45, Time: 32 (microseconds)
+	Maximum kPlex Size: 45, Total Time: 454 (microseconds)
+ground truth= 45 , use time 0.0005 s
+
+-------------- MANN-a9  5 --------------
+
+
+============== MANN-a9 6 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 45; m = 918 (undirected)
+*** Heuristic kplex size: 16, time: 140 (microseconds)
+*** Degeneracy k-plex size: 45, max_core: 40, UB: 45, Time: 12 (microseconds)
+	Maximum kPlex Size: 45, Total Time: 154 (microseconds)
+ground truth= 45 , use time 0.0002 s
+
+-------------- MANN-a9  6 --------------
+
+
+============== MANN-a9 7 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 45; m = 918 (undirected)
+*** Heuristic kplex size: 16, time: 137 (microseconds)
+*** Degeneracy k-plex size: 45, max_core: 40, UB: 45, Time: 12 (microseconds)
+	Maximum kPlex Size: 45, Total Time: 151 (microseconds)
+ground truth= 45 , use time 0.0002 s
+
+-------------- MANN-a9  7 --------------
+
+
+============== MANN-a9 8 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 45; m = 918 (undirected)
+*** Heuristic kplex size: 16, time: 119 (microseconds)
+*** Degeneracy k-plex size: 45, max_core: 40, UB: 45, Time: 10 (microseconds)
+	Maximum kPlex Size: 45, Total Time: 132 (microseconds)
+ground truth= 45 , use time 0.0001 s
+
+-------------- MANN-a9  8 --------------
+
+
+============== MANN-a9 9 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 45; m = 918 (undirected)
+*** Heuristic kplex size: 16, time: 127 (microseconds)
+*** Degeneracy k-plex size: 45, max_core: 40, UB: 45, Time: 11 (microseconds)
+	Maximum kPlex Size: 45, Total Time: 141 (microseconds)
+ground truth= 45 , use time 0.0001 s
+
+-------------- MANN-a9  9 --------------
+
+
+============== MANN-a9 10 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 45; m = 918 (undirected)
+*** Heuristic kplex size: 16, time: 137 (microseconds)
+*** Degeneracy k-plex size: 45, max_core: 40, UB: 45, Time: 12 (microseconds)
+	Maximum kPlex Size: 45, Total Time: 151 (microseconds)
+ground truth= 45 , use time 0.0002 s
+
+-------------- MANN-a9  10 --------------
+
+
+============== MANN-a9 15 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 45; m = 918 (undirected)
+*** Heuristic kplex size: 16, time: 116 (microseconds)
+*** Degeneracy k-plex size: 45, max_core: 40, UB: 45, Time: 10 (microseconds)
+	Maximum kPlex Size: 45, Total Time: 128 (microseconds)
+ground truth= 45 , use time 0.0001 s
+
+-------------- MANN-a9  15 --------------
+
+
+============== MANN-a9 20 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 45; m = 918 (undirected)
+*** Heuristic kplex size: 16, time: 116 (microseconds)
+*** Degeneracy k-plex size: 45, max_core: 40, UB: 45, Time: 10 (microseconds)
+	Maximum kPlex Size: 45, Total Time: 128 (microseconds)
+ground truth= 45 , use time 0.0001 s
+
+-------------- MANN-a9  20 --------------
+
+
+============== p-hat1000-1 2 ==============
+-------------- p-hat1000-1  2 --------------
+
+
+============== p-hat1000-1 3 ==============
+-------------- p-hat1000-1  3 --------------
+
+
+============== p-hat1000-1 4 ==============
+-------------- p-hat1000-1  4 --------------
+
+
+============== p-hat1000-1 5 ==============
+-------------- p-hat1000-1  5 --------------
+
+
+============== p-hat1000-1 6 ==============
+-------------- p-hat1000-1  6 --------------
+
+
+============== p-hat1000-1 7 ==============
+-------------- p-hat1000-1  7 --------------
+
+
+============== p-hat1000-1 8 ==============
+-------------- p-hat1000-1  8 --------------
+
+
+============== p-hat1000-1 9 ==============
+-------------- p-hat1000-1  9 --------------
+
+
+============== p-hat1000-1 10 ==============
+-------------- p-hat1000-1  10 --------------
+
+
+============== p-hat1000-1 15 ==============
+-------------- p-hat1000-1  15 --------------
+
+
+============== p-hat1000-1 20 ==============
+-------------- p-hat1000-1  20 --------------
+
+
+============== p-hat1000-2 2 ==============
+-------------- p-hat1000-2  2 --------------
+
+
+============== p-hat1000-2 3 ==============
+-------------- p-hat1000-2  3 --------------
+
+
+============== p-hat1000-2 4 ==============
+-------------- p-hat1000-2  4 --------------
+
+
+============== p-hat1000-2 5 ==============
+-------------- p-hat1000-2  5 --------------
+
+
+============== p-hat1000-2 6 ==============
+-------------- p-hat1000-2  6 --------------
+
+
+============== p-hat1000-2 7 ==============
+-------------- p-hat1000-2  7 --------------
+
+
+============== p-hat1000-2 8 ==============
+-------------- p-hat1000-2  8 --------------
+
+
+============== p-hat1000-2 9 ==============
+-------------- p-hat1000-2  9 --------------
+
+
+============== p-hat1000-2 10 ==============
+-------------- p-hat1000-2  10 --------------
+
+
+============== p-hat1000-2 15 ==============
+-------------- p-hat1000-2  15 --------------
+
+
+============== p-hat1000-2 20 ==============
+-------------- p-hat1000-2  20 --------------
+
+
+============== p-hat1000-3 2 ==============
+-------------- p-hat1000-3  2 --------------
+
+
+============== p-hat1000-3 3 ==============
+-------------- p-hat1000-3  3 --------------
+
+
+============== p-hat1000-3 4 ==============
+-------------- p-hat1000-3  4 --------------
+
+
+============== p-hat1000-3 5 ==============
+-------------- p-hat1000-3  5 --------------
+
+
+============== p-hat1000-3 6 ==============
+-------------- p-hat1000-3  6 --------------
+
+
+============== p-hat1000-3 7 ==============
+-------------- p-hat1000-3  7 --------------
+
+
+============== p-hat1000-3 8 ==============
+-------------- p-hat1000-3  8 --------------
+
+
+============== p-hat1000-3 9 ==============
+-------------- p-hat1000-3  9 --------------
+
+
+============== p-hat1000-3 10 ==============
+-------------- p-hat1000-3  10 --------------
+
+
+============== p-hat1000-3 15 ==============
+-------------- p-hat1000-3  15 --------------
+
+
+============== p-hat1000-3 20 ==============
+-------------- p-hat1000-3  20 --------------
+
+
+============== p-hat1500-1 2 ==============
+-------------- p-hat1500-1  2 --------------
+
+
+============== p-hat1500-1 3 ==============
+-------------- p-hat1500-1  3 --------------
+
+
+============== p-hat1500-1 4 ==============
+-------------- p-hat1500-1  4 --------------
+
+
+============== p-hat1500-1 5 ==============
+-------------- p-hat1500-1  5 --------------
+
+
+============== p-hat1500-1 6 ==============
+-------------- p-hat1500-1  6 --------------
+
+
+============== p-hat1500-1 7 ==============
+-------------- p-hat1500-1  7 --------------
+
+
+============== p-hat1500-1 8 ==============
+-------------- p-hat1500-1  8 --------------
+
+
+============== p-hat1500-1 9 ==============
+-------------- p-hat1500-1  9 --------------
+
+
+============== p-hat1500-1 10 ==============
+-------------- p-hat1500-1  10 --------------
+
+
+============== p-hat1500-1 15 ==============
+-------------- p-hat1500-1  15 --------------
+
+
+============== p-hat1500-1 20 ==============
+-------------- p-hat1500-1  20 --------------
+
+
+============== p-hat1500-2 2 ==============
+-------------- p-hat1500-2  2 --------------
+
+
+============== p-hat1500-2 3 ==============
+-------------- p-hat1500-2  3 --------------
+
+
+============== p-hat1500-2 4 ==============
+-------------- p-hat1500-2  4 --------------
+
+
+============== p-hat1500-2 5 ==============
+-------------- p-hat1500-2  5 --------------
+
+
+============== p-hat1500-2 6 ==============
+-------------- p-hat1500-2  6 --------------
+
+
+============== p-hat1500-2 7 ==============
+-------------- p-hat1500-2  7 --------------
+
+
+============== p-hat1500-2 8 ==============
+-------------- p-hat1500-2  8 --------------
+
+
+============== p-hat1500-2 9 ==============
+-------------- p-hat1500-2  9 --------------
+
+
+============== p-hat1500-2 10 ==============
+-------------- p-hat1500-2  10 --------------
+
+
+============== p-hat1500-2 15 ==============
+-------------- p-hat1500-2  15 --------------
+
+
+============== p-hat1500-2 20 ==============
+-------------- p-hat1500-2  20 --------------
+
+
+============== p-hat1500-3 2 ==============
+-------------- p-hat1500-3  2 --------------
+
+
+============== p-hat1500-3 3 ==============
+-------------- p-hat1500-3  3 --------------
+
+
+============== p-hat1500-3 4 ==============
+-------------- p-hat1500-3  4 --------------
+
+
+============== p-hat1500-3 5 ==============
+-------------- p-hat1500-3  5 --------------
+
+
+============== p-hat1500-3 6 ==============
+-------------- p-hat1500-3  6 --------------
+
+
+============== p-hat1500-3 7 ==============
+-------------- p-hat1500-3  7 --------------
+
+
+============== p-hat1500-3 8 ==============
+-------------- p-hat1500-3  8 --------------
+
+
+============== p-hat1500-3 9 ==============
+-------------- p-hat1500-3  9 --------------
+
+
+============== p-hat1500-3 10 ==============
+-------------- p-hat1500-3  10 --------------
+
+
+============== p-hat1500-3 15 ==============
+-------------- p-hat1500-3  15 --------------
+
+
+============== p-hat1500-3 20 ==============
+-------------- p-hat1500-3  20 --------------
+
+
+============== p-hat300-3 2 ==============
+-------------- p-hat300-3  2 --------------
+
+
+============== p-hat300-3 3 ==============
+-------------- p-hat300-3  3 --------------
+
+
+============== p-hat300-3 4 ==============
+-------------- p-hat300-3  4 --------------
+
+
+============== p-hat300-3 5 ==============
+-------------- p-hat300-3  5 --------------
+
+
+============== p-hat300-3 6 ==============
+-------------- p-hat300-3  6 --------------
+
+
+============== p-hat300-3 7 ==============
+-------------- p-hat300-3  7 --------------
+
+
+============== p-hat300-3 8 ==============
+-------------- p-hat300-3  8 --------------
+
+
+============== p-hat300-3 9 ==============
+-------------- p-hat300-3  9 --------------
+
+
+============== p-hat300-3 10 ==============
+-------------- p-hat300-3  10 --------------
+
+
+============== p-hat300-3 15 ==============
+-------------- p-hat300-3  15 --------------
+
+
+============== p-hat300-3 20 ==============
+-------------- p-hat300-3  20 --------------
+
+
+============== p-hat500-1 2 ==============
+-------------- p-hat500-1  2 --------------
+
+
+============== p-hat500-1 3 ==============
+-------------- p-hat500-1  3 --------------
+
+
+============== p-hat500-1 4 ==============
+-------------- p-hat500-1  4 --------------
+
+
+============== p-hat500-1 5 ==============
+-------------- p-hat500-1  5 --------------
+
+
+============== p-hat500-1 6 ==============
+-------------- p-hat500-1  6 --------------2023年 11月 23日 星期四 02:39:45 CST
+============== p-hat500-2 2 ==============
+-------------- p-hat500-2  2 --------------
+
+
+============== p-hat500-2 3 ==============
+-------------- p-hat500-2  3 --------------
+
+
+============== p-hat500-2 4 ==============
+-------------- p-hat500-2  4 --------------
+
+
+============== p-hat500-2 5 ==============
+-------------- p-hat500-2  5 --------------
+
+
+============== p-hat500-2 6 ==============
+-------------- p-hat500-2  6 --------------
+
+
+============== p-hat500-2 7 ==============
+-------------- p-hat500-2  7 --------------
+
+
+============== p-hat500-2 8 ==============
+-------------- p-hat500-2  8 --------------
+
+
+============== p-hat500-2 9 ==============
+-------------- p-hat500-2  9 --------------
+
+
+============== p-hat500-2 10 ==============
+-------------- p-hat500-2  10 --------------
+
+
+============== p-hat500-2 15 ==============
+-------------- p-hat500-2  15 --------------
+
+
+============== p-hat500-2 20 ==============
+-------------- p-hat500-2  20 --------------
+
+
+============== p-hat500-3 2 ==============
+-------------- p-hat500-3  2 --------------
+
+
+============== p-hat500-3 3 ==============
+-------------- p-hat500-3  3 --------------
+
+
+============== p-hat500-3 4 ==============
+-------------- p-hat500-3  4 --------------
+
+
+============== p-hat500-3 5 ==============
+-------------- p-hat500-3  5 --------------
+
+
+============== p-hat500-3 6 ==============
+-------------- p-hat500-3  6 --------------
+
+
+============== p-hat500-3 7 ==============
+-------------- p-hat500-3  7 --------------
+
+
+============== p-hat500-3 8 ==============
+-------------- p-hat500-3  8 --------------
+
+
+============== p-hat500-3 9 ==============
+-------------- p-hat500-3  9 --------------
+
+
+============== p-hat500-3 10 ==============
+-------------- p-hat500-3  10 --------------
+
+
+============== p-hat500-3 15 ==============
+-------------- p-hat500-3  15 --------------
+
+
+============== p-hat500-3 20 ==============
+-------------- p-hat500-3  20 --------------
+
+
+============== p-hat700-1 2 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 700; m = 60,999 (undirected)
+*** Heuristic kplex size: 9, time: 5,287 (microseconds)
+*** Degeneracy k-plex size: 8, max_core: 117, UB: 119, Time: 1,121 (microseconds)
+*** After core shrink: n = 700, m = 60,999 (undirected)
+*** After core-truss co-pruning: n = 700, m = 60,999, density = 0.2493
+Degen find a solution of size 11
+Degen find a solution of size 12
+prune_cnt: 668, max_n: 699, min_density: 0.2496, avg_density: 0.3877
+search_cnt: 668, max_n: 699, min_density: 0.2496, avg_density: 0.3877
+*** Search time: 3,049,934,134
+	Maximum kPlex Size: 13, Total Time: 3,049,962,698 (microseconds)
+ground truth= 13 , use time 3049.9627 s
+
+-------------- p-hat700-1  2 --------------
+
+
+============== p-hat700-1 3 ==============
+-------------- p-hat700-1  3 --------------
+
+
+============== p-hat700-1 4 ==============
+-------------- p-hat700-1  4 --------------
+
+
+============== p-hat700-1 5 ==============
+-------------- p-hat700-1  5 --------------
+
+
+============== p-hat700-1 6 ==============
+-------------- p-hat700-1  6 --------------
+
+
+============== p-hat700-1 7 ==============
+-------------- p-hat700-1  7 --------------
+
+
+============== p-hat700-1 8 ==============
+-------------- p-hat700-1  8 --------------
+
+
+============== p-hat700-1 9 ==============
+-------------- p-hat700-1  9 --------------
+
+
+============== p-hat700-1 10 ==============
+-------------- p-hat700-1  10 --------------
+
+
+============== p-hat700-1 15 ==============
+-------------- p-hat700-1  15 --------------
+
+
+============== p-hat700-1 20 ==============
+-------------- p-hat700-1  20 --------------
+
+
+============== p-hat700-2 2 ==============
+-------------- p-hat700-2  2 --------------
+
+
+============== p-hat700-2 3 ==============
+-------------- p-hat700-2  3 --------------
+
+
+============== p-hat700-2 4 ==============
+-------------- p-hat700-2  4 --------------
+
+
+============== p-hat700-2 5 ==============
+-------------- p-hat700-2  5 --------------
+
+
+============== p-hat700-2 6 ==============
+-------------- p-hat700-2  6 --------------
+
+
+============== p-hat700-2 7 ==============
+-------------- p-hat700-2  7 --------------
+
+
+============== p-hat700-2 8 ==============
+-------------- p-hat700-2  8 --------------
+
+
+============== p-hat700-2 9 ==============
+-------------- p-hat700-2  9 --------------
+
+
+============== p-hat700-2 10 ==============
+-------------- p-hat700-2  10 --------------
+
+
+============== p-hat700-2 15 ==============
+-------------- p-hat700-2  15 --------------
+
+
+============== p-hat700-2 20 ==============
+-------------- p-hat700-2  20 --------------
+
+
+============== p-hat700-3 2 ==============
+-------------- p-hat700-3  2 --------------
+
+
+============== p-hat700-3 3 ==============
+-------------- p-hat700-3  3 --------------
+
+
+============== p-hat700-3 4 ==============
+-------------- p-hat700-3  4 --------------
+
+
+============== p-hat700-3 5 ==============
+-------------- p-hat700-3  5 --------------
+
+
+============== p-hat700-3 6 ==============
+-------------- p-hat700-3  6 --------------
+
+
+============== p-hat700-3 7 ==============
+-------------- p-hat700-3  7 --------------
+
+
+============== p-hat700-3 8 ==============
+-------------- p-hat700-3  8 --------------
+
+
+============== p-hat700-3 9 ==============
+-------------- p-hat700-3  9 --------------
+
+
+============== p-hat700-3 10 ==============
+-------------- p-hat700-3  10 --------------
+
+
+============== p-hat700-3 15 ==============
+-------------- p-hat700-3  15 --------------
+
+
+============== p-hat700-3 20 ==============
+-------------- p-hat700-3  20 --------------
+
+
+============== san1000 2 ==============
+-------------- san1000  2 --------------
+
+
+============== san1000 3 ==============
+-------------- san1000  3 --------------
+
+
+============== san1000 4 ==============
+-------------- san1000  4 --------------
+
+
+============== san1000 5 ==============
+-------------- san1000  5 --------------
+
+
+============== san1000 6 ==============
+-------------- san1000  6 --------------
+
+
+============== san1000 7 ==============
+-------------- san1000  7 --------------
+
+
+============== san1000 8 ==============
+-------------- san1000  8 --------------
+
+
+============== san1000 9 ==============
+-------------- san1000  9 --------------
+
+
+============== san1000 10 ==============
+-------------- san1000  10 --------------
+
+
+============== san1000 15 ==============
+-------------- san1000  15 --------------
+
+
+============== san1000 20 ==============
+-------------- san1000  20 --------------
+
+
+============== san200-0-7-1 2 ==============
+-------------- san200-0-7-1  2 --------------
+
+
+============== san200-0-7-1 3 ==============
+-------------- san200-0-7-1  3 --------------
+
+
+============== san200-0-7-1 4 ==============
+-------------- san200-0-7-1  4 --------------
+
+
+============== san200-0-7-1 5 ==============
+-------------- san200-0-7-1  5 --------------
+
+
+============== san200-0-7-1 6 ==============
+-------------- san200-0-7-1  6 --------------
+
+
+============== san200-0-7-1 7 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 13,930 (undirected)
+*** Heuristic kplex size: 30, time: 2,335 (microseconds)
+*** Degeneracy k-plex size: 105, max_core: 125, UB: 132, Time: 277 (microseconds)
+*** After core shrink: n = 200, m = 13,930 (undirected)
+*** After core-truss co-pruning: n = 0, m = 0, density = -nan
+prune_cnt: 1, max_n: 0, min_density: 1.0000, avg_density: 0.0000
+search_cnt: 1, max_n: 0, min_density: 1.0000, avg_density: 0.0000
+*** Search time: 8
+	Maximum kPlex Size: 105, Total Time: 20,381 (microseconds)
+ground truth= 105 , use time 0.0204 s
+
+-------------- san200-0-7-1  7 --------------
+
+
+============== san200-0-7-1 8 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 13,930 (undirected)
+*** Heuristic kplex size: 30, time: 2,318 (microseconds)
+*** Degeneracy k-plex size: 105, max_core: 125, UB: 133, Time: 286 (microseconds)
+*** After core shrink: n = 200, m = 13,930 (undirected)
+*** After core-truss co-pruning: n = 105, m = 5,145, density = 0.9423
+prune_cnt: 1, max_n: 105, min_density: 0.9423, avg_density: 0.9423
+search_cnt: 1, max_n: 0, min_density: 1.0000, avg_density: 0.0000
+*** Search time: 1,748
+	Maximum kPlex Size: 105, Total Time: 19,587 (microseconds)
+ground truth= 105 , use time 0.0196 s
+
+-------------- san200-0-7-1  8 --------------
+
+
+============== san200-0-7-1 9 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 13,930 (undirected)
+*** Heuristic kplex size: 30, time: 1,974 (microseconds)
+*** Degeneracy k-plex size: 105, max_core: 125, UB: 134, Time: 234 (microseconds)
+*** After core shrink: n = 200, m = 13,930 (undirected)
+*** After core-truss co-pruning: n = 105, m = 5,145, density = 0.9423
+prune_cnt: 2, max_n: 105, min_density: 0.9423, avg_density: 0.9423
+search_cnt: 1, max_n: 0, min_density: 1.0000, avg_density: 0.0000
+*** Search time: 1,812
+	Maximum kPlex Size: 105, Total Time: 18,510 (microseconds)
+ground truth= 105 , use time 0.0185 s
+
+-------------- san200-0-7-1  9 --------------
+
+
+============== san200-0-7-1 10 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 13,930 (undirected)
+*** Heuristic kplex size: 30, time: 1,978 (microseconds)
+*** Degeneracy k-plex size: 105, max_core: 125, UB: 135, Time: 232 (microseconds)
+*** After core shrink: n = 200, m = 13,930 (undirected)
+*** After core-truss co-pruning: n = 105, m = 5,145, density = 0.9423
+prune_cnt: 3, max_n: 105, min_density: 0.9423, avg_density: 0.9423
+search_cnt: 1, max_n: 0, min_density: 1.0000, avg_density: 0.0000
+*** Search time: 1,813
+	Maximum kPlex Size: 105, Total Time: 18,764 (microseconds)
+ground truth= 105 , use time 0.0188 s
+
+-------------- san200-0-7-1  10 --------------
+
+
+============== san200-0-7-1 15 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 13,930 (undirected)
+*** Heuristic kplex size: 30, time: 1,507 (microseconds)
+*** Degeneracy k-plex size: 105, max_core: 125, UB: 140, Time: 193 (microseconds)
+*** After core shrink: n = 200, m = 13,930 (undirected)
+*** After core-truss co-pruning: n = 105, m = 5,145, density = 0.9423
+prune_cnt: 8, max_n: 105, min_density: 0.9423, avg_density: 0.9424
+search_cnt: 1, max_n: 0, min_density: 1.0000, avg_density: 0.0000
+*** Search time: 1,656
+	Maximum kPlex Size: 105, Total Time: 13,889 (microseconds)
+ground truth= 105 , use time 0.0139 s
+
+-------------- san200-0-7-1  15 --------------
+
+
+============== san200-0-7-1 20 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 13,930 (undirected)
+*** Heuristic kplex size: 30, time: 1,984 (microseconds)
+*** Degeneracy k-plex size: 105, max_core: 125, UB: 145, Time: 235 (microseconds)
+*** After core shrink: n = 200, m = 13,930 (undirected)
+*** After core-truss co-pruning: n = 200, m = 13,928, density = 0.6999
+prune_cnt: 31, max_n: 196, min_density: 0.7020, avg_density: 0.8054
+search_cnt: 18, max_n: 196, min_density: 0.7020, avg_density: 0.7063
+*** Search time: 2,499,264,244
+	Maximum kPlex Size: 105, Total Time: 2,499,270,751 (microseconds)
+ground truth= 105 , use time 2499.2708 s
+
+-------------- san200-0-7-1  20 --------------
+
+
+============== san200-0-7-2 2 ==============
+-------------- san200-0-7-2  2 --------------
+
+
+============== san200-0-7-2 3 ==============
+-------------- san200-0-7-2  3 --------------
+
+
+============== san200-0-7-2 4 ==============
+-------------- san200-0-7-2  4 --------------
+
+
+============== san200-0-7-2 5 ==============
+-------------- san200-0-7-2  5 --------------
+
+
+============== san200-0-7-2 6 ==============
+-------------- san200-0-7-2  6 --------------
+
+
+============== san200-0-7-2 7 ==============
+-------------- san200-0-7-2  7 --------------
+
+
+============== san200-0-7-2 8 ==============
+-------------- san200-0-7-2  8 --------------
+
+
+============== san200-0-7-2 9 ==============
+-------------- san200-0-7-2  9 --------------
+
+
+============== san200-0-7-2 10 ==============
+-------------- san200-0-7-2  10 --------------
+
+
+============== san200-0-7-2 15 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 13,930 (undirected)
+*** Heuristic kplex size: 15, time: 2,145 (microseconds)
+*** Degeneracy k-plex size: 134, max_core: 122, UB: 134, Time: 236 (microseconds)
+	Maximum kPlex Size: 134, Total Time: 2,387 (microseconds)
+ground truth= 134 , use time 0.0024 s
+
+-------------- san200-0-7-2  15 --------------
+
+
+============== san200-0-7-2 20 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 13,930 (undirected)
+*** Heuristic kplex size: 15, time: 2,150 (microseconds)
+*** Degeneracy k-plex size: 134, max_core: 122, UB: 134, Time: 225 (microseconds)
+	Maximum kPlex Size: 134, Total Time: 2,381 (microseconds)
+ground truth= 134 , use time 0.0024 s
+
+-------------- san200-0-7-2  20 --------------
+
+
+============== san200-0-9-1 2 ==============
+-------------- san200-0-9-1  2 --------------
+
+
+============== san200-0-9-1 3 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 17,910 (undirected)
+*** Heuristic kplex size: 47, time: 2,701 (microseconds)
+*** Degeneracy k-plex size: 125, max_core: 162, UB: 165, Time: 307 (microseconds)
+*** After core shrink: n = 200, m = 17,910 (undirected)
+*** After core-truss co-pruning: n = 200, m = 17,910, density = 0.9000
+prune_cnt: 30, max_n: 200, min_density: 0.9000, avg_density: 0.9121
+search_cnt: 30, max_n: 200, min_density: 0.9000, avg_density: 0.9121
+*** Search time: 15,629,909
+	Maximum kPlex Size: 125, Total Time: 15,637,764 (microseconds)
+ground truth= 125 , use time 15.6378 s
+
+-------------- san200-0-9-1  3 --------------
+
+
+============== san200-0-9-1 4 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 17,910 (undirected)
+*** Heuristic kplex size: 47, time: 2,705 (microseconds)
+*** Degeneracy k-plex size: 125, max_core: 162, UB: 166, Time: 309 (microseconds)
+*** After core shrink: n = 200, m = 17,910 (undirected)
+*** After core-truss co-pruning: n = 200, m = 17,910, density = 0.9000
+prune_cnt: 33, max_n: 200, min_density: 0.9000, avg_density: 0.9151
+search_cnt: 32, max_n: 200, min_density: 0.9000, avg_density: 0.9129
+*** Search time: 145,359,148
+	Maximum kPlex Size: 125, Total Time: 145,366,959 (microseconds)
+ground truth= 125 , use time 145.3670 s
+
+-------------- san200-0-9-1  4 --------------
+
+
+============== san200-0-9-1 5 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 17,910 (undirected)
+*** Heuristic kplex size: 47, time: 2,705 (microseconds)
+*** Degeneracy k-plex size: 125, max_core: 162, UB: 167, Time: 318 (microseconds)
+*** After core shrink: n = 200, m = 17,910 (undirected)
+*** After core-truss co-pruning: n = 200, m = 17,910, density = 0.9000
+prune_cnt: 37, max_n: 200, min_density: 0.9000, avg_density: 0.9180
+search_cnt: 35, max_n: 200, min_density: 0.9000, avg_density: 0.9141
+*** Search time: 1,362,610,683
+	Maximum kPlex Size: 125, Total Time: 1,362,618,530 (microseconds)
+ground truth= 125 , use time 1362.6185 s
+
+-------------- san200-0-9-1  5 --------------
+
+
+============== san200-0-9-1 6 ==============
+-------------- san200-0-9-1  6 --------------
+
+
+============== san200-0-9-1 7 ==============
+-------------- san200-0-9-1  7 --------------
+
+
+============== san200-0-9-1 8 ==============
+-------------- san200-0-9-1  8 --------------
+
+
+============== san200-0-9-1 9 ==============
+-------------- san200-0-9-1  9 --------------
+
+
+============== san200-0-9-1 10 ==============
+-------------- san200-0-9-1  10 --------------
+
+
+============== san200-0-9-1 15 ==============
+-------------- san200-0-9-1  15 --------------
+
+
+============== san200-0-9-1 20 ==============
+-------------- san200-0-9-1  20 --------------
+
+
+============== san200-0-9-2 2 ==============
+-------------- san200-0-9-2  2 --------------
+
+
+============== san200-0-9-2 3 ==============
+-------------- san200-0-9-2  3 --------------
+
+
+============== san200-0-9-2 4 ==============
+-------------- san200-0-9-2  4 --------------
+
+
+============== san200-0-9-2 5 ==============
+-------------- san200-0-9-2  5 --------------
+
+
+============== san200-0-9-2 6 ==============
+-------------- san200-0-9-2  6 --------------
+
+
+============== san200-0-9-2 7 ==============
+-------------- san200-0-9-2  7 --------------
+
+
+============== san200-0-9-2 8 ==============
+-------------- san200-0-9-2  8 --------------
+
+
+============== san200-0-9-2 9 ==============
+-------------- san200-0-9-2  9 --------------
+
+
+============== san200-0-9-2 10 ==============
+-------------- san200-0-9-2  10 --------------
+
+
+============== san200-0-9-2 15 ==============
+-------------- san200-0-9-2  15 --------------
+
+
+============== san200-0-9-2 20 ==============
+-------------- san200-0-9-2  20 --------------
+
+
+============== san200-0-9-3 2 ==============
+-------------- san200-0-9-3  2 --------------
+
+
+============== san200-0-9-3 3 ==============
+-------------- san200-0-9-3  3 --------------
+
+
+============== san200-0-9-3 4 ==============
+-------------- san200-0-9-3  4 --------------
+
+
+============== san200-0-9-3 5 ==============
+-------------- san200-0-9-3  5 --------------
+
+
+============== san200-0-9-3 6 ==============
+-------------- san200-0-9-3  6 --------------
+
+
+============== san200-0-9-3 7 ==============
+-------------- san200-0-9-3  7 --------------
+
+
+============== san200-0-9-3 8 ==============
+-------------- san200-0-9-3  8 --------------
+
+
+============== san200-0-9-3 9 ==============
+-------------- san200-0-9-3  9 --------------
+
+
+============== san200-0-9-3 10 ==============
+-------------- san200-0-9-3  10 --------------
+
+
+============== san200-0-9-3 15 ==============
+-------------- san200-0-9-3  15 --------------
+
+
+============== san200-0-9-3 20 ==============
+-------------- san200-0-9-3  20 --------------
+
+
+============== san400-0-5-1 2 ==============
+-------------- san400-0-5-1  2 --------------
+
+
+============== san400-0-5-1 3 ==============
+-------------- san400-0-5-1  3 --------------
+
+
+============== san400-0-5-1 4 ==============
+-------------- san400-0-5-1  4 --------------
+
+
+============== san400-0-5-1 5 ==============
+-------------- san400-0-5-1  5 --------------
+
+
+============== san400-0-5-1 6 ==============
+-------------- san400-0-5-1  6 --------------
+
+
+============== san400-0-5-1 7 ==============
+-------------- san400-0-5-1  7 --------------
+
+
+============== san400-0-5-1 8 ==============
+-------------- san400-0-5-1  8 --------------
+
+
+============== san400-0-5-1 9 ==============
+-------------- san400-0-5-1  9 --------------
+
+
+============== san400-0-5-1 10 ==============
+-------------- san400-0-5-1  10 --------------
+
+
+============== san400-0-5-1 15 ==============
+-------------- san400-0-5-1  15 --------------
+
+
+============== san400-0-5-1 20 ==============
+-------------- san400-0-5-1  20 --------------
+
+
+============== san400-0-7-1 2 ==============
+-------------- san400-0-7-1  2 --------------
+
+
+============== san400-0-7-1 3 ==============
+-------------- san400-0-7-1  3 --------------
+
+
+============== san400-0-7-1 4 ==============
+-------------- san400-0-7-1  4 --------------
+
+
+============== san400-0-7-1 5 ==============
+-------------- san400-0-7-1  5 --------------
+
+
+============== san400-0-7-1 6 ==============
+-------------- san400-0-7-1  6 --------------
+
+
+============== san400-0-7-1 7 ==============
+-------------- san400-0-7-1  7 --------------
+
+
+============== san400-0-7-1 8 ==============
+-------------- san400-0-7-1  8 --------------
+
+
+============== san400-0-7-1 9 ==============
+-------------- san400-0-7-1  9 --------------
+
+
+============== san400-0-7-1 10 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 400; m = 55,860 (undirected)
+*** Heuristic kplex size: 40, time: 8,446 (microseconds)
+*** Degeneracy k-plex size: 197, max_core: 261, UB: 271, Time: 975 (microseconds)
+*** After core shrink: n = 400, m = 55,860 (undirected)
+*** After core-truss co-pruning: n = 400, m = 38,000, density = 0.4762
+Degen find a solution of size 200
+prune_cnt: 1, max_n: 200, min_density: 0.9548, avg_density: 0.9548
+search_cnt: 1, max_n: 200, min_density: 0.9548, avg_density: 0.9548
+*** Search time: 24,611
+	Maximum kPlex Size: 200, Total Time: 124,087 (microseconds)
+ground truth= 200 , use time 0.1241 s
+
+-------------- san400-0-7-1  10 --------------
+
+
+============== san400-0-7-1 15 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 400; m = 55,860 (undirected)
+*** Heuristic kplex size: 40, time: 7,527 (microseconds)
+*** Degeneracy k-plex size: 197, max_core: 261, UB: 276, Time: 887 (microseconds)
+*** After core shrink: n = 400, m = 55,860 (undirected)
+*** After core-truss co-pruning: n = 400, m = 38,000, density = 0.4762
+Degen find a solution of size 200
+prune_cnt: 10, max_n: 200, min_density: 0.9548, avg_density: 0.9548
+search_cnt: 1, max_n: 200, min_density: 0.9548, avg_density: 0.9548
+*** Search time: 30,478
+	Maximum kPlex Size: 200, Total Time: 132,965 (microseconds)
+ground truth= 200 , use time 0.1330 s
+
+-------------- san400-0-7-1  15 --------------
+
+
+============== san400-0-7-1 20 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 400; m = 55,860 (undirected)
+*** Heuristic kplex size: 40, time: 8,522 (microseconds)
+*** Degeneracy k-plex size: 197, max_core: 261, UB: 281, Time: 962 (microseconds)
+*** After core shrink: n = 400, m = 55,860 (undirected)
+*** After core-truss co-pruning: n = 400, m = 38,000, density = 0.4762
+Degen find a solution of size 200
+prune_cnt: 20, max_n: 200, min_density: 0.9548, avg_density: 0.9548
+search_cnt: 1, max_n: 200, min_density: 0.9548, avg_density: 0.9548
+*** Search time: 33,046
+	Maximum kPlex Size: 200, Total Time: 138,610 (microseconds)
+ground truth= 200 , use time 0.1386 s
+
+-------------- san400-0-7-1  20 --------------
+
+
+============== san400-0-7-2 2 ==============
+-------------- san400-0-7-2  2 --------------
+
+
+============== san400-0-7-2 3 ==============
+-------------- san400-0-7-2  3 --------------
+
+
+============== san400-0-7-2 4 ==============
+-------------- san400-0-7-2  4 --------------
+
+
+============== san400-0-7-2 5 ==============
+-------------- san400-0-7-2  5 --------------
+
+
+============== san400-0-7-2 6 ==============
+-------------- san400-0-7-2  6 --------------
+
+
+============== san400-0-7-2 7 ==============
+-------------- san400-0-7-2  7 --------------
+
+
+============== san400-0-7-2 8 ==============
+-------------- san400-0-7-2  8 --------------
+
+
+============== san400-0-7-2 9 ==============
+-------------- san400-0-7-2  9 --------------
+
+
+============== san400-0-7-2 10 ==============
+-------------- san400-0-7-2  10 --------------
+
+
+============== san400-0-7-2 15 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 400; m = 55,860 (undirected)
+*** Heuristic kplex size: 18, time: 8,398 (microseconds)
+*** Degeneracy k-plex size: 205, max_core: 259, UB: 274, Time: 941 (microseconds)
+*** After core shrink: n = 400, m = 55,860 (undirected)
+*** After core-truss co-pruning: n = 205, m = 19,610, density = 0.9378
+prune_cnt: 1, max_n: 205, min_density: 0.9378, avg_density: 0.9378
+search_cnt: 1, max_n: 0, min_density: 1.0000, avg_density: 0.0000
+*** Search time: 11,216
+	Maximum kPlex Size: 205, Total Time: 135,717 (microseconds)
+ground truth= 205 , use time 0.1357 s
+
+-------------- san400-0-7-2  15 --------------
+
+
+============== san400-0-7-2 20 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 400; m = 55,860 (undirected)
+*** Heuristic kplex size: 18, time: 8,542 (microseconds)
+*** Degeneracy k-plex size: 205, max_core: 259, UB: 279, Time: 937 (microseconds)
+*** After core shrink: n = 400, m = 55,860 (undirected)
+*** After core-truss co-pruning: n = 205, m = 19,610, density = 0.9378
+prune_cnt: 6, max_n: 205, min_density: 0.9378, avg_density: 0.9379
+search_cnt: 1, max_n: 0, min_density: 1.0000, avg_density: 0.0000
+*** Search time: 12,632
+	Maximum kPlex Size: 205, Total Time: 130,520 (microseconds)
+ground truth= 205 , use time 0.1305 s
+
+-------------- san400-0-7-2  20 --------------
+
+
+============== san400-0-7-3 2 ==============
+-------------- san400-0-7-3  2 --------------
+
+
+============== san400-0-7-3 3 ==============
+-------------- san400-0-7-3  3 --------------
+
+
+============== san400-0-7-3 4 ==============
+-------------- san400-0-7-3  4 --------------
+
+
+============== san400-0-7-3 5 ==============
+-------------- san400-0-7-3  5 --------------
+
+
+============== san400-0-7-3 6 ==============
+-------------- san400-0-7-3  6 --------------
+
+
+============== san400-0-7-3 7 ==============
+-------------- san400-0-7-3  7 --------------
+
+
+============== san400-0-7-3 8 ==============
+-------------- san400-0-7-3  8 --------------
+
+
+============== san400-0-7-3 9 ==============
+-------------- san400-0-7-3  9 --------------
+
+
+============== san400-0-7-3 10 ==============
+-------------- san400-0-7-3  10 --------------
+
+
+============== san400-0-7-3 15 ==============
+-------------- san400-0-7-3  15 --------------
+
+
+============== san400-0-7-3 20 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 400; m = 55,860 (undirected)
+*** Heuristic kplex size: 16, time: 5,666 (microseconds)
+*** Degeneracy k-plex size: 216, max_core: 253, UB: 273, Time: 657 (microseconds)
+*** After core shrink: n = 400, m = 55,860 (undirected)
+*** After core-truss co-pruning: n = 216, m = 21,384, density = 0.9209
+prune_cnt: 2, max_n: 216, min_density: 0.9209, avg_density: 0.9209
+search_cnt: 1, max_n: 0, min_density: 1.0000, avg_density: 0.0000
+*** Search time: 9,799
+	Maximum kPlex Size: 216, Total Time: 104,002 (microseconds)
+ground truth= 216 , use time 0.1040 s
+
+-------------- san400-0-7-3  20 --------------
+
+
+============== san400-0-9-1 2 ==============
+-------------- san400-0-9-1  2 --------------
+
+
+============== san400-0-9-1 3 ==============
+-------------- san400-0-9-1  3 --------------
+
+
+============== san400-0-9-1 4 ==============
+-------------- san400-0-9-1  4 --------------
+
+
+============== san400-0-9-1 5 ==============
+-------------- san400-0-9-1  5 --------------
+
+
+============== san400-0-9-1 6 ==============
+-------------- san400-0-9-1  6 --------------
+
+
+============== san400-0-9-1 7 ==============
+-------------- san400-0-9-1  7 --------------
+
+
+============== san400-0-9-1 8 ==============
+-------------- san400-0-9-1  8 --------------
+
+
+============== san400-0-9-1 9 ==============
+-------------- san400-0-9-1  9 --------------
+
+
+============== san400-0-9-1 10 ==============
+-------------- san400-0-9-1  10 --------------
+
+
+============== san400-0-9-1 15 ==============
+-------------- san400-0-9-1  15 --------------
+
+
+============== san400-0-9-1 20 ==============
+-------------- san400-0-9-1  20 --------------
+
+
+============== sanr200-0-7 2 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 200; m = 13,868 (undirected)
+*** Heuristic kplex size: 16, time: 2,537 (microseconds)
+*** Degeneracy k-plex size: 19, max_core: 124, UB: 126, Time: 266 (microseconds)
+*** After core shrink: n = 200, m = 13,868 (undirected)
+*** After core-truss co-pruning: n = 200, m = 13,868, density = 0.6969
+Degen find a solution of size 20
+Degen find a solution of size 22
+prune_cnt: 174, max_n: 200, min_density: 0.6969, avg_density: 0.7684
+search_cnt: 174, max_n: 200, min_density: 0.6969, avg_density: 0.7684
+*** Search time: 2,449,082,975
+	Maximum kPlex Size: 22, Total Time: 2,449,090,672 (microseconds)
+ground truth= 22 , use time 2449.0907 s
+
+-------------- sanr200-0-7  2 --------------
+
+
+============== sanr200-0-7 3 ==============
+-------------- sanr200-0-7  3 --------------
+
+
+============== sanr200-0-7 4 ==============
+-------------- sanr200-0-7  4 --------------
+
+
+============== sanr200-0-7 5 ==============
+-------------- sanr200-0-7  5 --------------
+
+
+============== sanr200-0-7 6 ==============
+-------------- sanr200-0-7  6 --------------
+
+
+============== sanr200-0-7 7 ==============
+-------------- sanr200-0-7  7 --------------
+
+
+============== sanr200-0-7 8 ==============
+-------------- sanr200-0-7  8 --------------
+
+
+============== sanr200-0-7 9 ==============
+-------------- sanr200-0-7  9 --------------
+
+
+============== sanr200-0-7 10 ==============
+-------------- sanr200-0-7  10 --------------
+
+
+============== sanr200-0-7 15 ==============
+-------------- sanr200-0-7  15 --------------
+
+
+============== sanr200-0-7 20 ==============
+-------------- sanr200-0-7  20 --------------
+
+
+============== sanr200-0-9 2 ==============
+-------------- sanr200-0-9  2 --------------
+
+
+============== sanr200-0-9 3 ==============
+-------------- sanr200-0-9  3 --------------
+
+
+============== sanr200-0-9 4 ==============
+-------------- sanr200-0-9  4 --------------
+
+
+============== sanr200-0-9 5 ==============
+-------------- sanr200-0-9  5 --------------
+
+
+============== sanr200-0-9 6 ==============
+-------------- sanr200-0-9  6 --------------
+
+
+============== sanr200-0-9 7 ==============
+-------------- sanr200-0-9  7 --------------
+
+
+============== sanr200-0-9 8 ==============
+-------------- sanr200-0-9  8 --------------
+
+
+============== sanr200-0-9 9 ==============
+-------------- sanr200-0-9  9 --------------
+
+
+============== sanr200-0-9 10 ==============
+-------------- sanr200-0-9  10 --------------
+
+
+============== sanr200-0-9 15 ==============
+-------------- sanr200-0-9  15 --------------
+
+
+============== sanr200-0-9 20 ==============
+-------------- sanr200-0-9  20 --------------
+
+
+============== sanr400-0-5 2 ==============
+**** kPlexS (Release) build at 22:36:54 Nov 19 2023 ***
+# Start reading graph, Require files "b_degree.bin" and "b_adj.bin"
+	n = 400; m = 39,984 (undirected)
+*** Heuristic kplex size: 12, time: 3,578 (microseconds)
+*** Degeneracy k-plex size: 10, max_core: 177, UB: 179, Time: 476 (microseconds)
+*** After core shrink: n = 400, m = 39,984 (undirected)
+*** After core-truss co-pruning: n = 400, m = 39,984, density = 0.5011
+prune_cnt: 376, max_n: 400, min_density: 0.5011, avg_density: 0.5736
+search_cnt: 376, max_n: 400, min_density: 0.5011, avg_density: 0.5736
+*** Search time: 2,891,537,886
+	Maximum kPlex Size: 15, Total Time: 2,891,558,008 (microseconds)
+ground truth= 15 , use time 2891.5580 s
+
+-------------- sanr400-0-5  2 --------------
+
+
+============== sanr400-0-5 3 ==============
+-------------- sanr400-0-5  3 --------------
+
+
+============== sanr400-0-5 4 ==============
+-------------- sanr400-0-5  4 --------------
+
+
+============== sanr400-0-5 5 ==============
+-------------- sanr400-0-5  5 --------------
+
+
+============== sanr400-0-5 6 ==============
+-------------- sanr400-0-5  6 --------------
+
+
+============== sanr400-0-5 7 ==============
+-------------- sanr400-0-5  7 --------------
+
+
+============== sanr400-0-5 8 ==============
+-------------- sanr400-0-5  8 --------------
+
+
+============== sanr400-0-5 9 ==============
+-------------- sanr400-0-5  9 --------------
+
+
+============== sanr400-0-5 10 ==============
+-------------- sanr400-0-5  10 --------------
+
+
+============== sanr400-0-5 15 ==============
+-------------- sanr400-0-5  15 --------------
+
+
+============== sanr400-0-5 20 ==============
+-------------- sanr400-0-5  20 --------------
+
+
+============== sanr400-0-7 2 ==============
+-------------- sanr400-0-7  2 --------------
+
+
+============== sanr400-0-7 3 ==============
+-------------- sanr400-0-7  3 --------------
+
+
+============== sanr400-0-7 4 ==============
+-------------- sanr400-0-7  4 --------------
+
+
+============== sanr400-0-7 5 ==============
+-------------- sanr400-0-7  5 --------------
+
+
+============== sanr400-0-7 6 ==============
+-------------- sanr400-0-7  6 --------------
+
+
+============== sanr400-0-7 7 ==============
+-------------- sanr400-0-7  7 --------------
+
+
+============== sanr400-0-7 8 ==============
+-------------- sanr400-0-7  8 --------------
+
+
+============== sanr400-0-7 9 ==============
+-------------- sanr400-0-7  9 --------------
+
+
+============== sanr400-0-7 10 ==============
+-------------- sanr400-0-7  10 --------------
+
+
+============== sanr400-0-7 15 ==============
+-------------- sanr400-0-7  15 --------------
+
+
+============== sanr400-0-7 20 ==============
+-------------- sanr400-0-7  20 --------------
+
+
+2023年 12月 01日 星期五 15:13:20 CST
+ok
+
+
+
+
+============== p-hat500-1 7 ==============
+-------------- p-hat500-1  7 --------------
+
+
+============== p-hat500-1 8 ==============
+-------------- p-hat500-1  8 --------------
+
+
+============== p-hat500-1 9 ==============
+-------------- p-hat500-1  9 --------------
+
+
+============== p-hat500-1 10 ==============
+-------------- p-hat500-1  10 --------------
+
+
+============== p-hat500-1 15 ==============
+-------------- p-hat500-1  15 --------------
+
+
+============== p-hat500-1 20 ==============
+-------------- p-hat500-1  20 --------------
+
+
+2023年 11月 29日 星期三 16:11:30 CST
+ok
+

@@ -227,33 +227,43 @@ public:
         }
     }
     /**
+     * @brief compute loss_cnt[] & remove u if S+u is not a plex
+     * @param S_is_plex serve as return
+     */
+    void compute_loss_cnt(Set &S, Set &C, bool &S_is_plex)
+    {
+        for (int v : S)
+        {
+            loss_cnt[v] = non_A[v].intersect(S); // v∈S, delta[v] = the number of non-neighbors of v in S
+            if (loss_cnt[v] > paramK)
+            {
+                S_is_plex = false;
+                return;
+            }
+            else if (loss_cnt[v] == paramK) // v has k non-neighbors in S, so all non-neighbors of v can be removed
+                C &= A[v];
+        }
+        S_is_plex = true;
+        update_lb(S);
+        for (int u : C)
+        {
+            loss_cnt[u] = non_A[u].intersect(S); // u∈C, delta[u] = the number of non-neighbors of u in S
+            if (loss_cnt[u] >= paramK)           // u has at least k non-neighbors in S, so u can be removed
+                C.reset(u);
+        }
+    }
+    /**
      * @brief using reduction rules & acquire degree; mainly based on definition and heredictary property
      * @param g_is_plex serve as return
      * @param S_is_plex serve as return
-     * @param edges_removed we record the edges we remove in order to rollback when backtrack
      */
     void fast_reduction(Set &S, Set &C, bool &g_is_plex, bool &S_is_plex)
     {
         if (v_just_add != -1) // only if S changed, we can update loss_cnt[]
         {
-            for (int v : S)
-            {
-                loss_cnt[v] = non_A[v].intersect(S); // v∈S, delta[v] = the number of non-neighbors of v in S
-                if (loss_cnt[v] > paramK)
-                {
-                    S_is_plex = false;
-                    return;
-                }
-                else if (loss_cnt[v] == paramK) // v has k non-neighbors in S, so all non-neighbors of v can be removed
-                    C &= A[v];
-            }
-            update_lb(S);
-            for (int u : C)
-            {
-                loss_cnt[u] = non_A[u].intersect(S); // u∈C, delta[u] = the number of non-neighbors of u in S
-                if (loss_cnt[u] >= paramK)           // u has at least k non-neighbors in S, so u can be removed
-                    C.reset(u);
-            }
+            compute_loss_cnt(S, C, S_is_plex);
+            if (!S_is_plex)
+                return;
         }
         S_is_plex = true;
         // compute degree of subgraph S∪C
@@ -366,28 +376,14 @@ public:
                 S.set(u);
                 C.reset(u);
                 S_changed = true;
+                v_just_add = u;
                 break; // each time we only include one vertex that must be included
             }
         }
-        // S is changed, so we need to re-compute loss_cnt[]
+        // S is changed, so we need to re-compute loss_cnt[] and deg[]
         if (S_changed)
         {
-            for (int v : S)
-            {
-                loss_cnt[v] = non_A[v].intersect(S); // v∈S, delta[v] = the number of non-neighbors of v in S
-                if (loss_cnt[v] > paramK)
-                {
-                    S_is_plex = false;
-                    return;
-                }
-            }
-            update_lb(S);
-            for (int u : C)
-            {
-                loss_cnt[u] = non_A[u].intersect(S); // u∈C, delta[u] = the number of non-neighbors of u in S
-                if (loss_cnt[u] >= paramK)           // u has at least k non-neighbors in S, so u can be removed
-                    C.reset(u);
-            }
+            fast_reduction(S, C, g_is_plex, S_is_plex);
         }
     }
     /**
@@ -593,7 +589,9 @@ public:
     void lookahead_vertex(Set &S, Set &C)
     {
         Timer t;
-        int v = *S.begin();
+        int v = v_just_add;
+        if (v == -1)
+            v = *S.begin();
         auto N_v = A[v];
         N_v &= C;
         int S_sz = S.size();

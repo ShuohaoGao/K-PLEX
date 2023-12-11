@@ -393,11 +393,13 @@ public:
     {
         dfs_cnt++;
         S_size += S.size();
+
         // reduction rules
         Timer start_fast_reduce;
         bool S_is_plex, g_is_plex;
         fast_reduction(S, C, g_is_plex, S_is_plex);
         fast_reduce_time += start_fast_reduce.get_time();
+
         if (!S_is_plex)
             return;
         if (g_is_plex)
@@ -415,6 +417,7 @@ public:
             S_size_when_pruned += S.size();
             return;
         }
+        
         // select pivot to generate 2 branches
         int pivot = -1;
         Timer look;
@@ -423,7 +426,7 @@ public:
         if (paramK > 5)
         {
             Timer look_vertex;
-            lookahead_vertex(S, C);
+            // lookahead_vertex(S, C);
             // look ahead: if UB(S+u, C-u)<=lb, then remove u; we select the vertex with min ub as pivot
             int pivot1 = -1;
             int min_ub = INF;
@@ -431,7 +434,7 @@ public:
             {
                 S.set(u);
                 C.reset(u);
-                int ub = only_part_UB(S, C);
+                int ub = only_part_UB(S, C, u);
                 S.reset(u);
                 C.set(u);
                 if (ub <= lb)
@@ -610,7 +613,10 @@ public:
         }
         lookahead_vertex_time += t.get_time();
     }
-    int only_part_UB(Set &S, Set &C)
+    /**
+     * @brief partition ub without reduction rules
+     */
+    int only_part_UB(Set &S, Set &C, int u)
     {
         Timer part_timer;
         auto &loss = deg;
@@ -622,6 +628,14 @@ public:
         auto copy_C = C;
         int S_sz = S.size();
         int ub = S_sz;
+        // we will utilize Pi_u
+        {
+            int sz = non_A[u].intersect(copy_C);
+            int cnt = paramK - loss[u];
+            copy_S.reset(u);
+            ub += cnt;
+            copy_C &= A[u];
+        }
         while (copy_S.size())
         {
             int sel = -1, size = 0, ub_cnt = 0;

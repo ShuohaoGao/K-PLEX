@@ -65,7 +65,7 @@ void FastHeuris()
         lb = g.sqrt_degeneracy(&solution);
         printf("sqrt lb= %d, use time %.4lf s\n", lb, t.get_time() / 1e6);
 #endif
-        lb = max(lb, 2 * paramK - 2);
+        lb = max(lb, 2 * paramK - 2); // we only care the solutions with at least 2k-1 vertices
         lb = max(lb, g.degeneracy_and_reduce(lb, &solution));
         printf("After degeneracy and weak reduce, n= %u , m= %u , lb= %d , use time %.4lf s\n", g.n, g.m / 2, lb, t.get_time() / 1e6);
         if (lb >= g.n)
@@ -79,7 +79,7 @@ void FastHeuris()
     }
     FastHeuris_lb = lb;
 
-    // strong reduce
+    // strong reduce: CF-CTCP
     {
         Timer start_strong_reduce;
         Reduction reduce(&g);
@@ -110,11 +110,14 @@ void StrongHeuris()
     Timer t_extend("StrongHeuris");
     while (1)
     {
+#ifdef NO_STRONG_HEURIS
+        break;
+#endif
         int extend_lb = 0;
         int extend_times = sqrt(input_n) + 1;
         // extend_times = max(extend_times, 100);
         extend_times = input_n;
-        if(solution.size() <= 2*paramK -2 )// this means we probably find no larger plex
+        if (solution.size() < 2 * paramK - 2) // this means we probably find no larger plex
         {
             extend_times = 1;
         }
@@ -186,7 +189,7 @@ void bnb()
     }
     Branch branch(*G, lb - G->must_contain.size());
     branch.IE_framework();
-    if (solution.size() < branch.solution.size())
+    if (solution.size() < branch.solution.size()) // record the max plex
     {
         solution.clear();
         for (int v : branch.solution)

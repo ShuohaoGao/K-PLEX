@@ -798,7 +798,7 @@ public:
      *
      * @return lb
      */
-    int sqrt_degeneracy(set<ui> *solution = nullptr, ui cnt = 5)
+    int sqrt_degeneracy(set<ui> *solution = nullptr, ui cnt = 10)
     {
         set<pii> s;
         for (ui i = 0; i < n; i++)

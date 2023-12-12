@@ -34,6 +34,7 @@ private:
     double pivot_select_time;
     double IE_induce_time;
     double matrix_init_time;
+    double higher_order_reduce_time;
     ll S_size;
     ll S_size_when_pruned;
     int IE_graph_cnt;
@@ -54,6 +55,7 @@ public:
                                             dfs_cnt(0), run_time(0), fast_reduce_time(0), core_reduce_time(0),
                                             part_PI_time(0), pivot_select_time(0), IE_induce_time(0), S_size(0),
                                             matrix_init_time(0), IE_graph_cnt(0), IE_graph_size(0), CTCP_time(0),
+                                            higher_order_reduce_time(0),
                                             C_reduce(0), lookahead_time(0), lookahead_vertex_time(0), lookahead_edge_time(0),
                                             leaf_cnt(0), S_size_when_pruned(0), optimal_cnt(0), subgraph_pruned_cnt(0),
                                             subgraph_search_cnt(0), stage1(0), stage2(0)
@@ -80,8 +82,9 @@ public:
         print_module_time("look-ahead", lookahead_time);
         print_module_time("look-ahead-vertex", lookahead_vertex_time);
         print_module_time("look-ahead-edge", lookahead_edge_time);
+        print_module_time("high-order-reduce", higher_order_reduce_time);
         print_module_time("stage1", stage1);
-        print_module_time("stage2", stage2);
+        // print_module_time("stage2", stage2);
         puts("");
         printf("average g_i size: %.2lf ", IE_graph_size * 1.0 / IE_graph_cnt);
         printf("average S size: %.2lf  ", S_size * 1.0 / dfs_cnt);
@@ -126,31 +129,37 @@ public:
 
             vector<int> vertices_2hops{u};
             G_input.induce_to_2hop_and_reduce(u, vis, vertices_2hops, array1_N, lb);
-            if (vis[u]) // this subgraph is not pruned: begin bnb
+            vector<pii> edges;
+            int id_u = CTCP_for_g_i(u, vis, vertices_2hops, array_N, edges, lb);
+            if (id_u != -1) // this subgraph is not pruned: begin bnb
             {
                 subgraph_search_cnt++;
                 vector<int> &inv = array_N;
-                vector<pii> edges;
-                CTCP_for_g_i(u, vis, vertices_2hops, inv, edges, lb);
-                Graph_adjacent g(vis, vertices_2hops, G_input, inv);
-                if (vertices_2hops.size() > 2) // this is equivalent to that G_input is stored using adjacent list
-                {
-                    // <==> vis.clear() but this may be too time-consuming, so we clear it as follows
-                    for (int v : vertices_2hops)
-                        vis.reset(v);
-                }
-                else // the reduced graph is stored as adjacent matrix, so O(n) is acceptable
-                {
-                    vis.clear();
-                }
+                // Graph_adjacent g(vis, vertices_2hops, G_input, inv);
+                Graph_adjacent g(vertices_2hops, edges);
+                // if (vertices_2hops.size() > 2) // this is equivalent to that G_input is stored using adjacent list
+                // {
+                //     // <==> vis.clear() but this may be too time-consuming, so we clear it as follows
+                //     for (int v : vertices_2hops)
+                //         vis.reset(v);
+                // }
+                // else // the reduced graph is stored as adjacent matrix, so O(n) is acceptable
+                // {
+                //     vis.clear();
+                // }
                 IE_induce_time += get_system_time_microsecond() - start_induce;
                 IE_graph_size += g.size();
                 IE_graph_cnt++;
                 matrix_init_time += g.init_time;
                 ptr_g = &g;
 
-                int id_u = inv[u]; // the index of u in the new-induced graph g
-                g.edge_reduction(id_u, lb);
+                // int id_u = inv[u]; // the index of u in the new-induced graph g
+                {
+                    // higher order reduction
+                    Timer tt;
+                    g.edge_reduction(id_u, lb);
+                    higher_order_reduce_time += tt.get_time();
+                }
 
                 Set S(g.size()), C(g.size());
                 S.set(id_u);
@@ -191,10 +200,16 @@ public:
         array_n.clear();
         array_n.resize(g.size());
     }
-    void CTCP_for_g_i(int v, MyBitset &V_mask, vector<int> &vertices, vector<int> &inv, vector<pii> &edges, int lb)
+    /**
+     * @return the index of v in the subgraph
+     */
+    int CTCP_for_g_i(int v, MyBitset &V_mask, vector<int> &vertices, vector<int> &inv, vector<pii> &edges, int lb)
     {
-        // return;
+        if (!V_mask[v]) // the subgraph is already pruned due to core-reduction for N(v) and N^2(v)
+            return -1;
+        Timer t;
         auto &g = G_input;
+        sort(vertices.begin(), vertices.end());
         for (int i = 0; i < (int)vertices.size(); i++)
             inv[vertices[i]] = i;
         for (int u : vertices)
@@ -204,26 +219,61 @@ public:
                 if (g.edge_removed[i])
                     continue;
                 int v = g.edge_to[i];
-                if (v >= u)
-                    break;
                 if (!V_mask[v])
                     continue;
                 edges.push_back({inv[u], inv[v]});
             }
         }
-        cout<<vertices.size()<<' '<<edges.size()<<endl;
         Graph g_i(vertices, edges);
-        cout<<g_i.n<<endl;
-        g_i.weak_reduce(lb);
-        cout<<"---------"<<endl;
+        if (paramK > 5)
+        {
+            g_i.weak_reduce(lb);
+            if (g_i.n > lb)
+            {
+                Reduction reduce(&g_i);
+                reduce.strong_reduce(lb);
+            }
+        }
+        // clear the mask
+        for (int u : vertices)
+        {
+            assert(V_mask[u]);
+            V_mask.reset(u);
+        }
         if (g_i.n > lb)
         {
-            Reduction reduce(&g_i);
-            reduce.strong_reduce(lb);
+            // current subgraph can not be pruned and we need to search it,
+            // so we prepare edges[] and vertices[] to build graph using adj-matrix
+            int ret = -1;
+            for (int i = 0; i < g_i.n; i++)
+                if (vertices[i] == v)
+                {
+                    ret = i;
+                    break;
+                }
+            if (ret != -1) // v is still in the subgraph
+            {
+                if (g_i.m != edges.size())
+                {
+                    edges.clear();
+                    vertices.resize(g_i.n);
+                    for (ui u = 0; u < g_i.n; u++)
+                    {
+                        vertices[u] = g_i.map_refresh_id[u];
+                        for (ui i = g_i.pstart[u]; i < g_i.pstart[u + 1]; i++)
+                        {
+                            ui v = g_i.edge_to[i];
+                            edges.push_back({u, v});
+                        }
+                    }
+                }
+                stage1 += t.get_time();
+                return ret;
+            }
         }
-        cout<<"======="<<endl;
-        int temp=g_i.n;
-        printf("CTCP removes %d vertices\n", vertices.size() - g_i.n);
+        // subgraph is pruned
+        stage1 += t.get_time();
+        return -1;
     }
     /**
      * @brief plex=S

@@ -24,15 +24,15 @@ public:
     }
     Graph(vector<int> &ids, vector<pii> &edges) : d(nullptr), edge_to(nullptr), pstart(nullptr), reduced(true)
     {
-        unique_vector(edges);
+        // unique_vector(edges);
         n = ids.size();
         map_refresh_id.resize(n);
-        for(int i=0;i<n;i++)
+        for (int i = 0; i < n; i++)
             map_refresh_id[i] = ids[i];
         m = edges.size();
         d = new ui[n];
         edge_to = new ui[m];
-        pstart = new ui[n];
+        pstart = new ui[n + 1];
         ui j = 0;
         for (ui u = 0; u < n; u++)
         {
@@ -2659,7 +2659,19 @@ public:
             init_time = t.get_time();
         }
     }
-
+    Graph_adjacent(vector<int> &vertices, vector<pii> &edges)
+    {
+        vertex_id = vertices;
+        Timer t;
+        n = vertex_id.size();
+        adj_matrix = AdjacentMatrix(n);
+        for (auto &h : edges)
+        {
+            if (h.x < h.y)
+                adj_matrix.add_edge(h.x, h.y);
+        }
+        init_time = t.get_time();
+    }
     Graph_adjacent &operator=(const Graph_adjacent &other)
     {
         if (this == &other)
@@ -2675,6 +2687,8 @@ public:
      */
     void edge_reduction(int v_in_S, int lb)
     {
+        // if(paramK <= 5)
+        //     return;
         auto &A = adj_matrix;
         bool reduced = false;
         do

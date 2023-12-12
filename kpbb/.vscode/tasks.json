@@ -3,13 +3,14 @@
         {
             "type": "cppbuild",
             "label": "main-build",
-            "command": "D:/Program/Dev-Cpp/MinGW64/bin/g++.exe",
+            // "command": "D:/Program/Dev-Cpp/MinGW64/bin/g++.exe",
+            "command": "/usr/bin/g++",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "${fileDirname}/kpbb",
                 "-w", 
                 "-std=c++11"
             ],

@@ -22,6 +22,31 @@ public:
     Graph() : n(0), m(0), d(nullptr), edge_to(nullptr), pstart(nullptr), reduced(false)
     {
     }
+    Graph(vector<int> &ids, vector<pii> &edges) : d(nullptr), edge_to(nullptr), pstart(nullptr), reduced(true)
+    {
+        unique_vector(edges);
+        n = ids.size();
+        map_refresh_id.resize(n);
+        for(int i=0;i<n;i++)
+            map_refresh_id[i] = ids[i];
+        m = edges.size();
+        d = new ui[n];
+        edge_to = new ui[m];
+        pstart = new ui[n];
+        ui j = 0;
+        for (ui u = 0; u < n; u++)
+        {
+            pstart[u] = j;
+            while (j < m && edges[j].x == u)
+            {
+                edge_to[j] = edges[j].y;
+                j++;
+            }
+            d[u] = j - pstart[u];
+        }
+        pstart[n] = j;
+        assert(j == m);
+    }
     ~Graph()
     {
         if (d != nullptr)
@@ -51,6 +76,7 @@ public:
         if (!in.is_open())
         {
             printf("Failed to open %s \n", file_path.c_str());
+            fflush(stdout);
             exit(1);
         }
         string suffix = get_file_name_suffix(file_path);
@@ -459,53 +485,32 @@ public:
      *
      * @return lb
      */
-    int strong_heuris(int lb, int extend_times, set<ui> *solution = nullptr, double time_limit = -1)
+    int strong_heuris(int lb, set<ui> *solution = nullptr, double time_limit = -1)
     {
         if (time_limit < 0)
             time_limit = 1e3 * 1e6;
-        extend_times = min(extend_times, (int)n);
         ui *seq = new ui[n];
         sort_by_degree(seq);
         // for(int i=0;i<g.n;i++)
         //     seq[i]=i;
         Timer t;
         int ret = 2 * paramK - 2;
-        // if ((int)(log2(n) * 10) > lb + 1) // just brute select the best vertex
-        if (true)
+        vector<bool> rm(n, true); // rm[v]=0 <==> v in candidate
+        vector<int> cnt(n, 0);    // neighbor count
+        vector<int> deg(n, 0);    // degree for plex
+        vector<bool> in_plex(n, 0);
+        for (ui i = 0; i < n; i++)
         {
-            vector<bool> rm(n, true); // rm[v]=0 <==> v in candidate
-            vector<int> cnt(n, 0);    // neighbor count
-            vector<int> deg(n, 0);    // degree for plex
-            vector<bool> in_plex(n, 0);
-            for (ui i = 0; i < extend_times; i++)
+            if (t.get_time() > time_limit)
             {
-                if (t.get_time() > time_limit)
-                {
-                    // printf("StrongHeuris is stoped due to time limit! extend times= %u\n", i);
-                    break;
-                }
-                ret = max(ret, extend_brute_select(seq[i], rm, deg, cnt, in_plex, solution));
-                if (ret > lb)
-                {
-                    printf("StrongHeuris find a larger plex: %d , already extend %d times\n", ret, i+1);
-                    break;
-                }
+                printf("StrongHeuris is cut off due to time limit! extend times= %u\n", i);
+                break;
             }
-        }
-        else // we use segment tree to boost
-        {
-            for (ui i = 0; i < extend_times; i++)
+            ret = max(ret, extend_brute_select(seq[i], rm, deg, cnt, in_plex, solution));
+            if (ret > lb)
             {
-                if (t.get_time() > time_limit)
-                {
-                    // printf("StrongHeuris is stoped due to time limit! extend times= %u\n", i);
-                    break;
-                }
-                ret = max(ret, extend(seq[i], solution));
-                if (ret > lb)
-                {
-                    break;
-                }
+                printf("StrongHeuris find a larger plex: %d , already extend %d times\n", ret, i + 1);
+                break;
             }
         }
         delete[] seq;
@@ -765,16 +770,15 @@ public:
             deg_in_S[u] = -1;
         return plex.size();
     }
-    int strong_heuris1(int lb, int extend_times, set<ui> &solution, double time_limit)
+    int strong_heuris1(int lb, set<ui> &solution, double time_limit)
     {
         Timer t;
-        extend_times = min(extend_times, (int)n);
         int ret = 2 * paramK - 2;
         ret = max(ret, lb);
         // the following arrays are shared for each extending procedure and we need to clear them each time
-        vector<int> deg_in_S(n, -1); // if deg_in_S[u]=-1, then u is not in S
-        vector<int> deg_in_g(n, 0);  // g is subgraph induced by the 2-hop-neighbors of u
-        vector<int> cnt(n, -1);      // cnt[v] = the edge count between S and v; if cnt[v]=-1, then v is not in candidate set
+        vector<int> deg_in_S(n, -1);    // if deg_in_S[u]=-1, then u is not in S
+        vector<int> deg_in_g(n, 0);     // g is subgraph induced by the 2-hop-neighbors of u
+        vector<int> cnt(n, -1);         // cnt[v] = the edge count between S and v; if cnt[v]=-1, then v is not in candidate set
         vector<bool> vertex_removed(n); // we may infer a vertex u can be removed if UB( u, N_G^{\leq 2}(u) ) <= lb
         for (ll u = n - 1, enumerate_num = 1; u >= 0; u--, enumerate_num++)
         {
@@ -790,18 +794,19 @@ public:
             {
                 vertex_removed[u] = 1;
             }
-            for(int w:deg_in_g)
-                assert(w==0);
-            for(int w:deg_in_S)
-                assert(w==-1);
-            for(int w:cnt)
-                assert(w==-1);
-            // if (t.get_time() > time_limit)
-            // {
-            //     printf("StrongHeuris is cut off due to time limit, already extend %d times\n", enumerate_num);
-            //     break;
-            // }
+            // for (int w : deg_in_g)
+            //     assert(w == 0);
+            // for (int w : deg_in_S)
+            //     assert(w == -1);
+            // for (int w : cnt)
+            //     assert(w == -1);
+            if (t.get_time() > time_limit)
+            {
+                printf("StrongHeuris is cut off due to time limit, already extend %d times\n", enumerate_num);
+                break;
+            }
         }
+        remove_v(vertex_removed, ret);
         return ret;
     }
     /**
@@ -896,7 +901,7 @@ public:
      *
      * @param rm mask of vertices that need to remove
      */
-    void remove_v_must_include(vector<bool> &rm, int lb)
+    void remove_v(vector<bool> &rm, int lb)
     {
         ui *q = new ui[n + 1];
         ui hh = 1, tt = 0;

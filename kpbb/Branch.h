@@ -2,6 +2,7 @@
 #define BRANCH_H
 
 #include "Graph.h"
+#include "2th-Reduction.h"
 
 class Branch
 {
@@ -129,6 +130,8 @@ public:
             {
                 subgraph_search_cnt++;
                 vector<int> &inv = array_N;
+                vector<pii> edges;
+                CTCP_for_g_i(u, vis, vertices_2hops, inv, edges, lb);
                 Graph_adjacent g(vis, vertices_2hops, G_input, inv);
                 if (vertices_2hops.size() > 2) // this is equivalent to that G_input is stored using adjacent list
                 {
@@ -187,6 +190,40 @@ public:
         A = g.adj_matrix;
         array_n.clear();
         array_n.resize(g.size());
+    }
+    void CTCP_for_g_i(int v, MyBitset &V_mask, vector<int> &vertices, vector<int> &inv, vector<pii> &edges, int lb)
+    {
+        // return;
+        auto &g = G_input;
+        for (int i = 0; i < (int)vertices.size(); i++)
+            inv[vertices[i]] = i;
+        for (int u : vertices)
+        {
+            for (int i = g.pstart[u]; i < g.pstart[u + 1]; i++)
+            {
+                if (g.edge_removed[i])
+                    continue;
+                int v = g.edge_to[i];
+                if (v >= u)
+                    break;
+                if (!V_mask[v])
+                    continue;
+                edges.push_back({inv[u], inv[v]});
+            }
+        }
+        cout<<vertices.size()<<' '<<edges.size()<<endl;
+        Graph g_i(vertices, edges);
+        cout<<g_i.n<<endl;
+        g_i.weak_reduce(lb);
+        cout<<"---------"<<endl;
+        if (g_i.n > lb)
+        {
+            Reduction reduce(&g_i);
+            reduce.strong_reduce(lb);
+        }
+        cout<<"======="<<endl;
+        int temp=g_i.n;
+        printf("CTCP removes %d vertices\n", vertices.size() - g_i.n);
     }
     /**
      * @brief plex=S
@@ -417,7 +454,7 @@ public:
             S_size_when_pruned += S.size();
             return;
         }
-        
+
         // select pivot to generate 2 branches
         int pivot = -1;
         Timer look;

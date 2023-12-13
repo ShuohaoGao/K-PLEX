@@ -681,66 +681,29 @@ public:
             }
             swap(candidate[sel_idx], candidate[candidate_size - 1]);
             candidate_size--;
-            // check if sel_v can be inserted to plex
             bool ok = 1;
-            if (plex.size() >= paramK)
+            // we already make sure :for u in candidate, S+u is plex
+            deg_in_S[sel_v] = cnt[sel_v];
+            for (ui i = pstart[sel_v]; i < pstart[sel_v + 1]; i++)
             {
-                for (ui w : plex)
+                ui v = edge_to[i];
+                if (deg_in_S[v] != -1) // v in S
                 {
-                    if (deg_in_S[w] + paramK == plex.size()) // w can not allow any non-neighbor
-                    {
-                        if (!has(edge_to + pstart[sel_v], edge_to + pstart[sel_v + 1], w))
-                        {
-                            ok = 0;
-                            break;
-                        }
-                    }
+                    deg_in_S[v]++;
+                }
+                else if (cnt[v] != -1) // v in candidate set
+                {
+                    cnt[v]++;
                 }
             }
-            if (ok)
+            // hereditary proporty based reduction: if S+w is not a plex, then remove w
+            for (ui w : plex)
             {
-                deg_in_S[sel_v] = 0;
-                for (ui i = pstart[sel_v]; i < pstart[sel_v + 1]; i++)
+                // including u causes that w can not allow any non-neighbor
+                if (deg_in_S[w] + paramK == plex.size() + 1 && !has(edge_to + pstart[sel_v], edge_to + pstart[sel_v + 1], w))
                 {
-                    ui v = edge_to[i];
-                    if (deg_in_S[v] != -1) // v in S
-                    {
-                        deg_in_S[v]++;
-                        deg_in_S[sel_v]++;
-                    }
-                    else if (cnt[v] != -1) // v in candidate set
-                    {
-                        cnt[v]++;
-                    }
-                }
-                // hereditary proporty based reduction: if S+w is not a plex, then remove w
-                for (ui w : plex)
-                {
-                    // including u causes that w can not allow any non-neighbor
-                    if (deg_in_S[w] + paramK == plex.size() + 1 && !has(edge_to + pstart[sel_v], edge_to + pstart[sel_v + 1], w))
-                    {
-                        // remove all non-neighbors of w from candidate
-                        for (ui i = 0; i < candidate_size; i++)
-                        {
-                            ui v = candidate[i];
-                            if (!has(edge_to + pstart[w], edge_to + pstart[w + 1], v))
-                            {
-                                swap(candidate[i], candidate[candidate_size - 1]);
-                                candidate_size--;
-                                i--;
-                                cnt[v] = -1;
-                                deg_in_g[v] = 0;
-                            }
-                        }
-                    }
-                }
-                plex.push_back(sel_v);
-                assert(deg_in_S[sel_v] == cnt[sel_v]);
-                if (deg_in_S[sel_v] + paramK == plex.size()) // sel_v can not allow any non-neighbor
-                {
-                    ui w = sel_v;
                     // remove all non-neighbors of w from candidate
-                    for (int i = 0; i < candidate_size; i++)
+                    for (ui i = 0; i < candidate_size; i++)
                     {
                         ui v = candidate[i];
                         if (!has(edge_to + pstart[w], edge_to + pstart[w + 1], v))
@@ -751,6 +714,24 @@ public:
                             cnt[v] = -1;
                             deg_in_g[v] = 0;
                         }
+                    }
+                }
+            }
+            plex.push_back(sel_v);
+            if (deg_in_S[sel_v] + paramK == plex.size()) // sel_v can not allow any non-neighbor
+            {
+                ui w = sel_v;
+                // remove all non-neighbors of w from candidate
+                for (int i = 0; i < candidate_size; i++)
+                {
+                    ui v = candidate[i];
+                    if (!has(edge_to + pstart[w], edge_to + pstart[w + 1], v))
+                    {
+                        swap(candidate[i], candidate[candidate_size - 1]);
+                        candidate_size--;
+                        i--;
+                        cnt[v] = -1;
+                        deg_in_g[v] = 0;
                     }
                 }
             }
@@ -800,11 +781,11 @@ public:
             //     assert(w == -1);
             // for (int w : cnt)
             //     assert(w == -1);
-            if (t.get_time() > time_limit)
-            {
-                printf("StrongHeuris is cut off due to time limit, already extend %d times\n", enumerate_num);
-                break;
-            }
+            // if (t.get_time() > time_limit)
+            // {
+            //     printf("StrongHeuris is cut off due to time limit, already extend %d times\n", enumerate_num);
+            //     break;
+            // }
         }
         remove_v(vertex_removed, ret);
         return ret;

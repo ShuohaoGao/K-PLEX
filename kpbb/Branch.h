@@ -512,8 +512,8 @@ public:
             lookahead_edge(S, C, edges_removed);
         if (paramK > 5)
         {
+            lookahead_vertex(S, C);
             Timer look_vertex;
-            // lookahead_vertex(S, C);
             // look ahead: if UB(S+u, C-u)<=lb, then remove u; we select the vertex with min ub as pivot
             int pivot1 = -1;
             int min_ub = INF;
@@ -1073,6 +1073,33 @@ public:
         ret = ub + Pi_0.size();
         if (ret <= lb)
             return ret;
+        if (paramK > 5 && Pi_0.size() + S.size() > paramK)
+        {
+            int Pi_0_size = Pi_0.size();
+            int base_ub = ret - Pi_0_size;
+            for (int u : C)
+            {
+                int neighbor_cnt = Pi_0.intersect(A[u]);
+                int non_neighbor_cnt = Pi_0_size - neighbor_cnt;
+                if (Pi_0[u])
+                {
+                    int ub_u = base_ub + 1 + neighbor_cnt + min(non_neighbor_cnt - 1, paramK - 1 - loss_cnt[u]);
+                    if (ub_u <= lb)
+                    {
+                        C.reset(u);
+                        Pi_0.reset(u);
+                        Pi_0_size--;
+                        ret--;
+                    }
+                }
+                else
+                {
+                    int ub_u = base_ub + 1 + neighbor_cnt + min(non_neighbor_cnt, paramK - 1 - loss_cnt[u]);
+                    if (ub_u <= lb)
+                        C.reset(u);
+                }
+            }
+        }
         return ret;
     }
     /**

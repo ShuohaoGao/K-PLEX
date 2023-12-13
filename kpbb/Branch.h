@@ -483,6 +483,18 @@ public:
             fast_reduction(S, C, g_is_plex, S_is_plex);
         }
     }
+    bool core_reduction_for_g(Set &S, Set &C)
+    {
+        auto V = S;
+        V |= C;
+        core_reduction(V, lb + 1);
+        if (S.intersect(V) != S.size())
+        {
+            return true;
+        }
+        C &= V;
+        return false;
+    }
     /**
      * @brief Branch-aNd-Bound on subgraph g_i
      */
@@ -518,8 +530,23 @@ public:
         // select pivot to generate 2 branches
         int pivot = -1;
         Timer look;
+        // todo, use CTCP
         if (paramK >= 10)
+        {
             lookahead_edge(S, C, edges_removed);
+            if (core_reduction_for_g(S, C))
+            {
+                for (auto &h : edges_removed)
+                {
+                    int u = h.x, v = h.y;
+                    A[u].set(v);
+                    A[v].set(u);
+                    non_A[u].reset(v);
+                    non_A[v].reset(u);
+                }
+                return;
+            }
+        }
         if (paramK > 5)
         {
             lookahead_vertex(S, C);
@@ -548,9 +575,21 @@ public:
                 }
             }
             lookahead_vertex_time += look_vertex.get_time();
+            if (core_reduction_for_g(S, C))
+            {
+                for (auto &h : edges_removed)
+                {
+                    int u = h.x, v = h.y;
+                    A[u].set(v);
+                    A[v].set(u);
+                    non_A[u].reset(v);
+                    non_A[v].reset(u);
+                }
+                return;
+            }
             pivot = pivot1;
         }
-        else
+        // else
             pivot = select_pivot_vertex_with_min_degree(C);
         lookahead_time += look.get_time();
 
@@ -670,7 +709,8 @@ public:
             allow_u = min(allow_u, paramK - 1 - loss_cnt[u]);
             for (int v : N_u)
             {
-                if(v>=u)    break;
+                if (v >= u)
+                    break;
                 int common_neighbor_cnt = N_u.intersect(A[v]);
                 int ub = S_sz + common_neighbor_cnt + allow_u + min(paramK - 1 - loss_cnt[v], N_u.size() - common_neighbor_cnt) + 2;
                 if (ub <= lb)

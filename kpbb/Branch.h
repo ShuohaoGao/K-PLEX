@@ -15,8 +15,11 @@ private:
     int v_just_add;
     vector<int> loss_cnt;
     vector<int> deg;
+    vector<int> one_loss_non_neighbor_cnt;
+    Set one_loss_vertices_in_C;
     AdjacentMatrix non_A, A;
     Graph_adjacent *ptr_g;
+    // todo, prepare Pi_0 for lookahead, where Pi_0 is reduced by one-loss partition
 
     // arrays that can be shared
     vector<int> array_n; // n is the size of subgraph g_i
@@ -199,6 +202,8 @@ public:
         A = g.adj_matrix;
         array_n.clear();
         array_n.resize(g.size());
+        one_loss_vertices_in_C = Set(g.size());
+        one_loss_non_neighbor_cnt.resize(g.size());
     }
     /**
      * @return the index of v in the subgraph
@@ -225,7 +230,7 @@ public:
             }
         }
         Graph g_i(vertices, edges);
-        if (paramK > 5)
+        if (paramK > 10)
         {
             g_i.weak_reduce(lb);
             if (g_i.n > lb)
@@ -332,11 +337,14 @@ public:
         }
         S_is_plex = true;
         update_lb(S);
+        one_loss_vertices_in_C.clear();
         for (int u : C)
         {
             loss_cnt[u] = non_A[u].intersect(S); // u∈C, delta[u] = the number of non-neighbors of u in S
             if (loss_cnt[u] >= paramK)           // u has at least k non-neighbors in S, so u can be removed
                 C.reset(u);
+            else if (loss_cnt[u] == 1)
+                one_loss_vertices_in_C.set(u);
         }
     }
     /**
@@ -352,6 +360,8 @@ public:
             if (!S_is_plex)
                 return;
         }
+        else
+            one_loss_vertices_in_C &= C;
         S_is_plex = true;
         // compute degree of subgraph S∪C
         auto V = C;
@@ -656,10 +666,13 @@ public:
         {
             auto N_u = C;
             N_u &= A[u];
+            int allow_u = C.size() - N_u.size() - 1;
+            allow_u = min(allow_u, paramK - 1 - loss_cnt[u]);
             for (int v : N_u)
             {
+                if(v>=u)    break;
                 int common_neighbor_cnt = N_u.intersect(A[v]);
-                int ub = S_sz + common_neighbor_cnt + (paramK - 1 - loss_cnt[u]) + (paramK - 1 - loss_cnt[v]) + 2;
+                int ub = S_sz + common_neighbor_cnt + allow_u + min(paramK - 1 - loss_cnt[v], N_u.size() - common_neighbor_cnt) + 2;
                 if (ub <= lb)
                 {
                     edges_removed.push_back({u, v});
@@ -703,7 +716,7 @@ public:
     /**
      * @brief partition ub without reduction rules
      */
-    int only_part_UB(Set &S, Set &C, int u)
+    int only_part_UB(Set &S, Set &C, int u = -1)
     {
         Timer part_timer;
         auto &loss = deg;
@@ -716,12 +729,17 @@ public:
         int S_sz = S.size();
         int ub = S_sz;
         // we will utilize Pi_u
+        if (u != -1)
         {
             int sz = non_A[u].intersect(copy_C);
             int cnt = paramK - loss[u];
             copy_S.reset(u);
             ub += cnt;
             copy_C &= A[u];
+        }
+        for (int v : copy_S)
+        {
+            one_loss_non_neighbor_cnt[v] = non_A[v].intersect(one_loss_vertices_in_C);
         }
         while (copy_S.size())
         {
@@ -736,6 +754,14 @@ public:
                 }
                 else
                 {
+                    // int one_loss_cnt = non_A[v].intersect(one_loss_vertices_in_C);
+                    int one_loss_cnt = one_loss_non_neighbor_cnt[v];
+                    if (one_loss_cnt >= cnt)
+                    {
+                        sel = v;
+                        ub_cnt = cnt;
+                        break;
+                    }
                     if (sel == -1 || size * cnt < sz * ub_cnt) // (size/ub_cnt)<(sz/cnt)
                     {
                         sel = v;
@@ -1100,6 +1126,9 @@ public:
                 }
             }
         }
+        if (ret <= lb)
+            return ret;
+        return only_part_UB(S, C);
         return ret;
     }
     /**

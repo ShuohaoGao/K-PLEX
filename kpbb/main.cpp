@@ -19,8 +19,10 @@ void print_solution()
     {
         printf("***We can't find a plex larger than 2k-1!! The following is a heuristic solution.\n");
     }
+#ifndef NO_DUMP
     printf("Maximum solution(size= %d ):\n", (int)solution.size());
     print_set(solution);
+#endif
     fflush(stdout);
 }
 
@@ -79,6 +81,25 @@ void FastHeuris()
     }
     FastHeuris_lb = lb;
 
+    // if core-graph is dense, we can peel some vertices that must be included, which can not be reduced by CTCP
+    if (0.1 * g.n * g.n < g.m)
+    {
+        vector<bool> rm(g.n);
+        for (ui i = 0; i < g.n; i++)
+        {
+            if (g.d[i] + 1 == g.n)
+            {
+                rm[i] = 1;
+                must_contain.insert(i);
+            }
+        }
+        if (must_contain.size())
+        {
+            lb -= must_contain.size();
+            g.remove_v(rm, lb);
+        }
+    }
+
     // strong reduce: CF-CTCP
     {
         Timer start_strong_reduce;
@@ -92,6 +113,7 @@ void FastHeuris()
         {
             g.n = 0;
             FastHeuris_time = t.get_time();
+            lb += must_contain.size();
             print_heuris_log();
             exit(0);
         }
@@ -123,6 +145,7 @@ void StrongHeuris()
         printf("%dth-StrongHeuris lb= %d\n", iteration_cnt++, extend_lb);
         if (extend_lb <= lb)
             break;
+        solution.insert(must_contain.begin(), must_contain.end());
         lb = extend_lb;
         g.weak_reduce(lb);
 
@@ -138,6 +161,7 @@ void StrongHeuris()
             if (lb >= g.n)
             {
                 g.n = 0;
+                lb += must_contain.size();
                 StrongHeuris_time = t_extend.get_time();
                 print_heuris_log();
                 exit(0);
@@ -158,6 +182,7 @@ void heuris()
     StrongHeuris();
 
     // next, we will remove the vertices that must occur in the solution
+    lb += must_contain.size();
     while (1)
     {
         vector<bool> rm(g.n, 0);

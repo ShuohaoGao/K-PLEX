@@ -531,7 +531,7 @@ public:
         int pivot = -1;
         Timer look;
         // todo, use CTCP
-        if (paramK >= 10)
+        if (paramK > 15)
         {
             lookahead_edge(S, C, edges_removed);
             if (core_reduction_for_g(S, C))
@@ -552,45 +552,45 @@ public:
             lookahead_vertex(S, C);
             Timer look_vertex;
             // look ahead: if UB(S+u, C-u)<=lb, then remove u; we select the vertex with min ub as pivot
-            int pivot1 = -1;
-            int min_ub = INF;
-            for (int u : C)
-            {
-                S.set(u);
-                C.reset(u);
-                int ub = only_part_UB(S, C, u);
-                S.reset(u);
-                C.set(u);
-                if (ub <= lb)
-                {
-                    C.reset(u);
-                }
-                else
-                {
-                    if (ub < min_ub)
-                    {
-                        pivot1 = u;
-                        min_ub = ub;
-                    }
-                }
-            }
-            lookahead_vertex_time += look_vertex.get_time();
-            if (core_reduction_for_g(S, C))
-            {
-                for (auto &h : edges_removed)
-                {
-                    int u = h.x, v = h.y;
-                    A[u].set(v);
-                    A[v].set(u);
-                    non_A[u].reset(v);
-                    non_A[v].reset(u);
-                }
-                return;
-            }
-            pivot = pivot1;
+            // int pivot1 = -1;
+            // int min_ub = INF;
+            // for (int u : C)
+            // {
+            //     S.set(u);
+            //     C.reset(u);
+            //     int ub = only_part_UB(S, C, u);
+            //     S.reset(u);
+            //     C.set(u);
+            //     if (ub <= lb)
+            //     {
+            //         C.reset(u);
+            //     }
+            //     else
+            //     {
+            //         if (ub < min_ub)
+            //         {
+            //             pivot1 = u;
+            //             min_ub = ub;
+            //         }
+            //     }
+            // }
+            // lookahead_vertex_time += look_vertex.get_time();
+            // if (core_reduction_for_g(S, C))
+            // {
+            //     for (auto &h : edges_removed)
+            //     {
+            //         int u = h.x, v = h.y;
+            //         A[u].set(v);
+            //         A[v].set(u);
+            //         non_A[u].reset(v);
+            //         non_A[v].reset(u);
+            //     }
+            //     return;
+            // }
+            // pivot = pivot1;
         }
         // else
-            pivot = select_pivot_vertex_with_min_degree(C);
+        pivot = select_pivot_vertex_with_min_degree(C);
         lookahead_time += look.get_time();
 
         double start_select_time = get_system_time_microsecond();
@@ -617,21 +617,7 @@ public:
 
         pivot_select_time += get_system_time_microsecond() - start_select_time;
 
-        {
-            auto new_S = S, new_C = C;
-            // branch 1: remove pivot
-            new_C.reset(pivot);
-            v_just_add = -1;
-            bnb(new_S, new_C);
-        }
-
-        {
-            // branch 2: include pivot
-            S.set(pivot);
-            C.reset(pivot);
-            v_just_add = pivot;
-            bnb(S, C);
-        }
+        generate_sub_branches(S, C, pivot);
 
         // rollback
         for (auto &h : edges_removed)
@@ -641,6 +627,23 @@ public:
             A[v].set(u);
             non_A[u].reset(v);
             non_A[v].reset(u);
+        }
+    }
+    void generate_sub_branches(Set &S, Set &C, int pivot)
+    {
+        {
+            auto new_S = S, new_C = C;
+            // branch 1: remove pivot
+            new_C.reset(pivot);
+            v_just_add = -1;
+            bnb(new_S, new_C);
+        }
+        {
+            // branch 2: include pivot
+            S.set(pivot);
+            C.reset(pivot);
+            v_just_add = pivot;
+            bnb(S, C);
         }
     }
     /**
@@ -699,6 +702,8 @@ public:
      */
     void lookahead_edge(Set &S, Set &C, vector<pii> &edges_removed)
     {
+        if (S.size() > 5)
+            return;
         Timer t;
         int S_sz = S.size();
         for (int u : C)
@@ -735,6 +740,16 @@ public:
         int v = v_just_add;
         if (v == -1)
             v = *S.begin();
+        // todo select best v
+        // for (int u : S)
+        // {
+        //     one_loss_non_neighbor_cnt[u] = non_A[u].intersect(one_loss_vertices_in_C);
+        //     if(one_loss_non_neighbor_cnt[u] >= paramK - loss_cnt[u])
+        //     {
+        //         v = u;
+        //         break;
+        //     }
+        // }
         auto N_v = A[v];
         N_v &= C;
         int S_sz = S.size();
@@ -762,8 +777,6 @@ public:
         auto &loss = deg;
         for (int v : S)
             loss[v] = non_A[v].intersect(S);
-        // if (S.size() <= 3)
-        //     return optimal_partition(S, C);
         auto copy_S = S;
         auto copy_C = C;
         int S_sz = S.size();
@@ -821,6 +834,24 @@ public:
         // now copy_C = Pi_0
         auto &Pi_0 = copy_C;
         int ret = ub + Pi_0.size();
+        if (u == -1 && ret == lb + 1 && Pi_0.size())
+        {
+            S |= Pi_0;
+            C ^= Pi_0;
+            Timer start_fast_reduce;
+            bool S_is_plex, g_is_plex;
+            v_just_add = *Pi_0.begin();
+            fast_reduction(S, C, g_is_plex, S_is_plex);
+            fast_reduce_time += start_fast_reduce.get_time();
+
+            if (!S_is_plex)
+                return lb;
+            if (g_is_plex)
+            {
+                update_lb(S, C);
+                return lb;
+            }
+        }
         return ret;
     }
     /**
@@ -1168,6 +1199,24 @@ public:
         }
         if (ret <= lb)
             return ret;
+        if (ret == lb + 1 && Pi_0.size())
+        {
+            S |= Pi_0;
+            C ^= Pi_0;
+            Timer start_fast_reduce;
+            bool S_is_plex, g_is_plex;
+            v_just_add = *Pi_0.begin();
+            fast_reduction(S, C, g_is_plex, S_is_plex);
+            fast_reduce_time += start_fast_reduce.get_time();
+
+            if (!S_is_plex)
+                return lb;
+            if (g_is_plex)
+            {
+                update_lb(S, C);
+                return lb;
+            }
+        }
         return only_part_UB(S, C);
         return ret;
     }

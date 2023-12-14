@@ -756,13 +756,18 @@ public:
         Timer t;
         int ret = 2 * paramK - 2;
         ret = max(ret, lb);
+        ui *seq = new ui[n];
+        sort_by_degree(seq);
         // the following arrays are shared for each extending procedure and we need to clear them each time
         vector<int> deg_in_S(n, -1);    // if deg_in_S[u]=-1, then u is not in S
         vector<int> deg_in_g(n, 0);     // g is subgraph induced by the 2-hop-neighbors of u
         vector<int> cnt(n, -1);         // cnt[v] = the edge count between S and v; if cnt[v]=-1, then v is not in candidate set
         vector<bool> vertex_removed(n); // we may infer a vertex u can be removed if UB( u, N_G^{\leq 2}(u) ) <= lb
-        for (ll u = n - 1, enumerate_num = 1; u >= 0; u--, enumerate_num++)
+        // for (ll u = n - 1, enumerate_num = 1; u >= 0; u--, enumerate_num++)
+        for(ll  i=0;i<n;i++)
         {
+            ll enumerate_num=i+1;
+            ui u=seq[i];
             bool pruned;
             int extend_lb = extend(u, deg_in_S, deg_in_g, cnt, vertex_removed, solution, pruned);
             if (extend_lb > ret)
@@ -788,6 +793,7 @@ public:
             // }
         }
         remove_v(vertex_removed, ret);
+        delete[] seq;
         return ret;
     }
     /**

@@ -732,24 +732,23 @@ public:
         lookahead_edge_time += t.get_time();
     }
     /**
-     * @brief reduce a vertex (u,v) if u in C and UB(S+u, C-u)<=lb
+     * @brief reduce a vertex (u,v) if u in C and UB(S+u, C-u)<=lb;
+     * bounding method: select v in S and u in C, ub=|N(v) \cap N(u)| + (k-|S+u\N(v)|) + (k-|S+u\N(u)|) + |S+u|
      */
     void lookahead_vertex(Set &S, Set &C)
     {
         Timer t;
         int v = v_just_add;
         if (v == -1)
-            v = *S.begin();
-        // todo select best v
-        // for (int u : S)
-        // {
-        //     one_loss_non_neighbor_cnt[u] = non_A[u].intersect(one_loss_vertices_in_C);
-        //     if(one_loss_non_neighbor_cnt[u] >= paramK - loss_cnt[u])
-        //     {
-        //         v = u;
-        //         break;
-        //     }
-        // }
+        {
+            for (int u : S)
+            {
+                if (v == -1 || loss_cnt[u] > loss_cnt[v])
+                {
+                    v = u;
+                }
+            }
+        }
         auto N_v = A[v];
         N_v &= C;
         int S_sz = S.size();

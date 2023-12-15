@@ -290,14 +290,46 @@ public:
                 heap.decrease(--deg[v], v);
             }
         }
-        if (heap.sz > lb)
-            for (ui i = 0; i < range; i++)
+        for (ui i = 0; i < range; i++)
+        {
+            if (!rm[i])
+                res.push_back(i);
+        }
+        int limit_cnt = 0;
+        for(int u:res)
+        {
+            if(deg[u] + paramK == res.size())
+                limit_cnt ++;
+        }
+        // extend to maximal
+        for(ui u=0;u<range;u++)
+        {
+            if(!rm[u]) continue;
+            int deg_u = 0;
+            int cnt=0;
+            for(int v:neighbor[u])
             {
-                if (!rm[i])
-                    res.push_back(i);
+                if(!rm[v])
+                {
+                    deg_u ++;
+                    if(deg[v]+paramK == res.size())
+                    {
+                        cnt++;
+                    }
+                }
             }
+            if(cnt == limit_cnt && deg_u + paramK >= res.size()+1)
+            {
+                res.push_back(u);
+                rm[u]=0;
+                deg[u]=deg_u;
+                for(int v:neighbor[u])
+                    if(!rm[v])
+                        deg[v]++;
+            }
+        }
         delete[] deg;
-        return heap.sz;
+        return res.size();
     }
     /**
      * @brief stage-I: induce a subgraph
@@ -707,8 +739,8 @@ public:
             ll enumerate_num = i + 1;
             ui u = seq[i];
             bool pruned;
-            int extend_lb = extend(u, deg_in_S, deg_in_g, cnt, vertex_removed, solution, pruned);
-            // int extend_lb = degen_on_subgraph(u, deg_in_g, cnt, vertex_removed, solution, pruned);
+            // int extend_lb = extend(u, deg_in_S, deg_in_g, cnt, vertex_removed, solution, pruned);
+            int extend_lb = degen_on_subgraph(u, deg_in_g, cnt, vertex_removed, solution, pruned);
             if (extend_lb > ret)
             {
                 ret = extend_lb;

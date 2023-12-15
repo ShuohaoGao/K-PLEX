@@ -372,27 +372,33 @@ public:
         // u is C_near-satisfied <==> deg[u]+k+1 >= n and u in C
         Set satisfied(S.range);
         Set C_near_satisfied(S.range);
+        int S_size = S.size();
         for (int v : V)
         {
-            deg[v] = A[v].intersect(V);
+            int neighbor_in_C = A[v].intersect(C);
             // weak reduce: if d[v] + k <= lb, then remove v
-            if (deg[v] + paramK <= lb)
+            // note that if we change $sz$, it may affect the later process when finding vertices must include;
+            // to avoid bugs, we choose not to decrease $sz$
+            if (S[v])
             {
-                V.reset(v);
-                if (C[v])
+                if (S_size + neighbor_in_C + paramK - loss_cnt[v] <= lb)
                 {
-                    C.reset(v);
-                }
-                else
-                {
-                    S_is_plex = 0;
+                    S_is_plex = false;
                     return;
                 }
-                // note that if we change $sz$, it may affect the later process when finding vertices must include;
-                // to avoid bugs, we choose not to decrease $sz$
-                // sz--;
-                continue;
             }
+            else
+            {
+                // v is in C
+                if (S_size + neighbor_in_C + paramK - loss_cnt[v] <= lb)
+                {
+                    V.reset(v);
+                    C.reset(v);
+                    continue;
+                }
+            }
+            deg[v] = S_size - loss_cnt[v] + neighbor_in_C;
+            // deg[v] = A[v].intersect(V);
             if (deg[v] + paramK >= sz)
             {
                 satisfied.set(v);
@@ -702,8 +708,8 @@ public:
      */
     void lookahead_edge(Set &S, Set &C, vector<pii> &edges_removed)
     {
-        if (S.size() > 5)
-            return;
+        // if (S.size() > 5)
+            // return;
         Timer t;
         int S_sz = S.size();
         for (int u : C)
@@ -752,17 +758,29 @@ public:
         auto N_v = A[v];
         N_v &= C;
         int S_sz = S.size();
-        for (int u : C)
+        if (N_v.size() > paramK - S.size())
         {
-            int common_neighbor = N_v.intersect(A[u]);
-            int loss_v = loss_cnt[v] + (!A[v][u]);
-            int loss_u = loss_cnt[u] + 1;
-            int ub = common_neighbor + S_sz + 1 + (paramK - loss_v) + (paramK - loss_u);
-            if (ub <= lb)
+            for (int u : C)
             {
-                C.reset(u);
-                if (N_v[u])
-                    N_v.reset(u);
+                int common_neighbor = N_v.intersect(A[u]);
+                int loss_v = loss_cnt[v] + (!A[v][u]);
+                int loss_u = loss_cnt[u] + 1;
+                int ub = common_neighbor + S_sz + 1 + (paramK - loss_v) + (paramK - loss_u);
+                if (ub <= lb)
+                {
+                    C.reset(u);
+                    if (N_v[u])
+                        N_v.reset(u);
+                }
+            }
+        }
+        else
+        {
+            // in this case, the partition of Pi_u will be useless
+            if (N_v.size() + S_sz + paramK - loss_cnt[v] <= lb)
+            {
+                C.clear();
+                return;
             }
         }
         lookahead_vertex_time += t.get_time();

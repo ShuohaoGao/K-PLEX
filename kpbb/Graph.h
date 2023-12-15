@@ -704,7 +704,7 @@ public:
             deg_in_g[sel_v] = 0;
         }
         // record the max plex
-        if (plex.size() > solution.size())
+        if (plex.size() > lb)
         {
             solution.clear();
             for (ui v : plex)
@@ -1291,6 +1291,13 @@ public:
             }
             lb = max(lb, rest);
         }
+        // store k-plex
+        if (solution != nullptr && solution->size() < plex.size())
+        {
+            solution->clear();
+            for (ui i : plex)
+                solution->insert(map_refresh_id[i]);
+        }
         // rebuild graph: following degeneracy order
         {
             ui new_n = rest_v_cnt;
@@ -1347,13 +1354,6 @@ public:
             edge_to = new_edge_to;
             m = new_m;
             n = new_n;
-        }
-        // store k-plex
-        if (solution != nullptr && solution->size() < plex.size())
-        {
-            solution->clear();
-            for (ui i : plex)
-                solution->insert(map_refresh_id[i]);
         }
         return plex.size();
     }

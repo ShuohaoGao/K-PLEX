@@ -9,8 +9,6 @@
  */
 class Graph
 {
-    bool reduced; // if so, the indices of vertices is mapped so we need to use map_refresh_id
-
 public:
     ui n, m;
     ui *d; // degree
@@ -18,10 +16,10 @@ public:
     ui *edge_to;               // size = m
     ui *pstart;                // size = n+1
     vector<ui> map_refresh_id; // we need to re-map the reduced graph to {0,1,...,n-1}, thus requiring to record the map
-    Graph() : n(0), m(0), d(nullptr), edge_to(nullptr), pstart(nullptr), reduced(false)
+    Graph() : n(0), m(0), d(nullptr), edge_to(nullptr), pstart(nullptr)
     {
     }
-    Graph(vector<int> &ids, vector<pii> &edges) : d(nullptr), edge_to(nullptr), pstart(nullptr), reduced(true)
+    Graph(vector<int> &ids, vector<pii> &edges) : d(nullptr), edge_to(nullptr), pstart(nullptr)
     {
         // unique_vector(edges);
         n = ids.size();
@@ -296,35 +294,36 @@ public:
                 res.push_back(i);
         }
         int limit_cnt = 0;
-        for(int u:res)
+        for (int u : res)
         {
-            if(deg[u] + paramK == res.size())
-                limit_cnt ++;
+            if (deg[u] + paramK == res.size())
+                limit_cnt++;
         }
         // extend to maximal
-        for(ui u=0;u<range;u++)
+        for (ui u = 0; u < range; u++)
         {
-            if(!rm[u]) continue;
+            if (!rm[u])
+                continue;
             int deg_u = 0;
-            int cnt=0;
-            for(int v:neighbor[u])
+            int cnt = 0;
+            for (int v : neighbor[u])
             {
-                if(!rm[v])
+                if (!rm[v])
                 {
-                    deg_u ++;
-                    if(deg[v]+paramK == res.size())
+                    deg_u++;
+                    if (deg[v] + paramK == res.size())
                     {
                         cnt++;
                     }
                 }
             }
-            if(cnt == limit_cnt && deg_u + paramK >= res.size()+1)
+            if (cnt == limit_cnt && deg_u + paramK >= res.size() + 1)
             {
                 res.push_back(u);
-                rm[u]=0;
-                deg[u]=deg_u;
-                for(int v:neighbor[u])
-                    if(!rm[v])
+                rm[u] = 0;
+                deg[u] = deg_u;
+                for (int v : neighbor[u])
+                    if (!rm[v])
                         deg[v]++;
             }
         }
@@ -423,7 +422,7 @@ public:
                 deg_in_g[w]++;
             }
         }
-        cnt [u]=1;
+        cnt[u] = 1;
         for (ui i = 0; i < rest_cnt; i++)
         {
             ui v = candidate[i];
@@ -444,7 +443,7 @@ public:
             pruned = true;
             for (ui w : candidate)
                 cnt[w] = -1;
-            cnt[u]=-1;
+            cnt[u] = -1;
             return paramK;
         }
         candidate.push_back(u);
@@ -601,7 +600,7 @@ public:
             pruned = true;
             for (ui w : candidate)
                 cnt[w] = -1;
-            cnt[u]=-1;
+            cnt[u] = -1;
             return paramK;
         }
         vector<ui> plex{u};
@@ -930,18 +929,9 @@ public:
         if (solution != nullptr && solution->size() < rest)
         {
             solution->clear();
-            if (reduced)
-            {
-                for (ui i = 0; i < range; i++)
-                    if (!rm[i])
-                        solution->insert(map_refresh_id[id[i]]);
-            }
-            else
-            {
-                for (ui i = 0; i < range; i++)
-                    if (!rm[i])
-                        solution->insert(id[i]);
-            }
+            for (ui i = 0; i < range; i++)
+                if (!rm[i])
+                    solution->insert(map_refresh_id[id[i]]);
         }
         return rest;
     }
@@ -1149,12 +1139,6 @@ public:
                 q[++tt] = i, rm[i] = 1;
         if (tt == 0) // q is empty
         {
-            if (!reduced)
-            {
-                reduced = 1;
-                for (ui i = 0; i < n; i++)
-                    map_refresh_id[i] = i;
-            }
             delete[] q;
             return;
         }
@@ -1368,16 +1352,8 @@ public:
         if (solution != nullptr && solution->size() < plex.size())
         {
             solution->clear();
-            if (reduced)
-            {
-                for (ui i : plex)
-                    solution->insert(map_refresh_id[i]);
-            }
-            else
-            {
-                for (ui i : plex)
-                    solution->insert(i);
-            }
+            for (ui i : plex)
+                solution->insert(map_refresh_id[i]);
         }
         return plex.size();
     }

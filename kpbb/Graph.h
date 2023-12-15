@@ -724,8 +724,7 @@ public:
     int strong_heuris(int lb, set<ui> &solution, double time_limit)
     {
         Timer t;
-        int ret = 2 * paramK - 2;
-        ret = max(ret, lb);
+        int ret = lb;
         ui *seq = new ui[n];
         sort_by_degree(seq);
         // the following arrays are shared for each extending procedure and we need to clear them each time

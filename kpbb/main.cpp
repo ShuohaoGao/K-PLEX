@@ -97,6 +97,7 @@ void FastHeuris()
         {
             lb -= must_contain.size();
             g.remove_v(rm, lb);
+            printf("must contain: %lu\n", must_contain.size());
         }
     }
 
@@ -141,7 +142,7 @@ void StrongHeuris()
             break;
         }
         extend_lb = g.strong_heuris(lb, solution, time_limit);
-        printf("%dth-StrongHeuris lb= %d\n", iteration_cnt++, extend_lb);
+        printf("%dth-StrongHeuris lb= %d\n", iteration_cnt++, extend_lb + must_contain.size());
         if (extend_lb <= lb)
             break;
         solution.insert(must_contain.begin(), must_contain.end());

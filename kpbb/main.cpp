@@ -90,7 +90,7 @@ void FastHeuris()
             if (g.d[i] + 1 == g.n)
             {
                 rm[i] = 1;
-                must_contain.insert(i);
+                must_contain.insert(g.map_refresh_id[i]);
             }
         }
         if (must_contain.size())

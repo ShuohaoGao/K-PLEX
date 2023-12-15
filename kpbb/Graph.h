@@ -2,7 +2,6 @@
 #define GRAPH_H
 
 #include "LinearHeap.h"
-#include "SegTree.h"
 #include "MyBitset.h"
 
 /**
@@ -270,251 +269,184 @@ public:
         fflush(stdout);
     }
     /**
-     * @brief StrongHeuris, extend u to a maximal plex
-     *  the select time is O(log n)
-     * @return lb
+     * @brief stage-II: acquire degeneracy order on subgraph
      */
-    int extend(ui u, set<ui> *solution = nullptr)
+    int degen_on_subgraph(ui range, vector<vector<ui>> &neighbor, vector<ui> &res)
     {
-        SegTree tr(n, d, edge_to + pstart[u], d[u]);
-        set<ui> s{u};
-        tr.remove(u);
-        vector<ui> d(n, 0);
-        vector<bool> rm(n, 0);
-        rm[u] = 1;
-        for (ui I = 0; I + 1 < n; I++) // enumerate the rest n-1 vertices
+        int *deg = new int[range];
+        for (ui i = 0; i < range; i++)
+            deg[i] = neighbor[i].size();
+        LinearHeap heap(range, range, deg);
+        vector<bool> rm(range);
+        while (heap.get_min_key() + paramK < heap.sz)
         {
-            ui v = tr.get();
-            d[v] = tr.get_cnt();
-            tr.remove(v);
-            rm[v] = 1;
-            if (d[v] + paramK < s.size() + 1)
-                break;
-            ui *l = edge_to + pstart[v], *r = edge_to + pstart[v + 1];
-            // check whether v can be inserted into s
-            bool ok = 1;
-            if (s.size() >= paramK)
+            ui u = heap.get_min_node();
+            heap.delete_node(u);
+            rm[u] = 1;
+            for (int v : neighbor[u])
             {
-                for (ui w : s)
-                {
-                    if (!has(l, r, w) && d[w] + paramK == s.size())
-                    {
-                        ok = 0;
-                        break;
-                    }
-                }
-            }
-            if (ok)
-            {
-                for (ui w : s)
-                {
-                    if (has(l, r, w))
-                        d[w]++;
-                }
-            }
-            else
-                continue;
-            s.insert(v);
-            for (ui i = pstart[v]; i < pstart[v + 1]; i++)
-            {
-                ui w = edge_to[i];
-                if (rm[w])
+                if (rm[v])
                     continue;
-                tr.add(w);
+                heap.decrease(--deg[v], v);
             }
         }
-        // update current solution
-        if (solution != nullptr)
-        {
-            if (solution->size() < s.size())
+        if (heap.sz > lb)
+            for (ui i = 0; i < range; i++)
             {
-                solution->clear();
-                for (ui v : s)
-                    solution->insert(map_refresh_id[v]);
+                if (!rm[i])
+                    res.push_back(i);
             }
-        }
-        return s.size();
+        delete[] deg;
+        return heap.sz;
     }
     /**
-     * @brief StrongHeuris, extend u to a maximal plex
-     *  the select time is O(n) but we select at most |plex| times and each update cost O(1) for an edge
-     * @return lb
+     * @brief stage-I: induce a subgraph
      */
-    int extend_brute_select(ui u, vector<bool> &rm, vector<int> &deg, vector<int> &cnt, vector<bool> &in_plex, set<ui> *solution = nullptr)
+    int degen_on_subgraph(ui u, vector<int> &deg_in_g, vector<int> &cnt, vector<bool> &vertex_removed,
+                          set<ui> &solution, bool &pruned)
     {
-        // cout << "brute select is faster!" << endl;
+        if (vertex_removed[u])
+            return paramK;
+        pruned = false;
         vector<ui> candidate; // 2-hops neighbors of u
-        vector<ui> plex{u};
-        in_plex[u] = 1;
+        // get the subgraph
+        // 1. get the neighbors of u, and they should form a (lb+1-2k)-core
         for (ui i = pstart[u]; i < pstart[u + 1]; i++)
         {
             ui v = edge_to[i];
+            if (vertex_removed[v])
+                continue;
             cnt[v] = 1;
-            if (rm[v])
-            {
-                rm[v] = 0;
-                candidate.push_back(v);
-            }
+            candidate.push_back(v);
+            deg_in_g[v] = 0;
             for (ui j = pstart[v]; j < pstart[v + 1]; j++)
             {
                 ui w = edge_to[j];
-                if (rm[w])
+                if (w >= v)
+                    break;
+                if (cnt[w] != -1)
                 {
-                    rm[w] = 0;
+                    deg_in_g[v]++;
+                    deg_in_g[w]++;
+                }
+            }
+        }
+        // reduce N(u) to a (lb+1-2k)-core
+        queue<ui> q;
+        for (ui w : candidate)
+            if (deg_in_g[w] + 2 * paramK < lb + 1)
+            {
+                q.push(w);
+                cnt[w] = -1;
+                deg_in_g[w] = 0;
+            }
+        while (q.size())
+        {
+            ui v = q.front();
+            q.pop();
+            for (ui j = pstart[v]; j < pstart[v + 1]; j++)
+            {
+                ui w = edge_to[j];
+                if (cnt[w] != -1)
+                {
+                    deg_in_g[w]--;
+                    if (deg_in_g[w] + 2 * paramK < lb + 1)
+                    {
+                        cnt[w] = -1;
+                        q.push(w);
+                        deg_in_g[w] = 0;
+                    }
+                }
+            }
+        }
+        ui rest_cnt = 0;
+        for (ui i = 0; i < candidate.size(); i++)
+        {
+            ui v = candidate[i];
+            if (cnt[v] != -1)
+            {
+                candidate[rest_cnt++] = v;
+            }
+        }
+        candidate.resize(rest_cnt);
+        if (rest_cnt + paramK < lb + 1) // current subgraph can be pruned
+        {
+            // clear the arrays
+            for (ui v : candidate)
+            {
+                cnt[v] = -1;
+                deg_in_g[v] = 0;
+            }
+            pruned = true;
+            return paramK;
+        }
+        // we then add the 2-hops neighbors
+        for (ui v : candidate)
+        {
+            for (ui j = pstart[v]; j < pstart[v + 1]; j++)
+            {
+                ui w = edge_to[j];
+                if (vertex_removed[w])
+                    continue;
+                deg_in_g[w]++;
+            }
+        }
+        cnt [u]=1;
+        for (ui i = 0; i < rest_cnt; i++)
+        {
+            ui v = candidate[i];
+            deg_in_g[v] = 0;
+            for (ui j = pstart[v]; j < pstart[v + 1]; j++)
+            {
+                ui w = edge_to[j];
+                if (deg_in_g[w] >= lb + 3 - 2 * paramK && cnt[w] == -1)
+                {
+                    cnt[w] = 0;
                     candidate.push_back(w);
                 }
+                deg_in_g[w] = 0;
             }
         }
-        while (candidate.size())
+        if (candidate.size() + 1 <= lb)
         {
-            ui sel_idx = 0, sel_v = candidate[0];
-            for (ui i = 1; i < candidate.size(); i++)
+            pruned = true;
+            for (ui w : candidate)
+                cnt[w] = -1;
+            cnt[u]=-1;
+            return paramK;
+        }
+        candidate.push_back(u);
+        ui range = candidate.size();
+        for (int i = 0; i < range; i++)
+            cnt[candidate[i]] = i;
+        vector<vector<ui>> neighbor(range);
+        // get edges
+        for (ui u : candidate)
+        {
+            for (ui i = pstart[u]; i < pstart[u + 1]; i++)
             {
-                ui v = candidate[i];
-                if (cnt[v] > cnt[sel_v] || (cnt[v] == cnt[sel_v] && d[v] > d[sel_v]))
+                ui v = edge_to[i];
+                if (cnt[v] != -1)
                 {
-                    sel_idx = i;
-                    sel_v = v;
+                    neighbor[cnt[u]].push_back(cnt[v]);
                 }
             }
-            if (cnt[sel_v] + paramK < plex.size() + 1) // all the rest vertices can not be inserted into plex
-            {
-                break;
-            }
-            rm[sel_v] = 1;
-            swap(candidate[sel_idx], candidate[candidate.size() - 1]);
-            candidate.pop_back();
-            // check if sel_v can be inserted to plex
-            bool ok = 1;
-            if (plex.size() >= paramK)
-            {
-                for (ui w : plex)
-                {
-                    if (!has(edge_to + pstart[sel_v], edge_to + pstart[sel_v + 1], w))
-                    {
-                        if (deg[w] + paramK == plex.size())
-                        {
-                            ok = 0;
-                            break;
-                        }
-                    }
-                }
-            }
-            if (ok)
-            {
-                for (ui i = pstart[sel_v]; i < pstart[sel_v + 1]; i++)
-                {
-                    ui v = edge_to[i];
-                    if (in_plex[v])
-                    {
-                        deg[v]++;
-                        deg[sel_v]++;
-                    }
-                    else if (!rm[v])
-                    {
-                        cnt[v]++;
-                    }
-                }
-                for (ui w : plex)
-                {
-                    if (deg[w] + paramK == plex.size() + 1 && !has(edge_to + pstart[sel_v], edge_to + pstart[sel_v + 1], w))
-                    {
-                        // remove all non-neighbors of w from candidate
-                        for (int i = 0; i < candidate.size(); i++)
-                        {
-                            ui v = candidate[i];
-                            if (!has(edge_to + pstart[w], edge_to + pstart[w + 1], v))
-                            {
-                                swap(candidate[i], candidate[candidate.size() - 1]);
-                                candidate.pop_back();
-                                i--;
-                            }
-                        }
-                        // vector<ui> new_candidate;
-                        // for(ui i=pstart[w];i<pstart[w+1];i++)
-                        // {
-                        //     ui v=edge_to[i];
-                        //     if(!rm[v])
-                        //     {
-                        //         new_candidate.push_back(v);
-                        //         in_plex[v]=1;
-                        //     }
-                        // }
-                        // for(ui v:candidate)
-                        //     if(!in_plex[v])
-                        //         rm[v]=1;
-                        //     else in_plex[v]=0;
-                        // swap(candidate, new_candidate);
-                    }
-                }
-                assert(deg[sel_v] == cnt[sel_v]);
-                plex.push_back(sel_v);
-                in_plex[sel_v] = 1;
-            }
         }
-        if (solution != nullptr && plex.size() > solution->size())
+        vector<ui> plex;
+        int degen_lb = degen_on_subgraph(range, neighbor, plex);
+        if (degen_lb > lb)
         {
-            solution->clear();
-            for (ui v : plex)
-                solution->insert(map_refresh_id[v]);
+            solution.clear();
+            for (int u : plex)
+                solution.insert(map_refresh_id[candidate[u]]);
         }
-        // we clear the array to prepare for the next round extending
-        for (ui i = pstart[u]; i < pstart[u + 1]; i++)
+        // clear the arrays
+        for (ui v : candidate)
         {
-            ui v = edge_to[i];
-            cnt[v] = 0;
-            rm[v] = 1;
-            in_plex[v] = 0;
-            deg[v] = 0;
-            for (ui j = pstart[v]; j < pstart[v + 1]; j++)
-            {
-                ui w = edge_to[j];
-                cnt[w] = 0;
-                rm[w] = 1;
-                in_plex[w] = 0;
-                deg[w] = 0;
-            }
+            cnt[v] = -1;
+            deg_in_g[v] = 0;
         }
-        return plex.size();
-    }
-    /**
-     * @brief StrongHeuris which will invoke extend procedure for many times
-     *
-     * @param extend_times i.e., sqrt(n)
-     * @param time_limit in case of too much time cost, we will cut off it
-     *
-     * @return lb
-     */
-    int strong_heuris(int lb, set<ui> *solution = nullptr, double time_limit = -1)
-    {
-        if (time_limit < 0)
-            time_limit = 1e3 * 1e6;
-        ui *seq = new ui[n];
-        sort_by_degree(seq);
-        // for(int i=0;i<g.n;i++)
-        //     seq[i]=i;
-        Timer t;
-        int ret = 2 * paramK - 2;
-        vector<bool> rm(n, true); // rm[v]=0 <==> v in candidate
-        vector<int> cnt(n, 0);    // neighbor count
-        vector<int> deg(n, 0);    // degree for plex
-        vector<bool> in_plex(n, 0);
-        for (ui i = 0; i < n; i++)
-        {
-            if (t.get_time() > time_limit)
-            {
-                printf("StrongHeuris is cut off due to time limit! extend times= %u\n", i);
-                break;
-            }
-            ret = max(ret, extend_brute_select(seq[i], rm, deg, cnt, in_plex, solution));
-            if (ret > lb)
-            {
-                printf("StrongHeuris find a larger plex: %d , already extend %d times\n", ret, i + 1);
-                break;
-            }
-        }
-        delete[] seq;
-        return ret;
+        return degen_lb;
     }
     /**
      * @brief acquire a maximal plex containing u in g (g is a 2-hop induced subgraph)
@@ -616,6 +548,7 @@ public:
                 deg_in_g[w]++;
             }
         }
+        cnt[u] = 1; // mark u so that u is in g
         for (ui i = 0; i < rest_cnt; i++)
         {
             ui v = candidate[i];
@@ -636,12 +569,12 @@ public:
             pruned = true;
             for (ui w : candidate)
                 cnt[w] = -1;
+            cnt[u]=-1;
             return paramK;
         }
         vector<ui> plex{u};
         deg_in_S[u] = 0;
         // compute deg_in_g[]
-        cnt[u] = 1; // mark u so that u is in g
         for (ui u : candidate)
         {
             for (ui i = pstart[u]; i < pstart[u + 1]; i++)
@@ -751,7 +684,12 @@ public:
             deg_in_S[u] = -1;
         return plex.size();
     }
-    int strong_heuris1(int lb, set<ui> &solution, double time_limit)
+    /**
+     * @brief StrongHeuris
+     *
+     * @return lb
+     */
+    int strong_heuris(int lb, set<ui> &solution, double time_limit)
     {
         Timer t;
         int ret = 2 * paramK - 2;
@@ -764,12 +702,13 @@ public:
         vector<int> cnt(n, -1);         // cnt[v] = the edge count between S and v; if cnt[v]=-1, then v is not in candidate set
         vector<bool> vertex_removed(n); // we may infer a vertex u can be removed if UB( u, N_G^{\leq 2}(u) ) <= lb
         // for (ll u = n - 1, enumerate_num = 1; u >= 0; u--, enumerate_num++)
-        for(ll  i=0;i<n;i++)
+        for (ll i = 0; i < n; i++)
         {
-            ll enumerate_num=i+1;
-            ui u=seq[i];
+            ll enumerate_num = i + 1;
+            ui u = seq[i];
             bool pruned;
             int extend_lb = extend(u, deg_in_S, deg_in_g, cnt, vertex_removed, solution, pruned);
+            // int extend_lb = degen_on_subgraph(u, deg_in_g, cnt, vertex_removed, solution, pruned);
             if (extend_lb > ret)
             {
                 ret = extend_lb;
@@ -780,12 +719,6 @@ public:
             {
                 vertex_removed[u] = 1;
             }
-            // for (int w : deg_in_g)
-            //     assert(w == 0);
-            // for (int w : deg_in_S)
-            //     assert(w == -1);
-            // for (int w : cnt)
-            //     assert(w == -1);
             // if (t.get_time() > time_limit)
             // {
             //     printf("StrongHeuris is cut off due to time limit, already extend %d times\n", enumerate_num);
@@ -795,24 +728,6 @@ public:
         remove_v(vertex_removed, ret);
         delete[] seq;
         return ret;
-    }
-    /**
-     * useless, just a demo for usage
-     * @return whether s is a k-plex
-     */
-    bool is_plex(set<ui> &s)
-    {
-        map<ui, ui> d;
-        for (ui u : s)
-        {
-            d[u] = 0;
-            for (ui v : s)
-                if (exist_edge(u, v))
-                    d[u]++;
-            if (d[u] + paramK < s.size())
-                return false;
-        }
-        return true;
     }
     /**
      * @brief a[] = {0,1,2,...,n-1}, we need sort a[] by degree; counting sort O(n) is faster than std::sort O(nlogn)
@@ -834,8 +749,6 @@ public:
                 a[cnt[key] - 1] = i;
                 cnt[key]--;
             }
-            // for (ui i = 1; i < n; i++)
-            //     assert(d[a[i]] <= d[a[i - 1]]);
         }
         else // key=deg[i], deg[i]↑, key↑, so the larger degree, the larger index
         {
@@ -1190,19 +1103,6 @@ public:
         return sqrt_degeneracy(range, neighbor, d, id, solution);
     }
     /**
-     * useless, just a demo of usage of pstart[] and edge_to[]
-     */
-    vector<ui> neighbor(ui u)
-    {
-        vector<ui> ret;
-        for (ui i = pstart[u]; i < pstart[u + 1]; i++)
-        {
-            ui v = edge_to[i];
-            ret.push_back(v);
-        }
-        return ret;
-    }
-    /**
      * @brief for u in G, is d[u]+k<=lb, remove u
      *
      * T(n)=O(n+m)
@@ -1283,153 +1183,6 @@ public:
         m = j;
         n = new_n;
         delete[] q;
-    }
-    /**
-     * @brief for u in G, is d[u]+k<=lb, remove u but don't update degree
-     *
-     * T(n)=O(n) for reduction, O(m) for re-build graph but m is much smaller than input
-     * after reduction, the graph is re-built so that each vertex's id ∈[0, n-1], the map is stored in map_refresh_id
-     */
-    void fast_weak_reduce(int lb)
-    {
-        vector<bool> rm(n, 0); // rm[u]=1 <=> u is removed
-        int rm_cnt = 0;
-        for (ui i = 0; i < n; i++)
-            if (d[i] + paramK <= lb)
-                rm[i] = 1, rm_cnt++;
-        if (rm_cnt == 0) // q is empty
-        {
-            if (!reduced)
-            {
-                reduced = 1;
-                for (ui i = 0; i < n; i++)
-                    map_refresh_id[i] = i;
-            }
-            return;
-        }
-        // re-build the graph : re-map the id of the rest vertices; the array q[] is recycled to save the map
-        ui *q = new ui[n + 1];
-        ui new_n = 0;
-        vector<ui> new_map(n);
-        for (ui i = 0; i < n; i++)
-            if (!rm[i])
-            {
-                new_map[new_n] = map_refresh_id[i];
-                q[i] = new_n++;
-            }
-        new_map.resize(new_n);
-        map_refresh_id = new_map;
-        ui *new_pstart = new ui[new_n + 1];
-        ui *new_d = new ui[new_n];
-        ui j = 0; // we don't need extra memory to store new-edge_to, just re-use edge_to[]
-        for (ui i = 0; i < n; i++)
-        {
-            if (rm[i])
-                continue;
-            ui u = q[i];
-            new_pstart[u] = j;
-            for (ui p = pstart[i]; p < pstart[i + 1]; p++)
-            {
-                ui v = edge_to[p];
-                if (!rm[v])
-                    edge_to[j++] = q[edge_to[p]];
-            }
-            new_d[u] = j - new_pstart[u];
-        }
-        new_pstart[new_n] = j;
-        delete[] d;
-        delete[] pstart;
-        d = new_d;
-        pstart = new_pstart;
-        m = j;
-        n = new_n;
-        delete[] q;
-    }
-    /**
-     * @brief degenaracy order to get lb, i.e., each time we remove the vertex with min degree
-     *
-     * @param solution if not NULL, the heuristic result should be stored
-     *
-     * @return lb
-     *
-     * T(n)=O(n+m)
-     */
-    int degeneracyLB(set<ui> *solution = nullptr)
-    {
-        vector<bool> rm(n, 0); // rm[u]=1 <==> u is peeled and removed
-        int *pd = new int[n];  // copy of d[]
-        memcpy(pd, d, sizeof(int) * n);
-        LinearHeap heap(n, n, pd);
-        while (heap.get_min_key() + paramK < heap.sz)
-        {
-            ui u = heap.get_min_node();
-            assert(u < n);
-            heap.delete_node(u);
-            rm[u] = 1;
-            // update the degrees of the rest vertices
-            for (ui i = pstart[u]; i < pstart[u + 1]; i++)
-            {
-                ui v = edge_to[i];
-                assert(v < n);
-                if (!rm[v])
-                {
-                    assert(pd[v] > 0);
-                    heap.decrease(--pd[v], v);
-                }
-            }
-        }
-        int rest = heap.sz;
-        set<ui> plex;
-        while (heap.sz)
-        {
-            ui u = heap.get_min_node();
-            heap.delete_node(u);
-            plex.insert(u);
-        }
-        // for(ui i=0;i<n;i++)
-        // {
-        //     if(!rm[i]) continue;
-        //     //check whether i can be included into plex
-        //     int d_i=0;
-        //     bool ok=1;
-        //     for(ui v:plex)
-        //     {
-        //         if(exist_edge(i, v))
-        //             d_i++;
-        //         else if(pd[v]+paramK == plex.size())
-        //         {
-        //             ok=0;
-        //             break;
-        //         }
-        //     }
-        //     if(ok && d_i+paramK >= plex.size()+1)
-        //     {
-        //         pd[i]=d_i;
-        //         for(ui v:plex)
-        //         {
-        //             if(exist_edge(i, v))
-        //                 pd[v]++;
-        //         }
-        //         plex.insert(i);
-        //     }
-        // }
-        // next, we extend the plex to maximal
-        delete[] pd;
-        if (solution != nullptr && solution->size() < plex.size())
-        {
-            solution->clear();
-            if (reduced)
-            {
-                for (ui i : plex)
-                    solution->insert(map_refresh_id[i]);
-            }
-            else
-            {
-                for (ui i : plex)
-                    solution->insert(i);
-            }
-        }
-        return plex.size();
     }
     /**
      * @brief degenaracy order to get lb, i.e., each time we remove the vertex with min degree;

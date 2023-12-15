@@ -4,7 +4,8 @@
             "type": "cppbuild",
             "label": "main-build",
             // "command": "D:/Program/Dev-Cpp/MinGW64/bin/g++.exe",
-            "command": "/usr/bin/g++",
+            // "command": "/usr/bin/g++",
+            "command": "D:/Gcc/bin/g++.exe",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",

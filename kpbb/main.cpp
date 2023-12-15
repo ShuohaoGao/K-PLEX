@@ -140,8 +140,7 @@ void StrongHeuris()
         {
             break;
         }
-        // extend_lb = g.strong_heuris(lb, &solution, time_limit);
-        extend_lb = g.strong_heuris1(lb, solution, time_limit);
+        extend_lb = g.strong_heuris(lb, solution, time_limit);
         printf("%dth-StrongHeuris lb= %d\n", iteration_cnt++, extend_lb);
         if (extend_lb <= lb)
             break;

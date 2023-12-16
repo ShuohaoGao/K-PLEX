@@ -607,6 +607,57 @@ public:
             cnt[u] = -1;
             return paramK;
         }
+        // method 1: degenerate
+        {
+            candidate.push_back(u);
+            ui range = candidate.size();
+            for (int i = 0; i < range; i++)
+                cnt[candidate[i]] = i;
+            vector<vector<ui>> neighbor(range);
+            // get edges
+            for (ui u : candidate)
+            {
+                for (ui i = pstart[u]; i < pstart[u + 1]; i++)
+                {
+                    ui v = edge_to[i];
+                    if (cnt[v] != -1)
+                    {
+                        neighbor[cnt[u]].push_back(cnt[v]);
+                    }
+                }
+            }
+            vector<ui> plex;
+            int degen_lb = degen_on_subgraph(range, neighbor, plex);
+            if (degen_lb > lb)
+            {
+                solution.clear();
+                for (int u : plex)
+                    solution.insert(map_refresh_id[candidate[u]]);
+            }
+            if (degen_lb > lb)
+            {
+                // clear the arrays
+                for (ui v : candidate)
+                {
+                    cnt[v] = -1;
+                    deg_in_g[v] = 0;
+                }
+                return degen_lb;
+            }
+            candidate.pop_back();
+            for (int u : candidate)
+                cnt[u] = 0;
+            for (ui i = pstart[u]; i < pstart[u + 1]; i++)
+            {
+                ui v = edge_to[i];
+                if (cnt[v] == 0)
+                {
+                    cnt[v] = 1;
+                }
+            }
+        }
+        assert(cnt[u] != -1);
+        // method 2: extend
         vector<ui> plex{u};
         deg_in_S[u] = 0;
         // compute deg_in_g[]
@@ -741,8 +792,8 @@ public:
             ll enumerate_num = i + 1;
             ui u = seq[i];
             bool pruned;
-            // int extend_lb = extend(u, deg_in_S, deg_in_g, cnt, vertex_removed, solution, pruned);
-            int extend_lb = degen_on_subgraph(u, deg_in_g, cnt, vertex_removed, solution, pruned);
+            int extend_lb = extend(u, deg_in_S, deg_in_g, cnt, vertex_removed, solution, pruned);
+            // int extend_lb = degen_on_subgraph(u, deg_in_g, cnt, vertex_removed, solution, pruned);
             if (extend_lb > ret)
             {
                 ret = extend_lb;

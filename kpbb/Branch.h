@@ -426,38 +426,38 @@ public:
                     if (satisfied[u])
                         must_include = 1;
                 }
-                // case 3: deg[u]>=n-k-1 and only one non-neighbor of u is un-satisfied
-                else if (satisfied_non_neighbor + 1 == tot_non_neighbor)
-                {
-                    must_include = 1;
-                }
-                // case 4: deg[u]>=n-k-1 and all the un-satisfied non-neighbors form an independent vertex set
-                else
-                {
-                    auto non_neighbor = V;
-                    non_neighbor &= non_A[u];
-                    auto &un_satisfied_non_neighbor = non_neighbor;
-                    un_satisfied_non_neighbor.sub(satisfied);
-                    // assert(un_satisfied_non_neighbor.size() >= 2);
-                    bool is_independent = true;
-                    for (int a : un_satisfied_non_neighbor)
-                    {
-                        for (int b : un_satisfied_non_neighbor)
-                        {
-                            if (b >= a)
-                                break;
-                            if (A[a][b])
-                            {
-                                is_independent = false;
-                                break;
-                            }
-                        }
-                        if (!is_independent)
-                            break;
-                    }
-                    if (is_independent)
-                        must_include = 1;
-                }
+                // // case 3: deg[u]>=n-k-1 and only one non-neighbor of u is un-satisfied
+                // else if (satisfied_non_neighbor + 1 == tot_non_neighbor)
+                // {
+                //     must_include = 1;
+                // }
+                // // case 4: deg[u]>=n-k-1 and all the un-satisfied non-neighbors form an independent vertex set
+                // else
+                // {
+                //     auto non_neighbor = V;
+                //     non_neighbor &= non_A[u];
+                //     auto &un_satisfied_non_neighbor = non_neighbor;
+                //     un_satisfied_non_neighbor.sub(satisfied);
+                //     // assert(un_satisfied_non_neighbor.size() >= 2);
+                //     bool is_independent = true;
+                //     for (int a : un_satisfied_non_neighbor)
+                //     {
+                //         for (int b : un_satisfied_non_neighbor)
+                //         {
+                //             if (b >= a)
+                //                 break;
+                //             if (A[a][b])
+                //             {
+                //                 is_independent = false;
+                //                 break;
+                //             }
+                //         }
+                //         if (!is_independent)
+                //             break;
+                //     }
+                //     if (is_independent)
+                //         must_include = 1;
+                // }
             }
             if (must_include)
             {

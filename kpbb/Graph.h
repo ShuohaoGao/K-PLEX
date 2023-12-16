@@ -325,6 +325,10 @@ public:
                 for (int v : neighbor[u])
                     if (!rm[v])
                         deg[v]++;
+                limit_cnt = 0;
+                for(int v:res)
+                    if(deg[v]+paramK == res.size())
+                        limit_cnt++;
             }
         }
         delete[] deg;

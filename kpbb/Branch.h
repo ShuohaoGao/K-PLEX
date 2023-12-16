@@ -47,10 +47,9 @@ private:
     double lookahead_time;
     double lookahead_vertex_time;
     double lookahead_edge_time;
-    ll optimal_cnt;
     ll subgraph_pruned_cnt, subgraph_search_cnt;
     map<int, int> counter;
-    double stage2, stage1;
+    double stage1;
 
 public:
     set<int> solution;
@@ -60,8 +59,8 @@ public:
                                             matrix_init_time(0), IE_graph_cnt(0), IE_graph_size(0), CTCP_time(0),
                                             higher_order_reduce_time(0),
                                             C_reduce(0), lookahead_time(0), lookahead_vertex_time(0), lookahead_edge_time(0),
-                                            leaf_cnt(0), S_size_when_pruned(0), optimal_cnt(0), subgraph_pruned_cnt(0),
-                                            subgraph_search_cnt(0), stage1(0), stage2(0)
+                                            leaf_cnt(0), S_size_when_pruned(0), subgraph_pruned_cnt(0),
+                                            subgraph_search_cnt(0), stage1(0)
     {
     }
     ~Branch() {}
@@ -103,7 +102,6 @@ public:
         }
         else
             printf("The heuristic solution is the ground truth!\n");
-        printf("optimal-pruned cnt= %lld\n", optimal_cnt);
         for (auto &h : counter)
             cout << h.x << ' ' << h.y << endl;
     }
@@ -140,16 +138,6 @@ public:
                 vector<int> &inv = array_N;
                 // Graph_adjacent g(vis, vertices_2hops, G_input, inv);
                 Graph_adjacent g(vertices_2hops, edges);
-                // if (vertices_2hops.size() > 2) // this is equivalent to that G_input is stored using adjacent list
-                // {
-                //     // <==> vis.clear() but this may be too time-consuming, so we clear it as follows
-                //     for (int v : vertices_2hops)
-                //         vis.reset(v);
-                // }
-                // else // the reduced graph is stored as adjacent matrix, so O(n) is acceptable
-                // {
-                //     vis.clear();
-                // }
                 IE_induce_time += get_system_time_microsecond() - start_induce;
                 IE_graph_size += g.size();
                 IE_graph_cnt++;
@@ -212,7 +200,6 @@ public:
     {
         if (!V_mask[v]) // the subgraph is already pruned due to core-reduction for N(v) and N^2(v)
             return -1;
-        Timer t;
         auto &g = G_input;
         sort(vertices.begin(), vertices.end());
         for (int i = 0; i < (int)vertices.size(); i++)
@@ -272,12 +259,10 @@ public:
                         }
                     }
                 }
-                stage1 += t.get_time();
                 return ret;
             }
         }
         // subgraph is pruned
-        stage1 += t.get_time();
         return -1;
     }
     /**
@@ -534,94 +519,45 @@ public:
         }
 
         // select pivot to generate 2 branches
-        int pivot = -1;
         Timer look;
-        // todo, use CTCP
         if (paramK > 15)
         {
             lookahead_edge(S, C, edges_removed);
             if (core_reduction_for_g(S, C))
             {
+                // rollback
                 for (auto &h : edges_removed)
                 {
                     int u = h.x, v = h.y;
-                    A[u].set(v);
-                    A[v].set(u);
-                    non_A[u].reset(v);
-                    non_A[v].reset(u);
+                    A.add_edge(u, v);
+                    non_A.remove_edge(u, v);
                 }
                 return;
             }
         }
         if (paramK > 5)
         {
-            lookahead_vertex(S, C);
-            Timer look_vertex;
             // look ahead: if UB(S+u, C-u)<=lb, then remove u; we select the vertex with min ub as pivot
-            // int pivot1 = -1;
-            // int min_ub = INF;
-            // for (int u : C)
-            // {
-            //     S.set(u);
-            //     C.reset(u);
-            //     int ub = only_part_UB(S, C, u);
-            //     S.reset(u);
-            //     C.set(u);
-            //     if (ub <= lb)
-            //     {
-            //         C.reset(u);
-            //     }
-            //     else
-            //     {
-            //         if (ub < min_ub)
-            //         {
-            //             pivot1 = u;
-            //             min_ub = ub;
-            //         }
-            //     }
-            // }
-            // lookahead_vertex_time += look_vertex.get_time();
-            // if (core_reduction_for_g(S, C))
-            // {
-            //     for (auto &h : edges_removed)
-            //     {
-            //         int u = h.x, v = h.y;
-            //         A[u].set(v);
-            //         A[v].set(u);
-            //         non_A[u].reset(v);
-            //         non_A[v].reset(u);
-            //     }
-            //     return;
-            // }
-            // pivot = pivot1;
+            lookahead_vertex(S, C);
         }
-        // else
-        pivot = select_pivot_vertex_with_min_degree(C);
         lookahead_time += look.get_time();
 
-        double start_select_time = get_system_time_microsecond();
-#ifdef NO_LOOKAHEAD
+        Timer select_timer;
+        int pivot = -1;
         pivot = select_pivot_vertex_with_min_degree(C);
-#endif
+        pivot_select_time += select_timer.get_time();
 
-#ifdef DEGREE_BRANCH
-        pivot = select_pivot_vertex_with_min_degree(C);
-#endif
         if (pivot == -1)
         {
             // rollback
             for (auto &h : edges_removed)
             {
                 int u = h.x, v = h.y;
-                A[u].set(v);
-                A[v].set(u);
-                non_A[u].reset(v);
-                non_A[v].reset(u);
+                A.add_edge(u, v);
+                non_A.remove_edge(u, v);
             }
             return;
         }
-
-        pivot_select_time += get_system_time_microsecond() - start_select_time;
 
         generate_sub_branches(S, C, pivot);
 
@@ -629,10 +565,8 @@ public:
         for (auto &h : edges_removed)
         {
             int u = h.x, v = h.y;
-            A[u].set(v);
-            A[v].set(u);
-            non_A[u].reset(v);
-            non_A[v].reset(u);
+            A.add_edge(u, v);
+            non_A.remove_edge(u, v);
         }
     }
     void generate_sub_branches(Set &S, Set &C, int pivot)
@@ -708,8 +642,7 @@ public:
      */
     void lookahead_edge(Set &S, Set &C, vector<pii> &edges_removed)
     {
-        // if (S.size() > 5)
-            // return;
+        // return;
         Timer t;
         int S_sz = S.size();
         for (int u : C)
@@ -727,11 +660,9 @@ public:
                 if (ub <= lb)
                 {
                     edges_removed.push_back({u, v});
-                    A[u].reset(v);
-                    A[v].reset(u);
+                    A.remove_edge(u, v);
                     N_u.reset(v);
-                    non_A[u].set(v);
-                    non_A[v].set(u);
+                    non_A.add_edge(u, v);
                 }
             }
         }
@@ -870,213 +801,6 @@ public:
             }
         }
         return ret;
-    }
-    /**
-     * @brief the optimal ub when S={a,b}, i.e., |S|=2, compute UB({a,b}, C)
-     *
-     * @param common_neighbor_cnt |{w in C | (w,a), (w,b) in E}|
-     * @param only_non_neighbor_a |{W in C | (w,b) in E but (w,a) not in E}|
-     * @param only_non_neighbor_b |{W in C | (w,a) in E but (w,b) not in E}|
-     * @param allow_a k-|S\N(a)|
-     * @param allow_b k-|S\N(b)|
-     * @param common_non_neighbor_cnt |{w in C | (w,a), (w,b) not in E}|
-     *
-     * @return ub=UB({a,b}, C)
-     */
-    inline int optimal_partition(int common_neighbor_cnt,
-                                 int only_non_neighbor_a, int only_non_neighbor_b,
-                                 int allow_a, int allow_b,
-                                 int common_non_neighbor_cnt)
-    {
-        int ub = 2 + common_neighbor_cnt;
-        if (allow_a - only_non_neighbor_a <= allow_b - only_non_neighbor_b)
-        {
-            ub += min(allow_a, only_non_neighbor_a + common_non_neighbor_cnt) + min(allow_b, only_non_neighbor_b);
-        }
-        else
-        {
-            ub += min(allow_a, only_non_neighbor_a) + min(allow_b, only_non_neighbor_b + common_non_neighbor_cnt);
-        }
-        return ub;
-    }
-    /**
-     * @brief using two vertices a,b in S to estimate ub = UB(S, C)
-     *
-     * @return the optimal ub
-     */
-    int optimal_partition_ab(Set &S, Set &C, int a, int b)
-    {
-        assert(S[a] && S[b]);
-        int common_neighbor_cnt = C.intersect(A[a], A[b]);
-        int common_non_neighbor_cnt = C.intersect(non_A[a], non_A[b]);
-        int only_non_neighbor_a = C.intersect(non_A[a]) - common_non_neighbor_cnt;
-        int only_non_neighbor_b = C.intersect(non_A[b]) - common_non_neighbor_cnt;
-        int allow_a = paramK - loss_cnt[a];
-        int allow_b = paramK - loss_cnt[b];
-        int S_sz = S.size();
-        return S_sz - 2 +
-               optimal_partition(common_neighbor_cnt, only_non_neighbor_a, only_non_neighbor_b, allow_a, allow_b, common_non_neighbor_cnt);
-    }
-    /**
-     * @brief compute the optimal ub=UB(S, C) using a,b,c in S to partition C
-     *
-     * @param threshold if ub<=threshold, we can return immediately
-     */
-    int optimal_partition_abc(Set &S, Set &C, int a, int b, int c, int threshold)
-    {
-        assert(S[a] && S[b] && S[c]);
-        int min_ub;
-        // a
-        {
-            auto temp = C;
-            int non_neighbor_cnt_a = temp.intersect(non_A[a]);
-            temp &= A[a];
-            int ub = optimal_partition_ab(S, temp, b, c);
-            ub += min(paramK - loss_cnt[a], non_neighbor_cnt_a);
-            if (ub <= threshold)
-                return ub;
-            min_ub = ub;
-        }
-        // b
-        {
-            auto temp = C;
-            int non_neighbor_cnt_b = temp.intersect(non_A[b]);
-            temp &= A[b];
-            int ub = optimal_partition_ab(S, temp, a, c);
-            ub += min(paramK - loss_cnt[b], non_neighbor_cnt_b);
-            if (ub <= threshold)
-                return ub;
-            min_ub = min(min_ub, ub);
-        }
-        // c
-        {
-            auto temp = C;
-            int non_neighbor_cnt_c = temp.intersect(non_A[c]);
-            temp &= A[c];
-            int ub = optimal_partition_ab(S, temp, a, b);
-            ub += min(paramK - loss_cnt[c], non_neighbor_cnt_c);
-            if (ub <= threshold)
-                return ub;
-            min_ub = min(min_ub, ub);
-        }
-        return min_ub;
-    }
-    int optimal_partition_abcd(Set &S, Set &C, int a, int b, int c, int d, int threshold)
-    {
-        assert(S[a] && S[b] && S[c] && S[d]);
-        int min_ub;
-        // a
-        {
-            auto temp = C;
-            int non_neighbor_cnt_a = temp.intersect(non_A[a]);
-            int allow_a = paramK - loss_cnt[a];
-            temp &= A[a];
-            int contribution_a = min(paramK - loss_cnt[a], non_neighbor_cnt_a);
-            int ub = optimal_partition_abc(S, temp, b, c, d, threshold - contribution_a);
-            ub += contribution_a;
-            if (ub <= threshold)
-                return ub;
-            min_ub = ub;
-        }
-        // b
-        {
-            auto temp = C;
-            int non_neighbor_cnt_b = temp.intersect(non_A[b]);
-            int allow_b = paramK - loss_cnt[b];
-            temp &= A[b];
-            int contribution_b = min(paramK - loss_cnt[b], non_neighbor_cnt_b);
-            int ub = optimal_partition_abc(S, temp, a, c, d, threshold - contribution_b);
-            ub += contribution_b;
-            if (ub <= threshold)
-                return ub;
-            min_ub = ub;
-        }
-        // c
-        {
-            auto temp = C;
-            int non_neighbor_cnt_c = temp.intersect(non_A[c]);
-            int allow_c = paramK - loss_cnt[c];
-            temp &= A[c];
-            int contribution_c = min(paramK - loss_cnt[c], non_neighbor_cnt_c);
-            int ub = optimal_partition_abc(S, temp, a, b, d, threshold - contribution_c);
-            ub += contribution_c;
-            if (ub <= threshold)
-                return ub;
-            min_ub = ub;
-        }
-        // d
-        {
-            auto temp = C;
-            int non_neighbor_cnt_d = temp.intersect(non_A[d]);
-            int allow_d = paramK - loss_cnt[d];
-            temp &= A[d];
-            int contribution_d = min(paramK - loss_cnt[d], non_neighbor_cnt_d);
-            int ub = optimal_partition_abc(S, temp, a, b, c, threshold - contribution_d);
-            ub += contribution_d;
-            if (ub <= threshold)
-                return ub;
-            min_ub = ub;
-        }
-        return min_ub;
-    }
-    int optimal_partition(Set &S, Set &C)
-    {
-        int S_sz = S.size();
-        if (S_sz == 2)
-        {
-            int a = -1, b = -1;
-            for (int v : S)
-            {
-                if (a == -1)
-                    a = v;
-                else
-                {
-                    b = v;
-                    break;
-                }
-            }
-            int ub = optimal_partition_ab(S, C, a, b);
-            if (ub <= lb)
-                optimal_cnt++;
-            return ub;
-        }
-        else if (S_sz == 3)
-        {
-            int a = -1, b = -1, c = -1;
-            for (int v : S)
-            {
-                if (a == -1)
-                    a = v;
-                else if (b == -1)
-                    b = v;
-                else
-                {
-                    c = v;
-                    break;
-                }
-            }
-            int ub = optimal_partition_abc(S, C, a, b, c, lb);
-            if (ub <= lb)
-                optimal_cnt++;
-            return ub;
-        }
-        else if (S_sz >= 4)
-        {
-            int a, b, c, d;
-            auto it = S.begin();
-            a = *it;
-            ++it;
-            b = *it;
-            ++it;
-            c = *it;
-            ++it;
-            d = *it;
-            int ub = optimal_partition_abcd(S, C, a, b, c, d, lb);
-            if (ub <= lb)
-                optimal_cnt++;
-            return ub;
-        }
-        return INF;
     }
     /**
      * @brief we partition C to |S| sets: Pi_0, Pi_1, ..., Pi_|S|; we will also reduce unpromissing vertices from C

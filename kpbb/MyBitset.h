@@ -77,7 +77,7 @@ public:
         sz_changed = true;
     }
 
-    void set(int x)
+    inline void set(int x)
     {
         assert(x < capacity);
         assert(!test(x));
@@ -85,7 +85,7 @@ public:
         sz++;
     }
 
-    void reset(int x)
+    inline void reset(int x)
     {
         assert(x < capacity);
         assert(test(x));
@@ -93,13 +93,13 @@ public:
         sz--;
     }
 
-    bool test(int x) const
+    inline bool test(int x) const
     {
         assert(x < capacity);
         return (buf[x >> 6] >> (x & 63)) & 1ULL;
     }
 
-    bool has(int x) const
+    inline bool has(int x) const
     {
         assert(x < capacity);
         return (buf[x >> 6] >> (x & 63)) & 1ULL;
@@ -301,8 +301,6 @@ public:
     AdjacentMatrix() {}
     AdjacentMatrix(int _n) : n(_n), A(_n, MyBitset(_n))
     {
-        // for (auto &s : A)
-        //     s = MyBitset(n);
     }
     ~AdjacentMatrix() {}
 
@@ -321,13 +319,19 @@ public:
         return true;
     }
 
-    void add_edge(int a, int b)
+    inline void add_edge(int a, int b)
     {
         A[a].set(b);
         A[b].set(a);
     }
 
-    bool exist_edge(int a, int b) const
+    inline void remove_edge(int a, int b)
+    {
+        A[a].reset(b);
+        A[b].reset(a);
+    }
+
+    inline bool exist_edge(int a, int b) const
     {
         return A[a][b];
     }
@@ -351,6 +355,12 @@ public:
     {
         for (auto &s : A)
             s.flip();
+    }
+
+    void clear()
+    {
+        for (auto &s : A)
+            s.clear();
     }
 
     double density()

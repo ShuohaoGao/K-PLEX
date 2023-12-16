@@ -642,7 +642,7 @@ public:
      */
     void lookahead_edge(Set &S, Set &C, vector<pii> &edges_removed)
     {
-        // return;
+        return;
         Timer t;
         int S_sz = S.size();
         for (int u : C)

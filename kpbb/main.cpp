@@ -82,24 +82,24 @@ void FastHeuris()
     FastHeuris_lb = lb;
 
     // if core-graph is dense, we can peel some vertices that must be included, which can not be reduced by CTCP
-    if (0.1 * g.n * g.n < g.m)
-    {
-        vector<bool> rm(g.n);
-        for (ui i = 0; i < g.n; i++)
-        {
-            if (g.d[i] + 1 == g.n)
-            {
-                rm[i] = 1;
-                must_contain.insert(g.map_refresh_id[i]);
-            }
-        }
-        if (must_contain.size())
-        {
-            lb -= must_contain.size();
-            g.remove_v(rm, lb);
-            printf("must contain: %lu\n", must_contain.size());
-        }
-    }
+    // if (0.1 * g.n * g.n < g.m)
+    // {
+    //     vector<bool> rm(g.n);
+    //     for (ui i = 0; i < g.n; i++)
+    //     {
+    //         if (g.d[i] + 1 == g.n)
+    //         {
+    //             rm[i] = 1;
+    //             must_contain.insert(g.map_refresh_id[i]);
+    //         }
+    //     }
+    //     if (must_contain.size())
+    //     {
+    //         lb -= must_contain.size();
+    //         g.remove_v(rm, lb);
+    //         printf("must contain: %lu\n", must_contain.size());
+    //     }
+    // }
 
     // strong reduce: CF-CTCP
     {
@@ -182,18 +182,7 @@ void heuris()
     StrongHeuris();
 
     // next, we will remove the vertices that must occur in the solution
-    lb += must_contain.size();
-    while (1)
-    {
-        vector<bool> rm(g.n, 0);
-        ui pre_sz = must_contain.size();
-        g.get_v_must_include(must_contain, rm);
-        if (pre_sz == must_contain.size())
-            break;
-        printf("must contain: %u\n", must_contain.size());
-        g.remove_v(rm, lb - (int)must_contain.size());
-        break;
-    }
+    // lb += must_contain.size();
 }
 
 /**

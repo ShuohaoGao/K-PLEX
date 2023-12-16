@@ -326,8 +326,8 @@ public:
                     if (!rm[v])
                         deg[v]++;
                 limit_cnt = 0;
-                for(int v:res)
-                    if(deg[v]+paramK == res.size())
+                for (int v : res)
+                    if (deg[v] + paramK == res.size())
                         limit_cnt++;
             }
         }
@@ -1406,8 +1406,7 @@ public:
     LinearHeap heap; // used for degeneracy & IE
     MyBitset vertex;
     ll n, m;
-    vector<int> vertex_id; // for u in this, vertex_id[u] in G_input
-    vector<int> must_contain;
+    vector<int> vertex_id;               // for u in this, vertex_id[u] in G_input
     unordered_map<ll, int> triangles_nn; // the key of edge (u,v) is u*n+v , make sure u<v
     int *d;                              // degree
     AdjacentMatrix A;
@@ -1512,7 +1511,6 @@ public:
                 temp.insert(vertex_id[v]);
             s = temp;
         }
-        s.insert(must_contain.begin(), must_contain.end());
     }
     /**
      * @return the number of vertices now
@@ -1544,7 +1542,7 @@ public:
      * @param g reduced graph
      * @param must the vertex set that must include because each vertex in it will occur in a maximum k-plex
      */
-    Graph_reduced_adjacent_list(Graph &g, set<ui> &must) : Graph_reduced()
+    Graph_reduced_adjacent_list(Graph &g) : Graph_reduced()
     {
         n = g.n;
         m = g.m;
@@ -1568,8 +1566,6 @@ public:
         {
             vertex_id[i] = g.map_refresh_id[i];
         }
-        for (int u : must)
-            must_contain.push_back(u);
         vertex = MyBitset(n);
         vertex.flip();
         // printf("Graph for bnb init ok\n");
@@ -2065,7 +2061,7 @@ public:
      * @param g reduced graph
      * @param must the vertex set that must include because each vertex in it will occur in a maximum k-plex
      */
-    Graph_reduced_adjacent_matrix(Graph &g, set<ui> &must) : Graph_reduced()
+    Graph_reduced_adjacent_matrix(Graph &g) : Graph_reduced()
     {
         n = g.n;
         m = g.m;
@@ -2085,8 +2081,6 @@ public:
         {
             vertex_id[i] = g.map_refresh_id[i];
         }
-        for (int u : must)
-            must_contain.push_back(u);
         vertex = MyBitset(n);
         vertex.flip();
 

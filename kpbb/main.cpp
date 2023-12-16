@@ -5,7 +5,6 @@
 string file_path;
 Graph g;
 set<ui> solution;
-set<ui> must_contain;
 double algorithm_start_time, total_heuris_time;
 double FastHeuris_time;
 double StrongHeuris_time;
@@ -45,7 +44,7 @@ void print_heuris_log()
         printf("The solution is verified: it is a plex\n");
 #endif // VERIFY
 
-    if (g.n + must_contain.size() <= lb)
+    if (g.n <= lb)
     {
         printf("The heuristic solution is the ground truth!\n");
         print_solution();
@@ -81,26 +80,6 @@ void FastHeuris()
     }
     FastHeuris_lb = lb;
 
-    // if core-graph is dense, we can peel some vertices that must be included, which can not be reduced by CTCP
-    // if (0.1 * g.n * g.n < g.m)
-    // {
-    //     vector<bool> rm(g.n);
-    //     for (ui i = 0; i < g.n; i++)
-    //     {
-    //         if (g.d[i] + 1 == g.n)
-    //         {
-    //             rm[i] = 1;
-    //             must_contain.insert(g.map_refresh_id[i]);
-    //         }
-    //     }
-    //     if (must_contain.size())
-    //     {
-    //         lb -= must_contain.size();
-    //         g.remove_v(rm, lb);
-    //         printf("must contain: %lu\n", must_contain.size());
-    //     }
-    // }
-
     // strong reduce: CF-CTCP
     {
         Timer start_strong_reduce;
@@ -114,7 +93,6 @@ void FastHeuris()
         {
             g.n = 0;
             FastHeuris_time = t.get_time();
-            lb += must_contain.size();
             print_heuris_log();
             exit(0);
         }
@@ -142,10 +120,9 @@ void StrongHeuris()
             break;
         }
         extend_lb = g.strong_heuris(lb, solution, time_limit);
-        printf("%dth-StrongHeuris lb= %d\n", iteration_cnt++, extend_lb + must_contain.size());
+        printf("%dth-StrongHeuris lb= %d\n", iteration_cnt++, extend_lb);
         if (extend_lb <= lb)
             break;
-        solution.insert(must_contain.begin(), must_contain.end());
         lb = extend_lb;
         g.weak_reduce(lb);
 
@@ -161,7 +138,6 @@ void StrongHeuris()
             if (lb >= g.n)
             {
                 g.n = 0;
-                lb += must_contain.size();
                 StrongHeuris_time = t_extend.get_time();
                 print_heuris_log();
                 exit(0);
@@ -180,9 +156,6 @@ void heuris()
 
     FastHeuris();
     StrongHeuris();
-
-    // next, we will remove the vertices that must occur in the solution
-    // lb += must_contain.size();
 }
 
 /**
@@ -191,8 +164,8 @@ void heuris()
 void bnb()
 {
     Graph_reduced *G;
-    G = new Graph_reduced_adjacent_list(g, must_contain);
-    Branch branch(*G, lb - G->must_contain.size());
+    G = new Graph_reduced_adjacent_list(g);
+    Branch branch(*G, lb);
     branch.IE_framework();
     if (solution.size() < branch.solution.size()) // record the max plex
     {

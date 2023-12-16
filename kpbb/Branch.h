@@ -69,7 +69,6 @@ public:
      */
     void print_result()
     {
-        lb += G_input.must_contain.size();
         printf("dfs_cnt= %lld\n", dfs_cnt);
         print_module_time("fast reduce", fast_reduce_time);
         print_module_time("partition", part_PI_time);
@@ -279,7 +278,7 @@ public:
                 solution.insert(v);
             solution = ptr_g->get_ori_vertices(solution);
             assert(solution.size() == lb);
-            printf("Find a larger plex : %d\n", sz + (int)G_input.must_contain.size());
+            printf("Find a larger plex : %d\n", sz);
             fflush(stdout);
         }
     }
@@ -299,7 +298,7 @@ public:
                 solution.insert(v);
             solution = ptr_g->get_ori_vertices(solution);
             assert(solution.size() == lb);
-            printf("Find a larger plex : %d\n", sz + (int)G_input.must_contain.size());
+            printf("Find a larger plex : %d\n", sz);
             fflush(stdout);
         }
     }

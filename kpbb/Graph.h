@@ -804,11 +804,11 @@ public:
             {
                 vertex_removed[u] = 1;
             }
-            // if (t.get_time() > time_limit)
-            // {
-            //     printf("StrongHeuris is cut off due to time limit, already extend %d times\n", enumerate_num);
-            //     break;
-            // }
+            if (t.get_time() > time_limit)
+            {
+                printf("StrongHeuris is cut off due to time limit, already extend %d times\n", enumerate_num);
+                break;
+            }
         }
         remove_v(vertex_removed, ret);
         delete[] seq;

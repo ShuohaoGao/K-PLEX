@@ -427,6 +427,7 @@ public:
                 }
                 if (loss_cnt[u] > 0)
                     continue;
+#ifndef NO_RR
                 // case 3: deg[u]>=n-k-1 and only one non-neighbor of u is un-satisfied
                 else if (satisfied_non_neighbor + 1 == tot_non_neighbor)
                 {
@@ -459,6 +460,7 @@ public:
                     if (is_independent)
                         must_include = 1;
                 }
+#endif
             }
             if (must_include)
             {
@@ -851,14 +853,24 @@ public:
 
         // now copy_C = Pi_0
         auto &Pi_0 = copy_C;
-#ifndef NO_REDUCE_PI_0
+#ifndef NO_REFINE_BOUND
         core_reduction(Pi_0, lb + 1 - ub);
+#else
+        // no core-reduce & no revocation
+        for(int v:S)
+        {
+            if(useful_S[v])
+                continue;
+            ub += min(Pi_0.intersect(non_A[v]), k-loss_cnt[v]);
+            Pi_0 &= A[v];
+        }
+        copy_S.clear();
 #endif
         int ret = ub + Pi_0.size();
         if (ret <= lb) // pruned
             return ret;
 
-#ifndef NO_REDUCE_PI_I
+#ifndef NO_RR
         // assume we need to include at least $h$ vertices from S+Pi_0; $h$=lb+1-(ub-|S|);
         // then for u∈Pi_i, u must has at least $h-k+1$ neighbors from S+Pi_0
         {
@@ -912,6 +924,7 @@ public:
         ret = ub + Pi_0.size();
         if (ret <= lb)
             return ret;
+#ifndef NO_RR
         if (paramK > 5 && Pi_0.size() + S.size() > paramK)
         {
             int Pi_0_size = Pi_0.size();
@@ -959,6 +972,7 @@ public:
                 return lb;
             }
         }
+#endif
         return only_part_UB(S, C);
         return ret;
     }

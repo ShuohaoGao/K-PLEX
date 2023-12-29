@@ -857,11 +857,11 @@ public:
         core_reduction(Pi_0, lb + 1 - ub);
 #else
         // no core-reduce & no revocation
-        for(int v:S)
+        for (int v : S)
         {
-            if(useful_S[v])
+            if (useful_S[v])
                 continue;
-            ub += min(Pi_0.intersect(non_A[v]), k-loss_cnt[v]);
+            ub += min(Pi_0.intersect(non_A[v]), paramK - loss_cnt[v]);
             Pi_0 &= A[v];
         }
         copy_S.clear();

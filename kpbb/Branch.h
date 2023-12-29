@@ -398,6 +398,10 @@ public:
         }
         if (g_is_plex)
             return;
+#ifndef MUST_INCLUDE
+        // finding the vertices that must be included is useless or worse
+        return;
+#endif
         // now we consider the vertices that must be included
         int satis_cnt = satisfied.size();
         bool S_changed = false;
@@ -857,11 +861,11 @@ public:
         core_reduction(Pi_0, lb + 1 - ub);
 #else
         // no core-reduce & no revocation
-        for (int v : S)
+        for(int v:S)
         {
-            if (useful_S[v])
+            if(useful_S[v])
                 continue;
-            ub += min(Pi_0.intersect(non_A[v]), paramK - loss_cnt[v]);
+            ub += min(Pi_0.intersect(non_A[v]), paramK-loss_cnt[v]);
             Pi_0 &= A[v];
         }
         copy_S.clear();

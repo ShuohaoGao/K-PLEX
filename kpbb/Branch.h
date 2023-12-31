@@ -398,10 +398,6 @@ public:
         }
         if (g_is_plex)
             return;
-#ifndef MUST_INCLUDE
-        // finding the vertices that must be included is useless or worse
-        return;
-#endif
         // now we consider the vertices that must be included
         int satis_cnt = satisfied.size();
         bool S_changed = false;
@@ -431,7 +427,6 @@ public:
                 }
                 if (loss_cnt[u] > 0)
                     continue;
-#ifndef NO_RR
                 // case 3: deg[u]>=n-k-1 and only one non-neighbor of u is un-satisfied
                 else if (satisfied_non_neighbor + 1 == tot_non_neighbor)
                 {
@@ -464,7 +459,6 @@ public:
                     if (is_independent)
                         must_include = 1;
                 }
-#endif
             }
             if (must_include)
             {

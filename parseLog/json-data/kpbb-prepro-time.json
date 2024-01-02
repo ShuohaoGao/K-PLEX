@@ -1,0 +1,2246 @@
+{
+  "select-C125-9-10": [
+    0.0098,
+    89,
+    125,
+    6963
+  ],
+  "select-C125-9-15": [
+    0.0097,
+    110,
+    125,
+    6963
+  ],
+  "select-C125-9-2": [
+    0.0166,
+    41,
+    125,
+    6963
+  ],
+  "select-C125-9-20": [
+    0.0007,
+    122,
+    0,
+    0
+  ],
+  "select-C125-9-3": [
+    0.0137,
+    47,
+    125,
+    6963
+  ],
+  "select-C125-9-4": [
+    0.0146,
+    56,
+    125,
+    6963
+  ],
+  "select-C125-9-5": [
+    0.0091,
+    62,
+    125,
+    6963
+  ],
+  "select-C125-9-6": [
+    0.0247,
+    67,
+    125,
+    6963
+  ],
+  "select-C125-9-7": [
+    0.0174,
+    74,
+    125,
+    6963
+  ],
+  "select-C125-9-8": [
+    0.0075,
+    80,
+    125,
+    6963
+  ],
+  "select-C125-9-9": [
+    0.0092,
+    84,
+    125,
+    6963
+  ],
+  "select-PLC-60-30-L2-10": [
+    1.5199,
+    38,
+    214,
+    8530
+  ],
+  "select-PLC-60-30-L2-15": [
+    1.6093,
+    45,
+    314,
+    13942
+  ],
+  "select-PLC-60-30-L2-2": [
+    1.7385,
+    23,
+    180,
+    6715
+  ],
+  "select-PLC-60-30-L2-20": [
+    1.6713,
+    53,
+    413,
+    19096
+  ],
+  "select-PLC-60-30-L2-3": [
+    1.7721,
+    25,
+    180,
+    6715
+  ],
+  "select-PLC-60-30-L2-4": [
+    1.6138,
+    28,
+    143,
+    4774
+  ],
+  "select-PLC-60-30-L2-5": [
+    1.8203,
+    30,
+    143,
+    4774
+  ],
+  "select-PLC-60-30-L2-6": [
+    2.0375,
+    32,
+    143,
+    4774
+  ],
+  "select-PLC-60-30-L2-7": [
+    1.5729,
+    34,
+    143,
+    4774
+  ],
+  "select-PLC-60-30-L2-8": [
+    1.4111,
+    35,
+    180,
+    6715
+  ],
+  "select-PLC-60-30-L2-9": [
+    1.5623,
+    36,
+    214,
+    8530
+  ],
+  "select-brock200-2-10": [
+    0.0294,
+    29,
+    200,
+    9876
+  ],
+  "select-brock200-2-15": [
+    0.0344,
+    39,
+    200,
+    9876
+  ],
+  "select-brock200-2-2": [
+    0.0397,
+    13,
+    200,
+    9876
+  ],
+  "select-brock200-2-20": [
+    0.0371,
+    49,
+    200,
+    9876
+  ],
+  "select-brock200-2-3": [
+    0.0485,
+    15,
+    200,
+    9876
+  ],
+  "select-brock200-2-4": [
+    0.0384,
+    17,
+    200,
+    9876
+  ],
+  "select-brock200-2-5": [
+    0.0344,
+    19,
+    200,
+    9876
+  ],
+  "select-brock200-2-6": [
+    0.0419,
+    21,
+    200,
+    9876
+  ],
+  "select-brock200-2-7": [
+    0.032,
+    23,
+    200,
+    9876
+  ],
+  "select-brock200-2-8": [
+    0.0571,
+    26,
+    200,
+    9876
+  ],
+  "select-brock200-2-9": [
+    0.0429,
+    28,
+    200,
+    9876
+  ],
+  "select-copresence-SFHH-10": [
+    0.2319,
+    306,
+    360,
+    63145
+  ],
+  "select-copresence-SFHH-15": [
+    0.2237,
+    321,
+    355,
+    61554
+  ],
+  "select-copresence-SFHH-2": [
+    0.3754,
+    246,
+    381,
+    69384
+  ],
+  "select-copresence-SFHH-20": [
+    0.1486,
+    334,
+    350,
+    59969
+  ],
+  "select-copresence-SFHH-3": [
+    0.2457,
+    264,
+    375,
+    67728
+  ],
+  "select-copresence-SFHH-4": [
+    0.3277,
+    274,
+    375,
+    67696
+  ],
+  "select-copresence-SFHH-5": [
+    0.1802,
+    282,
+    370,
+    66197
+  ],
+  "select-copresence-SFHH-6": [
+    0.3076,
+    288,
+    365,
+    64690
+  ],
+  "select-copresence-SFHH-7": [
+    0.1567,
+    293,
+    363,
+    64068
+  ],
+  "select-copresence-SFHH-8": [
+    0.1626,
+    296,
+    363,
+    64062
+  ],
+  "select-copresence-SFHH-9": [
+    0.2282,
+    302,
+    360,
+    63145
+  ],
+  "select-hamming6-2-10": [
+    0.0001,
+    64,
+    0,
+    0
+  ],
+  "select-hamming6-2-15": [
+    0.0001,
+    64,
+    0,
+    0
+  ],
+  "select-hamming6-2-2": [
+    0.0016,
+    32,
+    64,
+    1824
+  ],
+  "select-hamming6-2-20": [
+    0.0001,
+    64,
+    0,
+    0
+  ],
+  "select-hamming6-2-3": [
+    0.0011,
+    32,
+    64,
+    1824
+  ],
+  "select-hamming6-2-4": [
+    0.0022,
+    32,
+    64,
+    1824
+  ],
+  "select-hamming6-2-5": [
+    0.0021,
+    41,
+    64,
+    1824
+  ],
+  "select-hamming6-2-6": [
+    0.0013,
+    41,
+    64,
+    1824
+  ],
+  "select-hamming6-2-7": [
+    0.0001,
+    64,
+    0,
+    0
+  ],
+  "select-hamming6-2-8": [
+    0.0001,
+    64,
+    0,
+    0
+  ],
+  "select-hamming6-2-9": [
+    0.0001,
+    64,
+    0,
+    0
+  ],
+  "select-ia-wiki-Talk-dir-10": [
+    0.8607,
+    57,
+    741,
+    72389
+  ],
+  "select-ia-wiki-Talk-dir-15": [
+    0.6522,
+    69,
+    659,
+    62424
+  ],
+  "select-ia-wiki-Talk-dir-2": [
+    1.8966,
+    32,
+    1199,
+    122687
+  ],
+  "select-ia-wiki-Talk-dir-20": [
+    0.7496,
+    78,
+    707,
+    67811
+  ],
+  "select-ia-wiki-Talk-dir-3": [
+    1.647,
+    35,
+    1138,
+    116473
+  ],
+  "select-ia-wiki-Talk-dir-4": [
+    1.5929,
+    41,
+    937,
+    94297
+  ],
+  "select-ia-wiki-Talk-dir-5": [
+    1.4454,
+    44,
+    893,
+    89235
+  ],
+  "select-ia-wiki-Talk-dir-6": [
+    1.3144,
+    46,
+    893,
+    89235
+  ],
+  "select-ia-wiki-Talk-dir-7": [
+    1.2098,
+    49,
+    844,
+    83842
+  ],
+  "select-ia-wiki-Talk-dir-8": [
+    0.9947,
+    52,
+    786,
+    77627
+  ],
+  "select-ia-wiki-Talk-dir-9": [
+    0.9311,
+    55,
+    741,
+    72389
+  ],
+  "select-keller4-10": [
+    0.0199,
+    43,
+    171,
+    9435
+  ],
+  "select-keller4-15": [
+    0.0261,
+    57,
+    171,
+    9435
+  ],
+  "select-keller4-2": [
+    0.0296,
+    15,
+    171,
+    9435
+  ],
+  "select-keller4-20": [
+    0.0231,
+    71,
+    171,
+    9435
+  ],
+  "select-keller4-3": [
+    0.035,
+    18,
+    171,
+    9435
+  ],
+  "select-keller4-4": [
+    0.0223,
+    22,
+    171,
+    9435
+  ],
+  "select-keller4-5": [
+    0.0312,
+    27,
+    171,
+    9435
+  ],
+  "select-keller4-6": [
+    0.0275,
+    31,
+    171,
+    9435
+  ],
+  "select-keller4-7": [
+    0.0305,
+    34,
+    171,
+    9435
+  ],
+  "select-keller4-8": [
+    0.031,
+    36,
+    171,
+    9435
+  ],
+  "select-keller4-9": [
+    0.0267,
+    41,
+    171,
+    9435
+  ],
+  "select-p-hat300-2-10": [
+    0.0908,
+    60,
+    268,
+    19065
+  ],
+  "select-p-hat300-2-15": [
+    0.0618,
+    75,
+    237,
+    16322
+  ],
+  "select-p-hat300-2-2": [
+    0.1008,
+    28,
+    300,
+    21915
+  ],
+  "select-p-hat300-2-20": [
+    0.0613,
+    87,
+    220,
+    14793
+  ],
+  "select-p-hat300-2-3": [
+    0.253,
+    35,
+    300,
+    21809
+  ],
+  "select-p-hat300-2-4": [
+    0.1229,
+    39,
+    297,
+    21560
+  ],
+  "select-p-hat300-2-5": [
+    0.1513,
+    45,
+    290,
+    20908
+  ],
+  "select-p-hat300-2-6": [
+    0.1499,
+    48,
+    288,
+    20712
+  ],
+  "select-p-hat300-2-7": [
+    0.1372,
+    51,
+    282,
+    20274
+  ],
+  "select-p-hat300-2-8": [
+    0.0839,
+    55,
+    272,
+    19422
+  ],
+  "select-p-hat300-2-9": [
+    0.0744,
+    58,
+    268,
+    19065
+  ],
+  "select-p-hat500-1-10": [
+    0.2482,
+    26,
+    500,
+    31564
+  ],
+  "select-p-hat500-1-15": [
+    0.2995,
+    35,
+    500,
+    31565
+  ],
+  "select-p-hat500-1-2": [
+    0.3342,
+    11,
+    500,
+    31555
+  ],
+  "select-p-hat500-1-20": [
+    0.222,
+    43,
+    500,
+    31569
+  ],
+  "select-p-hat500-1-3": [
+    0.3133,
+    13,
+    500,
+    31555
+  ],
+  "select-p-hat500-1-4": [
+    0.2065,
+    15,
+    500,
+    31555
+  ],
+  "select-p-hat500-1-5": [
+    0.3805,
+    17,
+    500,
+    31555
+  ],
+  "select-p-hat500-1-6": [
+    0.561,
+    19,
+    500,
+    31555
+  ],
+  "select-p-hat500-1-7": [
+    0.3472,
+    21,
+    500,
+    31555
+  ],
+  "select-p-hat500-1-8": [
+    0.207,
+    22,
+    500,
+    31564
+  ],
+  "select-p-hat500-1-9": [
+    0.4264,
+    25,
+    500,
+    31555
+  ],
+  "select-rec-epinions-user-ratings-10": [
+    6.7731,
+    31,
+    693,
+    24822
+  ],
+  "select-rec-epinions-user-ratings-15": [
+    6.5899,
+    41,
+    615,
+    22855
+  ],
+  "select-rec-epinions-user-ratings-2": [
+    6.5924,
+    15,
+    703,
+    25030
+  ],
+  "select-rec-epinions-user-ratings-20": [
+    7.7266,
+    50,
+    970,
+    41196
+  ],
+  "select-rec-epinions-user-ratings-3": [
+    5.1948,
+    17,
+    703,
+    25030
+  ],
+  "select-rec-epinions-user-ratings-4": [
+    4.9759,
+    19,
+    703,
+    25030
+  ],
+  "select-rec-epinions-user-ratings-5": [
+    6.3767,
+    21,
+    703,
+    25030
+  ],
+  "select-rec-epinions-user-ratings-6": [
+    5.6527,
+    23,
+    703,
+    25030
+  ],
+  "select-rec-epinions-user-ratings-7": [
+    5.2714,
+    25,
+    702,
+    25012
+  ],
+  "select-rec-epinions-user-ratings-8": [
+    6.4369,
+    27,
+    702,
+    25012
+  ],
+  "select-rec-epinions-user-ratings-9": [
+    6.0786,
+    29,
+    699,
+    24948
+  ],
+  "select-san200-0-9-2-10": [
+    0.0357,
+    106,
+    200,
+    17910
+  ],
+  "select-san200-0-9-2-15": [
+    0.0812,
+    128,
+    200,
+    17910
+  ],
+  "select-san200-0-9-2-2": [
+    0.0477,
+    70,
+    200,
+    17910
+  ],
+  "select-san200-0-9-2-20": [
+    0.1059,
+    157,
+    200,
+    17910
+  ],
+  "select-san200-0-9-2-3": [
+    0.0448,
+    105,
+    200,
+    17910
+  ],
+  "select-san200-0-9-2-4": [
+    0.0441,
+    105,
+    200,
+    17910
+  ],
+  "select-san200-0-9-2-5": [
+    0.0459,
+    105,
+    200,
+    17910
+  ],
+  "select-san200-0-9-2-6": [
+    0.0349,
+    105,
+    200,
+    17910
+  ],
+  "select-san200-0-9-2-7": [
+    0.0474,
+    105,
+    200,
+    17910
+  ],
+  "select-san200-0-9-2-8": [
+    0.0351,
+    105,
+    200,
+    17910
+  ],
+  "select-san200-0-9-2-9": [
+    0.0466,
+    105,
+    200,
+    17910
+  ],
+  "select-san200-0-9-3-10": [
+    0.0628,
+    105,
+    200,
+    17910
+  ],
+  "select-san200-0-9-3-15": [
+    0.0434,
+    139,
+    200,
+    17910
+  ],
+  "select-san200-0-9-3-2": [
+    0.0523,
+    48,
+    200,
+    17910
+  ],
+  "select-san200-0-9-3-20": [
+    0.0473,
+    169,
+    200,
+    17910
+  ],
+  "select-san200-0-9-3-3": [
+    0.054,
+    72,
+    200,
+    17910
+  ],
+  "select-san200-0-9-3-4": [
+    0.0487,
+    96,
+    200,
+    17910
+  ],
+  "select-san200-0-9-3-5": [
+    0.0524,
+    100,
+    200,
+    17910
+  ],
+  "select-san200-0-9-3-6": [
+    0.039,
+    100,
+    200,
+    17910
+  ],
+  "select-san200-0-9-3-7": [
+    0.053,
+    100,
+    200,
+    17910
+  ],
+  "select-san200-0-9-3-8": [
+    0.0459,
+    100,
+    200,
+    17910
+  ],
+  "select-san200-0-9-3-9": [
+    0.0558,
+    100,
+    200,
+    17910
+  ],
+  "select-soc-BlogCatalog-ASU-10": [
+    0.3237,
+    67,
+    394,
+    32725
+  ],
+  "select-soc-BlogCatalog-ASU-15": [
+    0.2035,
+    79,
+    344,
+    27600
+  ],
+  "select-soc-BlogCatalog-ASU-2": [
+    1.0655,
+    37,
+    939,
+    83363
+  ],
+  "select-soc-BlogCatalog-ASU-20": [
+    0.2189,
+    89,
+    344,
+    27600
+  ],
+  "select-soc-BlogCatalog-ASU-3": [
+    0.6709,
+    44,
+    697,
+    62063
+  ],
+  "select-soc-BlogCatalog-ASU-4": [
+    0.7141,
+    47,
+    657,
+    58358
+  ],
+  "select-soc-BlogCatalog-ASU-5": [
+    0.4248,
+    51,
+    565,
+    49982
+  ],
+  "select-soc-BlogCatalog-ASU-6": [
+    0.5471,
+    54,
+    539,
+    47226
+  ],
+  "select-soc-BlogCatalog-ASU-7": [
+    0.3982,
+    59,
+    445,
+    37774
+  ],
+  "select-soc-BlogCatalog-ASU-8": [
+    0.2959,
+    62,
+    418,
+    35188
+  ],
+  "select-soc-BlogCatalog-ASU-9": [
+    0.2822,
+    64,
+    418,
+    35188
+  ],
+  "select-soc-LiveMocha-10": [
+    0.9417,
+    40,
+    251,
+    11350
+  ],
+  "select-soc-LiveMocha-15": [
+    1.067,
+    51,
+    223,
+    9734
+  ],
+  "select-soc-LiveMocha-2": [
+    1.2118,
+    19,
+    435,
+    21869
+  ],
+  "select-soc-LiveMocha-20": [
+    2.4973,
+    59,
+    287,
+    13427
+  ],
+  "select-soc-LiveMocha-3": [
+    1.2276,
+    22,
+    398,
+    19749
+  ],
+  "select-soc-LiveMocha-4": [
+    1.2821,
+    24,
+    398,
+    19749
+  ],
+  "select-soc-LiveMocha-5": [
+    1.3359,
+    27,
+    357,
+    17458
+  ],
+  "select-soc-LiveMocha-6": [
+    1.059,
+    30,
+    329,
+    15784
+  ],
+  "select-soc-LiveMocha-7": [
+    0.9686,
+    32,
+    329,
+    15784
+  ],
+  "select-soc-LiveMocha-8": [
+    1.1028,
+    35,
+    290,
+    13543
+  ],
+  "select-soc-LiveMocha-9": [
+    0.9086,
+    38,
+    251,
+    11350
+  ],
+  "select-soc-bitcoin-10": [
+    2.5535,
+    316,
+    355,
+    61881
+  ],
+  "select-soc-bitcoin-15": [
+    2.4395,
+    332,
+    346,
+    59010
+  ],
+  "select-soc-bitcoin-2": [
+    2.4741,
+    273,
+    380,
+    69843
+  ],
+  "select-soc-bitcoin-20": [
+    2.2072,
+    343,
+    346,
+    59010
+  ],
+  "select-soc-bitcoin-3": [
+    2.2722,
+    280,
+    379,
+    69534
+  ],
+  "select-soc-bitcoin-4": [
+    2.4188,
+    292,
+    374,
+    67954
+  ],
+  "select-soc-bitcoin-5": [
+    2.5701,
+    296,
+    371,
+    67001
+  ],
+  "select-soc-bitcoin-6": [
+    2.2977,
+    298,
+    371,
+    67001
+  ],
+  "select-soc-bitcoin-7": [
+    2.4809,
+    303,
+    367,
+    65719
+  ],
+  "select-soc-bitcoin-8": [
+    2.4496,
+    310,
+    365,
+    65051
+  ],
+  "select-soc-bitcoin-9": [
+    2.4181,
+    312,
+    365,
+    65051
+  ],
+  "select-soc-buzznet-10": [
+    1.8429,
+    65,
+    935,
+    105957
+  ],
+  "select-soc-buzznet-15": [
+    1.5896,
+    77,
+    802,
+    88820
+  ],
+  "select-soc-buzznet-2": [
+    8.2513,
+    36,
+    2403,
+    278251
+  ],
+  "select-soc-buzznet-20": [
+    1.5651,
+    88,
+    744,
+    81239
+  ],
+  "select-soc-buzznet-3": [
+    4.8151,
+    41,
+    1888,
+    222563
+  ],
+  "select-soc-buzznet-4": [
+    4.1488,
+    45,
+    1637,
+    193396
+  ],
+  "select-soc-buzznet-5": [
+    3.1424,
+    49,
+    1427,
+    168064
+  ],
+  "select-soc-buzznet-6": [
+    3.2247,
+    53,
+    1241,
+    144952
+  ],
+  "select-soc-buzznet-7": [
+    1.9824,
+    57,
+    1062,
+    122857
+  ],
+  "select-soc-buzznet-8": [
+    2.2568,
+    60,
+    993,
+    114026
+  ],
+  "select-soc-buzznet-9": [
+    1.6432,
+    62,
+    993,
+    114026
+  ],
+  "select-soc-digg-10": [
+    10.5037,
+    87,
+    661,
+    70465
+  ],
+  "select-soc-digg-15": [
+    6.5858,
+    99,
+    122,
+    6531
+  ],
+  "select-soc-digg-2": [
+    16.5568,
+    56,
+    1712,
+    227073
+  ],
+  "select-soc-digg-20": [
+    8.5809,
+    108,
+    608,
+    61435
+  ],
+  "select-soc-digg-3": [
+    16.1728,
+    62,
+    1412,
+    178208
+  ],
+  "select-soc-digg-4": [
+    13.6124,
+    68,
+    997,
+    125572
+  ],
+  "select-soc-digg-5": [
+    10.1846,
+    71,
+    947,
+    117607
+  ],
+  "select-soc-digg-6": [
+    8.5663,
+    75,
+    862,
+    103498
+  ],
+  "select-soc-digg-7": [
+    9.8478,
+    77,
+    862,
+    103498
+  ],
+  "select-soc-digg-8": [
+    11.9503,
+    80,
+    817,
+    95602
+  ],
+  "select-soc-digg-9": [
+    9.6918,
+    83,
+    771,
+    88148
+  ],
+  "select-soc-google-plus-10": [
+    0.1076,
+    102,
+    192,
+    14588
+  ],
+  "select-soc-google-plus-15": [
+    0.0707,
+    116,
+    148,
+    9669
+  ],
+  "select-soc-google-plus-2": [
+    0.4028,
+    70,
+    772,
+    65478
+  ],
+  "select-soc-google-plus-20": [
+    0.0753,
+    124,
+    169,
+    12084
+  ],
+  "select-soc-google-plus-3": [
+    0.3933,
+    77,
+    679,
+    54903
+  ],
+  "select-soc-google-plus-4": [
+    0.1597,
+    83,
+    588,
+    45006
+  ],
+  "select-soc-google-plus-5": [
+    0.1709,
+    87,
+    563,
+    42009
+  ],
+  "select-soc-google-plus-6": [
+    0.1401,
+    88,
+    576,
+    43556
+  ],
+  "select-soc-google-plus-7": [
+    0.1016,
+    93,
+    220,
+    17963
+  ],
+  "select-soc-google-plus-8": [
+    0.0925,
+    96,
+    212,
+    16983
+  ],
+  "select-soc-google-plus-9": [
+    0.0991,
+    99,
+    200,
+    15601
+  ],
+  "select-soc-orkut-dir-10": [
+    28.2433,
+    90,
+    275,
+    16192
+  ],
+  "select-soc-orkut-dir-15": [
+    25.1251,
+    103,
+    137,
+    8091
+  ],
+  "select-soc-orkut-dir-2": [
+    53.5855,
+    57,
+    2808,
+    200325
+  ],
+  "select-soc-orkut-dir-20": [
+    37.7174,
+    113,
+    132,
+    7635
+  ],
+  "select-soc-orkut-dir-3": [
+    45.8375,
+    64,
+    1021,
+    72766
+  ],
+  "select-soc-orkut-dir-4": [
+    42.6908,
+    68,
+    658,
+    41785
+  ],
+  "select-soc-orkut-dir-5": [
+    39.3982,
+    73,
+    490,
+    31097
+  ],
+  "select-soc-orkut-dir-6": [
+    32.7036,
+    78,
+    306,
+    19084
+  ],
+  "select-soc-orkut-dir-7": [
+    32.7046,
+    84,
+    275,
+    16192
+  ],
+  "select-soc-orkut-dir-8": [
+    29.9567,
+    85,
+    286,
+    17225
+  ],
+  "select-soc-orkut-dir-9": [
+    29.7049,
+    88,
+    275,
+    16192
+  ],
+  "select-soc-pokec-10": [
+    2.1143,
+    44,
+    48,
+    979
+  ],
+  "select-soc-pokec-15": [
+    1.7991,
+    49,
+    122,
+    2806
+  ],
+  "select-soc-pokec-2": [
+    3.4102,
+    31,
+    0,
+    0
+  ],
+  "select-soc-pokec-20": [
+    1.9254,
+    55,
+    163,
+    4320
+  ],
+  "select-soc-pokec-3": [
+    3.0475,
+    32,
+    0,
+    0
+  ],
+  "select-soc-pokec-4": [
+    2.6953,
+    32,
+    82,
+    1539
+  ],
+  "select-soc-pokec-5": [
+    2.4577,
+    34,
+    50,
+    1047
+  ],
+  "select-soc-pokec-6": [
+    2.5077,
+    35,
+    53,
+    1150
+  ],
+  "select-soc-pokec-7": [
+    2.2029,
+    38,
+    50,
+    1047
+  ],
+  "select-soc-pokec-8": [
+    2.2473,
+    40,
+    50,
+    1047
+  ],
+  "select-soc-pokec-9": [
+    2.114,
+    43,
+    0,
+    0
+  ],
+  "select-soc-sinaweibo-10": [
+    99.6312,
+    82,
+    369,
+    37320
+  ],
+  "select-soc-sinaweibo-15": [
+    88.0554,
+    98,
+    298,
+    28133
+  ],
+  "select-soc-sinaweibo-2": [
+    107.2612,
+    52,
+    1108,
+    93315
+  ],
+  "select-soc-sinaweibo-20": [
+    78.2268,
+    112,
+    256,
+    22707
+  ],
+  "select-soc-sinaweibo-3": [
+    117.0228,
+    57,
+    648,
+    61051
+  ],
+  "select-soc-sinaweibo-4": [
+    114.1384,
+    62,
+    578,
+    54188
+  ],
+  "select-soc-sinaweibo-5": [
+    104.5727,
+    65,
+    547,
+    51185
+  ],
+  "select-soc-sinaweibo-6": [
+    92.3148,
+    68,
+    429,
+    44837
+  ],
+  "select-soc-sinaweibo-7": [
+    101.8161,
+    71,
+    421,
+    43810
+  ],
+  "select-soc-sinaweibo-8": [
+    99.6829,
+    75,
+    405,
+    41792
+  ],
+  "select-soc-sinaweibo-9": [
+    85.067,
+    79,
+    380,
+    38715
+  ],
+  "select-soc-themarker-10": [
+    2.7609,
+    54,
+    1251,
+    146794
+  ],
+  "select-soc-themarker-15": [
+    2.2642,
+    67,
+    1003,
+    113897
+  ],
+  "select-soc-themarker-2": [
+    8.8902,
+    26,
+    2999,
+    354009
+  ],
+  "select-soc-themarker-20": [
+    2.7486,
+    79,
+    866,
+    95431
+  ],
+  "select-soc-themarker-3": [
+    7.457,
+    30,
+    2578,
+    308225
+  ],
+  "select-soc-themarker-4": [
+    10.6536,
+    35,
+    2106,
+    253215
+  ],
+  "select-soc-themarker-5": [
+    4.5748,
+    39,
+    1819,
+    218254
+  ],
+  "select-soc-themarker-6": [
+    4.0244,
+    42,
+    1677,
+    201452
+  ],
+  "select-soc-themarker-7": [
+    3.8469,
+    45,
+    1573,
+    187705
+  ],
+  "select-soc-themarker-8": [
+    3.2304,
+    48,
+    1461,
+    173439
+  ],
+  "select-soc-themarker-9": [
+    3.0327,
+    50,
+    1461,
+    173439
+  ],
+  "select-soc-wiki-conflict-10": [
+    0.5438,
+    53,
+    311,
+    19369
+  ],
+  "select-soc-wiki-conflict-15": [
+    0.4761,
+    64,
+    280,
+    16908
+  ],
+  "select-soc-wiki-conflict-2": [
+    1.2438,
+    28,
+    1107,
+    72364
+  ],
+  "select-soc-wiki-conflict-20": [
+    0.4739,
+    74,
+    280,
+    16908
+  ],
+  "select-soc-wiki-conflict-3": [
+    0.8847,
+    33,
+    715,
+    47741
+  ],
+  "select-soc-wiki-conflict-4": [
+    0.8668,
+    36,
+    594,
+    40501
+  ],
+  "select-soc-wiki-conflict-5": [
+    0.9258,
+    39,
+    525,
+    35475
+  ],
+  "select-soc-wiki-conflict-6": [
+    0.637,
+    42,
+    458,
+    30670
+  ],
+  "select-soc-wiki-conflict-7": [
+    0.7705,
+    45,
+    410,
+    26952
+  ],
+  "select-soc-wiki-conflict-8": [
+    0.6926,
+    47,
+    410,
+    26952
+  ],
+  "select-soc-wiki-conflict-9": [
+    0.5365,
+    50,
+    367,
+    23500
+  ],
+  "select-soc-youtube-growth-10": [
+    0.5242,
+    47,
+    312,
+    17961
+  ],
+  "select-soc-youtube-growth-15": [
+    0.5496,
+    56,
+    358,
+    21414
+  ],
+  "select-soc-youtube-growth-2": [
+    1.24,
+    23,
+    1262,
+    70390
+  ],
+  "select-soc-youtube-growth-20": [
+    0.5767,
+    64,
+    465,
+    29404
+  ],
+  "select-soc-youtube-growth-3": [
+    0.757,
+    28,
+    861,
+    46781
+  ],
+  "select-soc-youtube-growth-4": [
+    0.9314,
+    31,
+    653,
+    38458
+  ],
+  "select-soc-youtube-growth-5": [
+    0.5883,
+    34,
+    554,
+    32066
+  ],
+  "select-soc-youtube-growth-6": [
+    0.5831,
+    36,
+    554,
+    32066
+  ],
+  "select-soc-youtube-growth-7": [
+    0.6186,
+    38,
+    554,
+    32066
+  ],
+  "select-soc-youtube-growth-8": [
+    0.6491,
+    41,
+    484,
+    27259
+  ],
+  "select-soc-youtube-growth-9": [
+    0.6201,
+    44,
+    358,
+    21414
+  ],
+  "select-socfb-A-anon-10": [
+    2.4647,
+    46,
+    112,
+    2634
+  ],
+  "select-socfb-A-anon-15": [
+    2.0038,
+    53,
+    385,
+    11281
+  ],
+  "select-socfb-A-anon-2": [
+    3.5693,
+    27,
+    813,
+    22203
+  ],
+  "select-socfb-A-anon-20": [
+    1.7777,
+    60,
+    702,
+    26958
+  ],
+  "select-socfb-A-anon-3": [
+    3.1271,
+    32,
+    171,
+    3998
+  ],
+  "select-socfb-A-anon-4": [
+    2.7994,
+    35,
+    95,
+    1990
+  ],
+  "select-socfb-A-anon-5": [
+    2.7255,
+    37,
+    95,
+    1990
+  ],
+  "select-socfb-A-anon-6": [
+    2.3248,
+    40,
+    0,
+    0
+  ],
+  "select-socfb-A-anon-7": [
+    2.4358,
+    41,
+    53,
+    1198
+  ],
+  "select-socfb-A-anon-8": [
+    2.472,
+    44,
+    0,
+    0
+  ],
+  "select-socfb-A-anon-9": [
+    2.2909,
+    45,
+    53,
+    1198
+  ],
+  "select-socfb-B-anon-10": [
+    3.2638,
+    47,
+    79,
+    2292
+  ],
+  "select-socfb-B-anon-15": [
+    3.1104,
+    57,
+    73,
+    2039
+  ],
+  "select-socfb-B-anon-2": [
+    6.6563,
+    27,
+    444,
+    13924
+  ],
+  "select-socfb-B-anon-20": [
+    3.3287,
+    64,
+    93,
+    2958
+  ],
+  "select-socfb-B-anon-3": [
+    7.368,
+    30,
+    267,
+    7876
+  ],
+  "select-socfb-B-anon-4": [
+    6.0635,
+    33,
+    164,
+    4806
+  ],
+  "select-socfb-B-anon-5": [
+    6.0674,
+    35,
+    164,
+    4806
+  ],
+  "select-socfb-B-anon-6": [
+    5.1696,
+    37,
+    164,
+    4806
+  ],
+  "select-socfb-B-anon-7": [
+    4.0968,
+    40,
+    141,
+    3883
+  ],
+  "select-socfb-B-anon-8": [
+    4.3451,
+    42,
+    141,
+    3883
+  ],
+  "select-socfb-B-anon-9": [
+    3.6032,
+    45,
+    79,
+    2292
+  ],
+  "select-socfb-Indiana-10": [
+    0.1235,
+    70,
+    0,
+    0
+  ],
+  "select-socfb-Indiana-15": [
+    0.1261,
+    75,
+    105,
+    4437
+  ],
+  "select-socfb-Indiana-2": [
+    0.3189,
+    51,
+    300,
+    10262
+  ],
+  "select-socfb-Indiana-20": [
+    0.1211,
+    82,
+    120,
+    5455
+  ],
+  "select-socfb-Indiana-3": [
+    0.2688,
+    54,
+    143,
+    4769
+  ],
+  "select-socfb-Indiana-4": [
+    0.2192,
+    57,
+    137,
+    4431
+  ],
+  "select-socfb-Indiana-5": [
+    0.2122,
+    59,
+    137,
+    4431
+  ],
+  "select-socfb-Indiana-6": [
+    0.2169,
+    62,
+    72,
+    2428
+  ],
+  "select-socfb-Indiana-7": [
+    0.1559,
+    64,
+    72,
+    2428
+  ],
+  "select-socfb-Indiana-8": [
+    0.1539,
+    67,
+    0,
+    0
+  ],
+  "select-socfb-Indiana-9": [
+    0.1586,
+    69,
+    0,
+    0
+  ],
+  "select-socfb-UGA50-10": [
+    0.0701,
+    81,
+    95,
+    4126
+  ],
+  "select-socfb-UGA50-15": [
+    0.0681,
+    90,
+    99,
+    4445
+  ],
+  "select-socfb-UGA50-2": [
+    0.1775,
+    55,
+    348,
+    16957
+  ],
+  "select-socfb-UGA50-20": [
+    0.0541,
+    98,
+    106,
+    4991
+  ],
+  "select-socfb-UGA50-3": [
+    0.1694,
+    60,
+    250,
+    12707
+  ],
+  "select-socfb-UGA50-4": [
+    0.1357,
+    66,
+    194,
+    8726
+  ],
+  "select-socfb-UGA50-5": [
+    0.094,
+    70,
+    104,
+    4808
+  ],
+  "select-socfb-UGA50-6": [
+    0.0849,
+    73,
+    95,
+    4126
+  ],
+  "select-socfb-UGA50-7": [
+    0.0956,
+    76,
+    0,
+    0
+  ],
+  "select-socfb-UGA50-8": [
+    0.0777,
+    78,
+    0,
+    0
+  ],
+  "select-socfb-UGA50-9": [
+    0.071,
+    80,
+    0,
+    0
+  ],
+  "select-sx-stackoverflow-10": [
+    2.4034,
+    92,
+    306,
+    28147
+  ],
+  "select-sx-stackoverflow-15": [
+    2.4849,
+    101,
+    320,
+    29983
+  ],
+  "select-sx-stackoverflow-2": [
+    4.6296,
+    60,
+    822,
+    90668
+  ],
+  "select-sx-stackoverflow-20": [
+    2.1405,
+    111,
+    320,
+    29983
+  ],
+  "select-sx-stackoverflow-3": [
+    4.4287,
+    66,
+    573,
+    62872
+  ],
+  "select-sx-stackoverflow-4": [
+    3.5779,
+    73,
+    434,
+    44757
+  ],
+  "select-sx-stackoverflow-5": [
+    3.1281,
+    77,
+    390,
+    39253
+  ],
+  "select-sx-stackoverflow-6": [
+    2.6612,
+    81,
+    352,
+    34228
+  ],
+  "select-sx-stackoverflow-7": [
+    2.6729,
+    84,
+    337,
+    32200
+  ],
+  "select-sx-stackoverflow-8": [
+    2.7858,
+    84,
+    374,
+    37039
+  ],
+  "select-sx-stackoverflow-9": [
+    2.8481,
+    88,
+    337,
+    32200
+  ],
+  "select-web-Stanford-10": [
+    0.207,
+    68,
+    162,
+    5839
+  ],
+  "select-web-Stanford-15": [
+    0.2127,
+    73,
+    227,
+    9687
+  ],
+  "select-web-Stanford-2": [
+    0.1684,
+    64,
+    0,
+    0
+  ],
+  "select-web-Stanford-20": [
+    0.1554,
+    82,
+    0,
+    0
+  ],
+  "select-web-Stanford-3": [
+    0.1801,
+    64,
+    64,
+    2013
+  ],
+  "select-web-Stanford-4": [
+    0.1496,
+    65,
+    64,
+    2013
+  ],
+  "select-web-Stanford-5": [
+    0.075,
+    66,
+    64,
+    2013
+  ],
+  "select-web-Stanford-6": [
+    0.1268,
+    67,
+    64,
+    2013
+  ],
+  "select-web-Stanford-7": [
+    0.1311,
+    68,
+    64,
+    2013
+  ],
+  "select-web-Stanford-8": [
+    0.1367,
+    68,
+    91,
+    3429
+  ],
+  "select-web-Stanford-9": [
+    0.1478,
+    68,
+    155,
+    5439
+  ],
+  "select-web-baidu-baike-10": [
+    2.2565,
+    36,
+    146,
+    2855
+  ],
+  "select-web-baidu-baike-15": [
+    2.1383,
+    44,
+    317,
+    11698
+  ],
+  "select-web-baidu-baike-2": [
+    5.1651,
+    33,
+    0,
+    0
+  ],
+  "select-web-baidu-baike-20": [
+    1.4742,
+    54,
+    261,
+    10329
+  ],
+  "select-web-baidu-baike-3": [
+    4.3645,
+    33,
+    33,
+    526
+  ],
+  "select-web-baidu-baike-4": [
+    3.4792,
+    33,
+    33,
+    526
+  ],
+  "select-web-baidu-baike-5": [
+    4.0268,
+    34,
+    33,
+    526
+  ],
+  "select-web-baidu-baike-6": [
+    3.1294,
+    34,
+    66,
+    1048
+  ],
+  "select-web-baidu-baike-7": [
+    2.6721,
+    34,
+    66,
+    1048
+  ],
+  "select-web-baidu-baike-8": [
+    2.5116,
+    35,
+    66,
+    1048
+  ],
+  "select-web-baidu-baike-9": [
+    2.1618,
+    35,
+    67,
+    1075
+  ],
+  "select-web-spam-detection-10": [
+    0.37,
+    79,
+    394,
+    37337
+  ],
+  "select-web-spam-detection-15": [
+    0.3963,
+    92,
+    323,
+    28343
+  ],
+  "select-web-spam-detection-2": [
+    1.4286,
+    52,
+    807,
+    93061
+  ],
+  "select-web-spam-detection-20": [
+    0.3409,
+    103,
+    288,
+    24222
+  ],
+  "select-web-spam-detection-3": [
+    0.8174,
+    59,
+    639,
+    69673
+  ],
+  "select-web-spam-detection-4": [
+    0.4416,
+    65,
+    458,
+    45954
+  ],
+  "select-web-spam-detection-5": [
+    0.4821,
+    67,
+    458,
+    45954
+  ],
+  "select-web-spam-detection-6": [
+    0.5665,
+    70,
+    423,
+    41207
+  ],
+  "select-web-spam-detection-7": [
+    0.4947,
+    72,
+    423,
+    41207
+  ],
+  "select-web-spam-detection-8": [
+    0.3318,
+    76,
+    364,
+    33724
+  ],
+  "select-web-spam-detection-9": [
+    0.3769,
+    78,
+    364,
+    33724
+  ],
+  "select-web-wikipedia-growth-10": [
+    8.6582,
+    51,
+    1635,
+    188969
+  ],
+  "select-web-wikipedia-growth-15": [
+    7.338,
+    61,
+    1578,
+    187387
+  ],
+  "select-web-wikipedia-growth-2": [
+    27.421,
+    31,
+    2365,
+    249731
+  ],
+  "select-web-wikipedia-growth-20": [
+    5.959,
+    72,
+    1465,
+    175428
+  ],
+  "select-web-wikipedia-growth-3": [
+    22.7182,
+    32,
+    2646,
+    269391
+  ],
+  "select-web-wikipedia-growth-4": [
+    21.5287,
+    34,
+    2615,
+    268926
+  ],
+  "select-web-wikipedia-growth-5": [
+    19.4203,
+    37,
+    2334,
+    249266
+  ],
+  "select-web-wikipedia-growth-6": [
+    14.1345,
+    40,
+    2159,
+    233325
+  ],
+  "select-web-wikipedia-growth-7": [
+    11.6411,
+    43,
+    1994,
+    218872
+  ],
+  "select-web-wikipedia-growth-8": [
+    10.2765,
+    46,
+    1765,
+    201478
+  ],
+  "select-web-wikipedia-growth-9": [
+    10.705,
+    48,
+    1765,
+    201478
+  ],
+  "select-web-wikipedia_link_it-10": [
+    1.1004,
+    891,
+    0,
+    0
+  ],
+  "select-web-wikipedia_link_it-15": [
+    0.9929,
+    900,
+    0,
+    0
+  ],
+  "select-web-wikipedia_link_it-2": [
+    2.8314,
+    872,
+    919,
+    421245
+  ],
+  "select-web-wikipedia_link_it-20": [
+    1.1753,
+    910,
+    0,
+    0
+  ],
+  "select-web-wikipedia_link_it-3": [
+    3.2151,
+    875,
+    919,
+    421245
+  ],
+  "select-web-wikipedia_link_it-4": [
+    2.7714,
+    878,
+    908,
+    411403
+  ],
+  "select-web-wikipedia_link_it-5": [
+    2.7283,
+    881,
+    903,
+    406923
+  ],
+  "select-web-wikipedia_link_it-6": [
+    0.9466,
+    884,
+    0,
+    0
+  ],
+  "select-web-wikipedia_link_it-7": [
+    1.1493,
+    885,
+    0,
+    0
+  ],
+  "select-web-wikipedia_link_it-8": [
+    1.0779,
+    887,
+    0,
+    0
+  ],
+  "select-web-wikipedia_link_it-9": [
+    1.0643,
+    889,
+    0,
+    0
+  ]
+}

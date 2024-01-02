@@ -8,13 +8,13 @@ x_ticks_size = 16
 y_label_size = 20
 y_ticks_size = 16
 bar_width = 0.21
-fig_size_inches = (8, 6)
-fig_size = (16, 9)
-ax_position = [0.13, 0.15, 0.86, 0.7]
+fig_size_inches = (5.5, 4)
+fig_size = (4, 3)
+ax_position = [0.14, 0.17, 0.85, 0.68]
 
 
 def draw_lines_solved_instance_cnt(x_ticks, y, legend, file_name='./img/test_line.pdf',
-                                   y_name='#solved instances', x_name='time(sec)'):
+                                   y_name='#solved instances', x_name='time(sec)', y_range=None, y_tick=None):
     """
     :param x_ticks:x轴标签
     :param y: 共len(y)条折线,每条折线需要提供len(x_ticks)个数值
@@ -22,11 +22,13 @@ def draw_lines_solved_instance_cnt(x_ticks, y, legend, file_name='./img/test_lin
     :param file_name: 保存的路径
     :param y_name: y轴的名称
     :param x_name: x轴的名称
+    :param y_range: y轴范围
+    :param y_tick: y轴刻度的标签
     """
     plt.close()
     plt.figure(figsize=fig_size)
     # 定义变量 markers，表示不同线条的样式
-    markers = ['k-o', 'r-^', 'b-X', 'g-s']
+    markers = ['r-^', 'g-o', 'b-X', 'k-s']
 
     # 定义变量 x，表示 x 轴标签的位置
     x = np.arange(len(x_ticks))
@@ -41,26 +43,33 @@ def draw_lines_solved_instance_cnt(x_ticks, y, legend, file_name='./img/test_lin
                  y[i],
                  markers[i],
                  markerfacecolor='none',
-                 markersize='7',
+                 markersize='8',
                  label=legend[i],
                  clip_on=False,
                  linewidth=2)
 
     # 设置 y 轴标签和刻度
-    plt.ylabel(y_name, fontsize=y_label_size)
+    plt.ylabel(y_name, fontsize=y_label_size, labelpad=-3)
     plt.yticks(
         # [0.001, 0.01, 0.1, 1, 10, 100, 1000, 10000, 86400],
         # ['$10^{-3}$', '$10^{-2}$', '$10^{-1}$', '$10^{0}$', '$10^1$', '$10^2$', '$10^3$', '$10^4$', '86400'],
         fontsize=y_ticks_size
     )
-    lim = [int(np.min(y)-1), int(np.max(y)+1)]
+    if y_range is None or len(y_range) < 2:
+        lim = [int(np.min(y) - 1), int(np.max(y) + 1)]
+    else:
+        lim = y_range
     plt.ylim(lim)
-    if lim[1] - lim[0] <= 6:
-        plt.yticks(range(lim[0], lim[1]+1))
+    if y_tick is None or len(y_tick) < 4:
+        plt.yticks(range(lim[0], lim[1] + 1, (lim[1] - lim[0]) // 5))
+    else:
+        # temp = [f'$\leq{lim[0]}$'] + [str(tick) for tick in y_tick[1:]]
+        # plt.yticks(y_tick, temp)
+        plt.yticks(y_tick)
 
     # 设置 x 轴标签和刻度
-    plt.xlabel(xlabel=x_name, fontsize=x_label_size, labelpad=-5)
-    plt.xticks(x, x_ticks, fontsize=x_ticks_size, rotation=45)
+    plt.xlabel(xlabel=x_name, fontsize=x_label_size, labelpad=-5.5)
+    plt.xticks(x, x_ticks, fontsize=x_ticks_size, rotation=20)
 
     # 添加网格线，并设置其样式和宽度
     plt.grid(axis='y', linestyle='--', linewidth=0.5)
@@ -75,7 +84,8 @@ def draw_lines_solved_instance_cnt(x_ticks, y, legend, file_name='./img/test_lin
     plt.subplots_adjust(left=ax_position[0], bottom=ax_position[1], right=ax_position[2] + ax_position[0],
                         top=ax_position[3] + ax_position[1])
 
-    plt.legend(bbox_to_anchor=(0, 1, 1, 0), loc="lower left", mode="expand", ncol=2, fontsize=legend_font_size)
+    plt.legend(bbox_to_anchor=(0, 0.94, 1, 0), loc="lower left", mode="expand", ncol=2, fontsize=legend_font_size,
+               frameon=False)
 
     # 将图形保存为 PDF 文件，并设置其 DPI 和边框范围
     plt.savefig(file_name, dpi=400)

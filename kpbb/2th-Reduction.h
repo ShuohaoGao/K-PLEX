@@ -348,7 +348,7 @@ public:
         bool continue_first_round;
         do
         {
-            ui previous_m = m;
+            ui previous_m = m, previous_n = n;
             vertex_removed_from_G_fast.resize(n, 0);
             edge_removed_from_G_fast.resize(m, 0);
             Queue q_v(n);
@@ -357,7 +357,7 @@ public:
             {
                 return;
             }
-            continue_first_round = previous_m * 0.8 > m;
+            continue_first_round = previous_m * 0.8 > m || previous_n * 0.8 > n;
         } while (continue_first_round);
         // prepare for CF-CTCP
         ui *pstart = G_fast.pstart, *edge_to = G_fast.edge_to;

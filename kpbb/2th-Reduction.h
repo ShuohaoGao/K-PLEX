@@ -345,6 +345,8 @@ public:
     void strong_reduce(int lb)
     {
         // the first round, we brutely remove edges (of course, core-reduce is always first)
+        bool continue_first_round;
+        do
         {
             ui previous_m = m;
             vertex_removed_from_G_fast.resize(n, 0);
@@ -355,7 +357,8 @@ public:
             {
                 return;
             }
-        }
+            continue_first_round = previous_m * 0.8 > m;
+        } while (continue_first_round);
         // prepare for CF-CTCP
         ui *pstart = G_fast.pstart, *edge_to = G_fast.edge_to;
         triangles = new ui[m];

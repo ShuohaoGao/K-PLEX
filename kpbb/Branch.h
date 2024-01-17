@@ -16,6 +16,7 @@ private:
     vector<int> loss_cnt;
     vector<int> deg;
     vector<int> one_loss_non_neighbor_cnt;
+    vector<int> que; // queue
     Set one_loss_vertices_in_C;
     AdjacentMatrix non_A, A;
     Graph_adjacent *ptr_g;
@@ -191,6 +192,7 @@ public:
         array_n.resize(g.size());
         one_loss_vertices_in_C = Set(g.size());
         one_loss_non_neighbor_cnt.resize(g.size());
+        que.resize(g.size());
     }
     /**
      * @return the index of v in the subgraph
@@ -637,6 +639,64 @@ public:
         core_reduce_time += get_system_time_microsecond() - start_core_reduce;
     }
     /**
+     * @brief reduce P to (cnt-k)-core, namely P need to provide at least $cnt$ vertices
+     *  for u in Pi_0, we should have UB(S+u, C-u) = |S|+1+(lb+1-cnt-|S|)+|N(u)\cap P|+k-1-|S\N(u)| >= lb+1
+     *  <=> |N(u)\cap P| >= cnt+|S\N(u)|-k
+     *  i.e., we remove u from Pi_0 if u has less than $cnt-k+loss_cnt[u]$ neighbors in Pi_0
+     * @param C if we remove u from P, then we remove it from C too
+     */
+    void reduce_Pi_0(Set &P, int cnt, Set &C)
+    {
+        // if |P|<cnt, then P must be reduce to empty; if cnt<=k, then we can't reduce any vertex
+        if (cnt <= paramK || P.size() < cnt)
+            return;
+        double start_core_reduce = get_system_time_microsecond();
+        auto &deg = array_n; // we reuse the array to decrease time cost
+        for (int u : P)
+        {
+            int d = A[u].intersect(P);
+            if (d < cnt + loss_cnt[u] - paramK)
+            {
+                for (int v : P)
+                {
+                    if (v == u)
+                        break;
+                    if (A[u][v])
+                        deg[v]--;
+                }
+                P.reset(u);
+                C.reset(u);
+            }
+            else
+                deg[u] = d;
+        }
+        int hh = 0, tt = -1;
+        auto &q = que; // faster than std::queue
+        for (int u : P)
+            if (deg[u] < cnt + loss_cnt[u] - paramK)
+            {
+                q[++tt] = u;
+            }
+        while (hh <= tt)
+        {
+            int u = q[hh++];
+            P.reset(u);
+            C.reset(u);
+            for (int v : P)
+            {
+                if (A[u][v])
+                {
+                    --deg[v];
+                    if (deg[v] + 1 == cnt + loss_cnt[v] - paramK)
+                    {
+                        q[++tt] = v;
+                    }
+                }
+            }
+        }
+        core_reduce_time += get_system_time_microsecond() - start_core_reduce;
+    }
+    /**
      * @brief reduce an edge (u,v) if u,v in C and UB(S+u+v, C-u-v)<=lb
      *
      * @param edges_removed we record the edges we remove in order to rollback when backtrack
@@ -808,7 +868,7 @@ public:
      * @param edges_removed we record the edges we remove in order to rollback when backtrack
      * @return ub
      */
-    int BoundingAndReducing(Set &S, Set &C)
+    int bound_and_reduce(Set &S, Set &C)
     {
         Timer part_timer;
         int initial_C_size = C.size();
@@ -853,7 +913,7 @@ public:
         // now copy_C = Pi_0
         auto &Pi_0 = copy_C;
 #ifndef NO_REFINE_BOUND
-        core_reduction(Pi_0, lb + 1 - ub);
+        reduce_Pi_0(Pi_0, lb + 1 - ub, C);
 #else
         // no core-reduce & no revocation
         for (int v : S)
@@ -927,34 +987,52 @@ public:
         {
             Timer t;
             int Pi_0_size = Pi_0.size();
-            int base_ub = ret - Pi_0_size;
+            int ub_Pi_I = ub - S_sz;
             for (int u : C)
             {
                 int neighbor_cnt = Pi_0.intersect(A[u]);
                 int non_neighbor_cnt = Pi_0_size - neighbor_cnt;
-                int decrease_ub = useful_S.intersect(non_A[u]);
                 if (Pi_0[u])
                 {
-                    int ub_u = base_ub + 1 - decrease_ub + neighbor_cnt + min(non_neighbor_cnt - 1, paramK - 1 - loss_cnt[u]);
+                    int ub_u = S_sz + 1 + neighbor_cnt + min(non_neighbor_cnt - 1, paramK - 1 - loss_cnt[u]) + ub_Pi_I;
                     if (ub_u <= lb)
                     {
                         C.reset(u);
                         Pi_0.reset(u);
                         Pi_0_size--;
                         ret--;
+                        if(ret <= lb)
+                            return ret;
+                    }
+                    else
+                    {
+                        ub_u -= useful_S.intersect(non_A[u]);
+                        if (ub_u <= lb)
+                        {
+                            C.reset(u);
+                            Pi_0.reset(u);
+                            Pi_0_size--;
+                            ret--;
+                        }
                     }
                 }
                 else
                 {
-                    int ub_u = base_ub + 1 - decrease_ub + neighbor_cnt + min(non_neighbor_cnt, paramK - 1 - loss_cnt[u]);
+                    int ub_u = S_sz + 1 + neighbor_cnt + min(non_neighbor_cnt, paramK - 1 - loss_cnt[u]) + ub_Pi_I - 1;
                     if (ub_u <= lb)
+                    {
                         C.reset(u);
+                    }
+                    else
+                    {
+                        ub_u = ub_u + 1 - useful_S.intersect(non_A[u]);
+                        if (ub_u <= lb)
+                            C.reset(u);
+                    }
                 }
             }
             C_reduce_time += t.get_time();
         }
-        if (ret <= lb)
-            return ret;
         if (ret == lb + 1 && Pi_0.size())
         {
             S |= Pi_0;
@@ -974,8 +1052,8 @@ public:
             }
         }
 #endif
-        if (C.size() < initial_C_size)
-            return BoundingAndReducing(S, C);
+        if (C.size() < initial_C_size) // goto next iteration
+            return bound_and_reduce(S, C);
         return ret;
     }
     /**
@@ -984,7 +1062,7 @@ public:
      */
     inline int get_UB(Set &S, Set &C, vector<pii> &edges_removed)
     {
-        int ub = BoundingAndReducing(S, C);
+        int ub = bound_and_reduce(S, C);
         if (ub <= lb)
             return ub;
         ub = only_part_UB(S, C);

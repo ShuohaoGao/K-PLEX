@@ -8,13 +8,17 @@ x_ticks_size = 16
 y_label_size = 20
 y_ticks_size = 16
 bar_width = 0.21
-fig_size_inches = (5.5, 4)
 fig_size = (4, 3)
+fig_size_inches = (5.5, 4)
 ax_position = [0.14, 0.17, 0.85, 0.68]
+# # 不加图例的尺寸与比例
+# fig_size_inches = (5.5, 3.5)
+# ax_position = [0.14, 0.19, 0.85, 0.78]
 
 
 def draw_lines_solved_instance_cnt(x_ticks, y, legend, file_name='./img/test_line.pdf',
-                                   y_name='#solved instances', x_name='time(sec)', y_range=None, y_tick=None):
+                                   y_name='#solved instances', x_name='time (sec)', y_range=None, y_tick=None,
+                                   no_legend=True):
     """
     :param x_ticks:x轴标签
     :param y: 共len(y)条折线,每条折线需要提供len(x_ticks)个数值
@@ -24,7 +28,14 @@ def draw_lines_solved_instance_cnt(x_ticks, y, legend, file_name='./img/test_lin
     :param x_name: x轴的名称
     :param y_range: y轴范围
     :param y_tick: y轴刻度的标签
+    :param no_legend: 有无图例
     """
+    if no_legend:
+        fig_size_inches = (5.5, 3.5)
+        ax_position = [0.14, 0.19, 0.85, 0.78]
+    else:
+        fig_size_inches = (5.5, 4)
+        ax_position = [0.14, 0.17, 0.85, 0.68]
     plt.close()
     plt.figure(figsize=fig_size)
     # 定义变量 markers，表示不同线条的样式
@@ -84,8 +95,13 @@ def draw_lines_solved_instance_cnt(x_ticks, y, legend, file_name='./img/test_lin
     plt.subplots_adjust(left=ax_position[0], bottom=ax_position[1], right=ax_position[2] + ax_position[0],
                         top=ax_position[3] + ax_position[1])
 
-    plt.legend(bbox_to_anchor=(0, 0.94, 1, 0), loc="lower left", mode="expand", ncol=2, fontsize=legend_font_size,
-               frameon=False)
+    if no_legend:
+        # 不加图例，即画到画布以外即可
+        plt.legend(bbox_to_anchor=(0, 1.94, 1, 0), loc="lower left", mode="expand", ncol=2, fontsize=legend_font_size,
+                   frameon=False)
+    else:
+        plt.legend(bbox_to_anchor=(0, 0.94, 1, 0), loc="lower left", mode="expand", ncol=2, fontsize=legend_font_size,
+                   frameon=False)
 
     # 将图形保存为 PDF 文件，并设置其 DPI 和边框范围
     plt.savefig(file_name, dpi=400)

@@ -125,13 +125,16 @@ def get_graph_info(dir_path):
 
 
 def overall():
-    kpbb_time_size = get_format_log('log/kpbb-with-must-include/')
+    kpbb_time_size = get_format_log('log/kpbb-log/')
     gap_time_size = get_format_log('log/gap/')
     dise_time_size = get_format_log('log/disemkp/')
     chang_time_size = get_format_log('log/chang/')
-    kpheuris_time_size = get_kpbb_preprocessing_time('log/kpbb-with-must-include/')
+    kpheuris_time_size = get_kpbb_preprocessing_time('log/kpbb-log/')
     kpheuris_ctcp_time_size = get_format_log('log/KPHeuris-CTCP-log/')
     kpbb_no_RR_time_size = get_format_log('log/kpbb-no-RR-log/')
+    kpbb_no_ub_time_size = get_format_log('log/kpbb-no-ub-log/')
+    kpbb_no_strong_heuris_time_size = get_format_log('log/kpbb-no-StrongHeuris-log/')
+    chang_prepro_time_size = get_format_log('log/kPlexS-pre-log/')
 
     dump_to_json(kpbb_time_size, 'kpbb-time-size')
     dump_to_json(gap_time_size, 'gap-time-size')
@@ -140,6 +143,9 @@ def overall():
     dump_to_json(kpheuris_time_size, 'KPHeuris-time-size')
     dump_to_json(kpheuris_ctcp_time_size, 'KPHeuris-CTCP-time-size')
     dump_to_json(kpbb_no_RR_time_size, 'kpbb-no-RR-time-size')
+    dump_to_json(kpbb_no_ub_time_size, 'kpbb-no-ub-time-size')
+    dump_to_json(kpbb_no_strong_heuris_time_size, 'kpbb-no-StrongHeuris-time-size')
+    dump_to_json(chang_prepro_time_size, 'kPlexS-prepro-time-size')
 
 
 def parse_select_log():
@@ -159,6 +165,6 @@ def statistic():
     dump_to_json(n_m_d, 'graph-info')
 
 
-# overall()
+overall()
 # parse_select_log()
 # statistic()

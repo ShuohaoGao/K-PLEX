@@ -29,7 +29,7 @@ def draw_line_instance(kpbb, gap, dise, chang, key_list):
     y_range_map = {
         '2th-DIMACS-2': [0, 18],
         '2th-DIMACS-3': [0, 20],
-        '2th-DIMACS-4': [0, 20],
+        '2th-DIMACS-4': [0, 25],
         '2th-DIMACS-5': [0, 20],
         '2th-DIMACS-6': [0, 15],
         '2th-DIMACS-7': [0, 10],
@@ -53,7 +53,7 @@ def draw_line_instance(kpbb, gap, dise, chang, key_list):
     y_tick_map = {
         '2th-DIMACS-2': range(0, 19, 3),
         '2th-DIMACS-3': range(0, 21, 4),
-        '2th-DIMACS-4': range(0, 21, 4),
+        '2th-DIMACS-4': range(0, 26, 5),
         '2th-DIMACS-5': range(0, 21, 4),
         '2th-DIMACS-6': range(0, 16, 3),
         '2th-DIMACS-7': range(0, 11, 2),
@@ -86,9 +86,11 @@ def draw_line_instance(kpbb, gap, dise, chang, key_list):
             gap_cnt[t] = 0
             dise_cnt[t] = 0
             chang_cnt[t] = 0
+        tot_cnt = 0
         for key in key_list:
             if not key.startswith(type + '-') or get_k_value_from_name(key) != k:
                 continue
+            tot_cnt += 1
             time = kpbb[key][0]
             for t in time_limits:
                 if time <= t:
@@ -109,11 +111,14 @@ def draw_line_instance(kpbb, gap, dise, chang, key_list):
         gap_cnt = get_array(gap_cnt, time_limits)
         chang_cnt = get_array(chang_cnt, time_limits)
         dise_cnt = get_array(dise_cnt, time_limits)
+        print(
+            f'k={k}, #graph={tot_cnt}, KPBB={kpbb_cnt[-1]}, KPLEX={gap_cnt[-1]}, kPlexS={chang_cnt[-1]}, DiseMKP={dise_cnt[-1]}')
         y = np.array([kpbb_cnt, gap_cnt, chang_cnt, dise_cnt])
-        legends = ['KPBB(ours)', 'KPLEX', 'kPlexS', 'DiseMKP']
+        legends = ['KPBB (ours)', 'KPLEX', 'kPlexS', 'DiseMKP']
         file_name = f'img/{type}-{k}.pdf'
         output2line.draw_lines_solved_instance_cnt(time_limits, y, legends, file_name,
-                                                   y_range=y_range_map[f'{type}-{k}'], y_tick=y_tick_map[f'{type}-{k}'])
+                                                   y_range=y_range_map[f'{type}-{k}'], y_tick=y_tick_map[f'{type}-{k}'],
+                                                   no_legend=k > 3)
 
     # # real-world graph
     type = '2th-DIMACS'
@@ -127,9 +132,11 @@ def draw_line_instance(kpbb, gap, dise, chang, key_list):
             gap_cnt[t] = 0
             dise_cnt[t] = 0
             chang_cnt[t] = 0
+        tot_cnt = 0
         for key in key_list:
             if key.startswith(type + '-') or get_k_value_from_name(key) != k:
                 continue
+            tot_cnt += 1
             time = kpbb[key][0]
             for t in time_limits:
                 if time <= t:
@@ -150,12 +157,14 @@ def draw_line_instance(kpbb, gap, dise, chang, key_list):
         gap_cnt = get_array(gap_cnt, time_limits)
         chang_cnt = get_array(chang_cnt, time_limits)
         dise_cnt = get_array(dise_cnt, time_limits)
+        print(
+            f'k={k}, #graph={tot_cnt}, KPBB={kpbb_cnt[-1]}, KPLEX={gap_cnt[-1]}, kPlexS={chang_cnt[-1]}, DiseMKP={dise_cnt[-1]}')
         y = np.array([kpbb_cnt, gap_cnt, chang_cnt, dise_cnt])
-        legends = ['KPBB(ours)', 'KPLEX', 'kPlexS', 'DiseMKP']
+        legends = ['KPBB (ours)', 'KPLEX', 'kPlexS', 'DiseMKP']
         file_name = f'img/real-world-{k}.pdf'
         output2line.draw_lines_solved_instance_cnt(time_limits, y, legends, file_name,
                                                    y_range=y_range_map[f'real-world-{k}'],
-                                                   y_tick=y_tick_map[f'real-world-{k}'])
+                                                   y_tick=y_tick_map[f'real-world-{k}'], no_legend=k > 3)
 
 
 kpbb = read_json('json-data/kpbb-time-size.json')
@@ -163,6 +172,8 @@ gap = read_json('json-data/gap-time-size.json')
 dise = read_json('json-data/dise-time-size.json')
 chang = read_json('json-data/chang-time-size.json')
 kpbb_no_RR = read_json('json-data/kpbb-no-RR-time-size.json')
+kpbb_no_ub = read_json('json-data/kpbb-no-ub-time-size.json')
+kpbb_no_StrongHeuris = read_json('json-data/kpbb-no-StrongHeuris-time-size.json')
 
 # # 检查算法的正确性
 # trivial_cnt = 0
@@ -203,6 +214,8 @@ for key in kpbb:
     if min(kpbb_time, gap_time, chang_time, dise_time) > 3600:
         continue
     # # 去掉太简单的
+    # if max(kpbb_time, gap_time) < 5:
+    #     continue
     if max(kpbb_time, gap_time, chang_time, dise_time) < 5:
         continue
 
@@ -221,6 +234,76 @@ for key in kpbb:
 print('合法的case个数:', len(key_list), '原本个数:', len(kpbb))
 
 draw_line_instance(kpbb, gap, dise, chang, key_list)
+
+# # 选择出适合消融实验的图
+# keys_for_ablation = []
+# for key in key_list:
+#     kpbb_time = kpbb[key][0]
+#     if kpbb_time > 3600:
+#         continue
+#     kpbb_no_RR_time = kpbb_no_RR[key][0]
+#     kpbb_no_ub_time = kpbb_no_ub[key][0]
+#     kpbb_no_StrongHeuris_time = kpbb_no_StrongHeuris[key][0]
+#     if kpbb_time > min(kpbb_no_RR_time, kpbb_no_ub_time, kpbb_no_StrongHeuris_time) * 1.1:
+#         continue
+#     if kpbb_time > max(kpbb_no_RR_time, kpbb_no_ub_time, kpbb_no_StrongHeuris_time) / 2:
+#         continue
+#     gap_time = gap[key][0]
+#     dise_time = dise[key][0]
+#     if kpbb_time * 1.5 > min(gap_time, dise_time):
+#         continue
+#     keys_for_ablation.append(key)
+# print(len(keys_for_ablation))
+# for key in keys_for_ablation:
+#     kpbb_time = kpbb[key][0]
+#     kpbb_no_RR_time = kpbb_no_RR[key][0]
+#     kpbb_no_ub_time = kpbb_no_ub[key][0]
+#     kpbb_no_StrongHeuris_time = kpbb_no_StrongHeuris[key][0]
+#     print(key, 'KPBB:', kpbb_time, 'KPBB/RR:', kpbb_no_RR_time, 'KPBB/UB:', kpbb_no_ub_time, 'KPBB/StrongHeuris:',
+#           kpbb_no_StrongHeuris_time)
+
+selected_graphs = [
+    '2th-DIMACS-brock200-2',
+    '2th-DIMACS-C125-9',
+    '2th-DIMACS-johnson8-4-4',
+    '2th-DIMACS-keller4',
+    '2th-DIMACS-p-hat300-1',
+    '2th-DIMACS-p-hat300-2',
+    '2th-DIMACS-p-hat500-1',
+    '2th-DIMACS-san200-0-9-1',
+    '2th-DIMACS-san200-0-9-2',
+    '2th-DIMACS-san200-0-9-3',
+    'Network-Repository-bio-grid-fission-yeast',
+    'Network-Repository-CL-10K-1d8-L5',
+    'Network-Repository-copresence-SFHH',
+    'Network-Repository-copresence-Thiers13',
+    'Network-Repository-fb-messages',
+    'Network-Repository-ia-prosper-loans',
+    'Network-Repository-ia-slashdot-reply-dir',
+    'Network-Repository-ia-wiki-Talk-dir',
+    'Network-Repository-ip-trace',
+    'Network-Repository-PLC-40-30-L5',
+    'Network-Repository-PLC-60-30-L2',
+    'Network-Repository-rec-epinions-user-ratings',
+    'Network-Repository-SFHH-conf-sensor',
+    'Network-Repository-sc-TSOPF-RS-b2383-c1',
+    'Network-Repository-soc-bitcoin',
+    'Network-Repository-soc-buzznet',
+    'Network-Repository-soc-BlogCatalog',
+    'Network-Repository-soc-BlogCatalog-ASU',
+    'Network-Repository-soc-FourSquare',
+    'Network-Repository-soc-google-plus',
+    'Network-Repository-soc-livejournal-user-groups',
+    'Network-Repository-soc-LiveMocha',
+    'Network-Repository-soc-sinaweibo',
+    'Network-Repository-soc-themarker',
+    'Network-Repository-soc-wiki-conflict',
+    'Network-Repository-soc-wiki-Talk-dir',
+    'Network-Repository-socfb-UIllinois',
+    'Network-Repository-tech-ip',
+    'Network-Repository-web-wikipedia-growth',
+    'Network-Repository-web-wikipedia_link_it',
+]
 
 # # # 查找慢的个例
 # for key in key_list:

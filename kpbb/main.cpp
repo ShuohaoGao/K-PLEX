@@ -16,7 +16,7 @@ void print_solution()
 {
     if (solution.size() < 2 * paramK - 1)
     {
-        printf("***We can't find a plex larger than 2k-1!! The following is a heuristic solution.\n");
+        printf("***We can't find a plex larger than 2k-2!! The following is a heuristic solution.\n");
     }
 #ifndef NO_DUMP
     printf("Maximum solution(size= %d ):\n", (int)solution.size());

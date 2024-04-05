@@ -4,7 +4,7 @@ Written by [***Shuohao Gao***](https://shuohaogao.github.io/) in **HITSZ**.\
 If you find bugs or meet problems, just feel free to contact us.
 
 # Graph data format:
-Two kinds of graph formats are supported, and you can find the details in ***Graph::readFromFile*** in [**kpbb/Graph.h**](./kpbb/Graph.h).
+Two kinds of graph formats are supported, and you can find the details in ***Graph::readFromFile*** in [**kPEX/Graph.h**](./kPEX/Graph.h).
 
 ## 1. *.out or *.txt
 first line: 
@@ -25,11 +25,17 @@ then: $n$ parts ($2m\times 4$ Bytes in total), each part has $d_G(u)$ integers w
 We provide an example of binary graph file  in [data/bin/](./data/bin/).
 
 # Usage
-The whole procedure for searching Maximum K-Plex is located at [kpbb/](./kpbb/). And we show an example in [run.sh](./kpbb/run.sh).
+The whole procedure for searching Maximum K-Plex is located at [kPEX/](./kPEX/). 
 
 ## compile
 ```
-g++ -std=c++11 -O3 -w kpbb.cpp -o kpbb -DNDEBUG -DNO_PROGRESS_BAR
+g++ -std=c++11 -O3 -w main.cpp -o kPEX -DNDEBUG -DNO_PROGRESS_BAR
+```
+
+or
+
+```
+make
 ```
 
 Note that we add a macro definition in the compile command: \
@@ -38,19 +44,18 @@ we recommend to use this definition when you use batch commands.
 
 ## run
 ```
-./kpbb graph_path k
+./kPEX graph_path k
 ```
 
 ## an example
 ```
-cd kpbb
-g++ -std=c++11 -O3 -w kpbb.cpp -o kpbb -DNDEBUG -DNO_PROGRESS_BAR
-./kpbb ../data/bin/brock200-2.bin 2
-./kpbb ../data/edges/email-Eu-core.out 2
+cd kPEX
+make
+./kPEX ../data/bin/brock200-2.bin 2
+./kPEX ../data/edges/email-Eu-core.out 2
 ```
 
 
-#### We offer two kinds of executable programs:
-```kpbb/kpbb```  can be executed in Ubuntu 20.04\
-```kpbbb/kpbb.exe``` can be executed in Win11 and Win10
+#### We offer an executable program:
+```kPEX/kPEX```  can be executed in Ubuntu 20.04\
 

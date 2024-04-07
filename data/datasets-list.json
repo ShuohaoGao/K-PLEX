@@ -1,0 +1,3322 @@
+{
+  "2nd-DIMACS-C1000-9": {
+    "n": 1000,
+    "m": 450079,
+    "degeneracy": 874
+  },
+  "2nd-DIMACS-C125-9": {
+    "n": 125,
+    "m": 6963,
+    "degeneracy": 102
+  },
+  "2nd-DIMACS-C2000-5": {
+    "n": 2000,
+    "m": 999836,
+    "degeneracy": 940
+  },
+  "2nd-DIMACS-C2000-9": {
+    "n": 2000,
+    "m": 1799532,
+    "degeneracy": 1758
+  },
+  "2nd-DIMACS-C250-9": {
+    "n": 250,
+    "m": 27984,
+    "degeneracy": 210
+  },
+  "2nd-DIMACS-C4000-5": {
+    "n": 4000,
+    "m": 4000268,
+    "degeneracy": 1909
+  },
+  "2nd-DIMACS-C500-9": {
+    "n": 500,
+    "m": 112332,
+    "degeneracy": 432
+  },
+  "2nd-DIMACS-DSJC1000-5": {
+    "n": 1000,
+    "m": 249826,
+    "degeneracy": 459
+  },
+  "2nd-DIMACS-DSJC500-5": {
+    "n": 500,
+    "m": 62624,
+    "degeneracy": 225
+  },
+  "2nd-DIMACS-MANN-a27": {
+    "n": 378,
+    "m": 70551,
+    "degeneracy": 364
+  },
+  "2nd-DIMACS-MANN-a45": {
+    "n": 1035,
+    "m": 533115,
+    "degeneracy": 1012
+  },
+  "2nd-DIMACS-MANN-a81": {
+    "n": 3321,
+    "m": 5506380,
+    "degeneracy": 3280
+  },
+  "2nd-DIMACS-MANN-a9": {
+    "n": 45,
+    "m": 918,
+    "degeneracy": 40
+  },
+  "2nd-DIMACS-brock200-1": {
+    "n": 200,
+    "m": 14834,
+    "degeneracy": 134
+  },
+  "2nd-DIMACS-brock200-2": {
+    "n": 200,
+    "m": 9876,
+    "degeneracy": 84
+  },
+  "2nd-DIMACS-brock200-3": {
+    "n": 200,
+    "m": 12048,
+    "degeneracy": 105
+  },
+  "2nd-DIMACS-brock200-4": {
+    "n": 200,
+    "m": 13089,
+    "degeneracy": 117
+  },
+  "2nd-DIMACS-brock400-1": {
+    "n": 400,
+    "m": 59723,
+    "degeneracy": 277
+  },
+  "2nd-DIMACS-brock400-2": {
+    "n": 400,
+    "m": 59786,
+    "degeneracy": 278
+  },
+  "2nd-DIMACS-brock400-3": {
+    "n": 400,
+    "m": 59681,
+    "degeneracy": 278
+  },
+  "2nd-DIMACS-brock400-4": {
+    "n": 400,
+    "m": 59765,
+    "degeneracy": 277
+  },
+  "2nd-DIMACS-brock800-1": {
+    "n": 800,
+    "m": 207505,
+    "degeneracy": 487
+  },
+  "2nd-DIMACS-brock800-2": {
+    "n": 800,
+    "m": 208166,
+    "degeneracy": 486
+  },
+  "2nd-DIMACS-brock800-3": {
+    "n": 800,
+    "m": 207333,
+    "degeneracy": 483
+  },
+  "2nd-DIMACS-brock800-4": {
+    "n": 800,
+    "m": 207643,
+    "degeneracy": 485
+  },
+  "2nd-DIMACS-c-fat200-1": {
+    "n": 200,
+    "m": 1534,
+    "degeneracy": 14
+  },
+  "2nd-DIMACS-c-fat200-2": {
+    "n": 200,
+    "m": 3235,
+    "degeneracy": 32
+  },
+  "2nd-DIMACS-c-fat200-5": {
+    "n": 200,
+    "m": 8473,
+    "degeneracy": 83
+  },
+  "2nd-DIMACS-c-fat500-1": {
+    "n": 500,
+    "m": 4459,
+    "degeneracy": 17
+  },
+  "2nd-DIMACS-c-fat500-10": {
+    "n": 500,
+    "m": 46627,
+    "degeneracy": 185
+  },
+  "2nd-DIMACS-c-fat500-2": {
+    "n": 500,
+    "m": 9139,
+    "degeneracy": 35
+  },
+  "2nd-DIMACS-c-fat500-5": {
+    "n": 500,
+    "m": 23191,
+    "degeneracy": 92
+  },
+  "2nd-DIMACS-gen200-p0-9-44": {
+    "n": 200,
+    "m": 17910,
+    "degeneracy": 167
+  },
+  "2nd-DIMACS-gen200-p0-9-55": {
+    "n": 200,
+    "m": 17910,
+    "degeneracy": 166
+  },
+  "2nd-DIMACS-gen400-p0-9-55": {
+    "n": 400,
+    "m": 71820,
+    "degeneracy": 336
+  },
+  "2nd-DIMACS-gen400-p0-9-65": {
+    "n": 400,
+    "m": 71820,
+    "degeneracy": 336
+  },
+  "2nd-DIMACS-gen400-p0-9-75": {
+    "n": 400,
+    "m": 71820,
+    "degeneracy": 336
+  },
+  "2nd-DIMACS-hamming10-2": {
+    "n": 1024,
+    "m": 518656,
+    "degeneracy": 1013
+  },
+  "2nd-DIMACS-hamming10-4": {
+    "n": 1024,
+    "m": 434176,
+    "degeneracy": 848
+  },
+  "2nd-DIMACS-hamming6-2": {
+    "n": 64,
+    "m": 1824,
+    "degeneracy": 57
+  },
+  "2nd-DIMACS-hamming6-4": {
+    "n": 64,
+    "m": 704,
+    "degeneracy": 22
+  },
+  "2nd-DIMACS-hamming8-2": {
+    "n": 256,
+    "m": 31616,
+    "degeneracy": 247
+  },
+  "2nd-DIMACS-hamming8-4": {
+    "n": 256,
+    "m": 20864,
+    "degeneracy": 163
+  },
+  "2nd-DIMACS-johnson16-2-4": {
+    "n": 120,
+    "m": 5460,
+    "degeneracy": 91
+  },
+  "2nd-DIMACS-johnson32-2-4": {
+    "n": 496,
+    "m": 107880,
+    "degeneracy": 435
+  },
+  "2nd-DIMACS-johnson8-2-4": {
+    "n": 28,
+    "m": 210,
+    "degeneracy": 15
+  },
+  "2nd-DIMACS-johnson8-4-4": {
+    "n": 70,
+    "m": 1855,
+    "degeneracy": 53
+  },
+  "2nd-DIMACS-keller4": {
+    "n": 171,
+    "m": 9435,
+    "degeneracy": 102
+  },
+  "2nd-DIMACS-keller5": {
+    "n": 776,
+    "m": 225990,
+    "degeneracy": 560
+  },
+  "2nd-DIMACS-keller6": {
+    "n": 3361,
+    "m": 4619898,
+    "degeneracy": 2690
+  },
+  "2nd-DIMACS-p-hat1000-1": {
+    "n": 1000,
+    "m": 122253,
+    "degeneracy": 163
+  },
+  "2nd-DIMACS-p-hat1000-2": {
+    "n": 1000,
+    "m": 244799,
+    "degeneracy": 327
+  },
+  "2nd-DIMACS-p-hat1000-3": {
+    "n": 1000,
+    "m": 371746,
+    "degeneracy": 609
+  },
+  "2nd-DIMACS-p-hat1500-1": {
+    "n": 1500,
+    "m": 284923,
+    "degeneracy": 252
+  },
+  "2nd-DIMACS-p-hat1500-2": {
+    "n": 1500,
+    "m": 568960,
+    "degeneracy": 504
+  },
+  "2nd-DIMACS-p-hat1500-3": {
+    "n": 1500,
+    "m": 847244,
+    "degeneracy": 929
+  },
+  "2nd-DIMACS-p-hat300-1": {
+    "n": 300,
+    "m": 10933,
+    "degeneracy": 49
+  },
+  "2nd-DIMACS-p-hat300-2": {
+    "n": 300,
+    "m": 21928,
+    "degeneracy": 98
+  },
+  "2nd-DIMACS-p-hat300-3": {
+    "n": 300,
+    "m": 33390,
+    "degeneracy": 180
+  },
+  "2nd-DIMACS-p-hat500-1": {
+    "n": 500,
+    "m": 31569,
+    "degeneracy": 86
+  },
+  "2nd-DIMACS-p-hat500-2": {
+    "n": 500,
+    "m": 62946,
+    "degeneracy": 170
+  },
+  "2nd-DIMACS-p-hat500-3": {
+    "n": 500,
+    "m": 93800,
+    "degeneracy": 303
+  },
+  "2nd-DIMACS-p-hat700-1": {
+    "n": 700,
+    "m": 60999,
+    "degeneracy": 117
+  },
+  "2nd-DIMACS-p-hat700-2": {
+    "n": 700,
+    "m": 121728,
+    "degeneracy": 235
+  },
+  "2nd-DIMACS-p-hat700-3": {
+    "n": 700,
+    "m": 183010,
+    "degeneracy": 426
+  },
+  "2nd-DIMACS-san1000": {
+    "n": 1000,
+    "m": 250500,
+    "degeneracy": 464
+  },
+  "2nd-DIMACS-san200-0-7-1": {
+    "n": 200,
+    "m": 13930,
+    "degeneracy": 125
+  },
+  "2nd-DIMACS-san200-0-7-2": {
+    "n": 200,
+    "m": 13930,
+    "degeneracy": 122
+  },
+  "2nd-DIMACS-san200-0-9-1": {
+    "n": 200,
+    "m": 17910,
+    "degeneracy": 162
+  },
+  "2nd-DIMACS-san200-0-9-2": {
+    "n": 200,
+    "m": 17910,
+    "degeneracy": 169
+  },
+  "2nd-DIMACS-san200-0-9-3": {
+    "n": 200,
+    "m": 17910,
+    "degeneracy": 169
+  },
+  "2nd-DIMACS-san400-0-5-1": {
+    "n": 400,
+    "m": 39900,
+    "degeneracy": 183
+  },
+  "2nd-DIMACS-san400-0-7-1": {
+    "n": 400,
+    "m": 55860,
+    "degeneracy": 261
+  },
+  "2nd-DIMACS-san400-0-7-2": {
+    "n": 400,
+    "m": 55860,
+    "degeneracy": 259
+  },
+  "2nd-DIMACS-san400-0-7-3": {
+    "n": 400,
+    "m": 55860,
+    "degeneracy": 253
+  },
+  "2nd-DIMACS-san400-0-9-1": {
+    "n": 400,
+    "m": 71820,
+    "degeneracy": 344
+  },
+  "2nd-DIMACS-sanr200-0-7": {
+    "n": 200,
+    "m": 13868,
+    "degeneracy": 124
+  },
+  "2nd-DIMACS-sanr200-0-9": {
+    "n": 200,
+    "m": 17863,
+    "degeneracy": 166
+  },
+  "2nd-DIMACS-sanr400-0-5": {
+    "n": 400,
+    "m": 39984,
+    "degeneracy": 177
+  },
+  "2nd-DIMACS-sanr400-0-7": {
+    "n": 400,
+    "m": 55869,
+    "degeneracy": 258
+  },
+  "Network-Repository-144": {
+    "n": 144649,
+    "m": 1074393,
+    "degeneracy": 9
+  },
+  "Network-Repository-598a": {
+    "n": 110971,
+    "m": 741934,
+    "degeneracy": 8
+  },
+  "Network-Repository-AIDS": {
+    "n": 31175,
+    "m": 32390,
+    "degeneracy": 3
+  },
+  "Network-Repository-BA-1_10_60-L5": {
+    "n": 804,
+    "m": 46410,
+    "degeneracy": 60
+  },
+  "Network-Repository-BA-2_24_60-L2": {
+    "n": 10693,
+    "m": 639750,
+    "degeneracy": 60
+  },
+  "Network-Repository-BZR": {
+    "n": 14479,
+    "m": 15535,
+    "degeneracy": 2
+  },
+  "Network-Repository-BZR-MD": {
+    "n": 6519,
+    "m": 68867,
+    "degeneracy": 31
+  },
+  "Network-Repository-CL-100K-1d8-L9": {
+    "n": 92482,
+    "m": 436597,
+    "degeneracy": 21
+  },
+  "Network-Repository-CL-10K-1d8-L5": {
+    "n": 9221,
+    "m": 44228,
+    "degeneracy": 21
+  },
+  "Network-Repository-CL-10M-1d8-L5": {
+    "n": 9238061,
+    "m": 43985039,
+    "degeneracy": 22
+  },
+  "Network-Repository-COIL-DEL": {
+    "n": 83995,
+    "m": 211524,
+    "degeneracy": 4
+  },
+  "Network-Repository-COIL-RAG": {
+    "n": 11687,
+    "m": 11794,
+    "degeneracy": 4
+  },
+  "Network-Repository-COLLAB": {
+    "n": 372474,
+    "m": 12286079,
+    "degeneracy": 238
+  },
+  "Network-Repository-COX2": {
+    "n": 19252,
+    "m": 20289,
+    "degeneracy": 2
+  },
+  "Network-Repository-COX2-MD": {
+    "n": 7962,
+    "m": 101542,
+    "degeneracy": 35
+  },
+  "Network-Repository-DBLP-v1": {
+    "n": 203954,
+    "m": 382256,
+    "degeneracy": 14
+  },
+  "Network-Repository-DD": {
+    "n": 334925,
+    "m": 843046,
+    "degeneracy": 7
+  },
+  "Network-Repository-DD199": {
+    "n": 841,
+    "m": 1902,
+    "degeneracy": 4
+  },
+  "Network-Repository-DD21": {
+    "n": 5748,
+    "m": 14267,
+    "degeneracy": 4
+  },
+  "Network-Repository-DD242": {
+    "n": 1284,
+    "m": 3303,
+    "degeneracy": 4
+  },
+  "Network-Repository-DD244": {
+    "n": 291,
+    "m": 822,
+    "degeneracy": 4
+  },
+  "Network-Repository-DD349": {
+    "n": 897,
+    "m": 2087,
+    "degeneracy": 4
+  },
+  "Network-Repository-DD497": {
+    "n": 903,
+    "m": 2453,
+    "degeneracy": 4
+  },
+  "Network-Repository-DD6": {
+    "n": 4152,
+    "m": 10320,
+    "degeneracy": 4
+  },
+  "Network-Repository-DD68": {
+    "n": 775,
+    "m": 2093,
+    "degeneracy": 5
+  },
+  "Network-Repository-DD687": {
+    "n": 725,
+    "m": 2600,
+    "degeneracy": 5
+  },
+  "Network-Repository-DHFR": {
+    "n": 32075,
+    "m": 33676,
+    "degeneracy": 2
+  },
+  "Network-Repository-DHFR-MD": {
+    "n": 9380,
+    "m": 111226,
+    "degeneracy": 37
+  },
+  "Network-Repository-ENZYMES": {
+    "n": 19474,
+    "m": 37282,
+    "degeneracy": 4
+  },
+  "Network-Repository-ENZYMES118": {
+    "n": 95,
+    "m": 121,
+    "degeneracy": 2
+  },
+  "Network-Repository-ENZYMES123": {
+    "n": 90,
+    "m": 127,
+    "degeneracy": 2
+  },
+  "Network-Repository-ENZYMES295": {
+    "n": 123,
+    "m": 139,
+    "degeneracy": 2
+  },
+  "Network-Repository-ENZYMES296": {
+    "n": 125,
+    "m": 141,
+    "degeneracy": 2
+  },
+  "Network-Repository-ENZYMES297": {
+    "n": 121,
+    "m": 149,
+    "degeneracy": 2
+  },
+  "Network-Repository-ENZYMES8": {
+    "n": 88,
+    "m": 133,
+    "degeneracy": 3
+  },
+  "Network-Repository-ER-AvgDeg10-100K-L2": {
+    "n": 99997,
+    "m": 499359,
+    "degeneracy": 7
+  },
+  "Network-Repository-ER-AvgDeg10-100K-L5": {
+    "n": 99997,
+    "m": 499359,
+    "degeneracy": 7
+  },
+  "Network-Repository-ER-AvgDeg10-1M-L2": {
+    "n": 999944,
+    "m": 5001288,
+    "degeneracy": 7
+  },
+  "Network-Repository-ER-AvgDeg10-1M-L5": {
+    "n": 999944,
+    "m": 5001288,
+    "degeneracy": 7
+  },
+  "Network-Repository-ER-MD": {
+    "n": 9512,
+    "m": 104741,
+    "degeneracy": 42
+  },
+  "Network-Repository-FIRSTMM-DB": {
+    "n": 56468,
+    "m": 126024,
+    "degeneracy": 4
+  },
+  "Network-Repository-FRANKENSTEIN": {
+    "n": 72985,
+    "m": 77534,
+    "degeneracy": 2
+  },
+  "Network-Repository-Fingerprint": {
+    "n": 15165,
+    "m": 12378,
+    "degeneracy": 2
+  },
+  "Network-Repository-IMDB-BINARY": {
+    "n": 19773,
+    "m": 96531,
+    "degeneracy": 29
+  },
+  "Network-Repository-IMDB-MULTI": {
+    "n": 19502,
+    "m": 98903,
+    "degeneracy": 37
+  },
+  "Network-Repository-KKI": {
+    "n": 2238,
+    "m": 4019,
+    "degeneracy": 9
+  },
+  "Network-Repository-Letter-high": {
+    "n": 10482,
+    "m": 10125,
+    "degeneracy": 3
+  },
+  "Network-Repository-Letter-low": {
+    "n": 10460,
+    "m": 7046,
+    "degeneracy": 1
+  },
+  "Network-Repository-Letter-med": {
+    "n": 10460,
+    "m": 7213,
+    "degeneracy": 2
+  },
+  "Network-Repository-MSRC-21": {
+    "n": 43644,
+    "m": 111656,
+    "degeneracy": 5
+  },
+  "Network-Repository-MSRC-21C": {
+    "n": 8418,
+    "m": 20190,
+    "degeneracy": 4
+  },
+  "Network-Repository-MSRC-9": {
+    "n": 8968,
+    "m": 21644,
+    "degeneracy": 4
+  },
+  "Network-Repository-Mutag": {
+    "n": 97990,
+    "m": 104396,
+    "degeneracy": 3
+  },
+  "Network-Repository-Mutagenicity": {
+    "n": 129087,
+    "m": 133447,
+    "degeneracy": 2
+  },
+  "Network-Repository-NCI1": {
+    "n": 99658,
+    "m": 110551,
+    "degeneracy": 3
+  },
+  "Network-Repository-NCI109": {
+    "n": 122020,
+    "m": 132604,
+    "degeneracy": 3
+  },
+  "Network-Repository-OHSU": {
+    "n": 6479,
+    "m": 15773,
+    "degeneracy": 13
+  },
+  "Network-Repository-PLC-40-30-L5": {
+    "n": 11025,
+    "m": 437979,
+    "degeneracy": 40
+  },
+  "Network-Repository-PLC-60-30-L2": {
+    "n": 117572,
+    "m": 7045181,
+    "degeneracy": 60
+  },
+  "Network-Repository-PROTEINS-full": {
+    "n": 43466,
+    "m": 81044,
+    "degeneracy": 4
+  },
+  "Network-Repository-PTC-FM": {
+    "n": 4925,
+    "m": 5055,
+    "degeneracy": 2
+  },
+  "Network-Repository-PTC-FR": {
+    "n": 5110,
+    "m": 5266,
+    "degeneracy": 2
+  },
+  "Network-Repository-PTC-MM": {
+    "n": 4695,
+    "m": 4812,
+    "degeneracy": 2
+  },
+  "Network-Repository-PTC-MR": {
+    "n": 4915,
+    "m": 5054,
+    "degeneracy": 2
+  },
+  "Network-Repository-Peking-1": {
+    "n": 3341,
+    "m": 6575,
+    "degeneracy": 11
+  },
+  "Network-Repository-PubMed": {
+    "n": 19717,
+    "m": 44324,
+    "degeneracy": 10
+  },
+  "Network-Repository-REDDIT-BINARY": {
+    "n": 859233,
+    "m": 995508,
+    "degeneracy": 6
+  },
+  "Network-Repository-REDDIT-MULTI-12K": {
+    "n": 4669027,
+    "m": 5450243,
+    "degeneracy": 8
+  },
+  "Network-Repository-REDDIT-MULTI-5K": {
+    "n": 2542026,
+    "m": 2973778,
+    "degeneracy": 8
+  },
+  "Network-Repository-SFHH-conf-sensor": {
+    "n": 403,
+    "m": 9565,
+    "degeneracy": 33
+  },
+  "Network-Repository-SMS-A": {
+    "n": 42255,
+    "m": 49068,
+    "degeneracy": 5
+  },
+  "Network-Repository-SW-10000-6-0d3-L2": {
+    "n": 10000,
+    "m": 30000,
+    "degeneracy": 4
+  },
+  "Network-Repository-SW-10000-6-0d3-L5": {
+    "n": 10000,
+    "m": 30000,
+    "degeneracy": 4
+  },
+  "Network-Repository-SYNTHETIC": {
+    "n": 30000,
+    "m": 58800,
+    "degeneracy": 3
+  },
+  "Network-Repository-SYNTHETICnew": {
+    "n": 30000,
+    "m": 58875,
+    "degeneracy": 3
+  },
+  "Network-Repository-Synthie": {
+    "n": 36639,
+    "m": 69171,
+    "degeneracy": 3
+  },
+  "Network-Repository-TWITTER-Real-Graph-Partial": {
+    "n": 580768,
+    "m": 717558,
+    "degeneracy": 9
+  },
+  "Network-Repository-TerroristRel": {
+    "n": 881,
+    "m": 8592,
+    "degeneracy": 30
+  },
+  "Network-Repository-Tox21-AHR": {
+    "n": 146275,
+    "m": 151094,
+    "degeneracy": 2
+  },
+  "Network-Repository-Tox21-AR": {
+    "n": 170425,
+    "m": 176425,
+    "degeneracy": 2
+  },
+  "Network-Repository-Tox21-AR-LBD": {
+    "n": 151224,
+    "m": 156144,
+    "degeneracy": 2
+  },
+  "Network-Repository-Tox21-ARE": {
+    "n": 115547,
+    "m": 118432,
+    "degeneracy": 2
+  },
+  "Network-Repository-Tox21-ATAD5": {
+    "n": 99011,
+    "m": 110619,
+    "degeneracy": 3
+  },
+  "Network-Repository-Tox21-ER": {
+    "n": 133904,
+    "m": 138076,
+    "degeneracy": 2
+  },
+  "Network-Repository-Tox21-ER-LBD": {
+    "n": 156455,
+    "m": 161703,
+    "degeneracy": 2
+  },
+  "Network-Repository-Tox21-HSE": {
+    "n": 134931,
+    "m": 138841,
+    "degeneracy": 2
+  },
+  "Network-Repository-Tox21-MMP": {
+    "n": 126728,
+    "m": 130481,
+    "degeneracy": 2
+  },
+  "Network-Repository-Tox21-PPAR-gamma": {
+    "n": 139565,
+    "m": 143622,
+    "degeneracy": 2
+  },
+  "Network-Repository-Tox21-aromatase": {
+    "n": 125115,
+    "m": 128546,
+    "degeneracy": 2
+  },
+  "Network-Repository-Tox21-p53": {
+    "n": 152023,
+    "m": 157023,
+    "degeneracy": 2
+  },
+  "Network-Repository-Tox21_p53": {
+    "n": 152024,
+    "m": 152023,
+    "degeneracy": 1
+  },
+  "Network-Repository-adaptive": {
+    "n": 6815744,
+    "m": 13624320,
+    "degeneracy": 2
+  },
+  "Network-Repository-auto": {
+    "n": 448695,
+    "m": 3314611,
+    "degeneracy": 9
+  },
+  "Network-Repository-aves-sparrow-social": {
+    "n": 52,
+    "m": 454,
+    "degeneracy": 13
+  },
+  "Network-Repository-aves-weaver-social": {
+    "n": 445,
+    "m": 1332,
+    "degeneracy": 10
+  },
+  "Network-Repository-aves-wildbird-network": {
+    "n": 202,
+    "m": 4574,
+    "degeneracy": 53
+  },
+  "Network-Repository-bio-CE-CX": {
+    "n": 15229,
+    "m": 245952,
+    "degeneracy": 78
+  },
+  "Network-Repository-bio-CE-GN": {
+    "n": 2220,
+    "m": 53683,
+    "degeneracy": 48
+  },
+  "Network-Repository-bio-CE-GT": {
+    "n": 924,
+    "m": 3239,
+    "degeneracy": 9
+  },
+  "Network-Repository-bio-CE-HT": {
+    "n": 2617,
+    "m": 2985,
+    "degeneracy": 3
+  },
+  "Network-Repository-bio-CE-LC": {
+    "n": 1387,
+    "m": 1648,
+    "degeneracy": 6
+  },
+  "Network-Repository-bio-CE-PG": {
+    "n": 1871,
+    "m": 47754,
+    "degeneracy": 80
+  },
+  "Network-Repository-bio-DM-CX": {
+    "n": 4040,
+    "m": 76717,
+    "degeneracy": 71
+  },
+  "Network-Repository-bio-DM-HT": {
+    "n": 2989,
+    "m": 4660,
+    "degeneracy": 11
+  },
+  "Network-Repository-bio-DM-LC": {
+    "n": 658,
+    "m": 1129,
+    "degeneracy": 10
+  },
+  "Network-Repository-bio-DR-CX": {
+    "n": 3289,
+    "m": 84940,
+    "degeneracy": 95
+  },
+  "Network-Repository-bio-HS-CX": {
+    "n": 4413,
+    "m": 108818,
+    "degeneracy": 98
+  },
+  "Network-Repository-bio-HS-HT": {
+    "n": 2570,
+    "m": 13691,
+    "degeneracy": 39
+  },
+  "Network-Repository-bio-HS-LC": {
+    "n": 4227,
+    "m": 39484,
+    "degeneracy": 66
+  },
+  "Network-Repository-bio-SC-CC": {
+    "n": 2223,
+    "m": 34879,
+    "degeneracy": 67
+  },
+  "Network-Repository-bio-SC-GT": {
+    "n": 1716,
+    "m": 33987,
+    "degeneracy": 60
+  },
+  "Network-Repository-bio-SC-HT": {
+    "n": 2084,
+    "m": 63027,
+    "degeneracy": 100
+  },
+  "Network-Repository-bio-SC-LC": {
+    "n": 2004,
+    "m": 20452,
+    "degeneracy": 48
+  },
+  "Network-Repository-bio-SC-TS": {
+    "n": 636,
+    "m": 3959,
+    "degeneracy": 65
+  },
+  "Network-Repository-bio-WormNet-v3": {
+    "n": 16347,
+    "m": 762822,
+    "degeneracy": 164
+  },
+  "Network-Repository-bio-WormNet-v3-benchmark": {
+    "n": 2445,
+    "m": 78736,
+    "degeneracy": 124
+  },
+  "Network-Repository-bio-celegans": {
+    "n": 453,
+    "m": 2025,
+    "degeneracy": 10
+  },
+  "Network-Repository-bio-celegans-dir": {
+    "n": 453,
+    "m": 2025,
+    "degeneracy": 10
+  },
+  "Network-Repository-bio-celegansneural": {
+    "n": 297,
+    "m": 2148,
+    "degeneracy": 10
+  },
+  "Network-Repository-bio-diseasome": {
+    "n": 516,
+    "m": 1188,
+    "degeneracy": 9
+  },
+  "Network-Repository-bio-dmela": {
+    "n": 7393,
+    "m": 25569,
+    "degeneracy": 11
+  },
+  "Network-Repository-bio-grid-fission-yeast": {
+    "n": 2026,
+    "m": 12637,
+    "degeneracy": 34
+  },
+  "Network-Repository-bio-grid-fruitfly": {
+    "n": 7274,
+    "m": 24894,
+    "degeneracy": 12
+  },
+  "Network-Repository-bio-grid-human": {
+    "n": 9436,
+    "m": 31182,
+    "degeneracy": 11
+  },
+  "Network-Repository-bio-grid-mouse": {
+    "n": 1450,
+    "m": 1636,
+    "degeneracy": 5
+  },
+  "Network-Repository-bio-grid-plant": {
+    "n": 1717,
+    "m": 3098,
+    "degeneracy": 12
+  },
+  "Network-Repository-bio-grid-worm": {
+    "n": 3507,
+    "m": 6531,
+    "degeneracy": 10
+  },
+  "Network-Repository-bio-grid-yeast": {
+    "n": 6008,
+    "m": 156945,
+    "degeneracy": 64
+  },
+  "Network-Repository-bio-human-gene1": {
+    "n": 22283,
+    "m": 12323680,
+    "degeneracy": 2047
+  },
+  "Network-Repository-bio-human-gene2": {
+    "n": 14340,
+    "m": 9027024,
+    "degeneracy": 1902
+  },
+  "Network-Repository-bio-mouse-gene": {
+    "n": 45101,
+    "m": 14461095,
+    "degeneracy": 1045
+  },
+  "Network-Repository-bio-pdb1HYS": {
+    "n": 36417,
+    "m": 2154174,
+    "degeneracy": 74
+  },
+  "Network-Repository-bio-yeast": {
+    "n": 1458,
+    "m": 1948,
+    "degeneracy": 4
+  },
+  "Network-Repository-bio-yeast-protein-inter": {
+    "n": 1870,
+    "m": 2203,
+    "degeneracy": 4
+  },
+  "Network-Repository-c-62ghs": {
+    "n": 41731,
+    "m": 258806,
+    "degeneracy": 60
+  },
+  "Network-Repository-c-66b": {
+    "n": 49989,
+    "m": 224509,
+    "degeneracy": 42
+  },
+  "Network-Repository-ca-cit-HepPh": {
+    "n": 28093,
+    "m": 3148447,
+    "degeneracy": 409
+  },
+  "Network-Repository-ca-cit-HepTh": {
+    "n": 22908,
+    "m": 2444798,
+    "degeneracy": 560
+  },
+  "Network-Repository-channel-500x100x100-b050": {
+    "n": 4802000,
+    "m": 42681372,
+    "degeneracy": 9
+  },
+  "Network-Repository-chesapeake": {
+    "n": 39,
+    "m": 170,
+    "degeneracy": 6
+  },
+  "Network-Repository-citationCiteseer": {
+    "n": 268495,
+    "m": 1156647,
+    "degeneracy": 15
+  },
+  "Network-Repository-citeseer": {
+    "n": 3264,
+    "m": 4536,
+    "degeneracy": 7
+  },
+  "Network-Repository-cnr-2000": {
+    "n": 325557,
+    "m": 2738969,
+    "degeneracy": 83
+  },
+  "Network-Repository-co-papers-citeseer": {
+    "n": 434102,
+    "m": 16036720,
+    "degeneracy": 843
+  },
+  "Network-Repository-co-papers-dblp": {
+    "n": 540486,
+    "m": 15245729,
+    "degeneracy": 335
+  },
+  "Network-Repository-coAuthorsCiteseer": {
+    "n": 227320,
+    "m": 814134,
+    "degeneracy": 85
+  },
+  "Network-Repository-comm-linux-kernel-reply": {
+    "n": 27927,
+    "m": 159996,
+    "degeneracy": 91
+  },
+  "Network-Repository-connectus": {
+    "n": 394707,
+    "m": 1127491,
+    "degeneracy": 37
+  },
+  "Network-Repository-consph": {
+    "n": 79679,
+    "m": 2963573,
+    "degeneracy": 41
+  },
+  "Network-Repository-contacts-prox-high-school-2013": {
+    "n": 327,
+    "m": 5818,
+    "degeneracy": 24
+  },
+  "Network-Repository-cop20k_A": {
+    "n": 99843,
+    "m": 1262244,
+    "degeneracy": 18
+  },
+  "Network-Repository-copresence-InVS13": {
+    "n": 95,
+    "m": 3915,
+    "degeneracy": 77
+  },
+  "Network-Repository-copresence-InVS15": {
+    "n": 219,
+    "m": 16725,
+    "degeneracy": 112
+  },
+  "Network-Repository-copresence-LH10": {
+    "n": 73,
+    "m": 1381,
+    "degeneracy": 32
+  },
+  "Network-Repository-copresence-LyonSchool": {
+    "n": 242,
+    "m": 26594,
+    "degeneracy": 181
+  },
+  "Network-Repository-copresence-SFHH": {
+    "n": 403,
+    "m": 73557,
+    "degeneracy": 320
+  },
+  "Network-Repository-copresence-Thiers13": {
+    "n": 328,
+    "m": 43496,
+    "degeneracy": 210
+  },
+  "Network-Repository-cora": {
+    "n": 2708,
+    "m": 5278,
+    "degeneracy": 4
+  },
+  "Network-Repository-cs4": {
+    "n": 22499,
+    "m": 43858,
+    "degeneracy": 3
+  },
+  "Network-Repository-cti": {
+    "n": 16840,
+    "m": 48232,
+    "degeneracy": 4
+  },
+  "Network-Repository-delaunay_n10": {
+    "n": 1024,
+    "m": 3056,
+    "degeneracy": 4
+  },
+  "Network-Repository-delaunay_n11": {
+    "n": 2048,
+    "m": 6127,
+    "degeneracy": 4
+  },
+  "Network-Repository-delaunay_n12": {
+    "n": 4096,
+    "m": 12264,
+    "degeneracy": 4
+  },
+  "Network-Repository-delaunay_n13": {
+    "n": 8192,
+    "m": 24547,
+    "degeneracy": 4
+  },
+  "Network-Repository-delaunay_n14": {
+    "n": 16384,
+    "m": 49122,
+    "degeneracy": 4
+  },
+  "Network-Repository-delaunay_n15": {
+    "n": 32768,
+    "m": 98274,
+    "degeneracy": 4
+  },
+  "Network-Repository-delaunay_n16": {
+    "n": 65536,
+    "m": 196575,
+    "degeneracy": 4
+  },
+  "Network-Repository-delaunay_n17": {
+    "n": 131072,
+    "m": 393176,
+    "degeneracy": 4
+  },
+  "Network-Repository-delaunay_n18": {
+    "n": 262144,
+    "m": 786396,
+    "degeneracy": 4
+  },
+  "Network-Repository-delaunay_n19": {
+    "n": 524288,
+    "m": 1572823,
+    "degeneracy": 4
+  },
+  "Network-Repository-delaunay_n20": {
+    "n": 1048576,
+    "m": 3145686,
+    "degeneracy": 4
+  },
+  "Network-Repository-delaunay_n21": {
+    "n": 2097152,
+    "m": 6291408,
+    "degeneracy": 4
+  },
+  "Network-Repository-delaunay_n22": {
+    "n": 4194304,
+    "m": 12582869,
+    "degeneracy": 4
+  },
+  "Network-Repository-delaunay_n23": {
+    "n": 8388608,
+    "m": 25165784,
+    "degeneracy": 4
+  },
+  "Network-Repository-delaunay_n24": {
+    "n": 16777216,
+    "m": 50331601,
+    "degeneracy": 4
+  },
+  "Network-Repository-digg-friends": {
+    "n": 279630,
+    "m": 1548126,
+    "degeneracy": 176
+  },
+  "Network-Repository-edit-enwikibooks": {
+    "n": 133449,
+    "m": 386890,
+    "degeneracy": 22
+  },
+  "Network-Repository-email-dnc": {
+    "n": 1891,
+    "m": 4384,
+    "degeneracy": 17
+  },
+  "Network-Repository-email-enron": {
+    "n": 69017,
+    "m": 254449,
+    "degeneracy": 52
+  },
+  "Network-Repository-escorts": {
+    "n": 10106,
+    "m": 39016,
+    "degeneracy": 11
+  },
+  "Network-Repository-fb-CMU-Carnegie49": {
+    "n": 6637,
+    "m": 249967,
+    "degeneracy": 69
+  },
+  "Network-Repository-fb-forum": {
+    "n": 899,
+    "m": 7036,
+    "degeneracy": 14
+  },
+  "Network-Repository-fb-messages": {
+    "n": 1899,
+    "m": 13838,
+    "degeneracy": 20
+  },
+  "Network-Repository-fb-pages-artist": {
+    "n": 50515,
+    "m": 819090,
+    "degeneracy": 69
+  },
+  "Network-Repository-fb-pages-company": {
+    "n": 14113,
+    "m": 52126,
+    "degeneracy": 20
+  },
+  "Network-Repository-fb-pages-food": {
+    "n": 620,
+    "m": 2091,
+    "degeneracy": 11
+  },
+  "Network-Repository-fb-pages-government": {
+    "n": 7057,
+    "m": 89429,
+    "degeneracy": 46
+  },
+  "Network-Repository-fb-pages-media": {
+    "n": 27917,
+    "m": 205964,
+    "degeneracy": 31
+  },
+  "Network-Repository-fb-pages-politician": {
+    "n": 5908,
+    "m": 41706,
+    "degeneracy": 31
+  },
+  "Network-Repository-fb-pages-public-figure": {
+    "n": 11565,
+    "m": 67038,
+    "degeneracy": 42
+  },
+  "Network-Repository-fb-pages-sport": {
+    "n": 13866,
+    "m": 86811,
+    "degeneracy": 31
+  },
+  "Network-Repository-fb-pages-tvshow": {
+    "n": 3892,
+    "m": 17239,
+    "degeneracy": 56
+  },
+  "Network-Repository-fb-wosn-friends": {
+    "n": 63731,
+    "m": 817090,
+    "degeneracy": 52
+  },
+  "Network-Repository-fe-4elt2": {
+    "n": 11143,
+    "m": 32818,
+    "degeneracy": 4
+  },
+  "Network-Repository-fe-body": {
+    "n": 44775,
+    "m": 163734,
+    "degeneracy": 6
+  },
+  "Network-Repository-fe-ocean": {
+    "n": 143437,
+    "m": 409593,
+    "degeneracy": 4
+  },
+  "Network-Repository-fe-sphere": {
+    "n": 16386,
+    "m": 49152,
+    "degeneracy": 5
+  },
+  "Network-Repository-fe-tooth": {
+    "n": 78136,
+    "m": 452591,
+    "degeneracy": 7
+  },
+  "Network-Repository-fe_rotor": {
+    "n": 99617,
+    "m": 662431,
+    "degeneracy": 8
+  },
+  "Network-Repository-gene": {
+    "n": 1103,
+    "m": 1672,
+    "degeneracy": 11
+  },
+  "Network-Repository-hospital-detailed-list-of-contacts": {
+    "n": 9518,
+    "m": 27094,
+    "degeneracy": 8
+  },
+  "Network-Repository-hugebubbles-00020": {
+    "n": 21198119,
+    "m": 31790179,
+    "degeneracy": 2
+  },
+  "Network-Repository-hugetrace-00000": {
+    "n": 4588484,
+    "m": 6879133,
+    "degeneracy": 2
+  },
+  "Network-Repository-hugetrace-00010": {
+    "n": 12057441,
+    "m": 18082179,
+    "degeneracy": 2
+  },
+  "Network-Repository-hugetrace-00020": {
+    "n": 16002413,
+    "m": 23998813,
+    "degeneracy": 2
+  },
+  "Network-Repository-hugetric-00000": {
+    "n": 5824554,
+    "m": 8733523,
+    "degeneracy": 2
+  },
+  "Network-Repository-hugetric-00010": {
+    "n": 6592765,
+    "m": 9885854,
+    "degeneracy": 2
+  },
+  "Network-Repository-hugetric-00020": {
+    "n": 7122792,
+    "m": 10680777,
+    "degeneracy": 2
+  },
+  "Network-Repository-ia-chess": {
+    "n": 7301,
+    "m": 55899,
+    "degeneracy": 29
+  },
+  "Network-Repository-ia-contact": {
+    "n": 274,
+    "m": 2124,
+    "degeneracy": 39
+  },
+  "Network-Repository-ia-contacts_dublin": {
+    "n": 10972,
+    "m": 44517,
+    "degeneracy": 18
+  },
+  "Network-Repository-ia-contacts_hypertext2009": {
+    "n": 113,
+    "m": 2196,
+    "degeneracy": 28
+  },
+  "Network-Repository-ia-crime-moreno": {
+    "n": 829,
+    "m": 1473,
+    "degeneracy": 3
+  },
+  "Network-Repository-ia-dbpedia-team-bi": {
+    "n": 365492,
+    "m": 780132,
+    "degeneracy": 9
+  },
+  "Network-Repository-ia-digg-reply": {
+    "n": 30398,
+    "m": 85155,
+    "degeneracy": 9
+  },
+  "Network-Repository-ia-dnc-corecipient": {
+    "n": 906,
+    "m": 10429,
+    "degeneracy": 73
+  },
+  "Network-Repository-ia-email-EU": {
+    "n": 32430,
+    "m": 54397,
+    "degeneracy": 22
+  },
+  "Network-Repository-ia-email-EU-dir": {
+    "n": 265214,
+    "m": 364481,
+    "degeneracy": 37
+  },
+  "Network-Repository-ia-email-univ": {
+    "n": 1133,
+    "m": 5451,
+    "degeneracy": 10
+  },
+  "Network-Repository-ia-enron-email-all": {
+    "n": 87273,
+    "m": 297456,
+    "degeneracy": 53
+  },
+  "Network-Repository-ia-enron-email-dynamic": {
+    "n": 87273,
+    "m": 297456,
+    "degeneracy": 53
+  },
+  "Network-Repository-ia-enron-employees": {
+    "n": 151,
+    "m": 1526,
+    "degeneracy": 14
+  },
+  "Network-Repository-ia-enron-large": {
+    "n": 33696,
+    "m": 180811,
+    "degeneracy": 43
+  },
+  "Network-Repository-ia-enron-only": {
+    "n": 143,
+    "m": 623,
+    "degeneracy": 9
+  },
+  "Network-Repository-ia-escorts-dynamic": {
+    "n": 10106,
+    "m": 39016,
+    "degeneracy": 11
+  },
+  "Network-Repository-ia-facebook-wall-wosn-dir": {
+    "n": 46952,
+    "m": 183412,
+    "degeneracy": 16
+  },
+  "Network-Repository-ia-fb-messages": {
+    "n": 1266,
+    "m": 6451,
+    "degeneracy": 11
+  },
+  "Network-Repository-ia-frwikinews-user-edits": {
+    "n": 25042,
+    "m": 68675,
+    "degeneracy": 12
+  },
+  "Network-Repository-ia-hospital-ward-proximity": {
+    "n": 75,
+    "m": 1139,
+    "degeneracy": 22
+  },
+  "Network-Repository-ia-hospital-ward-proximity-attr": {
+    "n": 75,
+    "m": 1139,
+    "degeneracy": 22
+  },
+  "Network-Repository-ia-infect-dublin": {
+    "n": 410,
+    "m": 2765,
+    "degeneracy": 17
+  },
+  "Network-Repository-ia-infect-hyper": {
+    "n": 113,
+    "m": 2196,
+    "degeneracy": 28
+  },
+  "Network-Repository-ia-movielens-user2tags-10m": {
+    "n": 16528,
+    "m": 43734,
+    "degeneracy": 18
+  },
+  "Network-Repository-ia-online-ads-criteo": {
+    "n": 15336555,
+    "m": 15170743,
+    "degeneracy": 5
+  },
+  "Network-Repository-ia-online-ads-criteo-attrs": {
+    "n": 15336555,
+    "m": 15170743,
+    "degeneracy": 5
+  },
+  "Network-Repository-ia-primary-school-proximity": {
+    "n": 242,
+    "m": 8317,
+    "degeneracy": 47
+  },
+  "Network-Repository-ia-primary-school-proximity-attr": {
+    "n": 242,
+    "m": 8317,
+    "degeneracy": 47
+  },
+  "Network-Repository-ia-prosper-loans": {
+    "n": 89269,
+    "m": 3330022,
+    "degeneracy": 111
+  },
+  "Network-Repository-ia-radoslaw-email": {
+    "n": 167,
+    "m": 3250,
+    "degeneracy": 36
+  },
+  "Network-Repository-ia-reality": {
+    "n": 6809,
+    "m": 7680,
+    "degeneracy": 5
+  },
+  "Network-Repository-ia-reality-call": {
+    "n": 6809,
+    "m": 7680,
+    "degeneracy": 5
+  },
+  "Network-Repository-ia-retweet-pol": {
+    "n": 18470,
+    "m": 48053,
+    "degeneracy": 18
+  },
+  "Network-Repository-ia-slashdot-reply-dir": {
+    "n": 51083,
+    "m": 116573,
+    "degeneracy": 14
+  },
+  "Network-Repository-ia-southernwomen": {
+    "n": 18,
+    "m": 64,
+    "degeneracy": 6
+  },
+  "Network-Repository-ia-stackexch-user-marks-post-und": {
+    "n": 545196,
+    "m": 1301966,
+    "degeneracy": 24
+  },
+  "Network-Repository-ia-sx-askubuntu-a2q": {
+    "n": 137517,
+    "m": 246781,
+    "degeneracy": 24
+  },
+  "Network-Repository-ia-sx-mathoverflow": {
+    "n": 24818,
+    "m": 187986,
+    "degeneracy": 78
+  },
+  "Network-Repository-ia-sx-superuser": {
+    "n": 194085,
+    "m": 714570,
+    "degeneracy": 61
+  },
+  "Network-Repository-ia-wiki-Talk": {
+    "n": 92117,
+    "m": 360767,
+    "degeneracy": 58
+  },
+  "Network-Repository-ia-wiki-Talk-dir": {
+    "n": 2394385,
+    "m": 4659565,
+    "degeneracy": 131
+  },
+  "Network-Repository-ia-wiki-trust-dir": {
+    "n": 138592,
+    "m": 715883,
+    "degeneracy": 55
+  },
+  "Network-Repository-ia-wiki-user-edits-page": {
+    "n": 2094546,
+    "m": 5572584,
+    "degeneracy": 66
+  },
+  "Network-Repository-ia-wikiquote-user-edits": {
+    "n": 93445,
+    "m": 238421,
+    "degeneracy": 29
+  },
+  "Network-Repository-ia-workplace-contacts": {
+    "n": 92,
+    "m": 755,
+    "degeneracy": 11
+  },
+  "Network-Repository-ia-yahoo-messages": {
+    "n": 100001,
+    "m": 587964,
+    "degeneracy": 24
+  },
+  "Network-Repository-imdb": {
+    "n": 896305,
+    "m": 3782447,
+    "degeneracy": 23
+  },
+  "Network-Repository-inf-asia_osm": {
+    "n": 11950757,
+    "m": 12711603,
+    "degeneracy": 3
+  },
+  "Network-Repository-inf-belgium_osm": {
+    "n": 1441295,
+    "m": 1549970,
+    "degeneracy": 3
+  },
+  "Network-Repository-inf-europe_osm": {
+    "n": 50912018,
+    "m": 54054660,
+    "degeneracy": 3
+  },
+  "Network-Repository-inf-germany_osm": {
+    "n": 11548845,
+    "m": 12369181,
+    "degeneracy": 3
+  },
+  "Network-Repository-inf-great-britain_osm": {
+    "n": 7733822,
+    "m": 8156517,
+    "degeneracy": 3
+  },
+  "Network-Repository-inf-italy-osm": {
+    "n": 6686493,
+    "m": 7013978,
+    "degeneracy": 3
+  },
+  "Network-Repository-inf-luxembourg_osm": {
+    "n": 114599,
+    "m": 119666,
+    "degeneracy": 2
+  },
+  "Network-Repository-inf-netherlands_osm": {
+    "n": 2216688,
+    "m": 2441238,
+    "degeneracy": 3
+  },
+  "Network-Repository-inf-road_central": {
+    "n": 14081816,
+    "m": 16933413,
+    "degeneracy": 3
+  },
+  "Network-Repository-inf-road_usa": {
+    "n": 23947347,
+    "m": 28854312,
+    "degeneracy": 3
+  },
+  "Network-Repository-insecta-ant-colony1": {
+    "n": 113,
+    "m": 6113,
+    "degeneracy": 98
+  },
+  "Network-Repository-insecta-ant-colony2": {
+    "n": 131,
+    "m": 8437,
+    "degeneracy": 122
+  },
+  "Network-Repository-insecta-ant-colony3": {
+    "n": 160,
+    "m": 12656,
+    "degeneracy": 151
+  },
+  "Network-Repository-insecta-ant-colony4": {
+    "n": 102,
+    "m": 5091,
+    "degeneracy": 94
+  },
+  "Network-Repository-insecta-ant-colony5": {
+    "n": 152,
+    "m": 11363,
+    "degeneracy": 141
+  },
+  "Network-Repository-insecta-ant-colony6": {
+    "n": 164,
+    "m": 13193,
+    "degeneracy": 152
+  },
+  "Network-Repository-insecta-ant-trophallaxis-colony1": {
+    "n": 41,
+    "m": 256,
+    "degeneracy": 9
+  },
+  "Network-Repository-insecta-ant-trophallaxis-colony2": {
+    "n": 39,
+    "m": 245,
+    "degeneracy": 10
+  },
+  "Network-Repository-internet-industry-partnerships": {
+    "n": 219,
+    "m": 630,
+    "degeneracy": 6
+  },
+  "Network-Repository-ip-trace": {
+    "n": 256,
+    "m": 9394,
+    "degeneracy": 46
+  },
+  "Network-Repository-kron_g500-logn16": {
+    "n": 55321,
+    "m": 2456071,
+    "degeneracy": 432
+  },
+  "Network-Repository-kron_g500-logn17": {
+    "n": 107909,
+    "m": 5113985,
+    "degeneracy": 551
+  },
+  "Network-Repository-kron_g500-logn18": {
+    "n": 210155,
+    "m": 10582686,
+    "degeneracy": 695
+  },
+  "Network-Repository-kron_g500-logn19": {
+    "n": 409175,
+    "m": 21780787,
+    "degeneracy": 935
+  },
+  "Network-Repository-kron_g500-logn20": {
+    "n": 795241,
+    "m": 44619402,
+    "degeneracy": 1263
+  },
+  "Network-Repository-kron_g500-logn21": {
+    "n": 1544087,
+    "m": 91040932,
+    "degeneracy": 1685
+  },
+  "Network-Repository-m14b": {
+    "n": 214765,
+    "m": 1679018,
+    "degeneracy": 9
+  },
+  "Network-Repository-mammalia-primate-association": {
+    "n": 25,
+    "m": 280,
+    "degeneracy": 19
+  },
+  "Network-Repository-mammalia-raccoon-proximity": {
+    "n": 24,
+    "m": 226,
+    "degeneracy": 17
+  },
+  "Network-Repository-mammalia-voles-bhp-trapping": {
+    "n": 1686,
+    "m": 4623,
+    "degeneracy": 7
+  },
+  "Network-Repository-mammalia-voles-kcs-trapping": {
+    "n": 1218,
+    "m": 3592,
+    "degeneracy": 7
+  },
+  "Network-Repository-mammalia-voles-plj-trapping": {
+    "n": 1263,
+    "m": 3380,
+    "degeneracy": 8
+  },
+  "Network-Repository-mammalia-voles-rob-trapping": {
+    "n": 1480,
+    "m": 3935,
+    "degeneracy": 7
+  },
+  "Network-Repository-packing-500x100x100-b050": {
+    "n": 2145839,
+    "m": 17488243,
+    "degeneracy": 9
+  },
+  "Network-Repository-polblogs": {
+    "n": 1224,
+    "m": 16715,
+    "degeneracy": 36
+  },
+  "Network-Repository-proteins": {
+    "n": 43466,
+    "m": 81044,
+    "degeneracy": 4
+  },
+  "Network-Repository-proteins-all": {
+    "n": 43466,
+    "m": 81044,
+    "degeneracy": 4
+  },
+  "Network-Repository-reality-call": {
+    "n": 6809,
+    "m": 7680,
+    "degeneracy": 5
+  },
+  "Network-Repository-rec-amazon-ratings": {
+    "n": 2146057,
+    "m": 5743132,
+    "degeneracy": 29
+  },
+  "Network-Repository-rec-epinions-user-ratings": {
+    "n": 755760,
+    "m": 13667951,
+    "degeneracy": 151
+  },
+  "Network-Repository-rec-movielens-ratings": {
+    "n": 283228,
+    "m": 27747432,
+    "degeneracy": 682
+  },
+  "Network-Repository-rec-stackoverflow": {
+    "n": 545196,
+    "m": 1301868,
+    "degeneracy": 24
+  },
+  "Network-Repository-reptilia-tortoise-network-bsv": {
+    "n": 136,
+    "m": 374,
+    "degeneracy": 7
+  },
+  "Network-Repository-reptilia-tortoise-network-cs": {
+    "n": 73,
+    "m": 132,
+    "degeneracy": 5
+  },
+  "Network-Repository-reptilia-tortoise-network-fi": {
+    "n": 787,
+    "m": 1197,
+    "degeneracy": 8
+  },
+  "Network-Repository-reptilia-tortoise-network-hw": {
+    "n": 16,
+    "m": 16,
+    "degeneracy": 2
+  },
+  "Network-Repository-reptilia-tortoise-network-lm": {
+    "n": 45,
+    "m": 106,
+    "degeneracy": 5
+  },
+  "Network-Repository-reptilia-tortoise-network-mc": {
+    "n": 15,
+    "m": 28,
+    "degeneracy": 4
+  },
+  "Network-Repository-reptilia-tortoise-network-pv": {
+    "n": 35,
+    "m": 66,
+    "degeneracy": 5
+  },
+  "Network-Repository-reptilia-tortoise-network-sg": {
+    "n": 24,
+    "m": 26,
+    "degeneracy": 2
+  },
+  "Network-Repository-reptilia-tortoise-network-sl": {
+    "n": 11,
+    "m": 13,
+    "degeneracy": 2
+  },
+  "Network-Repository-rgg_n_2_15_s0": {
+    "n": 32766,
+    "m": 160240,
+    "degeneracy": 12
+  },
+  "Network-Repository-rgg_n_2_16_s0": {
+    "n": 65532,
+    "m": 342127,
+    "degeneracy": 13
+  },
+  "Network-Repository-rgg_n_2_17_s0": {
+    "n": 131070,
+    "m": 728753,
+    "degeneracy": 14
+  },
+  "Network-Repository-rgg_n_2_18_s0": {
+    "n": 262141,
+    "m": 1547283,
+    "degeneracy": 15
+  },
+  "Network-Repository-rgg_n_2_19_s0": {
+    "n": 524284,
+    "m": 3269766,
+    "degeneracy": 17
+  },
+  "Network-Repository-rgg_n_2_20_s0": {
+    "n": 1048575,
+    "m": 6891620,
+    "degeneracy": 17
+  },
+  "Network-Repository-rgg_n_2_21_s0": {
+    "n": 2097148,
+    "m": 14487995,
+    "degeneracy": 17
+  },
+  "Network-Repository-rgg_n_2_22_s0": {
+    "n": 4194301,
+    "m": 30359198,
+    "degeneracy": 18
+  },
+  "Network-Repository-rgg_n_2_23_s0": {
+    "n": 8388607,
+    "m": 63501393,
+    "degeneracy": 20
+  },
+  "Network-Repository-rgg_n_2_24_s0": {
+    "n": 16777215,
+    "m": 132557200,
+    "degeneracy": 20
+  },
+  "Network-Repository-road-asia-osm": {
+    "n": 11950757,
+    "m": 12711603,
+    "degeneracy": 3
+  },
+  "Network-Repository-road-belgium-osm": {
+    "n": 1441295,
+    "m": 1549970,
+    "degeneracy": 3
+  },
+  "Network-Repository-road-chesapeake": {
+    "n": 39,
+    "m": 170,
+    "degeneracy": 6
+  },
+  "Network-Repository-road-euroroad": {
+    "n": 1174,
+    "m": 1417,
+    "degeneracy": 2
+  },
+  "Network-Repository-road-germany-osm": {
+    "n": 11548845,
+    "m": 12369181,
+    "degeneracy": 3
+  },
+  "Network-Repository-road-great-britain-osm": {
+    "n": 7733822,
+    "m": 8156517,
+    "degeneracy": 3
+  },
+  "Network-Repository-road-italy-osm": {
+    "n": 6686493,
+    "m": 7013978,
+    "degeneracy": 3
+  },
+  "Network-Repository-road-luxembourg-osm": {
+    "n": 114599,
+    "m": 119666,
+    "degeneracy": 2
+  },
+  "Network-Repository-road-minnesota": {
+    "n": 2642,
+    "m": 3303,
+    "degeneracy": 2
+  },
+  "Network-Repository-road-netherlands-osm": {
+    "n": 2216688,
+    "m": 2441238,
+    "degeneracy": 3
+  },
+  "Network-Repository-road-road-usa": {
+    "n": 23947347,
+    "m": 28854312,
+    "degeneracy": 3
+  },
+  "Network-Repository-road-roadNet-CA": {
+    "n": 1957027,
+    "m": 2760388,
+    "degeneracy": 3
+  },
+  "Network-Repository-road-roadNet-PA": {
+    "n": 1087562,
+    "m": 1541514,
+    "degeneracy": 3
+  },
+  "Network-Repository-road-usroads": {
+    "n": 129164,
+    "m": 165435,
+    "degeneracy": 3
+  },
+  "Network-Repository-road-usroads-48": {
+    "n": 126146,
+    "m": 161950,
+    "degeneracy": 3
+  },
+  "Network-Repository-sc-TSOPF-RS-b2383-c1": {
+    "n": 38120,
+    "m": 16115324,
+    "degeneracy": 655
+  },
+  "Network-Repository-sc-delaunay_n23": {
+    "n": 8388608,
+    "m": 25165784,
+    "degeneracy": 4
+  },
+  "Network-Repository-sc-ldoor": {
+    "n": 909537,
+    "m": 20770807,
+    "degeneracy": 34
+  },
+  "Network-Repository-sc-msdoor": {
+    "n": 404785,
+    "m": 9378650,
+    "degeneracy": 34
+  },
+  "Network-Repository-sc-nasasrb": {
+    "n": 54870,
+    "m": 1311227,
+    "degeneracy": 35
+  },
+  "Network-Repository-sc-pkustk11": {
+    "n": 87804,
+    "m": 2565054,
+    "degeneracy": 47
+  },
+  "Network-Repository-sc-pkustk13": {
+    "n": 94893,
+    "m": 3260967,
+    "degeneracy": 41
+  },
+  "Network-Repository-sc-pwtk": {
+    "n": 217891,
+    "m": 5653221,
+    "degeneracy": 35
+  },
+  "Network-Repository-sc-rel9": {
+    "n": 5921786,
+    "m": 23667162,
+    "degeneracy": 4
+  },
+  "Network-Repository-sc-shipsec1": {
+    "n": 140385,
+    "m": 1707759,
+    "degeneracy": 24
+  },
+  "Network-Repository-sc-shipsec5": {
+    "n": 179104,
+    "m": 2200076,
+    "degeneracy": 29
+  },
+  "Network-Repository-soc-ANU-residence": {
+    "n": 217,
+    "m": 1839,
+    "degeneracy": 11
+  },
+  "Network-Repository-soc-BlogCatalog": {
+    "n": 88784,
+    "m": 2093195,
+    "degeneracy": 221
+  },
+  "Network-Repository-soc-BlogCatalog-ASU": {
+    "n": 10312,
+    "m": 333983,
+    "degeneracy": 114
+  },
+  "Network-Repository-soc-Epinions1": {
+    "n": 75879,
+    "m": 405740,
+    "degeneracy": 67
+  },
+  "Network-Repository-soc-Flickr-ASU": {
+    "n": 80513,
+    "m": 5899882,
+    "degeneracy": 550
+  },
+  "Network-Repository-soc-FourSquare": {
+    "n": 639014,
+    "m": 3214986,
+    "degeneracy": 63
+  },
+  "Network-Repository-soc-LiveJournal1": {
+    "n": 4846609,
+    "m": 42851237,
+    "degeneracy": 372
+  },
+  "Network-Repository-soc-LiveMocha": {
+    "n": 104103,
+    "m": 2193083,
+    "degeneracy": 92
+  },
+  "Network-Repository-soc-Slashdot0811": {
+    "n": 77360,
+    "m": 469180,
+    "degeneracy": 54
+  },
+  "Network-Repository-soc-Slashdot0902": {
+    "n": 82168,
+    "m": 504230,
+    "degeneracy": 55
+  },
+  "Network-Repository-soc-YouTube-ASU": {
+    "n": 1138499,
+    "m": 2990443,
+    "degeneracy": 51
+  },
+  "Network-Repository-soc-academia": {
+    "n": 200169,
+    "m": 1022441,
+    "degeneracy": 24
+  },
+  "Network-Repository-soc-advogato": {
+    "n": 6551,
+    "m": 39432,
+    "degeneracy": 25
+  },
+  "Network-Repository-soc-anybeat": {
+    "n": 12645,
+    "m": 49132,
+    "degeneracy": 33
+  },
+  "Network-Repository-soc-bitcoin": {
+    "n": 24575382,
+    "m": 86063840,
+    "degeneracy": 325
+  },
+  "Network-Repository-soc-brightkite": {
+    "n": 56739,
+    "m": 212945,
+    "degeneracy": 52
+  },
+  "Network-Repository-soc-buzznet": {
+    "n": 101163,
+    "m": 2763066,
+    "degeneracy": 153
+  },
+  "Network-Repository-soc-catster": {
+    "n": 149700,
+    "m": 5448197,
+    "degeneracy": 419
+  },
+  "Network-Repository-soc-delicious": {
+    "n": 536108,
+    "m": 1365961,
+    "degeneracy": 33
+  },
+  "Network-Repository-soc-digg": {
+    "n": 770799,
+    "m": 5907132,
+    "degeneracy": 236
+  },
+  "Network-Repository-soc-dogster": {
+    "n": 426820,
+    "m": 8543549,
+    "degeneracy": 248
+  },
+  "Network-Repository-soc-dolphins": {
+    "n": 62,
+    "m": 159,
+    "degeneracy": 4
+  },
+  "Network-Repository-soc-douban": {
+    "n": 154908,
+    "m": 327162,
+    "degeneracy": 15
+  },
+  "Network-Repository-soc-epinions": {
+    "n": 26588,
+    "m": 100120,
+    "degeneracy": 32
+  },
+  "Network-Repository-soc-epinions-trust-dir": {
+    "n": 131828,
+    "m": 711210,
+    "degeneracy": 121
+  },
+  "Network-Repository-soc-firm-hi-tech": {
+    "n": 33,
+    "m": 91,
+    "degeneracy": 4
+  },
+  "Network-Repository-soc-flickr": {
+    "n": 513969,
+    "m": 3190452,
+    "degeneracy": 309
+  },
+  "Network-Repository-soc-flickr-growth": {
+    "n": 2302925,
+    "m": 22838276,
+    "degeneracy": 600
+  },
+  "Network-Repository-soc-flickr-und": {
+    "n": 1715255,
+    "m": 15555041,
+    "degeneracy": 568
+  },
+  "Network-Repository-soc-flixster": {
+    "n": 2523386,
+    "m": 7918801,
+    "degeneracy": 68
+  },
+  "Network-Repository-soc-gemsec-HR": {
+    "n": 54573,
+    "m": 498202,
+    "degeneracy": 21
+  },
+  "Network-Repository-soc-gemsec-HU": {
+    "n": 47538,
+    "m": 222887,
+    "degeneracy": 11
+  },
+  "Network-Repository-soc-gemsec-RO": {
+    "n": 41773,
+    "m": 125826,
+    "degeneracy": 7
+  },
+  "Network-Repository-soc-google-plus": {
+    "n": 211187,
+    "m": 1141650,
+    "degeneracy": 135
+  },
+  "Network-Repository-soc-gowalla": {
+    "n": 196591,
+    "m": 950327,
+    "degeneracy": 51
+  },
+  "Network-Repository-soc-gplus": {
+    "n": 23628,
+    "m": 39194,
+    "degeneracy": 12
+  },
+  "Network-Repository-soc-hamsterster": {
+    "n": 2426,
+    "m": 16630,
+    "degeneracy": 23
+  },
+  "Network-Repository-soc-highschool-moreno": {
+    "n": 70,
+    "m": 274,
+    "degeneracy": 6
+  },
+  "Network-Repository-soc-karate": {
+    "n": 34,
+    "m": 78,
+    "degeneracy": 4
+  },
+  "Network-Repository-soc-lastfm": {
+    "n": 1191805,
+    "m": 4519330,
+    "degeneracy": 70
+  },
+  "Network-Repository-soc-linkedin": {
+    "n": 6726011,
+    "m": 19360690,
+    "degeneracy": 11
+  },
+  "Network-Repository-soc-livejournal": {
+    "n": 4033137,
+    "m": 27933062,
+    "degeneracy": 212
+  },
+  "Network-Repository-soc-livejournal-user-groups": {
+    "n": 7489073,
+    "m": 112305407,
+    "degeneracy": 116
+  },
+  "Network-Repository-soc-livejournal07": {
+    "n": 5204176,
+    "m": 48709773,
+    "degeneracy": 374
+  },
+  "Network-Repository-soc-ljournal-2008": {
+    "n": 5363186,
+    "m": 49514271,
+    "degeneracy": 425
+  },
+  "Network-Repository-soc-loc-brightkite": {
+    "n": 58228,
+    "m": 214078,
+    "degeneracy": 52
+  },
+  "Network-Repository-soc-myspace": {
+    "n": 854498,
+    "m": 5635296,
+    "degeneracy": 24
+  },
+  "Network-Repository-soc-orkut": {
+    "n": 2997166,
+    "m": 106349209,
+    "degeneracy": 230
+  },
+  "Network-Repository-soc-orkut-dir": {
+    "n": 3072441,
+    "m": 117185083,
+    "degeneracy": 253
+  },
+  "Network-Repository-soc-physicians": {
+    "n": 241,
+    "m": 923,
+    "degeneracy": 6
+  },
+  "Network-Repository-soc-pokec": {
+    "n": 1632803,
+    "m": 22301964,
+    "degeneracy": 47
+  },
+  "Network-Repository-soc-political-retweet": {
+    "n": 18470,
+    "m": 48053,
+    "degeneracy": 18
+  },
+  "Network-Repository-soc-sign-Slashdot081106": {
+    "n": 77350,
+    "m": 468554,
+    "degeneracy": 54
+  },
+  "Network-Repository-soc-sign-Slashdot090216": {
+    "n": 81867,
+    "m": 497672,
+    "degeneracy": 54
+  },
+  "Network-Repository-soc-sign-Slashdot090221": {
+    "n": 82140,
+    "m": 500481,
+    "degeneracy": 54
+  },
+  "Network-Repository-soc-sign-bitcoinalpha": {
+    "n": 3783,
+    "m": 14124,
+    "degeneracy": 19
+  },
+  "Network-Repository-soc-sign-bitcoinotc": {
+    "n": 5881,
+    "m": 21492,
+    "degeneracy": 21
+  },
+  "Network-Repository-soc-sign-epinions": {
+    "n": 131580,
+    "m": 711210,
+    "degeneracy": 121
+  },
+  "Network-Repository-soc-sinaweibo": {
+    "n": 58655849,
+    "m": 261321033,
+    "degeneracy": 193
+  },
+  "Network-Repository-soc-slashdot": {
+    "n": 70068,
+    "m": 358647,
+    "degeneracy": 53
+  },
+  "Network-Repository-soc-slashdot-trust-all": {
+    "n": 79120,
+    "m": 467869,
+    "degeneracy": 54
+  },
+  "Network-Repository-soc-slashdot-zoo": {
+    "n": 79120,
+    "m": 467869,
+    "degeneracy": 54
+  },
+  "Network-Repository-soc-student-coop": {
+    "n": 185,
+    "m": 311,
+    "degeneracy": 3
+  },
+  "Network-Repository-soc-themarker": {
+    "n": 69413,
+    "m": 1644843,
+    "degeneracy": 164
+  },
+  "Network-Repository-soc-tribes": {
+    "n": 16,
+    "m": 58,
+    "degeneracy": 5
+  },
+  "Network-Repository-soc-twitter-2010": {
+    "n": 21297772,
+    "m": 265025545,
+    "degeneracy": 1695
+  },
+  "Network-Repository-soc-twitter-follows": {
+    "n": 404719,
+    "m": 713319,
+    "degeneracy": 28
+  },
+  "Network-Repository-soc-twitter-follows-mun": {
+    "n": 465017,
+    "m": 833541,
+    "degeneracy": 30
+  },
+  "Network-Repository-soc-twitter-higgs": {
+    "n": 456631,
+    "m": 12508442,
+    "degeneracy": 125
+  },
+  "Network-Repository-soc-wiki-Talk-dir": {
+    "n": 1298165,
+    "m": 2288646,
+    "degeneracy": 119
+  },
+  "Network-Repository-soc-wiki-Vote": {
+    "n": 889,
+    "m": 2914,
+    "degeneracy": 9
+  },
+  "Network-Repository-soc-wiki-conflict": {
+    "n": 116836,
+    "m": 2027871,
+    "degeneracy": 145
+  },
+  "Network-Repository-soc-wiki-elec": {
+    "n": 7118,
+    "m": 100753,
+    "degeneracy": 53
+  },
+  "Network-Repository-soc-youtube": {
+    "n": 495957,
+    "m": 1936748,
+    "degeneracy": 49
+  },
+  "Network-Repository-soc-youtube-growth": {
+    "n": 3223589,
+    "m": 9376594,
+    "degeneracy": 88
+  },
+  "Network-Repository-soc-youtube-snap": {
+    "n": 1134890,
+    "m": 2987624,
+    "degeneracy": 51
+  },
+  "Network-Repository-socfb-A-anon": {
+    "n": 3097165,
+    "m": 23667394,
+    "degeneracy": 74
+  },
+  "Network-Repository-socfb-American75": {
+    "n": 6386,
+    "m": 217662,
+    "degeneracy": 56
+  },
+  "Network-Repository-socfb-Amherst41": {
+    "n": 2235,
+    "m": 90954,
+    "degeneracy": 63
+  },
+  "Network-Repository-socfb-Auburn71": {
+    "n": 18448,
+    "m": 973918,
+    "degeneracy": 95
+  },
+  "Network-Repository-socfb-B-anon": {
+    "n": 2937612,
+    "m": 20959854,
+    "degeneracy": 63
+  },
+  "Network-Repository-socfb-BC17": {
+    "n": 11509,
+    "m": 486967,
+    "degeneracy": 69
+  },
+  "Network-Repository-socfb-BU10": {
+    "n": 19700,
+    "m": 637528,
+    "degeneracy": 50
+  },
+  "Network-Repository-socfb-Baylor93": {
+    "n": 12803,
+    "m": 679817,
+    "degeneracy": 96
+  },
+  "Network-Repository-socfb-Berkeley13": {
+    "n": 22900,
+    "m": 852419,
+    "degeneracy": 64
+  },
+  "Network-Repository-socfb-Bingham82": {
+    "n": 10004,
+    "m": 362894,
+    "degeneracy": 57
+  },
+  "Network-Repository-socfb-Bowdoin47": {
+    "n": 2252,
+    "m": 84387,
+    "degeneracy": 58
+  },
+  "Network-Repository-socfb-Brandeis99": {
+    "n": 3898,
+    "m": 137567,
+    "degeneracy": 56
+  },
+  "Network-Repository-socfb-Brown11": {
+    "n": 8600,
+    "m": 384526,
+    "degeneracy": 70
+  },
+  "Network-Repository-socfb-Bucknell39": {
+    "n": 3826,
+    "m": 158864,
+    "degeneracy": 59
+  },
+  "Network-Repository-socfb-CMU": {
+    "n": 6621,
+    "m": 249959,
+    "degeneracy": 69
+  },
+  "Network-Repository-socfb-Cal65": {
+    "n": 11247,
+    "m": 351358,
+    "degeneracy": 63
+  },
+  "Network-Repository-socfb-Caltech36": {
+    "n": 769,
+    "m": 16656,
+    "degeneracy": 35
+  },
+  "Network-Repository-socfb-Carnegie49": {
+    "n": 6637,
+    "m": 249967,
+    "degeneracy": 69
+  },
+  "Network-Repository-socfb-Colgate88": {
+    "n": 3482,
+    "m": 155043,
+    "degeneracy": 65
+  },
+  "Network-Repository-socfb-Columbia2": {
+    "n": 11770,
+    "m": 444333,
+    "degeneracy": 66
+  },
+  "Network-Repository-socfb-Cornell5": {
+    "n": 18660,
+    "m": 790777,
+    "degeneracy": 84
+  },
+  "Network-Repository-socfb-Dartmouth6": {
+    "n": 7694,
+    "m": 304076,
+    "degeneracy": 66
+  },
+  "Network-Repository-socfb-Duke14": {
+    "n": 9885,
+    "m": 506437,
+    "degeneracy": 85
+  },
+  "Network-Repository-socfb-Emory27": {
+    "n": 7460,
+    "m": 330014,
+    "degeneracy": 73
+  },
+  "Network-Repository-socfb-FSU53": {
+    "n": 27737,
+    "m": 1034802,
+    "degeneracy": 81
+  },
+  "Network-Repository-socfb-GWU54": {
+    "n": 12193,
+    "m": 469528,
+    "degeneracy": 62
+  },
+  "Network-Repository-socfb-Georgetown15": {
+    "n": 9414,
+    "m": 425638,
+    "degeneracy": 73
+  },
+  "Network-Repository-socfb-Hamilton46": {
+    "n": 2314,
+    "m": 96394,
+    "degeneracy": 63
+  },
+  "Network-Repository-socfb-Harvard1": {
+    "n": 15126,
+    "m": 824617,
+    "degeneracy": 103
+  },
+  "Network-Repository-socfb-Haverford76": {
+    "n": 1446,
+    "m": 59589,
+    "degeneracy": 63
+  },
+  "Network-Repository-socfb-Howard90": {
+    "n": 4047,
+    "m": 204850,
+    "degeneracy": 81
+  },
+  "Network-Repository-socfb-Indiana": {
+    "n": 29732,
+    "m": 1305757,
+    "degeneracy": 76
+  },
+  "Network-Repository-socfb-Indiana69": {
+    "n": 29747,
+    "m": 1305765,
+    "degeneracy": 76
+  },
+  "Network-Repository-socfb-JMU79": {
+    "n": 14070,
+    "m": 485564,
+    "degeneracy": 60
+  },
+  "Network-Repository-socfb-JohnsHopkins55": {
+    "n": 5180,
+    "m": 186586,
+    "degeneracy": 64
+  },
+  "Network-Repository-socfb-Lehigh96": {
+    "n": 5075,
+    "m": 198347,
+    "degeneracy": 62
+  },
+  "Network-Repository-socfb-MIT": {
+    "n": 6402,
+    "m": 251230,
+    "degeneracy": 72
+  },
+  "Network-Repository-socfb-MIT8": {
+    "n": 6440,
+    "m": 251252,
+    "degeneracy": 72
+  },
+  "Network-Repository-socfb-MSU24": {
+    "n": 32375,
+    "m": 1118774,
+    "degeneracy": 82
+  },
+  "Network-Repository-socfb-MU78": {
+    "n": 15436,
+    "m": 649449,
+    "degeneracy": 70
+  },
+  "Network-Repository-socfb-Maine59": {
+    "n": 9069,
+    "m": 243247,
+    "degeneracy": 44
+  },
+  "Network-Repository-socfb-Maryland58": {
+    "n": 20871,
+    "m": 744862,
+    "degeneracy": 65
+  },
+  "Network-Repository-socfb-Mich67": {
+    "n": 3748,
+    "m": 81903,
+    "degeneracy": 45
+  },
+  "Network-Repository-socfb-Michigan23": {
+    "n": 30147,
+    "m": 1176516,
+    "degeneracy": 88
+  },
+  "Network-Repository-socfb-Middlebury45": {
+    "n": 3075,
+    "m": 124610,
+    "degeneracy": 62
+  },
+  "Network-Repository-socfb-Mississippi66": {
+    "n": 10521,
+    "m": 610911,
+    "degeneracy": 116
+  },
+  "Network-Repository-socfb-NYU9": {
+    "n": 21679,
+    "m": 715715,
+    "degeneracy": 54
+  },
+  "Network-Repository-socfb-Northeastern19": {
+    "n": 13882,
+    "m": 381934,
+    "degeneracy": 43
+  },
+  "Network-Repository-socfb-Northwestern25": {
+    "n": 10567,
+    "m": 488337,
+    "degeneracy": 76
+  },
+  "Network-Repository-socfb-NotreDame57": {
+    "n": 12155,
+    "m": 541339,
+    "degeneracy": 70
+  },
+  "Network-Repository-socfb-OR": {
+    "n": 63392,
+    "m": 816886,
+    "degeneracy": 52
+  },
+  "Network-Repository-socfb-Oberlin44": {
+    "n": 2920,
+    "m": 89912,
+    "degeneracy": 49
+  },
+  "Network-Repository-socfb-Oklahoma97": {
+    "n": 17425,
+    "m": 892528,
+    "degeneracy": 107
+  },
+  "Network-Repository-socfb-Penn94": {
+    "n": 41536,
+    "m": 1362220,
+    "degeneracy": 62
+  },
+  "Network-Repository-socfb-Pepperdine86": {
+    "n": 3445,
+    "m": 152007,
+    "degeneracy": 71
+  },
+  "Network-Repository-socfb-Princeton12": {
+    "n": 6596,
+    "m": 293320,
+    "degeneracy": 76
+  },
+  "Network-Repository-socfb-Reed98": {
+    "n": 962,
+    "m": 18812,
+    "degeneracy": 34
+  },
+  "Network-Repository-socfb-Rice31": {
+    "n": 4087,
+    "m": 184828,
+    "degeneracy": 72
+  },
+  "Network-Repository-socfb-Rochester38": {
+    "n": 4563,
+    "m": 161404,
+    "degeneracy": 56
+  },
+  "Network-Repository-socfb-Rutgers89": {
+    "n": 24580,
+    "m": 784602,
+    "degeneracy": 56
+  },
+  "Network-Repository-socfb-Santa74": {
+    "n": 3578,
+    "m": 151747,
+    "degeneracy": 68
+  },
+  "Network-Repository-socfb-Simmons81": {
+    "n": 1518,
+    "m": 32988,
+    "degeneracy": 34
+  },
+  "Network-Repository-socfb-Smith60": {
+    "n": 2970,
+    "m": 97133,
+    "degeneracy": 48
+  },
+  "Network-Repository-socfb-Stanford3": {
+    "n": 11586,
+    "m": 568309,
+    "degeneracy": 91
+  },
+  "Network-Repository-socfb-Swarthmore42": {
+    "n": 1659,
+    "m": 61050,
+    "degeneracy": 60
+  },
+  "Network-Repository-socfb-Syracuse56": {
+    "n": 13653,
+    "m": 543982,
+    "degeneracy": 75
+  },
+  "Network-Repository-socfb-Temple83": {
+    "n": 13686,
+    "m": 360795,
+    "degeneracy": 61
+  },
+  "Network-Repository-socfb-Tennessee95": {
+    "n": 16979,
+    "m": 770659,
+    "degeneracy": 87
+  },
+  "Network-Repository-socfb-Texas80": {
+    "n": 31560,
+    "m": 1219650,
+    "degeneracy": 78
+  },
+  "Network-Repository-socfb-Texas84": {
+    "n": 36364,
+    "m": 1590651,
+    "degeneracy": 81
+  },
+  "Network-Repository-socfb-Trinity100": {
+    "n": 2613,
+    "m": 111996,
+    "degeneracy": 67
+  },
+  "Network-Repository-socfb-Tufts18": {
+    "n": 6682,
+    "m": 249728,
+    "degeneracy": 64
+  },
+  "Network-Repository-socfb-Tulane29": {
+    "n": 7752,
+    "m": 283918,
+    "degeneracy": 68
+  },
+  "Network-Repository-socfb-UC33": {
+    "n": 16808,
+    "m": 522147,
+    "degeneracy": 58
+  },
+  "Network-Repository-socfb-UC61": {
+    "n": 13746,
+    "m": 442174,
+    "degeneracy": 68
+  },
+  "Network-Repository-socfb-UC64": {
+    "n": 6833,
+    "m": 155332,
+    "degeneracy": 51
+  },
+  "Network-Repository-socfb-UCF52": {
+    "n": 14940,
+    "m": 428989,
+    "degeneracy": 84
+  },
+  "Network-Repository-socfb-UCLA": {
+    "n": 20453,
+    "m": 747604,
+    "degeneracy": 65
+  },
+  "Network-Repository-socfb-UCLA26": {
+    "n": 20467,
+    "m": 747613,
+    "degeneracy": 65
+  },
+  "Network-Repository-socfb-UCSB37": {
+    "n": 14917,
+    "m": 482215,
+    "degeneracy": 65
+  },
+  "Network-Repository-socfb-UCSC68": {
+    "n": 8991,
+    "m": 224584,
+    "degeneracy": 43
+  },
+  "Network-Repository-socfb-UCSD34": {
+    "n": 14948,
+    "m": 443221,
+    "degeneracy": 56
+  },
+  "Network-Repository-socfb-UChicago30": {
+    "n": 6591,
+    "m": 208103,
+    "degeneracy": 54
+  },
+  "Network-Repository-socfb-UConn": {
+    "n": 17206,
+    "m": 604867,
+    "degeneracy": 65
+  },
+  "Network-Repository-socfb-UConn91": {
+    "n": 17212,
+    "m": 604870,
+    "degeneracy": 65
+  },
+  "Network-Repository-socfb-UF": {
+    "n": 35111,
+    "m": 1465654,
+    "degeneracy": 83
+  },
+  "Network-Repository-socfb-UF21": {
+    "n": 35123,
+    "m": 1465660,
+    "degeneracy": 83
+  },
+  "Network-Repository-socfb-UGA50": {
+    "n": 24389,
+    "m": 1174057,
+    "degeneracy": 86
+  },
+  "Network-Repository-socfb-UIllinois": {
+    "n": 30795,
+    "m": 1264421,
+    "degeneracy": 85
+  },
+  "Network-Repository-socfb-UIllinois20": {
+    "n": 30809,
+    "m": 1264428,
+    "degeneracy": 85
+  },
+  "Network-Repository-socfb-UMass92": {
+    "n": 16516,
+    "m": 519385,
+    "degeneracy": 53
+  },
+  "Network-Repository-socfb-UNC28": {
+    "n": 18163,
+    "m": 766800,
+    "degeneracy": 82
+  },
+  "Network-Repository-socfb-UPenn7": {
+    "n": 14916,
+    "m": 686501,
+    "degeneracy": 77
+  },
+  "Network-Repository-socfb-USC35": {
+    "n": 17444,
+    "m": 801853,
+    "degeneracy": 86
+  },
+  "Network-Repository-socfb-USF51": {
+    "n": 13377,
+    "m": 321214,
+    "degeneracy": 59
+  },
+  "Network-Repository-socfb-USFCA72": {
+    "n": 2682,
+    "m": 65252,
+    "degeneracy": 43
+  },
+  "Network-Repository-socfb-UVA16": {
+    "n": 17196,
+    "m": 789321,
+    "degeneracy": 81
+  },
+  "Network-Repository-socfb-Vanderbilt48": {
+    "n": 8069,
+    "m": 427832,
+    "degeneracy": 86
+  },
+  "Network-Repository-socfb-Vassar85": {
+    "n": 3068,
+    "m": 119161,
+    "degeneracy": 60
+  },
+  "Network-Repository-socfb-Vermont70": {
+    "n": 7324,
+    "m": 191221,
+    "degeneracy": 46
+  },
+  "Network-Repository-socfb-Villanova62": {
+    "n": 7772,
+    "m": 314989,
+    "degeneracy": 65
+  },
+  "Network-Repository-socfb-Virginia63": {
+    "n": 21325,
+    "m": 698178,
+    "degeneracy": 70
+  },
+  "Network-Repository-socfb-Wake73": {
+    "n": 5372,
+    "m": 279191,
+    "degeneracy": 85
+  },
+  "Network-Repository-socfb-WashU32": {
+    "n": 7755,
+    "m": 367541,
+    "degeneracy": 77
+  },
+  "Network-Repository-socfb-Wellesley22": {
+    "n": 2970,
+    "m": 94899,
+    "degeneracy": 51
+  },
+  "Network-Repository-socfb-Wesleyan43": {
+    "n": 3593,
+    "m": 138035,
+    "degeneracy": 61
+  },
+  "Network-Repository-socfb-William77": {
+    "n": 6472,
+    "m": 266378,
+    "degeneracy": 64
+  },
+  "Network-Repository-socfb-Williams40": {
+    "n": 2790,
+    "m": 112986,
+    "degeneracy": 62
+  },
+  "Network-Repository-socfb-Wisconsin87": {
+    "n": 23831,
+    "m": 835946,
+    "degeneracy": 60
+  },
+  "Network-Repository-socfb-Yale4": {
+    "n": 8578,
+    "m": 405450,
+    "degeneracy": 83
+  },
+  "Network-Repository-socfb-konect": {
+    "n": 59216211,
+    "m": 92522012,
+    "degeneracy": 16
+  },
+  "Network-Repository-socfb-nips-ego": {
+    "n": 2888,
+    "m": 2981,
+    "degeneracy": 3
+  },
+  "Network-Repository-socfb-uci-uni": {
+    "n": 58790782,
+    "m": 92208195,
+    "degeneracy": 16
+  },
+  "Network-Repository-socfb-wosn-friends": {
+    "n": 63731,
+    "m": 817090,
+    "degeneracy": 52
+  },
+  "Network-Repository-sx-stackoverflow": {
+    "n": 2584164,
+    "m": 28183518,
+    "degeneracy": 198
+  },
+  "Network-Repository-t60k": {
+    "n": 60005,
+    "m": 89440,
+    "degeneracy": 2
+  },
+  "Network-Repository-tech-RL-caida": {
+    "n": 190914,
+    "m": 607610,
+    "degeneracy": 32
+  },
+  "Network-Repository-tech-WHOIS": {
+    "n": 7476,
+    "m": 56943,
+    "degeneracy": 88
+  },
+  "Network-Repository-tech-as-caida2007": {
+    "n": 26475,
+    "m": 53381,
+    "degeneracy": 22
+  },
+  "Network-Repository-tech-as-skitter": {
+    "n": 1694616,
+    "m": 11094209,
+    "degeneracy": 111
+  },
+  "Network-Repository-tech-as-topology": {
+    "n": 34761,
+    "m": 107720,
+    "degeneracy": 63
+  },
+  "Network-Repository-tech-caidaRouterLevel": {
+    "n": 192244,
+    "m": 609066,
+    "degeneracy": 32
+  },
+  "Network-Repository-tech-internet-as": {
+    "n": 40164,
+    "m": 85123,
+    "degeneracy": 23
+  },
+  "Network-Repository-tech-ip": {
+    "n": 2250498,
+    "m": 21643497,
+    "degeneracy": 253
+  },
+  "Network-Repository-tech-ip-traffic-flow": {
+    "n": 125,
+    "m": 352,
+    "degeneracy": 5
+  },
+  "Network-Repository-tech-ip-traffic-flow-attrs": {
+    "n": 125,
+    "m": 352,
+    "degeneracy": 5
+  },
+  "Network-Repository-tech-p2p": {
+    "n": 5792297,
+    "m": 147829887,
+    "degeneracy": 853
+  },
+  "Network-Repository-tech-p2p-gnutella": {
+    "n": 62561,
+    "m": 147878,
+    "degeneracy": 6
+  },
+  "Network-Repository-tech-pgp": {
+    "n": 10680,
+    "m": 24316,
+    "degeneracy": 31
+  },
+  "Network-Repository-tech-routers-rf": {
+    "n": 2113,
+    "m": 6632,
+    "degeneracy": 15
+  },
+  "Network-Repository-venturiLevel3": {
+    "n": 4026819,
+    "m": 8054237,
+    "degeneracy": 3
+  },
+  "Network-Repository-web-BerkStan": {
+    "n": 12305,
+    "m": 19500,
+    "degeneracy": 27
+  },
+  "Network-Repository-web-BerkStan-dir": {
+    "n": 685230,
+    "m": 6649470,
+    "degeneracy": 201
+  },
+  "Network-Repository-web-EPA": {
+    "n": 4271,
+    "m": 8909,
+    "degeneracy": 6
+  },
+  "Network-Repository-web-NotreDame": {
+    "n": 325729,
+    "m": 1090108,
+    "degeneracy": 155
+  },
+  "Network-Repository-web-Stanford": {
+    "n": 281903,
+    "m": 1992636,
+    "degeneracy": 71
+  },
+  "Network-Repository-web-arabic-2005": {
+    "n": 163598,
+    "m": 1747269,
+    "degeneracy": 100
+  },
+  "Network-Repository-web-baidu-baike": {
+    "n": 2141300,
+    "m": 17014946,
+    "degeneracy": 78
+  },
+  "Network-Repository-web-baidu-baike-related": {
+    "n": 415641,
+    "m": 2374044,
+    "degeneracy": 228
+  },
+  "Network-Repository-web-edu": {
+    "n": 3031,
+    "m": 6474,
+    "degeneracy": 28
+  },
+  "Network-Repository-web-frwikinews-user-edits": {
+    "n": 25042,
+    "m": 68675,
+    "degeneracy": 12
+  },
+  "Network-Repository-web-google": {
+    "n": 1299,
+    "m": 2773,
+    "degeneracy": 17
+  },
+  "Network-Repository-web-google-dir": {
+    "n": 875713,
+    "m": 4322051,
+    "degeneracy": 44
+  },
+  "Network-Repository-web-hudong": {
+    "n": 1984484,
+    "m": 14428382,
+    "degeneracy": 266
+  },
+  "Network-Repository-web-indochina-2004": {
+    "n": 11358,
+    "m": 47606,
+    "degeneracy": 48
+  },
+  "Network-Repository-web-it-2004": {
+    "n": 509338,
+    "m": 7178413,
+    "degeneracy": 430
+  },
+  "Network-Repository-web-italycnr-2000": {
+    "n": 325557,
+    "m": 2738969,
+    "degeneracy": 83
+  },
+  "Network-Repository-web-polblogs": {
+    "n": 643,
+    "m": 2280,
+    "degeneracy": 12
+  },
+  "Network-Repository-web-sk-2005": {
+    "n": 121422,
+    "m": 334419,
+    "degeneracy": 81
+  },
+  "Network-Repository-web-spam": {
+    "n": 4767,
+    "m": 37375,
+    "degeneracy": 35
+  },
+  "Network-Repository-web-spam-detection": {
+    "n": 9072,
+    "m": 464959,
+    "degeneracy": 157
+  },
+  "Network-Repository-web-uk-2005": {
+    "n": 129632,
+    "m": 11744049,
+    "degeneracy": 499
+  },
+  "Network-Repository-web-webbase-2001": {
+    "n": 16062,
+    "m": 25593,
+    "degeneracy": 31
+  },
+  "Network-Repository-web-wiki-ch-internal": {
+    "n": 1930275,
+    "m": 8956902,
+    "degeneracy": 120
+  },
+  "Network-Repository-web-wiki-chameleon": {
+    "n": 2277,
+    "m": 31371,
+    "degeneracy": 63
+  },
+  "Network-Repository-web-wiki-crocodile": {
+    "n": 11631,
+    "m": 170773,
+    "degeneracy": 66
+  },
+  "Network-Repository-web-wiki-squirrel": {
+    "n": 5201,
+    "m": 198353,
+    "degeneracy": 159
+  },
+  "Network-Repository-web-wikipedia-growth": {
+    "n": 1870709,
+    "m": 36532531,
+    "degeneracy": 206
+  },
+  "Network-Repository-web-wikipedia2009": {
+    "n": 1864433,
+    "m": 4507315,
+    "degeneracy": 66
+  },
+  "Network-Repository-web-wikipedia_link_de": {
+    "n": 3784326,
+    "m": 68714064,
+    "degeneracy": 460
+  },
+  "Network-Repository-web-wikipedia_link_fr": {
+    "n": 4906578,
+    "m": 104591689,
+    "degeneracy": 817
+  },
+  "Network-Repository-web-wikipedia_link_it": {
+    "n": 2790239,
+    "m": 86754664,
+    "degeneracy": 894
+  },
+  "Network-Repository-webkb-wisc": {
+    "n": 265,
+    "m": 459,
+    "degeneracy": 4
+  },
+  "Network-Repository-wing": {
+    "n": 62032,
+    "m": 121544,
+    "degeneracy": 3
+  },
+  "Network-Repository-wing_nodal": {
+    "n": 10937,
+    "m": 75488,
+    "degeneracy": 8
+  }
+}

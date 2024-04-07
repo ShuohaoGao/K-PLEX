@@ -153,13 +153,14 @@ void StrongHeuris()
 
 /**
  * @brief stage-I: we conduct heuristic and preprocessing stage
+ * i.e., KPHeuris
  */
 void heuris()
 {
     input_n = g.n;
 
     FastHeuris();
-    StrongHeuris();
+    StrongHeuris(); // generate n subgraphs and compute larger lb
 }
 
 /**
@@ -170,7 +171,7 @@ void bnb()
     Graph_reduced *G;
     G = new Graph_reduced_adjacent_list(g);
     Branch branch(*G, lb);
-    branch.IE_framework();
+    branch.IE_framework(); // generate n subgraphs
     if (solution.size() < branch.solution.size()) // record the max plex
     {
         solution.clear();
@@ -193,6 +194,7 @@ int main(int argc, char *argv[])
 
     algorithm_start_time = get_system_time_microsecond();
 
+    // KPHeuris
     Timer prepro("heuristic and preprocess");
     heuris();
     prepro.print_time();

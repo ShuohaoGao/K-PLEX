@@ -4,7 +4,7 @@
 #include "Graph.h"
 
 /**
- * @brief second order reduction
+ * @brief second order reduction: CF-CTCP
  */
 class Reduction
 {

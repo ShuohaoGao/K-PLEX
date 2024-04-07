@@ -158,7 +158,7 @@ public:
                 C.reset(id_u);
                 init_info(id_u, g);
                 v_just_add = id_u;
-                bnb(S, C);
+                bnb(S, C); // BRB_Rec in paper
             }
             else
             {
@@ -491,6 +491,7 @@ public:
     }
     /**
      * @brief Branch-aNd-Bound on subgraph g_i
+     * i.e., BRB_Rec in paper
      */
     void bnb(Set &S, Set &C)
     {
@@ -500,7 +501,7 @@ public:
         // reduction rules
         Timer start_fast_reduce;
         bool S_is_plex, g_is_plex;
-        fast_reduction(S, C, g_is_plex, S_is_plex);
+        fast_reduction(S, C, g_is_plex, S_is_plex); // existing techniques
         fast_reduce_time += start_fast_reduce.get_time();
 
         if (!S_is_plex)
@@ -511,7 +512,7 @@ public:
             return;
         }
 
-        // AltRB: bounding & stronger reduction
+        // AltRB: bounding & stronger reduction (our novel method)
         vector<pii> edges_removed;
         int ub = get_UB(S, C, edges_removed);
         if (ub <= lb)
@@ -864,8 +865,9 @@ public:
         return ret;
     }
     /**
-     * @brief AltRB
-     * we partition C to |S| sets: Pi_0, Pi_1, ..., Pi_|S|; we will also reduce unpromissing vertices from C
+     * @brief AltRB in paper, including ComputeUB and Partition
+     * we partition C to |S| sets: Pi_0, Pi_1, ..., Pi_|S|; Pi_0 is C_R and the rest are C_L
+     * we will also reduce unpromissing vertices from C
      * @param edges_removed we record the edges we remove in order to rollback when backtrack
      * @return ub
      */
@@ -878,7 +880,7 @@ public:
         int S_sz = S.size();
         int ub = S_sz;
         Set useful_S(S.range); // for v in useful_S, Pi_v is generated
-        // DisePUB
+        // DisePUB: Partition
         while (copy_S.size())
         {
             int sel = -1, size = 0, allow = 0;
@@ -931,6 +933,7 @@ public:
             return ret;
 
 #ifndef NO_RR
+        // RR1
         // assume we need to include at least $h$ vertices from S+Pi_0; $h$=lb+1-(ub-|S|);
         // then for u∈Pi_i, u must has at least $h-k+1$ neighbors from S+Pi_0
         if (paramK > 5)
@@ -984,6 +987,7 @@ public:
         if (ret <= lb)
             return ret;
 #ifndef NO_RR
+        // RR1
         // lookahead: for u in C, if UB(S+u, C-u) <= lb, then remove u
         {
             Timer t;
@@ -1002,7 +1006,7 @@ public:
                         Pi_0.reset(u);
                         Pi_0_size--;
                         ret--;
-                        if(ret <= lb)
+                        if (ret <= lb)
                             return ret;
                     }
                     else
@@ -1034,6 +1038,7 @@ public:
             }
             C_reduce_time += t.get_time();
         }
+        // RR2
         if (ret == lb + 1 && Pi_0.size())
         {
             S |= Pi_0;
@@ -1058,15 +1063,16 @@ public:
         return ret;
     }
     /**
+     * @brief reduction-and-bound framework, i.e., AltRB or SeqRB
      * @param edges_removed we record the edges we remove in order to rollback when backtrack
      * @return UB(S, C)
      */
     inline int get_UB(Set &S, Set &C, vector<pii> &edges_removed)
     {
-        int ub = bound_and_reduce(S, C);
+        int ub = bound_and_reduce(S, C); // AltRB
         if (ub <= lb)
             return ub;
-        ub = only_part_UB(S, C);
+        ub = only_part_UB(S, C); // just bounding without AltRB
         return ub;
     }
     /**

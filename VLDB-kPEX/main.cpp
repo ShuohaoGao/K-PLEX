@@ -3,7 +3,7 @@
 
 #ifdef enable_CTCP // the existing heuristic method Degen uses CTCP
 #include "2th-Reduction-CTCP.h"
-#else// use CF-CTCP
+#else // use CF-CTCP
 #include "2th-Reduction.h"
 #endif
 
@@ -22,6 +22,11 @@ void print_solution()
     if (solution.size() < 2 * paramK - 1)
     {
         printf("***We can't find a plex larger than 2k-2!! The following is a heuristic solution.\n");
+        if (solution.size())
+        {
+            print_set(solution);
+        }
+        return;
     }
 #ifndef NO_DUMP
     // if defined NO_DUMP, then we do not output the detailed solution
@@ -150,12 +155,43 @@ void StrongHeuris()
 }
 
 /**
+ * @brief the newly proprosed heuris in kPlexT
+ */
+void EgoHeuris()
+{
+    Timer t("ego-degen");
+    lb = g.ego_degen(&solution);
+    g.weak_reduce(lb);
+    t.print_time();
+    // strong reduce
+    {
+        Timer start_strong_reduce;
+        Reduction reduce(&g);
+        ui pre_n = g.n;
+        reduce.strong_reduce(lb);
+        printf("Afer strong reduce, n= %u , m= %u, use time %.4lf s\n", g.n, g.m / 2, start_strong_reduce.get_time() / 1e6);
+        strong_reduce_time += start_strong_reduce.get_time();
+        if (lb >= g.n)
+        {
+            g.n = 0;
+            print_heuris_log();
+            exit(0);
+        }
+    }
+}
+
+/**
  * @brief stage-I: we conduct heuristic and preprocessing stage
  * i.e., KPHeuris
  */
 void heuris()
 {
     input_n = g.n;
+
+#ifdef EGO
+    EgoHeuris();
+    return;
+#endif
 
     FastHeuris();
     StrongHeuris(); // generate n subgraphs and compute larger lb

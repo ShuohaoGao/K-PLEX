@@ -55,6 +55,89 @@ public:
             delete[] pstart;
     }
     /**
+     * @brief degeneracy on g_i of ego net
+     */
+    int degen_for_ego(ui range, vector<vector<ui>> &neighbor, vector<ui> &res)
+    {
+        int *deg = new int[range];
+        for (ui i = 0; i < range; i++)
+            deg[i] = neighbor[i].size();
+        LinearHeap heap(range, range, deg);
+        vector<bool> rm(range);
+        while (heap.get_min_key() + paramK < heap.sz)
+        {
+            ui u = heap.get_min_node();
+            heap.delete_node(u);
+            rm[u] = 1;
+            for (int v : neighbor[u])
+            {
+                if (rm[v])
+                    continue;
+                heap.decrease(--deg[v], v);
+            }
+        }
+        for (ui i = 0; i < range; i++)
+        {
+            if (!rm[i])
+                res.push_back(i);
+        }
+        delete[] deg;
+        return res.size();
+    }
+    int ego_degen(set<ui> *solution = nullptr)
+    {
+        int lb = degeneracy_and_reduce(2 * paramK - 2, solution);
+        if (n <= lb)
+        {
+            return lb;
+        }
+        vector<ui> id_map(n, n);
+        for (ui u = 0; u < n; u++)
+        {
+            id_map[u] = 0;
+            vector<ui> vertices{u}; // neighbors of u that > u
+            for (ui i = pstart[u]; i < pstart[u + 1]; i++)
+            {
+                ui j = edge_to[i];
+                if (j <= u)
+                    continue;
+                id_map[j] = vertices.size();
+                vertices.push_back(j);
+            }
+            vector<vector<ui>> neighbors(vertices.size());
+            for (ui u : vertices)
+            {
+                auto &nei = neighbors[id_map[u]];
+                for (ui i = pstart[u]; i < pstart[u + 1]; i++)
+                {
+                    ui j = edge_to[i];
+                    if (id_map[j] >= n)
+                        continue;
+                    nei.push_back(id_map[j]);
+                }
+            }
+            // degen on subgraph g_u
+            vector<ui> res;
+            degen_for_ego(vertices.size(), neighbors, res);
+            if (res.size() > lb)
+            {
+                lb = res.size();
+                if (solution != nullptr)
+                {
+                    solution->clear();
+                    for (ui u : res)
+                    {
+                        solution->insert(map_refresh_id[vertices[u]]);
+                    }
+                }
+            }
+            // clear the map
+            for (ui u : vertices)
+                id_map[u] = n;
+        }
+        return lb;
+    }
+    /**
      * @return whether (a, b) ∈ E
      */
     bool exist_edge(ui a, ui b)
@@ -483,293 +566,6 @@ public:
         }
         return degen_lb;
     }
-    // /**
-    //  * @brief acquire a maximal plex containing u in g (g is a 2-hop induced subgraph)
-    //  *
-    //  * @param deg_in_S used for storing the degree of vertices in S; deg_in_S[u]=-1 <==> u is not in S
-    //  * @param deg_in_g used for storing the degree of vertices in g
-    //  * @param cnt used for recording the edge count between a vertex w and S; cnt[u]=-1 <==> u is not in candidate
-    //  * @param vertex_removed some vertices are already removed and we shouldn't use these vertices
-    //  * @param pruned whether we can prune the subgraph by estimating the upper bound
-    //  *
-    //  * @return lb
-    //  */
-    // int extend(ui u, vector<int> &deg_in_S, vector<int> &deg_in_g, vector<int> &cnt, vector<bool> &vertex_removed,
-    //            set<ui> &solution, bool &pruned)
-    // {
-    //     if (vertex_removed[u])
-    //         return paramK;
-    //     pruned = false;
-    //     vector<ui> candidate; // 2-hops neighbors of u
-    //     // get the subgraph
-    //     // 1. get the neighbors of u, and they should form a (lb+1-2k)-core
-    //     for (ui i = pstart[u]; i < pstart[u + 1]; i++)
-    //     {
-    //         ui v = edge_to[i];
-    //         if (vertex_removed[v])
-    //             continue;
-    //         cnt[v] = 1;
-    //         candidate.push_back(v);
-    //         deg_in_g[v] = 0;
-    //         for (ui j = pstart[v]; j < pstart[v + 1]; j++)
-    //         {
-    //             ui w = edge_to[j];
-    //             if (w >= v)
-    //                 break;
-    //             if (cnt[w] != -1)
-    //             {
-    //                 deg_in_g[v]++;
-    //                 deg_in_g[w]++;
-    //             }
-    //         }
-    //     }
-    //     // reduce N(u) to a (lb+1-2k)-core
-    //     queue<ui> q;
-    //     for (ui w : candidate)
-    //         if (deg_in_g[w] + 2 * paramK < lb + 1)
-    //         {
-    //             q.push(w);
-    //             cnt[w] = -1;
-    //             deg_in_g[w] = 0;
-    //         }
-    //     while (q.size())
-    //     {
-    //         ui v = q.front();
-    //         q.pop();
-    //         for (ui j = pstart[v]; j < pstart[v + 1]; j++)
-    //         {
-    //             ui w = edge_to[j];
-    //             if (cnt[w] != -1)
-    //             {
-    //                 deg_in_g[w]--;
-    //                 if (deg_in_g[w] + 2 * paramK < lb + 1)
-    //                 {
-    //                     cnt[w] = -1;
-    //                     q.push(w);
-    //                     deg_in_g[w] = 0;
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     ui rest_cnt = 0;
-    //     for (ui i = 0; i < candidate.size(); i++)
-    //     {
-    //         ui v = candidate[i];
-    //         if (cnt[v] != -1)
-    //         {
-    //             candidate[rest_cnt++] = v;
-    //         }
-    //     }
-    //     candidate.resize(rest_cnt);
-    //     if (rest_cnt + paramK < lb + 1) // current subgraph can be pruned
-    //     {
-    //         // clear the arrays
-    //         for (ui v : candidate)
-    //         {
-    //             cnt[v] = -1;
-    //             deg_in_g[v] = 0;
-    //         }
-    //         pruned = true;
-    //         return paramK;
-    //     }
-    //     // we then add the 2-hops neighbors
-    //     for (ui v : candidate)
-    //     {
-    //         for (ui j = pstart[v]; j < pstart[v + 1]; j++)
-    //         {
-    //             ui w = edge_to[j];
-    //             if (vertex_removed[w])
-    //                 continue;
-    //             deg_in_g[w]++;
-    //         }
-    //     }
-    //     cnt[u] = 1; // mark u so that u is in g
-    //     for (ui i = 0; i < rest_cnt; i++)
-    //     {
-    //         ui v = candidate[i];
-    //         deg_in_g[v] = 0;
-    //         for (ui j = pstart[v]; j < pstart[v + 1]; j++)
-    //         {
-    //             ui w = edge_to[j];
-    //             if (deg_in_g[w] >= lb + 3 - 2 * paramK && cnt[w] == -1)
-    //             {
-    //                 cnt[w] = 0;
-    //                 candidate.push_back(w);
-    //             }
-    //             deg_in_g[w] = 0;
-    //         }
-    //     }
-    //     if (candidate.size() + 1 <= lb)
-    //     {
-    //         pruned = true;
-    //         for (ui w : candidate)
-    //             cnt[w] = -1;
-    //         cnt[u] = -1;
-    //         return paramK;
-    //     }
-    //     // method 1: degenerate
-    //     {
-    //         candidate.push_back(u);
-    //         ui range = candidate.size();
-    //         for (int i = 0; i < range; i++)
-    //             cnt[candidate[i]] = i;
-    //         vector<vector<ui>> neighbor(range);
-    //         // get edges
-    //         for (ui u : candidate)
-    //         {
-    //             for (ui i = pstart[u]; i < pstart[u + 1]; i++)
-    //             {
-    //                 ui v = edge_to[i];
-    //                 if (cnt[v] != -1)
-    //                 {
-    //                     neighbor[cnt[u]].push_back(cnt[v]);
-    //                 }
-    //             }
-    //         }
-    //         vector<ui> plex;
-    //         int degen_lb = degen_on_subgraph(range, neighbor, plex);
-    //         if (degen_lb > lb)
-    //         {
-    //             solution.clear();
-    //             for (int u : plex)
-    //                 solution.insert(map_refresh_id[candidate[u]]);
-    //         }
-    //         if (degen_lb > lb)
-    //         {
-    //             // clear the arrays
-    //             for (ui v : candidate)
-    //             {
-    //                 cnt[v] = -1;
-    //                 deg_in_g[v] = 0;
-    //             }
-    //             return degen_lb;
-    //         }
-    //         candidate.pop_back();
-    //         for (int u : candidate)
-    //             cnt[u] = 0;
-    //         for (ui i = pstart[u]; i < pstart[u + 1]; i++)
-    //         {
-    //             ui v = edge_to[i];
-    //             if (cnt[v] == 0)
-    //             {
-    //                 cnt[v] = 1;
-    //             }
-    //         }
-    //     }
-    //     assert(cnt[u] != -1);
-    //     // method 2: extend
-    //     vector<ui> plex{u};
-    //     deg_in_S[u] = 0;
-    //     // compute deg_in_g[]
-    //     for (ui u : candidate)
-    //     {
-    //         for (ui i = pstart[u]; i < pstart[u + 1]; i++)
-    //         {
-    //             ui v = edge_to[i];
-    //             if (cnt[v] != -1)
-    //             {
-    //                 deg_in_g[u]++;
-    //             }
-    //         }
-    //     }
-    //     cnt[u] = -1;
-    //     // start greedy extending
-    //     ui candidate_size = candidate.size();
-    //     while (candidate_size > 0)
-    //     {
-    //         ui sel_idx = 0, sel_v = candidate[0];
-    //         for (ui i = 1; i < candidate_size; i++)
-    //         {
-    //             ui v = candidate[i];
-    //             if (cnt[v] > cnt[sel_v] || (cnt[v] == cnt[sel_v] && deg_in_g[v] > deg_in_g[sel_v]))
-    //             {
-    //                 sel_idx = i;
-    //                 sel_v = v;
-    //             }
-    //         }
-    //         if (cnt[sel_v] + paramK < plex.size() + 1) // all the rest vertices can not be inserted into plex
-    //         {
-    //             // clear the arrays
-    //             for (ui i = 0; i < candidate_size; i++)
-    //             {
-    //                 ui v = candidate[i];
-    //                 cnt[v] = -1;
-    //                 deg_in_g[v] = 0;
-    //             }
-    //             break;
-    //         }
-    //         swap(candidate[sel_idx], candidate[candidate_size - 1]);
-    //         candidate_size--;
-    //         bool ok = 1;
-    //         // we already make sure :for u in candidate, S+u is plex
-    //         deg_in_S[sel_v] = cnt[sel_v];
-    //         for (ui i = pstart[sel_v]; i < pstart[sel_v + 1]; i++)
-    //         {
-    //             ui v = edge_to[i];
-    //             if (deg_in_S[v] != -1) // v in S
-    //             {
-    //                 deg_in_S[v]++;
-    //             }
-    //             else if (cnt[v] != -1) // v in candidate set
-    //             {
-    //                 cnt[v]++;
-    //             }
-    //         }
-    //         // hereditary proporty based reduction: if S+w is not a plex, then remove w
-    //         for (ui w : plex)
-    //         {
-    //             // including u causes that w can not allow any non-neighbor
-    //             if (deg_in_S[w] + paramK == plex.size() + 1 && !has(edge_to + pstart[sel_v], edge_to + pstart[sel_v + 1], w))
-    //             {
-    //                 // remove all non-neighbors of w from candidate
-    //                 for (ui i = 0; i < candidate_size; i++)
-    //                 {
-    //                     ui v = candidate[i];
-    //                     if (!has(edge_to + pstart[w], edge_to + pstart[w + 1], v))
-    //                     {
-    //                         swap(candidate[i], candidate[candidate_size - 1]);
-    //                         candidate_size--;
-    //                         i--;
-    //                         cnt[v] = -1;
-    //                         deg_in_g[v] = 0;
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //         plex.push_back(sel_v);
-    //         if (deg_in_S[sel_v] + paramK == plex.size()) // sel_v can not allow any non-neighbor
-    //         {
-    //             ui w = sel_v;
-    //             // remove all non-neighbors of w from candidate
-    //             for (int i = 0; i < candidate_size; i++)
-    //             {
-    //                 ui v = candidate[i];
-    //                 if (!has(edge_to + pstart[w], edge_to + pstart[w + 1], v))
-    //                 {
-    //                     swap(candidate[i], candidate[candidate_size - 1]);
-    //                     candidate_size--;
-    //                     i--;
-    //                     cnt[v] = -1;
-    //                     deg_in_g[v] = 0;
-    //                 }
-    //             }
-    //         }
-    //         // remove sel_v from candidate set
-    //         cnt[sel_v] = -1;
-    //         deg_in_g[sel_v] = 0;
-    //     }
-    //     // record the max plex
-    //     if (plex.size() > lb)
-    //     {
-    //         solution.clear();
-    //         for (ui v : plex)
-    //             solution.insert(map_refresh_id[v]);
-    //     }
-    //     // clear the array deg_in_S[]
-    //     for (ui u : plex)
-    //         deg_in_S[u] = -1;
-    //     return plex.size();
-    // }
     /**
      * @brief StrongHeuris
      *

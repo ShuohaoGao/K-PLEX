@@ -246,6 +246,8 @@ private:
         {
             if (vertex_removed_from_G_fast[u])
                 continue;
+            if (d[u] + 1 == n) // u is connected to all vertices
+                continue;
             // cache: record the neighbor of u(like a hash operation)
             for (ui i = pstart[u]; i < pstart[u + 1]; i++)
             {

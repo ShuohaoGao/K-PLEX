@@ -183,6 +183,8 @@ void print_progress_bar(double percentage, bool enter = false)
 template <typename T>
 void print_set(set<T> &s)
 {
+    if (!s.size())
+        return;
     auto it = s.begin();
     cout << (*it);
     it++;
@@ -256,7 +258,7 @@ public:
     }
     double get_time_seconds()
     {
-        return (get_system_time_microsecond() - start_time)/1e6;
+        return (get_system_time_microsecond() - start_time) / 1e6;
     }
 };
 

@@ -2,7 +2,12 @@
 #define BRANCH_H
 
 #include "Graph.h"
+
+#ifdef enable_CTCP // the existing heuristic method Degen uses CTCP
+#include "2th-Reduction-CTCP.h"
+#else// use CF-CTCP
 #include "2th-Reduction.h"
+#endif
 
 class Branch
 {
@@ -12,99 +17,104 @@ private:
     int lb;
 
     // info of the search tree
-    int v_just_add;
-    vector<int> loss_cnt;
-    vector<int> deg;
+    int v_just_add;       // the pivot vertex that we just added into S
+    vector<int> loss_cnt; // loss_cnt[v] = |S| - |N(v) \cap S|, i.e., non-neighbors of v in S
+    vector<int> deg;      // deg[u] = degree of u in S+C
     vector<int> one_loss_non_neighbor_cnt;
     vector<int> que; // queue
     Set one_loss_vertices_in_C;
-    AdjacentMatrix non_A, A;
+    AdjacentMatrix non_A, A; // A is the adjacent matrix, A[u] is the neighbors of u, A[u][v] means u,v are adj; non_A = ~A
     Graph_adjacent *ptr_g;
-    // todo, prepare Pi_0 for lookahead, where Pi_0 is reduced by one-loss partition
 
     // arrays that can be shared
-    vector<int> array_n; // n is the size of subgraph g_i
+    vector<int> array_n; // n is the size of subgraph g_i, n >= |S| + |C|
     Set bool_array;
     vector<int> array_N; // N is the input graph size
     vector<int> array1_N;
 
     // information of log
     ll dfs_cnt;
-    ll leaf_cnt;
-    double part_PI_time;
-    double run_time;
+    double part_PI_time; // time of Partition
+    double run_time;     // sum of bnb time
     double fast_reduce_time;
     double core_reduce_time;
-    double pivot_select_time;
     double IE_induce_time;
     double matrix_init_time;
     double higher_order_reduce_time;
-    ll S_size;
-    ll S_size_when_pruned;
     int IE_graph_cnt;
     ll IE_graph_size;
     double CTCP_time;
-    double C_reduce_time;
-    double lookahead_time;
-    double lookahead_vertex_time;
-    double lookahead_edge_time;
     ll subgraph_pruned_cnt, subgraph_search_cnt;
     map<int, int> counter;
-    double stage1;
+    double reduce_kPlexT_time;
+    ll AltRB_cnt, AltRB_iteration_cnt;
 
 public:
     set<int> solution;
     Branch(Graph_reduced &input, int _lb) : G_input(input), lb(_lb), bool_array(input.n),
                                             dfs_cnt(0), run_time(0), fast_reduce_time(0), core_reduce_time(0),
-                                            part_PI_time(0), pivot_select_time(0), IE_induce_time(0), S_size(0),
+                                            part_PI_time(0), IE_induce_time(0),
                                             matrix_init_time(0), IE_graph_cnt(0), IE_graph_size(0), CTCP_time(0),
                                             higher_order_reduce_time(0),
-                                            C_reduce_time(0), lookahead_time(0), lookahead_vertex_time(0), lookahead_edge_time(0),
-                                            leaf_cnt(0), S_size_when_pruned(0), subgraph_pruned_cnt(0),
-                                            subgraph_search_cnt(0), stage1(0)
+                                            subgraph_pruned_cnt(0),
+                                            subgraph_search_cnt(0), reduce_kPlexT_time(0),
+                                            AltRB_cnt(0), AltRB_iteration_cnt(0)
     {
     }
     ~Branch() {}
     /**
-     * @brief print some logs
+     * @brief Branch-aNd-Bound on subgraph g_i
+     * i.e., BRB_Rec in paper
      */
-    void print_result()
+    void bnb(Set &S, Set &C)
     {
-        printf("dfs_cnt= %lld\n", dfs_cnt);
-        print_module_time("fast reduce", fast_reduce_time);
-        print_module_time("partition", part_PI_time);
-        print_module_time("core reduce", core_reduce_time);
-        print_module_time("IE induce", IE_induce_time);
-        puts("");
-        print_module_time("pivot select", pivot_select_time);
-        print_module_time("matrix init", matrix_init_time);
-        print_module_time("CTCP", CTCP_time);
-        print_module_time("C-reduce", C_reduce_time);
-        puts("");
-        print_module_time("look-ahead", lookahead_time);
-        print_module_time("look-ahead-vertex", lookahead_vertex_time);
-        print_module_time("look-ahead-edge", lookahead_edge_time);
-        print_module_time("high-order-reduce", higher_order_reduce_time);
-        print_module_time("stage1", stage1);
-        // print_module_time("stage2", stage2);
-        puts("");
-        printf("average g_i size: %.2lf ", IE_graph_size * 1.0 / IE_graph_cnt);
-        printf("average S size: %.2lf  ", S_size * 1.0 / dfs_cnt);
-        printf("average S size when pruned: %.2lf  ", S_size_when_pruned * 1.0 / leaf_cnt);
-        printf("g_i pruned: %lld g_i searched: %lld ", subgraph_pruned_cnt, subgraph_search_cnt);
-        puts("");
-        puts("*************bnb result*************");
-        printf("ground truth= %d , exact searching use time= %.4lf s\n", lb, run_time / 1e6);
-        if (solution.size())
+        dfs_cnt++;
+
+        // reduction rules
+        Timer start_fast_reduce;
+        bool S_is_plex, g_is_plex;
+        fast_reduction(S, C, g_is_plex, S_is_plex); // existing techniques
+        fast_reduce_time += start_fast_reduce.get_time();
+
+        if (!S_is_plex)
+            return;
+        if (g_is_plex)
         {
-            G_input.get_ground_truth(solution, true);
-            assert(solution.size() == lb);
+            update_lb(S, C);
+            return;
         }
-        else
-            printf("The heuristic solution is the ground truth!\n");
-        for (auto &h : counter)
-            cout << h.x << ' ' << h.y << endl;
+
+        // reducing methods from kPlexT
+        reduce_kPlexT(S, C);
+
+        // AltRB: bounding & stronger reduction (our novel method)
+        int ub = get_UB(S, C);
+        if (ub <= lb)
+        {
+            return;
+        }
+
+        if (paramK > 15)
+        {
+            if (core_reduction_for_g(S, C))
+            {
+                return;
+            }
+        }
+        if (paramK > 5)
+        {
+            // look ahead: if UB(S+u, C-u)<=lb, then remove u; we select the vertex with min ub as pivot
+            lookahead_vertex(S, C);
+        }
+
+        // select pivot to generate 2 branches
+        int pivot = -1;
+        pivot = select_pivot_vertex_with_min_degree(C);
+        if (pivot == -1)
+            return;
+        generate_sub_branches(S, C, pivot);
     }
+
     /**
      * @brief each time we enumerate v_i that must be included into S, and C is the 2-hop neighbors of v_i
      * another name: Divide and Conquer framework
@@ -174,6 +184,257 @@ public:
         print_progress_bar(1.0, true);
 
         print_result();
+    }
+
+    /**
+     * @brief AltRB in paper, including ComputeUB and Partition
+     * we partition C to |S| sets: Pi_0, Pi_1, ..., Pi_|S|; Pi_0 is C_R and the rest are C_L
+     * we will also reduce unpromissing vertices from C
+     * @return ub
+     */
+    int bound_and_reduce(Set &S, Set &C)
+    {
+        AltRB_iteration_cnt++;
+        Timer part_timer;
+        int initial_C_size = C.size();
+        auto copy_S = S;
+        auto copy_C = C;
+        int S_sz = S.size();
+        int ub = S_sz;
+        Set useful_S(S.range); // for v in useful_S, Pi_v is generated
+        // DisePUB: Partition
+        while (copy_S.size())
+        {
+            int sel = -1, size = 0, allow = 0;
+            for (int v : copy_S)
+            {
+                int sz = non_A[v].intersect(copy_C);
+                int allow_v = (paramK - loss_cnt[v]);
+                if (sz <= allow_v) // Pi_i is useless
+                {
+                    copy_S.reset(v);
+                }
+                else
+                {
+                    if (sel == -1 || size * allow_v < sz * allow) // (size/ub_cnt)<(sz/cnt)
+                    {
+                        sel = v;
+                        size = sz;
+                        allow = allow_v;
+                    }
+                }
+            }
+            if (sel == -1)
+                break;
+            if (lb + 1 > ub && size * 1.0 / allow <= copy_C.size() * 1.0 / (lb + 1 - ub))
+                break;
+            copy_S.reset(sel);
+            useful_S.set(sel);
+            ub += allow;
+            copy_C &= A[sel]; // remove the non-neighbors of sel
+        }
+        part_PI_time += part_timer.get_time();
+
+
+        // now copy_C = Pi_0
+        auto &Pi_0 = copy_C;
+#ifndef SeqRB
+        reduce_Pi_0(Pi_0, lb + 1 - ub, C);
+#endif
+        int ret = ub + Pi_0.size();
+        if (ret <= lb) // pruned
+            return ret;
+
+#ifndef SeqRB
+        // RR1
+        // assume we need to include at least $h$ vertices from S+Pi_0; $h$=lb+1-(ub-|S|);
+        // then for u∈Pi_i, u must has at least $h-k+1$ neighbors from S+Pi_0
+        if (paramK > 5)
+        {
+            Timer t;
+            int LB_Pi_0 = lb + 1 - ub;
+            if (LB_Pi_0 > paramK - 1)
+            {
+                auto temp = C;
+                temp ^= Pi_0; // temp = C - Pi_0 = Pi_i
+                // u∈Pi_i, then u has at least (lb+1-sigma_(min(|Pi_i|, k-|S\N(v_i)|))-(k-1) = neighbor_cnt) neighbors in Pi_0∪S
+                for (int u : temp)
+                {
+                    int threshold = LB_Pi_0 - (paramK - 1 - loss_cnt[u]);
+                    if (A[u].intersect(Pi_0) < threshold)
+                        C.reset(u);
+                }
+            }
+        }
+// #endif
+        // while (copy_S.size())
+        // {
+        //     int sel = -1, size = 0, allow = 0;
+        //     for (int v : copy_S)
+        //     {
+        //         int sz = non_A[v].intersect(copy_C);
+        //         int allow_v = (paramK - loss_cnt[v]);
+        //         if (sz <= allow_v) // Pi_i is useless
+        //         {
+        //             copy_S.reset(v);
+        //         }
+        //         else
+        //         {
+        //             if (sel == -1 || size * allow_v < sz * allow) // (size/ub_cnt)<(sz/cnt)
+        //             {
+        //                 sel = v;
+        //                 size = sz;
+        //                 allow = allow_v;
+        //             }
+        //         }
+        //     }
+        //     if (sel == -1)
+        //         break;
+        //     copy_S.reset(sel);
+        //     useful_S.set(sel);
+        //     ub += allow;
+        //     copy_C &= A[sel]; // remove the non-neighbors of sel
+        // }
+        // ret = ub + Pi_0.size();
+        // if (ret <= lb)
+        //     return ret;
+// #ifndef SeqRB
+        // RR1
+        // lookahead: for u in C, if UB(S+u, C-u) <= lb, then remove u
+        {
+            Timer t;
+            int Pi_0_size = Pi_0.size();
+            int ub_Pi_I = ub - S_sz;
+            for (int u : C)
+            {
+                int neighbor_cnt = Pi_0.intersect(A[u]);
+                int non_neighbor_cnt = Pi_0_size - neighbor_cnt;
+                if (Pi_0[u])
+                {
+                    int ub_u = S_sz + 1 + neighbor_cnt + min(non_neighbor_cnt - 1, paramK - 1 - loss_cnt[u]) + ub_Pi_I;
+                    if (ub_u <= lb)
+                    {
+                        C.reset(u);
+                        Pi_0.reset(u);
+                        Pi_0_size--;
+                        ret--;
+                        if (ret <= lb)
+                            return ret;
+                    }
+                    else
+                    {
+                        ub_u -= useful_S.intersect(non_A[u]);
+                        if (ub_u <= lb)
+                        {
+                            C.reset(u);
+                            Pi_0.reset(u);
+                            Pi_0_size--;
+                            ret--;
+                        }
+                    }
+                }
+                else
+                {
+                    int ub_u = S_sz + 1 + neighbor_cnt + min(non_neighbor_cnt, paramK - 1 - loss_cnt[u]) + ub_Pi_I - 1;
+                    if (ub_u <= lb)
+                    {
+                        C.reset(u);
+                    }
+                    else
+                    {
+                        ub_u = ub_u + 1 - useful_S.intersect(non_A[u]);
+                        if (ub_u <= lb)
+                            C.reset(u);
+                    }
+                }
+            }
+        }
+        // RR2
+        if (ret == lb + 1 && Pi_0.size())
+        {
+            S |= Pi_0;
+            C ^= Pi_0;
+            Timer start_fast_reduce;
+            bool S_is_plex, g_is_plex;
+            v_just_add = *Pi_0.begin();
+            fast_reduction(S, C, g_is_plex, S_is_plex);
+            fast_reduce_time += start_fast_reduce.get_time();
+
+            if (!S_is_plex)
+                return lb;
+            if (g_is_plex)
+            {
+                update_lb(S, C);
+                return lb;
+            }
+        }
+#endif
+        if (C.size() < initial_C_size) // goto next iteration
+            return bound_and_reduce(S, C);
+        return ret;
+    }
+
+    /**
+     * @brief reduction-and-bound framework, i.e., AltRB or SeqRB
+     * @return UB(S, C)
+     */
+    inline int get_UB(Set &S, Set &C)
+    {
+        AltRB_cnt++;
+        int ub = bound_and_reduce(S, C); // AltRB
+        if (ub <= lb)
+            return ub;
+        ub = only_part_UB(S, C); // just bounding without AltRB
+        return ub;
+    }
+
+    /**
+     * @return the vertex with minimum degree
+     */
+    int select_pivot_vertex_with_min_degree(Set &C)
+    {
+        int sel = -1;
+        for (int u : C)
+        {
+            if (loss_cnt[u] == paramK - 1)
+                return u;
+            if (sel == -1 || deg[u] < deg[sel] || deg[u] == deg[sel] && loss_cnt[sel] < loss_cnt[u])
+                sel = u;
+        }
+        return sel;
+    }
+
+    /**
+     * @brief print some logs
+     */
+    void print_result()
+    {
+        printf("dfs_cnt= %lld\n", dfs_cnt);
+        print_module_time("fast reduce", fast_reduce_time);
+        print_module_time("partition", part_PI_time);
+        print_module_time("core reduce", core_reduce_time);
+        print_module_time("IE induce", IE_induce_time);
+        puts("");
+        print_module_time("matrix init", matrix_init_time);
+        print_module_time("CTCP", CTCP_time);
+        print_module_time("high-order-reduce", higher_order_reduce_time);
+        print_module_time("reduce-kPlexT", reduce_kPlexT_time);
+        puts("");
+        printf("average g_i size: %.2lf ", IE_graph_size * 1.0 / IE_graph_cnt);
+        printf("g_i pruned: %lld g_i searched: %lld ", subgraph_pruned_cnt, subgraph_search_cnt);
+        printf("avg-AltRB-iteration=%.2lf", AltRB_iteration_cnt * 1.0 / AltRB_cnt);
+        puts("");
+        puts("*************bnb result*************");
+        printf("ground truth= %d , exact searching use time= %.4lf s\n", lb, run_time / 1e6);
+        if (solution.size())
+        {
+            G_input.get_ground_truth(solution, true);
+            assert(solution.size() == lb);
+        }
+        else
+            printf("The heuristic solution is the ground truth!\n");
+        for (auto &h : counter)
+            cout << h.x << ' ' << h.y << endl;
     }
     /**
      * @brief init information for the induced graph of IE
@@ -477,6 +738,11 @@ public:
             fast_reduction(S, C, g_is_plex, S_is_plex);
         }
     }
+    /**
+     * @brief g = G[S+C], reduce g to (lb+1-k)-core
+     *
+     * @return whether pruned
+     */
     bool core_reduction_for_g(Set &S, Set &C)
     {
         auto V = S;
@@ -490,89 +756,72 @@ public:
         return false;
     }
     /**
-     * @brief Branch-aNd-Bound on subgraph g_i
-     * i.e., BRB_Rec in paper
+     * @brief Reduce from kPlexT
      */
-    void bnb(Set &S, Set &C)
+    void reduce_kPlexT(Set &S, Set &C)
     {
-        dfs_cnt++;
-        S_size += S.size();
-
-        // reduction rules
-        Timer start_fast_reduce;
-        bool S_is_plex, g_is_plex;
-        fast_reduction(S, C, g_is_plex, S_is_plex); // existing techniques
-        fast_reduce_time += start_fast_reduce.get_time();
-
-        if (!S_is_plex)
+        if (paramK <= 10)
             return;
-        if (g_is_plex)
-        {
-            update_lb(S, C);
+        if (S.size() <= 1)
             return;
-        }
-
-        // AltRB: bounding & stronger reduction (our novel method)
-        vector<pii> edges_removed;
-        int ub = get_UB(S, C, edges_removed);
-        if (ub <= lb)
+        Timer t;
+        Set S2(S.capacity); // S_2 = {u\in S | n-deg[u] > k}, i.e., S2 are not k-satisfied vertices in S
+        int V_size = S.size() + C.size();
+        for (int u : S)
         {
-            leaf_cnt++;
-            S_size_when_pruned += S.size();
-            return;
-        }
-
-        // select pivot to generate 2 branches
-        Timer look;
-        if (paramK > 15)
-        {
-            lookahead_edge(S, C, edges_removed);
-            if (core_reduction_for_g(S, C))
+            if (V_size - deg[u] > paramK)
             {
-                // rollback
-                for (auto &h : edges_removed)
+                S2.set(u);
+            }
+        }
+        int sup_S2 = 0; // the total non-neighbors that S2 can support in C
+        for (int u : S2)
+            sup_S2 += paramK - loss_cnt[u];
+        auto &non_neighbor_in_S2 = array_n;
+        vector<pii> vertices_in_C;
+        vertices_in_C.reserve(C.size());
+        for (int v : C)
+        {
+            non_neighbor_in_S2[v] = S2.intersect(non_A[v]);
+            vertices_in_C.push_back({non_neighbor_in_S2[v], v});
+        }
+        sort(vertices_in_C.begin(), vertices_in_C.end()); // sort vertices in C by the number of non-neighbors in S2
+
+        for (int v : C)
+        {
+            int ub = S.size() + 1;
+            int non_neighbor_of_v_in_S = loss_cnt[v]; // |non-N(S, v)|
+            int sup = sup_S2 - S2.intersect(non_A[v]);
+            for (auto &h : vertices_in_C)
+            {
+                if (ub > lb)
+                    break;
+                if (h.x > sup)
+                    break;
+                int w = h.y;
+                if (w == v || !C[w])
+                    continue;
+                if (non_A[v][w])
                 {
-                    int u = h.x, v = h.y;
-                    A.add_edge(u, v);
-                    non_A.remove_edge(u, v);
+                    if (non_neighbor_of_v_in_S == paramK - 1)
+                    {
+                        continue;
+                    }
+                    non_neighbor_of_v_in_S++;
                 }
-                return;
+                sup -= h.x;
+                ub++;
             }
-        }
-        if (paramK > 5)
-        {
-            // look ahead: if UB(S+u, C-u)<=lb, then remove u; we select the vertex with min ub as pivot
-            lookahead_vertex(S, C);
-        }
-        lookahead_time += look.get_time();
-
-        Timer select_timer;
-        int pivot = -1;
-        pivot = select_pivot_vertex_with_min_degree(C);
-        pivot_select_time += select_timer.get_time();
-
-        if (pivot == -1)
-        {
-            // rollback
-            for (auto &h : edges_removed)
+            if (ub <= lb)
             {
-                int u = h.x, v = h.y;
-                A.add_edge(u, v);
-                non_A.remove_edge(u, v);
+                C.reset(v);
             }
-            return;
         }
-
-        generate_sub_branches(S, C, pivot);
-
-        // rollback
-        for (auto &h : edges_removed)
-        {
-            int u = h.x, v = h.y;
-            A.add_edge(u, v);
-            non_A.remove_edge(u, v);
-        }
+        reduce_kPlexT_time += t.get_time();
     }
+    /**
+     * @brief generate two sub-branches: one includes pivot and the other excludes pivot
+     */
     void generate_sub_branches(Set &S, Set &C, int pivot)
     {
         {
@@ -698,39 +947,6 @@ public:
         core_reduce_time += get_system_time_microsecond() - start_core_reduce;
     }
     /**
-     * @brief reduce an edge (u,v) if u,v in C and UB(S+u+v, C-u-v)<=lb
-     *
-     * @param edges_removed we record the edges we remove in order to rollback when backtrack
-     */
-    void lookahead_edge(Set &S, Set &C, vector<pii> &edges_removed)
-    {
-        return;
-        Timer t;
-        int S_sz = S.size();
-        for (int u : C)
-        {
-            auto N_u = C;
-            N_u &= A[u];
-            int allow_u = C.size() - N_u.size() - 1;
-            allow_u = min(allow_u, paramK - 1 - loss_cnt[u]);
-            for (int v : N_u)
-            {
-                if (v >= u)
-                    break;
-                int common_neighbor_cnt = N_u.intersect(A[v]);
-                int ub = S_sz + common_neighbor_cnt + allow_u + min(paramK - 1 - loss_cnt[v], N_u.size() - common_neighbor_cnt) + 2;
-                if (ub <= lb)
-                {
-                    edges_removed.push_back({u, v});
-                    A.remove_edge(u, v);
-                    N_u.reset(v);
-                    non_A.add_edge(u, v);
-                }
-            }
-        }
-        lookahead_edge_time += t.get_time();
-    }
-    /**
      * @brief reduce a vertex (u,v) if u in C and UB(S+u, C-u)<=lb;
      * bounding method: select v in S and u in C, ub=|N(v) \cap N(u)| + (k-|S+u\N(v)|) + (k-|S+u\N(u)|) + |S+u|
      */
@@ -776,7 +992,6 @@ public:
                 return;
             }
         }
-        lookahead_vertex_time += t.get_time();
     }
     /**
      * @brief partition ub without reduction rules
@@ -784,7 +999,8 @@ public:
     int only_part_UB(Set &S, Set &C, int u = -1)
     {
         Timer part_timer;
-        auto &loss = deg;
+        // auto &loss = deg;
+        auto &loss = array_n;
         for (int v : S)
             loss[v] = non_A[v].intersect(S);
         auto copy_S = S;
@@ -863,232 +1079,6 @@ public:
             }
         }
         return ret;
-    }
-    /**
-     * @brief AltRB in paper, including ComputeUB and Partition
-     * we partition C to |S| sets: Pi_0, Pi_1, ..., Pi_|S|; Pi_0 is C_R and the rest are C_L
-     * we will also reduce unpromissing vertices from C
-     * @param edges_removed we record the edges we remove in order to rollback when backtrack
-     * @return ub
-     */
-    int bound_and_reduce(Set &S, Set &C)
-    {
-        Timer part_timer;
-        int initial_C_size = C.size();
-        auto copy_S = S;
-        auto copy_C = C;
-        int S_sz = S.size();
-        int ub = S_sz;
-        Set useful_S(S.range); // for v in useful_S, Pi_v is generated
-        // DisePUB: Partition
-        while (copy_S.size())
-        {
-            int sel = -1, size = 0, allow = 0;
-            for (int v : copy_S)
-            {
-                int sz = non_A[v].intersect(copy_C);
-                int allow_v = (paramK - loss_cnt[v]);
-                if (sz <= allow_v) // Pi_i is useless
-                {
-                    copy_S.reset(v);
-                }
-                else
-                {
-                    if (sel == -1 || size * allow_v < sz * allow) // (size/ub_cnt)<(sz/cnt)
-                    {
-                        sel = v;
-                        size = sz;
-                        allow = allow_v;
-                    }
-                }
-            }
-            if (sel == -1)
-                break;
-            if (lb + 1 > ub && size * 1.0 / allow <= copy_C.size() * 1.0 / (lb + 1 - ub))
-                break;
-            copy_S.reset(sel);
-            useful_S.set(sel);
-            ub += allow;
-            copy_C &= A[sel]; // remove the non-neighbors of sel
-        }
-        part_PI_time += part_timer.get_time();
-
-        // now copy_C = Pi_0
-        auto &Pi_0 = copy_C;
-#ifndef NO_REFINE_BOUND
-        reduce_Pi_0(Pi_0, lb + 1 - ub, C);
-#else
-        // no core-reduce & no revocation
-        for (int v : S)
-        {
-            if (useful_S[v])
-                continue;
-            ub += min(Pi_0.intersect(non_A[v]), paramK - loss_cnt[v]);
-            Pi_0 &= A[v];
-        }
-        copy_S.clear();
-#endif
-        int ret = ub + Pi_0.size();
-        if (ret <= lb) // pruned
-            return ret;
-
-#ifndef NO_RR
-        // RR1
-        // assume we need to include at least $h$ vertices from S+Pi_0; $h$=lb+1-(ub-|S|);
-        // then for u∈Pi_i, u must has at least $h-k+1$ neighbors from S+Pi_0
-        if (paramK > 5)
-        {
-            Timer t;
-            int LB_Pi_0 = lb + 1 - ub;
-            if (LB_Pi_0 > paramK - 1)
-            {
-                auto temp = C;
-                temp ^= Pi_0; // temp = C - Pi_0 = Pi_i
-                // u∈Pi_i, then u has at least (lb+1-sigma_(min(|Pi_i|, k-|S\N(v_i)|))-(k-1) = neighbor_cnt) neighbors in Pi_0∪S
-                for (int u : temp)
-                {
-                    int threshold = LB_Pi_0 - (paramK - 1 - loss_cnt[u]);
-                    if (A[u].intersect(Pi_0) < threshold)
-                        C.reset(u);
-                }
-            }
-            C_reduce_time += t.get_time();
-        }
-#endif
-        while (copy_S.size())
-        {
-            int sel = -1, size = 0, allow = 0;
-            for (int v : copy_S)
-            {
-                int sz = non_A[v].intersect(copy_C);
-                int allow_v = (paramK - loss_cnt[v]);
-                if (sz <= allow_v) // Pi_i is useless
-                {
-                    copy_S.reset(v);
-                }
-                else
-                {
-                    if (sel == -1 || size * allow_v < sz * allow) // (size/ub_cnt)<(sz/cnt)
-                    {
-                        sel = v;
-                        size = sz;
-                        allow = allow_v;
-                    }
-                }
-            }
-            if (sel == -1)
-                break;
-            copy_S.reset(sel);
-            useful_S.set(sel);
-            ub += allow;
-            copy_C &= A[sel]; // remove the non-neighbors of sel
-        }
-        ret = ub + Pi_0.size();
-        if (ret <= lb)
-            return ret;
-#ifndef NO_RR
-        // RR1
-        // lookahead: for u in C, if UB(S+u, C-u) <= lb, then remove u
-        {
-            Timer t;
-            int Pi_0_size = Pi_0.size();
-            int ub_Pi_I = ub - S_sz;
-            for (int u : C)
-            {
-                int neighbor_cnt = Pi_0.intersect(A[u]);
-                int non_neighbor_cnt = Pi_0_size - neighbor_cnt;
-                if (Pi_0[u])
-                {
-                    int ub_u = S_sz + 1 + neighbor_cnt + min(non_neighbor_cnt - 1, paramK - 1 - loss_cnt[u]) + ub_Pi_I;
-                    if (ub_u <= lb)
-                    {
-                        C.reset(u);
-                        Pi_0.reset(u);
-                        Pi_0_size--;
-                        ret--;
-                        if (ret <= lb)
-                            return ret;
-                    }
-                    else
-                    {
-                        ub_u -= useful_S.intersect(non_A[u]);
-                        if (ub_u <= lb)
-                        {
-                            C.reset(u);
-                            Pi_0.reset(u);
-                            Pi_0_size--;
-                            ret--;
-                        }
-                    }
-                }
-                else
-                {
-                    int ub_u = S_sz + 1 + neighbor_cnt + min(non_neighbor_cnt, paramK - 1 - loss_cnt[u]) + ub_Pi_I - 1;
-                    if (ub_u <= lb)
-                    {
-                        C.reset(u);
-                    }
-                    else
-                    {
-                        ub_u = ub_u + 1 - useful_S.intersect(non_A[u]);
-                        if (ub_u <= lb)
-                            C.reset(u);
-                    }
-                }
-            }
-            C_reduce_time += t.get_time();
-        }
-        // RR2
-        if (ret == lb + 1 && Pi_0.size())
-        {
-            S |= Pi_0;
-            C ^= Pi_0;
-            Timer start_fast_reduce;
-            bool S_is_plex, g_is_plex;
-            v_just_add = *Pi_0.begin();
-            fast_reduction(S, C, g_is_plex, S_is_plex);
-            fast_reduce_time += start_fast_reduce.get_time();
-
-            if (!S_is_plex)
-                return lb;
-            if (g_is_plex)
-            {
-                update_lb(S, C);
-                return lb;
-            }
-        }
-#endif
-        if (C.size() < initial_C_size) // goto next iteration
-            return bound_and_reduce(S, C);
-        return ret;
-    }
-    /**
-     * @brief reduction-and-bound framework, i.e., AltRB or SeqRB
-     * @param edges_removed we record the edges we remove in order to rollback when backtrack
-     * @return UB(S, C)
-     */
-    inline int get_UB(Set &S, Set &C, vector<pii> &edges_removed)
-    {
-        int ub = bound_and_reduce(S, C); // AltRB
-        if (ub <= lb)
-            return ub;
-        ub = only_part_UB(S, C); // just bounding without AltRB
-        return ub;
-    }
-    /**
-     * @return the vertex with minimum degree
-     */
-    int select_pivot_vertex_with_min_degree(Set &C)
-    {
-        int sel = -1;
-        for (int u : C)
-        {
-            if (loss_cnt[u] == paramK - 1)
-                return u;
-            if (sel == -1 || deg[u] < deg[sel] || deg[u] == deg[sel] && loss_cnt[sel] < loss_cnt[u])
-                sel = u;
-        }
-        return sel;
     }
 };
 

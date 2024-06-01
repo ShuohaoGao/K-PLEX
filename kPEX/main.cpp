@@ -1,6 +1,11 @@
 #include "Graph.h"
-#include "2th-Reduction.h"
 #include "Branch.h"
+
+#ifdef enable_CTCP // the existing heuristic method Degen uses CTCP
+#include "2th-Reduction-CTCP.h"
+#else // use CF-CTCP
+#include "2th-Reduction.h"
+#endif
 
 string file_path;
 Graph g;
@@ -17,11 +22,17 @@ void print_solution()
     if (solution.size() < 2 * paramK - 1)
     {
         printf("***We can't find a plex larger than 2k-2!! The following is a heuristic solution.\n");
+        if (solution.size())
+        {
+            print_set(solution);
+        }
+        return;
     }
 #ifndef NO_DUMP
+    // if defined NO_DUMP, then we do not output the detailed solution
     printf("Maximum solution(size= %d ):\n", (int)solution.size());
     print_set(solution);
-#endif
+#endif // NO_DUMP
     fflush(stdout);
 }
 
@@ -35,14 +46,6 @@ void print_heuris_log()
     printf("lb= %d , FastHeuris-lb= %d \n", lb, FastHeuris_lb);
     if (solution.size() >= 2 * paramK - 1)
         assert(solution.size() == lb);
-
-#ifdef VERIFY
-    Verifier_undirected_kPlex<ui> verifier(solution, file_path);
-    if (!verifier.is_correct(paramK))
-        printf("Wrong: the solution is not a plex!!!\n");
-    else
-        printf("The solution is verified: it is a plex\n");
-#endif // VERIFY
 
     if (g.n <= lb)
     {
@@ -86,7 +89,7 @@ void FastHeuris()
         Reduction reduce(&g);
         ui pre_n = g.n;
         reduce.strong_reduce(lb);
-        printf("Afer CF-CTCP, n= %u , m= %u, use time %.4lf s\n", g.n, g.m / 2, start_strong_reduce.get_time() / 1e6);
+        printf("Afer strong reduce, n= %u , m= %u, use time %.4lf s\n", g.n, g.m / 2, start_strong_reduce.get_time() / 1e6);
         strong_reduce_time += start_strong_reduce.get_time();
 
         if (lb >= g.n)
@@ -136,7 +139,7 @@ void StrongHeuris()
             Reduction reduce(&g);
             ui pre_n = g.n;
             reduce.strong_reduce(lb);
-            printf("Afer CF-CTCP, n= %u , m= %u, use time %.4lf s\n", g.n, g.m / 2, start_strong_reduce.get_time() / 1e6);
+            printf("Afer strong reduce, n= %u , m= %u, use time %.4lf s\n", g.n, g.m / 2, start_strong_reduce.get_time() / 1e6);
             strong_reduce_time += start_strong_reduce.get_time();
 
             if (lb >= g.n)
@@ -152,12 +155,43 @@ void StrongHeuris()
 }
 
 /**
+ * @brief the newly proprosed heuris in kPlexT
+ */
+void EgoHeuris()
+{
+    Timer t("ego-degen");
+    lb = g.ego_degen(&solution);
+    g.weak_reduce(lb);
+    t.print_time();
+    // strong reduce
+    {
+        Timer start_strong_reduce;
+        Reduction reduce(&g);
+        ui pre_n = g.n;
+        reduce.strong_reduce(lb);
+        printf("Afer strong reduce, n= %u , m= %u, use time %.4lf s\n", g.n, g.m / 2, start_strong_reduce.get_time() / 1e6);
+        strong_reduce_time += start_strong_reduce.get_time();
+        if (lb >= g.n)
+        {
+            g.n = 0;
+            print_heuris_log();
+            exit(0);
+        }
+    }
+}
+
+/**
  * @brief stage-I: we conduct heuristic and preprocessing stage
  * i.e., KPHeuris
  */
 void heuris()
 {
     input_n = g.n;
+
+#ifdef EGO
+    EgoHeuris();
+    return;
+#endif
 
     FastHeuris();
     StrongHeuris(); // generate n subgraphs and compute larger lb
@@ -171,7 +205,7 @@ void bnb()
     Graph_reduced *G;
     G = new Graph_reduced_adjacent_list(g);
     Branch branch(*G, lb);
-    branch.IE_framework(); // generate n subgraphs
+    branch.IE_framework();                        // generate n subgraphs
     if (solution.size() < branch.solution.size()) // record the max plex
     {
         solution.clear();
@@ -184,28 +218,29 @@ int main(int argc, char *argv[])
 {
     if (argc < 3)
     {
-        printf("3 params are required !!! \n");
+        printf("2 params are required !!! \n");
+        printf("usage: ./kPEX graph_path k\n");
         exit(1);
     }
     file_path = string(argv[1]);
     paramK = atoi(argv[2]);
-    int temp = paramK;
     g.readFromFile(file_path);
 
     algorithm_start_time = get_system_time_microsecond();
 
     // KPHeuris
+    puts("------------------{start KPHeuris}---------------------");
     Timer prepro("heuristic and preprocess");
     heuris();
     prepro.print_time();
     print_heuris_log();
 
-    puts("------------------{start bnb}---------------------");
-
-    // branch and bound
+    // recursive branch and bound
+    puts("------------------{start BRB_Rec}---------------------");
     bnb();
 
     print_solution();
+
     puts("------------------{whole procedure: kPEX}---------------------");
     printf("ground truth= %u , kPEX time: %.4lf s\n\n", solution.size(), (get_system_time_microsecond() - algorithm_start_time) / 1e6);
 

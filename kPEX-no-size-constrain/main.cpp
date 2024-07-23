@@ -7,6 +7,8 @@
 #include "2th-Reduction.h"
 #endif
 
+#include "find-small.h"
+
 string file_path;
 Graph g;
 set<ui> solution;
@@ -26,12 +28,26 @@ void print_solution()
         // {
         //     print_set(solution);
         // }
-        
+
         /**
-         * We can't find a plex larger than 2k-2! 
-         * Then we continue to search maximum k-plex of size >= lb = solution.size()
+         * We can't find a plex larger than 2k-2!
+         * but we have already got a heuristic solution
+         * Then we continue to search maximum k-plex of size > lb = solution.size()
          */
-        
+        Timer t("small-search");
+        if (solution.size() < 2 * paramK - 2)
+        {
+            Solver_small solver(file_path, solution, paramK);
+            solver.start_search();
+            if (solver.solution.size() > solution.size())
+                solution = solver.solution;
+        }
+        printf("The size is smaller than 2k-1!\n");
+        t.print_time();
+        assert(solution.size() <= 2 * paramK - 2);
+        printf("Maximum solution(size= %d ):\n", (int)solution.size());
+        print_set(solution);
+        fflush(stdout);
         return;
     }
 #ifndef NO_DUMP

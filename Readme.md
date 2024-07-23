@@ -7,6 +7,12 @@ make
 ./kPEX graph_path k
 ```
 
+<hr>
+
+## Updated 2024/7/21: `kPEX` without size constrain
+New folder [`kPEX-no-size-constrain/`](./kPEX-no-size-constrain/) provides the code of `kPEX` which can be used to find maximum $k$-plex even if the size is smaller than $2k-2$. 
+
+The usage is the same as folder [`kPEX/`](./kPEX/).
 
 <hr>
 

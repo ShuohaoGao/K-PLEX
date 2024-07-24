@@ -71,7 +71,7 @@ void print_heuris_log()
 
     if (g.n <= lb)
     {
-        printf("The heuristic solution is the ground truth!\n");
+        // printf("The heuristic solution is the ground truth!\n");
         print_solution();
         puts("------------------{whole procedure: kPEX}---------------------");
         printf("ground truth= %u , kPEX time: %.4lf s\n\n", solution.size(), (get_system_time_microsecond() - algorithm_start_time) / 1e6);

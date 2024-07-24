@@ -21,7 +21,7 @@ public:
         g.readFromFile(graph_path);
         // sort vertices according to degeneracy order
         g.degeneracy_and_reduce(solution.size(), &solution);
-        printf("for small search: n= %u m= %u\n", g.n, g.m);
+        printf("for small search: n= %u m= %u lb= %u\n", g.n, g.m, solution.size());
         d = g.d;
         pstart = g.pstart;
         edge_to = g.edge_to;
@@ -87,7 +87,7 @@ public:
         bool pruned = fast_reduce(S, C, removed_vertics);
         if (pruned)
             return;
-        kPlexT_reduce(S, C, removed_vertics);
+        // kPlexT_reduce(S, C, removed_vertics);
         if (S.size() + C.size() <= solution.size())
         {
             // prune and rollback
@@ -104,7 +104,7 @@ public:
             if (S.size() > solution.size()) // update lb
             {
                 solution.clear();
-                printf("============= larger lb: %u\n", S.size());
+                printf("larger lb: %u\n", S.size());
                 for (ui v : S)
                     solution.insert(g.map_refresh_id[v]);
             }

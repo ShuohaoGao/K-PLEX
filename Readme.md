@@ -9,7 +9,7 @@ make
 
 <hr>
 
-## Updated 2024/7/21: `kPEX` without size constrain
+## Update 2024/8/30: `kPEX` without size constrain
 New folder [`no-size-constrain-kPEX/`](./no-size-constrain-kPEX/) provides the code of `kPEX` which can be used to find maximum $k$-plex even if the size is smaller than $2k-2$. 
 
 The usage is the same as folder [`kPEX/`](./kPEX/).
